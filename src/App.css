@@ -1,0 +1,7 @@
+.clicked {
+  display: none;
+}
+
+.not-clicked {
+  display: inline-block;
+}
