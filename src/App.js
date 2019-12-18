@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import cn from 'classnames';
 import GoodList from './GoodList';
 import { getGoods } from './api';
 
@@ -8,10 +7,7 @@ const FILTER_TYPES = ['Load goods', 'Load 5 first goods', 'Load red goods'];
 
 class App extends React.Component {
   state = {
-    allGoods: [],
-    top5Goods: [],
-    redGoods: [],
-    usedFilters: [],
+    currentGoods: [],
     error: false,
   };
 
@@ -24,29 +20,31 @@ class App extends React.Component {
       return this.setState({ error: true });
     }
 
-    this.setState(prevState => ({
-      usedFilters: [...prevState.usedFilters, filter],
-    }));
+    let visibleGoods;
 
     switch (filter) {
       case 'Load 5 first goods':
-        return this.setState({
-          top5Goods: goods
-            .sort((a, b) => (
-              a.name.localeCompare(b.name)))
-            .splice(0, 5),
-        });
+        visibleGoods = goods.sort((a, b) => (
+          a.name.localeCompare(b.name)))
+          .splice(0, 5);
+        break;
+
       case 'Load red goods':
-        return this.setState({
-          redGoods: goods.filter(good => good.color === 'red'),
-        });
+        visibleGoods = goods.filter(good => good.color === 'red');
+        break;
+
       default:
-        return this.setState({ allGoods: goods });
+        visibleGoods = goods;
     }
+
+    return this.setState({
+      currentFilter: filter,
+      currentGoods: visibleGoods,
+    });
   };
 
   render() {
-    const { allGoods, usedFilters, top5Goods, redGoods, error } = this.state;
+    const { currentGoods, currentFilter, error } = this.state;
 
     if (error) {
       return <p>Oops, something went wrong</p>;
@@ -60,25 +58,14 @@ class App extends React.Component {
             key={filter}
             type="button"
             value={filter}
-            className={cn({
-              button: true,
-              'visually-hidden': usedFilters.includes(filter),
-            })}
+            className="button"
+            disabled={currentFilter === filter}
             onClick={() => this.loadGoods(filter)}
           >
             {filter}
           </button>
         ))}
-
-        <div className="list-wrapper">
-          {usedFilters.includes('Load goods') && <GoodList goods={allGoods} />}
-
-          {usedFilters.includes('Load 5 first goods')
-          && <GoodList goods={top5Goods} />}
-
-          {usedFilters.includes('Load red goods')
-          && <GoodList goods={redGoods} />}
-        </div>
+        <GoodList goods={currentGoods} />
       </div>
     );
   }

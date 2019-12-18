@@ -10,8 +10,14 @@
   border-radius: 10px;
 }
 
-.button:hover {
+.button:enabled:hover {
   background-color: powderblue;
+}
+
+.button:disabled {
+  background-color: lightgrey;
+  cursor: auto;
+  opacity: 0.5;
 }
 
 .good_red {
@@ -24,12 +30,4 @@
 
 .good_green {
   color: green;
-}
-
-.visually-hidden {
-  visibility: hidden;
-}
-
-.list-wrapper {
-  display: flex;
 }
