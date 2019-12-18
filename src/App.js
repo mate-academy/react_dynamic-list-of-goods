@@ -5,15 +5,15 @@ import { getGoods } from './api';
 
 class App extends React.Component {
   state = {
-    good: [],
+    goods: [],
     isStart: false,
   }
 
   loadGoods = () => {
     getGoods()
-      .then((good) => {
+      .then((goods) => {
         this.setState({
-          good,
+          goods,
           isStart: true,
         });
       });
@@ -21,24 +21,25 @@ class App extends React.Component {
 
   fiveFirstGoods = () => {
     getGoods()
-      .then((good) => {
+      .then((goods) => {
         this.setState({
-          good: good.slice(0, 5),
+          goods: goods.sort((a, b) => (a.name).localeCompare(b.name))
+            .slice(0, 5),
         });
       });
   }
 
   redGoods = () => {
     getGoods()
-      .then((good) => {
+      .then((goods) => {
         this.setState({
-          good: good.filter(item => item.color === 'red'),
+          goods: goods.filter(item => item.color === 'red'),
         });
       });
   }
 
   render() {
-    const { good } = this.state;
+    const { goods } = this.state;
 
     return (
       <div className="App">
@@ -49,13 +50,13 @@ class App extends React.Component {
               onClick={this.fiveFirstGoods}
               type="button"
             >
-5 first goods
+              5 first goods
             </button>
             <button
               type="button"
               onClick={this.redGoods}
             >
-Load red goods
+              Load red goods
             </button>
           </section>
         )
@@ -64,10 +65,10 @@ Load red goods
               type="button"
               onClick={this.loadGoods}
             >
-Load
+              Load
             </button>
           )}
-        <GoodList good={good} />
+        <GoodList goods={goods} />
       </div>
     );
   }
