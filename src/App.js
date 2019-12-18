@@ -24,6 +24,7 @@ class App extends React.Component {
       })
       .catch(() => this.setState(prevState => ({
         goods: [],
+        clicked: '',
       })));
   };
 

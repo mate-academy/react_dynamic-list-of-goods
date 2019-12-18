@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-color: rgba(249, 252, 63, 0.1);
+  background-color: rgba(198, 228, 245, 1);
 }
 
 body * {
@@ -42,6 +42,7 @@ body * {
 
 .goods__button:hover {
   cursor: pointer;
+  font-weight: bold;
   background-color: rgba(249, 252, 63, 0.5);
 }
 
@@ -58,8 +59,8 @@ body * {
 }
 
 hr {
-  background-color: yellow;
-  color: yellow;
+  background-color: rgba(249, 252, 63, 0.4);
+  color: rgba(249, 252, 63, 0.4);
   border: none;
   height: 1px;
 }
