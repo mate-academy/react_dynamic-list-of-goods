@@ -8,25 +8,32 @@ const URL = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.js
 class App extends React.Component {
   state = {
     goods: [],
+    buttonStatus: '',
   };
 
   loadGoods= () => {
     fetch(URL).then(resp => resp.json()).then(data => (
-      this.setState({ goods: [...data] })));
-    document.querySelector('.button1').remove();
+      this.setState({
+        goods: [...data],
+        buttonStatus: '1',
+      })));
   };
 
   load5FirstGoods = () => {
     fetch(URL).then(resp => resp.json()).then(data => (
-      this.setState({ goods: [...data.splice(0, 5)] })));
-    document.querySelector('.button2').remove();
+      this.setState({
+        goods: [...data.sort((a, b) => (a.name.localeCompare(b.name)))
+          .splice(0, 5)],
+        buttonStatus: '2',
+      })));
   };
 
   loadRedColoredGoods = () => {
     fetch(URL).then(resp => resp.json()).then(data => (
-      this.setState({ goods: [...data
-        .filter(item => item.color === 'red')] })));
-    document.querySelector('.button3').remove();
+      this.setState({
+        goods: [...data.filter(item => item.color === 'red')],
+        buttonStatus: '3',
+      })));
   };
 
   render() {
@@ -35,19 +42,23 @@ class App extends React.Component {
         <h1>Goods</h1>
         <section>
           <div>
-            <button type="button" className="button1" onClick={this.loadGoods}>
+            <button
+              type="button"
+              className={this.state.buttonStatus === '1' ? 'not-visible' : ''}
+              onClick={this.loadGoods}
+            >
               Load goods
             </button>
             <button
               type="button"
-              className="button2"
+              className={this.state.buttonStatus === '2' ? 'not-visible' : ''}
               onClick={this.load5FirstGoods}
             >
               Load 5 first goods
             </button>
             <button
               type="button"
-              className="button3"
+              className={this.state.buttonStatus === '3' ? 'not-visible' : ''}
               onClick={this.loadRedColoredGoods}
             >
               Load red goods
