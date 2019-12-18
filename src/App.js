@@ -9,9 +9,7 @@ const URL
 class App extends React.Component {
   state = {
     goods: [],
-    isClickedAll: false,
-    isClickedFirstFive: false,
-    isClickedRed: false,
+    clicked: '',
   };
 
   showAllGoods =() => {
@@ -21,9 +19,7 @@ class App extends React.Component {
 
         this.setState(prevState => ({
           goods: [...visibleGoods],
-          isClickedAll: true,
-          isClickedFirstFive: false,
-          isClickedRed: false,
+          clicked: 'all',
         }));
       })
       .catch(() => this.setState(prevState => ({
@@ -38,9 +34,7 @@ class App extends React.Component {
 
         this.setState(prevState => ({
           goods: [...visibleGoods],
-          isClickedAll: false,
-          isClickedFirstFive: true,
-          isClickedRed: false,
+          clicked: 'firstFive',
         }));
       })
       .catch(() => this.setState(prevState => ({
@@ -55,9 +49,7 @@ class App extends React.Component {
 
         this.setState(prevState => ({
           goods: [...visibleGoods],
-          isClickedAll: false,
-          isClickedFirstFive: false,
-          isClickedRed: true,
+          clicked: 'red',
         }));
       })
       .catch(() => this.setState(prevState => ({
@@ -66,43 +58,34 @@ class App extends React.Component {
   };
 
   render() {
-    const
+    const { goods, clicked } = this.state;
+    const buttons = [
       {
-        goods,
-        isClickedAll,
-        isClickedFirstFive,
-        isClickedRed,
-      } = this.state;
+        name: 'all', title: 'ALL', operation: this.showAllGoods,
+      },
+      {
+        name: 'firstFive', title: 'FIRST 5', operation: this.showFirstFiveGoods,
+      },
+      {
+        name: 'red', title: 'RED', operation: this.showRedGoods,
+      },
+    ];
 
     return (
       <div className="goods">
-        <button
-          className={isClickedAll
-            ? 'goods__button goods__button--clicked'
-            : 'goods__button'}
-          type="button"
-          onClick={this.showAllGoods}
-        >
-          All
-        </button>
-        <button
-          type="button"
-          className={isClickedFirstFive
-            ? 'goods__button goods__button--clicked'
-            : 'goods__button'}
-          onClick={this.showFirstFiveGoods}
-        >
-          First 5
-        </button>
-        <button
-          type="button"
-          className={isClickedRed
-            ? 'goods__button goods__button--clicked'
-            : 'goods__button'}
-          onClick={this.showRedGoods}
-        >
-          Red Goods
-        </button>
+
+        {buttons.map(currentButton => (
+          <button
+            className={clicked === currentButton.name
+              ? 'goods__button goods__button--clicked'
+              : 'goods__button'}
+            type="button"
+            onClick={currentButton.operation}
+          >
+            {currentButton.title}
+          </button>
+        ))}
+
         <GoodsList
           visibleGoods={goods}
         />
