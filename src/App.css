@@ -1,0 +1,44 @@
+* {
+  padding: 0;
+  list-style: none;
+  outline: none;
+}
+
+.App {
+  text-align: center;
+  padding-top: 30px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 50px;
+}
+
+.button {
+  margin-left: 20px;
+  padding: 8px 40px;
+  border-radius: 6px;
+  background: lightblue;
+  color: gray;
+  font-weight: bold;
+  transition: 0.7s;
+  border: 1px solid transparent;
+}
+
+.button:hover {
+  color: lightblue;
+  background: lightcoral;
+  cursor: pointer;
+}
+
+.table {
+  border: 1px solid lightblue;
+  width: 500px;
+  margin: 50px auto;
+  border-radius: 5px;
+  background: #fcfcfc;
+}
+
+.li {
+  padding-bottom: 10px;
+}

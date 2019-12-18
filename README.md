@@ -1,7 +1,7 @@
 # React static list of goods
 
 ## Demo link
-Add link here: `[DEMO LINK](https://<your_account>.github.io/react_dynamic-list-of-goods/)`
+Add link here: `[DEMO LINK](https://MaxLabliuk.github.io/react_dynamic-list-of-goods/)`
 
 ## Task
 > Load [the goods](https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json) and show them on the page
