@@ -18,13 +18,20 @@ class GoodsList extends React.Component {
   };
 
   loadAllGoods = async() => {
-    this.setState({
-      isLoading: true,
-    });
-    this.setState({
-      goods: await getGoods(),
-      isLoading: false,
-    });
+    try {
+      this.setState({
+        isLoading: true,
+      });
+      this.setState({
+        goods: await getGoods(),
+        isLoading: false,
+      });
+    } catch {
+      this.setState({
+        isLoading: false,
+        hasError: true,
+      });
+    }
   }
 
   loadFilteredGoods = async() => {
@@ -38,7 +45,7 @@ class GoodsList extends React.Component {
           .filter((good, i) => i < 5),
         isLoading: false,
       });
-    } catch (err) {
+    } catch {
       this.setState({
         isLoading: false,
         hasError: true,
@@ -47,14 +54,21 @@ class GoodsList extends React.Component {
   }
 
   loadRedGoods = async() => {
-    this.setState({
-      isLoading: true,
-    });
-    this.setState({
-      goods: (await getGoods())
-        .filter(good => good.color === 'red'),
-      isLoading: false,
-    });
+    try {
+      this.setState({
+        isLoading: true,
+      });
+      this.setState({
+        goods: (await getGoods())
+          .filter(good => good.color === 'red'),
+        isLoading: false,
+      });
+    } catch {
+      this.setState({
+        isLoading: false,
+        hasError: true,
+      });
+    }
   }
 
   render() {
