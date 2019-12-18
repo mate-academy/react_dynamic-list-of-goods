@@ -13,7 +13,8 @@ Add link here: `[DEMO LINK](https://<your_account>.github.io/react_dynamic-list-
     1. `Load goods` showing all the received `goods`
     1. `Load 5 first goods` showing 5 first `goods` after sorting them by name
     1. `Load red goods` containing only `red` goods
-- The button show disappear after click and a `GoodsList` should appear instead
+- There should be only one `GoodsList` showing different goods basing on the last clicked button
+- There should be a new request to the server on each button click
 
 ## Workflow
 - Fork the repository with task
