@@ -23,7 +23,7 @@ class GoodsList extends React.Component {
         isLoading: true,
       });
       this.setState({
-        goods: await getGoods(),
+        goods: (await getGoods()),
         isLoading: false,
       });
     } catch {
@@ -114,7 +114,9 @@ class GoodsList extends React.Component {
                 ))}
               </section>
               <ul className="goods-list">
-                <Good goods={goods} />
+                {goods.map(good => (
+                  <Good good={good} />
+                ))}
               </ul>
               {isLoading && (
                 <div className="loading">Loading...</div>
