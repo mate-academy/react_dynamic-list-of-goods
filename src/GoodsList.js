@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import Good from './Good';
 import { FILTER_TYPES } from './const';
 
-const GoodsList = ({ goods, setFilter }) => (
+const GoodsList = ({ goods, loadFiltered }) => (
   <>
     <section>
       {Object.keys(FILTER_TYPES).map(
         filter => (
           <button
             type="button"
-            onClick={() => setFilter(filter)}
+            onClick={() => loadFiltered(filter)}
             key={filter}
           >
             {filter}
@@ -26,7 +26,7 @@ const GoodsList = ({ goods, setFilter }) => (
 
 GoodsList.propTypes = {
   goods: PropTypes.arrayOf(PropTypes.object).isRequired,
-  setFilter: PropTypes.func.isRequired,
+  loadFiltered: PropTypes.func.isRequired,
 };
 
 export default GoodsList;

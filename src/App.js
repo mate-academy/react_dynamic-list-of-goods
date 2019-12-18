@@ -8,51 +8,54 @@ class App extends React.Component {
   state = {
     goods: [],
     start: false,
-    currentFilter: FILTER_TYPES.all,
   };
 
-  componentDidMount() {
-    this.setGoods();
-  }
-
   start = () => {
+    this.loadAllGoods();
     this.setState({
       start: true,
     });
   };
 
-  setGoods = () => {
+  loadAllGoods = () => {
     getDataFromUrl(URL).then(data => this.setState({
       goods: data,
     }));
   };
 
-  setFilter = (filterType) => {
-    this.setState({
-      currentFilter: filterType,
-    });
+  loadFirstFiveGoods = () => {
+    getDataFromUrl(URL).then(data => this.setState({
+      goods: data.slice(0, 5).sort(
+        (a, b) => a.name.localeCompare(b.name)
+      ),
+    }));
   };
 
-  getFiltered = (filterType) => {
-    const { goods } = this.state;
+  loadRedGoods = () => {
+    getDataFromUrl(URL).then(data => this.setState({
+      goods: data.filter(good => good.color === 'red'),
+    }));
+  };
 
+  loadFiltered = (filterType) => {
     switch (filterType) {
       case FILTER_TYPES.all:
       default:
-        return goods;
+        this.loadAllGoods();
+        break;
 
       case FILTER_TYPES.first5:
-        return goods.slice(0, 5).sort(
-          (a, b) => a.name.localeCompare(b.name)
-        );
+        this.loadFirstFiveGoods();
+        break;
 
       case FILTER_TYPES.red:
-        return goods.filter(good => good.color === 'red');
+        this.loadRedGoods();
+        break;
     }
   };
 
   render() {
-    const { start, currentFilter } = this.state;
+    const { start, goods } = this.state;
 
     return (
       <div className="App">
@@ -66,8 +69,8 @@ class App extends React.Component {
         )}
         {start && (
           <GoodsList
-            goods={this.getFiltered(currentFilter)}
-            setFilter={this.setFilter}
+            goods={goods}
+            loadFiltered={this.loadFiltered}
           />
         )}
       </div>
