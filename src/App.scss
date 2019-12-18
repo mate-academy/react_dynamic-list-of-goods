@@ -1,0 +1,41 @@
+body {
+  background-color: #f1f1f1;
+}
+
+.App {
+  display: flex;
+  justify-content: space-around;
+}
+
+.good {
+  padding: 10px;
+
+  &--red {
+    color: #c41b1b;
+  }
+
+  &--green {
+    color: #0a700a;
+  }
+
+  &--blue {
+    color: #1f1f8f;
+  }
+}
+
+.button {
+  padding: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: beige;
+  background-color: slategray;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    color: slategray;
+    background-color: beige;
+  }
+}
