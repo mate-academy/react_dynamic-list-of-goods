@@ -30,7 +30,10 @@ class App extends React.Component {
   showFirstFiveGoods =() => {
     getGoods(URL)
       .then((data) => {
-        const visibleGoods = data.filter((good, i) => i < 5);
+        const visibleGoods = [...data]
+          .sort((firstGood, secondGood) => (
+            firstGood.name.localeCompare(secondGood.name)))
+          .filter((good, i) => i < 5);
 
         this.setState(prevState => ({
           goods: [...visibleGoods],

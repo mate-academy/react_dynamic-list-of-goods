@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Good = ({ good }) => (
+const Good = ({ currentGood }) => (
   <>
     <li
-      className={`goods__item--${good.color}`}
-      key={good.name}
+      className={`goods__item--${currentGood.color}`}
+      key={currentGood.name}
     >
-      {good.name}
+      {currentGood.name}
     </li>
     <hr />
   </>
 );
 
-Good.propTypes = { good: PropTypes.oneOfType(Object).isRequired };
+Good.propTypes = { currentGood: PropTypes.oneOfType(Object).isRequired };
 
 export default Good;

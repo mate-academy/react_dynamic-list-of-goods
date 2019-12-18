@@ -6,8 +6,8 @@ const GoodsList = ({ visibleGoods }) => (
   <ul
     className="goods__list"
   >
-    {visibleGoods.map(good => (
-      <Good good={good} />
+    {visibleGoods.map(oneGood => (
+      <Good currentGood={oneGood} />
     ))}
   </ul>
 );
