@@ -33,7 +33,10 @@ export default class App extends Component {
 
   showFirstGoods = () => {
     this.setState(state => ({
-      visibleGoods: [...state.goodsList.filter(item => item.id < 6)],
+      visibleGoods: [...state.goodsList
+        .filter(item => item.id < 6)
+        .sort((a, b) => (a.name > b.name ? 1 : -1)),
+      ],
     }));
   };
 
