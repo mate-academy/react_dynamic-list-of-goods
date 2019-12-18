@@ -46,9 +46,9 @@ class App extends Component {
 
     dataPromise.then((data) => {
       this.setState({
-        filteredList: data.slice(0, 5).sort(
+        filteredList: data.sort(
           (good1, good2) => good1.name.localeCompare(good2.name)
-        ),
+        ).slice(0, 5),
         error: '',
         activeLoadButton: false,
         activeLoadFiveButton: true,
