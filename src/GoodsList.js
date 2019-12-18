@@ -21,7 +21,9 @@ class GoodsList extends React.Component {
       dataPromise
         .then((data) => {
           this.setState({
-            goods: data.slice(0, 5),
+            goods: data.slice(0, 5).sort(
+              (a, b) => a.name.localeCompare(b.name)
+            ),
           });
         });
     }
