@@ -9,7 +9,7 @@ Add link here: `[DEMO LINK](https://<your_account>.github.io/react_dynamic-list-
 - Create a component `GoodsList` accepting an array of goods and rendering them inside `<ul>`
 - Create a component `Good` accepting a good object and displaying its name using `good.color`
   (for example `style={{ color: 'red' }}`)
-- Render 3 buttons loading the goods from server and showing them in three different lists:
+- Render 3 buttons loading the goods from server and showing them in the `GoodsList`:
     1. `Load goods` showing all the received `goods`
     1. `Load 5 first goods` showing 5 first `goods` after sorting them by name
     1. `Load red goods` containing only `red` goods
