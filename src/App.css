@@ -1,0 +1,33 @@
+.button {
+  cursor: pointer;
+  height: 50px;
+  width: 120px;
+  margin-right: 10px;
+  outline: none;
+  color: white;
+  background-color: coral;
+  border: none;
+  border-radius: 10px;
+}
+
+.button:enabled:hover {
+  background-color: powderblue;
+}
+
+.button:disabled {
+  background-color: lightgrey;
+  cursor: auto;
+  opacity: 0.5;
+}
+
+.good_red {
+  color: red;
+}
+
+.good_blue {
+  color: blue;
+}
+
+.good_green {
+  color: green;
+}
