@@ -1,10 +1,9 @@
 import React from 'react';
 import './App.css';
+import Main from './main';
 
 const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-  </div>
+  <Main />
 );
 
 export default App;

@@ -1,0 +1,15 @@
+.error {
+  display: flex;
+  justify-content: center;
+  color: red;
+}
+
+.middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hide {
+  display: none;
+}
