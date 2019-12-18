@@ -8,6 +8,7 @@ class App extends React.Component {
   state = {
     goods: [],
     start: false,
+    error: '',
   };
 
   start = () => {
@@ -20,6 +21,8 @@ class App extends React.Component {
   loadAllGoods = () => {
     getDataFromUrl(URL).then(data => this.setState({
       goods: data,
+    })).catch(error => this.setState({
+      error: error.message,
     }));
   };
 
@@ -28,12 +31,16 @@ class App extends React.Component {
       goods: data.slice(0, 5).sort(
         (a, b) => a.name.localeCompare(b.name)
       ),
+    })).catch(error => this.setState({
+      error: error.message,
     }));
   };
 
   loadRedGoods = () => {
     getDataFromUrl(URL).then(data => this.setState({
       goods: data.filter(good => good.color === 'red'),
+    })).catch(error => this.setState({
+      error: error.message,
     }));
   };
 
@@ -55,10 +62,20 @@ class App extends React.Component {
   };
 
   render() {
-    const { start, goods } = this.state;
+    const { start, goods, error } = this.state;
 
     return (
       <div className="App">
+        {error && (
+          <span
+            style={{
+              color: 'red',
+              margin: '0 auto',
+            }}
+          >
+            {error}
+          </span>
+        )}
         {!start && (
           <button
             type="button"
