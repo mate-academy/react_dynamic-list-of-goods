@@ -1,0 +1,54 @@
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.blue {
+  color: blue;
+}
+
+.goods__button {
+  position: absolute;
+  display: inline-block;
+  margin-left: 60px;
+  margin-top: 50px;
+  font-size: 20px;
+  background-color: transparent;
+  border: 2px solid rgb(0, 204, 255);
+  padding: 5px 10px;
+  border-radius: 10px;
+  outline: none;
+  cursor: pointer;
+}
+
+.goods__button:nth-child(2) {
+  left: 13%;
+  margin-left: 30px;
+}
+
+.goods__button:nth-child(3) {
+  left: 29%;
+  margin-left: 20px;
+}
+
+.buttonHide {
+  display: none;
+}
+
+.goods__list {
+  display: inline-block;
+  margin-left: 70px;
+  vertical-align: top;
+  position: absolute;
+}
+
+.goods__list:nth-child(3) {
+  left: 13%;
+}
+
+.goods__list:nth-child(4) {
+  left: 27%;
+}
