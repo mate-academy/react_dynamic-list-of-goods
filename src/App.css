@@ -1,0 +1,39 @@
+body {
+  background-color: rgb(158, 238, 238);
+}
+
+h1 {
+  color: white;
+}
+
+button {
+  width: 100px;
+  height: 70px;
+  border-radius: 50%;
+  outline: none;
+  border: none;
+  background-color: rgb(65, 189, 189);
+  cursor: pointer;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 10px;
+}
+
+button:hover {
+  color: bisque;
+  background-color: cornflowerblue;
+}
+
+.App {
+  text-align: center;
+}
+
+ul {
+  font-style: italic;
+  margin-left: -20px;
+}
+
+li {
+  list-style-type: none;
+}
