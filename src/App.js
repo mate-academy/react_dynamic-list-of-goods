@@ -9,14 +9,12 @@ const url
 class App extends React.Component {
   state = {
     goods: [],
-    // isActive: false,
   };
 
 loadAllGoods = () => {
   GoodsFetching(url).then((goods) => {
     this.setState({
       goods,
-
     });
   });
 }
@@ -24,7 +22,8 @@ loadAllGoods = () => {
 loadFiveFirstGoods = () => {
   GoodsFetching(url).then((goods) => {
     this.setState({
-      goods: [...goods].slice(0, 5),
+      goods: [...goods].sort((a, b) => (a.name).localeCompare(b.name))
+        .slice(0, 5),
     });
   });
 }
