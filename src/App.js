@@ -17,47 +17,41 @@ class App extends React.Component {
 
   showFirstFiveGoods = () => {
     fetchGoods(API_URL)
-      .then((data) => {
-        const visibleGoods = data
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .slice(0, 5);
-
-        this.setState(prevState => ({
-          goods: [...visibleGoods],
-        }));
+      .then((goods) => {
+        this.setState({
+          goods: [...goods]
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .slice(0, 5),
+        });
       })
-      .catch(() => this.setState(prevState => ({
+      .catch(() => this.setState({
         error: 'ERROR',
-      })));
-  };
+      }));
+  }
 
   showAllGoods = () => {
     fetchGoods(API_URL)
-      .then((data) => {
-        const visibleGoods = data;
-
-        this.setState(prevState => ({
-          goods: [...visibleGoods],
-        }));
+      .then((goods) => {
+        this.setState({
+          goods: [...goods],
+        });
       })
-      .catch(() => this.setState(prevState => ({
+      .catch(() => this.setState({
         error: 'ERROR',
-      })));
+      }));
   };
 
   showOnlyRedGoods = () => {
     fetchGoods(API_URL)
-      .then((data) => {
-        const visibleGoods = data.filter(good => good.color === 'red');
-
-        this.setState(prevState => ({
-          goods: [...visibleGoods],
-        }));
+      .then((goods) => {
+        this.setState({
+          goods: [...goods].filter(good => good.color === 'red'),
+        });
       })
-      .catch(() => this.setState(prevState => ({
+      .catch(() => this.setState({
         error: 'ERROR',
-      })));
-  };
+      }));
+  }
 
   render() {
     const { isStarted, goods, error } = this.state;
