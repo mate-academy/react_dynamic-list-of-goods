@@ -1,13 +1,10 @@
 import React from 'react';
 import './App.css';
+import FetchData from './components/FetchData';
 import GoodsList from './components/GoodsList';
 
 const
   URL = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
-
-function fetchData(url) {
-  return fetch(url).then(resp => resp.json());
-}
 
 class App extends React.Component {
   state = {
@@ -16,14 +13,13 @@ class App extends React.Component {
     showButton: true,
   };
 
-  componentDidMount() {
-    this.getGoods();
-  }
-
   getGoods = () => {
-    fetchData(URL)
+    FetchData(URL)
       .then(data => (
-        this.setState({ goods: data })
+        this.setState(() => ({
+          goods: data,
+          showButton: false,
+        }))
       ));
   };
 
@@ -50,35 +46,44 @@ class App extends React.Component {
 
   render() {
     return (
-      <span>
-        <div className="App">
-          <h1>Goods</h1>
-          {this.state.showButton
-          && (
+      <div className="App">
+        <h1>Goods</h1>
+        {this.state.showButton
+        && (
+          <button
+            type="button"
+            onClick={this.getGoods}
+          >
+            Load goods
+          </button>
+        )}
+
+        {!this.state.showButton
+        && (
+          <>
             <button
               type="button"
               onClick={this.showAll}
             >
               Show goods
             </button>
-          )}
-
-          <button
-            type="button"
-            onClick={this.showFive}
-          >
-            Load 5 first goods
-          </button>
-          <button
-            type="button"
-            onClick={this.showRed}
-          >
-            Load red goods
-          </button>
-        </div>
+            <button
+              type="button"
+              onClick={this.showFive}
+            >
+              Load 5 first goods
+            </button>
+            <button
+              type="button"
+              onClick={this.showRed}
+            >
+              Load red goods
+            </button>
+          </>
+        )}
 
         <GoodsList goods={this.state.goodsToShow} />
-      </span>
+      </div>
     );
   }
 }
