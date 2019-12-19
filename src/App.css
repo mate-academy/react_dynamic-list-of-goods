@@ -1,0 +1,17 @@
+.nav-wrapper {
+  background-color: #002d72;
+}
+
+.fab {
+  font-size: 50px;
+}
+
+.nav-a {
+  font-family: "Lato", sans-serif;
+  font-weight: 600;
+}
+
+.wrap-con {
+  margin: 40px auto;
+  display: flex;
+}
