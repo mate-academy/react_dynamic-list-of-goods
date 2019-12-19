@@ -16,7 +16,11 @@ const GoodsList = (props) => {
   return (
     <section className="middle">
       <ul>
-        <Good goods={goods} />
+        {
+          goods.map(good => (
+            <Good good={good} />
+          ))
+        }
       </ul>
     </section>
   );
