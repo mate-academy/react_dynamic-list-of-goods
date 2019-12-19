@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import Good from './Good';
 
 const GoodsList = (props) => {
   const { errorLoadedGoods, goods } = props;
@@ -15,11 +16,7 @@ const GoodsList = (props) => {
   return (
     <section className="middle">
       <ul>
-        {
-          goods.map(good => (
-            <li key={good.id}>{good.name}</li>
-          ))
-        }
+        <Good goods={goods} />
       </ul>
     </section>
   );

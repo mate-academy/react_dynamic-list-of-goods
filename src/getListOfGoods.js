@@ -1,4 +1,4 @@
-const getListOfGoods = () => {
+const GetListOfGoods = () => {
   const urlOfGoods = fetch(
     'https://mate-academy.github.io/'
     + 'react_dynamic-list-of-goods/goods.json'
@@ -7,4 +7,4 @@ const getListOfGoods = () => {
   return urlOfGoods.then(response => response.json());
 };
 
-export default getListOfGoods;
+export default GetListOfGoods;

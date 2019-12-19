@@ -1,5 +1,5 @@
 import React from 'react';
-import getListOfGoods from './getListOfGoods';
+import GetListOfGoods from './GetListOfGoods';
 import GoodButtons from './GoodButtons';
 import GoodsList from './GoodsList';
 
@@ -14,7 +14,7 @@ class Main extends React.Component {
   LoadGoods = () => {
     this.setState({ isLoading: true });
 
-    getListOfGoods()
+    GetListOfGoods()
       .then((data) => {
         this.setState({
           goods: data,
@@ -28,7 +28,7 @@ class Main extends React.Component {
   Load5FirstGoods = () => {
     this.setState({ isLoading: true });
 
-    getListOfGoods()
+    GetListOfGoods()
       .then((data) => {
         const sortData = data.sort((a, b) => a.name.localeCompare(b.name));
 
@@ -45,7 +45,7 @@ class Main extends React.Component {
   LoadRedGoods= () => {
     this.setState({ isLoading: true });
 
-    getListOfGoods()
+    GetListOfGoods()
       .then((data) => {
         const filteredData = data.filter(good => good.color === 'red');
 
