@@ -6,7 +6,6 @@ import getGoods from './Api';
 class App extends React.Component {
   state = {
     goods: [],
-    isStart: false,
   };
 
   loadGoods = () => {
@@ -14,7 +13,6 @@ class App extends React.Component {
       .then((goods) => {
         this.setState({
           goods,
-          isStart: true,
         });
       });
   };
@@ -44,30 +42,26 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Goods</h1>
-        {this.state.isStart ? (
-          <section>
-            <button
-              onClick={this.fiveFirstGoods}
-              type="button"
-            >
-              5 first goods
-            </button>
-            <button
-              type="button"
-              onClick={this.loadRedGoods}
-            >
-              Load red goods
-            </button>
-          </section>
-        )
-          : (
-            <button
-              type="button"
-              onClick={this.loadGoods}
-            >
-              Load
-            </button>
-          )}
+        <section>
+          <button
+            type="button"
+            onClick={this.loadGoods}
+          >
+            Load
+          </button>
+          <button
+            onClick={this.fiveFirstGoods}
+            type="button"
+          >
+            5 first goods
+          </button>
+          <button
+            type="button"
+            onClick={this.loadRedGoods}
+          >
+            Load red goods
+          </button>
+        </section>
         <GoodList goods={goods} />
       </div>
     );
