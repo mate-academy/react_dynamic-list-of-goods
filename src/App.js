@@ -2,9 +2,7 @@ import React from 'react';
 import './App.css';
 
 const App = () => (
-  <div className="App">
-    <h1>Goods</h1>
-  </div>
+  <h1>Dynamic list of Goods</h1>
 );
 
 export default App;
