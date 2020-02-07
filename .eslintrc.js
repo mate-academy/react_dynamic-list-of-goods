@@ -4,24 +4,27 @@ module.exports = {
     es6: true,
   },
   extends: [
-    'plugin:react/recommended',
-    'airbnb-typescript',
+    "plugin:react/recommended",
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
   ],
   globals: {
-    Atomics: 'readonly',
-    SharedArrayBuffer: 'readonly',
+    Atomics: "readonly",
+    SharedArrayBuffer: "readonly",
   },
-  parser: '@typescript-eslint/parser',
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
     },
     ecmaVersion: 2018,
-    sourceType: 'module',
+    sourceType: "module",
   },
   plugins: [
-    'react',
-    '@typescript-eslint',
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
   ],
   rules: {
     // JS
@@ -47,12 +50,19 @@ module.exports = {
     "standard/no-callback-literal": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
     "react/destructuring-assignment": 0,
+    "react/state-in-constructor": [2, "never"],
+    "react-hooks/rules-of-hooks": 2,
     "jsx-a11y/label-has-for": [2, {
       "components": ["Label"],
       "required": {
         "some": ["id", "nesting"]
       },
       "allowChildren": true
-    }]
+    }],
+
+    // Typescript
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-unused-vars": ["error"],
+    "@typescript-eslint/indent": ["error", 2],
   },
 };
