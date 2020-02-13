@@ -6,11 +6,11 @@
 ## Task
 > Load [the goods](https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json) and show them on the page
 
-- Create a component `GoodsList` accepting an array of goods and rendering them inside a `<ul>`
-- Show `good.name` using a `good.color`(for example `style={{ color: 'red' }}`)
-- Render 3 buttons loading the goods from server and showing them in the `GoodsList`:
-    1. `Load All goods` showing all the received `goods`
-    1. `Load 5 first goods` showing 5 first `goods` after sorting them by name
-    1. `Load red goods` containing only `red` goods
-- There should be only one `GoodsList` showing different goods basing on the last clicked button
-- There should be a new request to the server on each button click
+1. Create a component `GoodsList` accepting an array of goods and rendering them inside a `<ul>`
+1. Show `good.name` using a `good.color`(for example `style={{ color: 'red' }}`)
+1. Render 3 buttons loading the goods from server and showing them in the `GoodsList`:
+    - `Load All goods` showing all the received `goods`
+    - `Load 5 first goods` showing 5 first `goods` after sorting them by name
+    - `Load red goods` containing only `red` goods
+1. There should be only one `GoodsList` showing different goods basing on the last clicked button
+1. There should be a new request to the server on each button click
