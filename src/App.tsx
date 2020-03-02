@@ -16,7 +16,7 @@ interface MyState {
 class App extends React.Component<{}, MyState> {
   state = {
     goods: [],
-    isLoaded: true,
+    isLoaded: false,
   };
 
   loadAll = () => {
