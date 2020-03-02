@@ -3,7 +3,7 @@ import './App.css';
 import { GoodsList } from './components/GoodsList/GoodsList';
 import { getGoods } from './api';
 
-class App extends React.Component {
+class App extends React.Component<{}, Goods> {
   state = {
     goods: [],
   };
@@ -20,7 +20,7 @@ class App extends React.Component {
     getGoods().then(goods => {
       this.setState({
         goods: goods
-          .sort((a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name))
+          .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
           .splice(0, 5),
       });
     });
