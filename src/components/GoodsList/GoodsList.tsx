@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-export const GoodsList: React.FC = ({ list }) => (
+type Props = {
+  goods: {id: number; name: string; color: string}[];
+};
+
+export const GoodsList: FC<Props> = ({ goods }) => (
   <ul className="list">
-    {list.map(good => (
-      <li key={good} className="list__item" style={{ color: good.color }}>
+    {goods.map(good => (
+      <li key={good.id} className="list__item" style={{ color: good.color }}>
         {good.name}
       </li>
     ))}
   </ul>
 );
-
