@@ -4,8 +4,7 @@ import { GoodList } from './components/GoodList';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  // const [isEmpty, setIsEmpty] = useState<boolean>(false);
-  const url = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
+   const url = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
 
   const downloadData = async (): Promise<Good[]> => {
     return fetch(url)
