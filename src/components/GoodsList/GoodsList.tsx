@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import 'bulma/css/bulma.css';
 import { GoodItem } from '../GoodItem/GoodItem';
 
 interface GoodsListProps {

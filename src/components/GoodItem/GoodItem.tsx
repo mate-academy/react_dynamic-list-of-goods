@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import 'bulma/css/bulma.css';
 
 interface GoodItemProps {
   name: string;
@@ -7,7 +8,7 @@ interface GoodItemProps {
 
 export const GoodItem: FC<GoodItemProps> = ({ name, color }) => (
   <li
-    className="list__item"
+    className="list-item"
     style={{ color }}
   >
     {name}

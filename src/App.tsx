@@ -1,7 +1,9 @@
 import React from 'react';
 import './App.css';
+import 'bulma/css/bulma.css';
 import { getGoods } from './api/api';
 import { GoodsList } from './components/GoodsList/GoodsList';
+import { Button } from './components/Button/Button';
 
 interface AppState {
   goods: Good[];
@@ -41,28 +43,16 @@ export class App extends React.Component<{}, AppState> {
 
     return (
       <div className="App">
-        <h1>Dynamic list of Goods</h1>
-        <button
-          type="button"
-          className="button"
-          onClick={this.downloadAllGoods}
-        >
+        <h1 className="title">Dynamic list of Goods</h1>
+        <Button onClick={this.downloadAllGoods}>
           All goods
-        </button>
-        <button
-          type="button"
-          className="button"
-          onClick={this.downloadFiveGoods}
-        >
+        </Button>
+        <Button onClick={this.downloadFiveGoods}>
           Five goods
-        </button>
-        <button
-          type="button"
-          className="button"
-          onClick={this.downloadRedGoods}
-        >
+        </Button>
+        <Button onClick={this.downloadRedGoods}>
           Red goods
-        </button>
+        </Button>
         <GoodsList goods={goods} />
       </div>
     );
