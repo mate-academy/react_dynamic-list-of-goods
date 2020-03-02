@@ -7,19 +7,24 @@ const URL = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.js
 
 interface State {
   goods: Good[];
+  isStarted: boolean;
 }
 
 
 export default class App extends Component<{}, State> {
   state = {
     goods: [],
+    isStarted: false,
   };
 
   onShowAll = () => {
     fetch(URL)
       .then(response => response.json())
       .then(goods => {
-        return this.setState({ goods });
+        return this.setState({
+          goods,
+          isStarted: true,
+        });
       });
   };
 
@@ -45,7 +50,7 @@ export default class App extends Component<{}, State> {
   };
 
   render() {
-    const { goods } = this.state;
+    const { goods, isStarted } = this.state;
 
     return (
       <>
@@ -54,7 +59,9 @@ export default class App extends Component<{}, State> {
           handleFive={this.onShowFive}
           handleRed={this.onShowRed}
         />
-        <List goods={goods} />
+        {!isStarted
+          ? (<div className="start">Press All to start</div>)
+          : (<List goods={goods} />)}
       </>
     );
   }

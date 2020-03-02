@@ -4,6 +4,13 @@ body {
   background: linear-gradient(0deg, #22c1c3 0%, #fdbb2d 100%);
 }
 
+.start {
+  text-align: center;
+  padding-top: 50px;
+  font-size: 50px;
+  color: #046163;
+}
+
 .actions {
   width: 100%;
   display: flex;
