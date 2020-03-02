@@ -47,9 +47,15 @@ class App extends React.Component<{}, State> {
       });
   };
 
-  handleRedGoods = () => this.setState(prevState => ({
-    goods: [...prevState.goods].filter(good => good.color === 'red'),
-  }));
+  handleRedGoods = () => {
+    getGoods()
+      .then(goods => {
+        this.setState({
+          renderList: true,
+          goods: goods.filter((good: Good) => good.color === 'red'),
+        });
+      });
+  };
 
   render() {
     const {
