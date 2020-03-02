@@ -5,7 +5,9 @@ export const GoodsList: React.FC<StateApp> = ({ goods }) => (
     {goods.map(item => (
       <li
         key={item.id}
-        style={{ color: item.color }}
+        style={{
+          color: item.color,
+        }}
       >
         {item.name}
       </li>

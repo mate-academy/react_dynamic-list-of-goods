@@ -3,14 +3,14 @@ import './App.css';
 import { GoodsList } from './components/GoodsList';
 import { getGoods } from './DATA_FROM_SERVER';
 
-export class App extends Component<{}, StateApp> {
+export class App extends Component {
   state = {
     goods: [],
   };
 
   loadGoods = () => {
     getGoods()
-      .then((goods: StateApp['goods']) => {
+      .then((goods) => {
         this.setState({ goods });
       });
   };
