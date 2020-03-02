@@ -3,10 +3,6 @@ import './App.css';
 import { GoodsList } from './components/GoodsList';
 import { getGoods } from './DATA_FROM_SERVER';
 
-interface StateApp {
-  goods: { id: number; name: string; color: string }[];
-}
-
 export class App extends Component<{}, StateApp> {
   state = {
     goods: [],

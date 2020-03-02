@@ -1,10 +1,6 @@
 import React from 'react';
 
-interface GoodsListProps {
-  goods: { id: number; name: string; color: string }[];
-}
-
-export const GoodsList: React.FC<GoodsListProps> = ({ goods }) => (
+export const GoodsList: React.FC<StateApp> = ({ goods }) => (
   <ul>
     {goods.map(item => (
       <li
