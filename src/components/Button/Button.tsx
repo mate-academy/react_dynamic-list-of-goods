@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 
-type Props = {
-  clickHandler: () => void;
+interface Props {
+  onClick: () => void;
   children: string;
-};
+}
 
-export const Button: FC<Props> = ({ clickHandler, children }) => (
+export const Button: FC<Props> = ({ onClick, children }) => (
   <button
     className="button"
     type="button"
-    onClick={clickHandler}
+    onClick={onClick}
   >
     {children}
   </button>

@@ -1,19 +1,11 @@
 import React from 'react';
 import './App.css';
-import { GoodsList } from './components/GoodsList/GoodsList';
+import { GoodsList, Good } from './components/GoodsList/GoodsList';
 import { Button } from './components/Button/Button';
-
-const URL = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
-
-const getGoodsFromServer = () => {
-  const getGoods = fetch(URL)
-    .then(response => response.json());
-
-  return getGoods;
-};
+import { getGoods } from './api';
 
 interface State {
-  goods: {id: number; name: string; color: string}[];
+  goods: Good[];
 }
 
 class App extends React.Component<{}, State> {
@@ -22,30 +14,30 @@ class App extends React.Component<{}, State> {
   };
 
   showAllGoods = () => {
-    const getGoods = getGoodsFromServer();
+    const goods = getGoods();
 
-    getGoods
+    goods
       .then(data => this.setState({
         goods: data,
       }));
   };
 
   showFiveGoods = () => {
-    const getGoods = getGoodsFromServer();
+    const goods = getGoods();
 
-    getGoods
+    goods
       .then(data => this.setState({
-        goods: data.sort((a: {name: string}, b: {name: string}) => a.name.localeCompare(b.name))
+        goods: data.sort((a: Good, b: Good) => a.name.localeCompare(b.name))
           .slice(0, 5),
       }));
   };
 
   showRedGoods = () => {
-    const getGoods = getGoodsFromServer();
+    const goods = getGoods();
 
-    getGoods
+    goods
       .then(data => this.setState({
-        goods: data.filter((good: { color: string }) => good.color === 'red'),
+        goods: data.filter((good: Good) => good.color === 'red'),
       }));
   };
 
@@ -55,9 +47,9 @@ class App extends React.Component<{}, State> {
     return (
       <>
         <h1>Dynamic list of Goods</h1>
-        <Button clickHandler={this.showAllGoods}>Show All</Button>
-        <Button clickHandler={this.showFiveGoods}>Show Top 5</Button>
-        <Button clickHandler={this.showRedGoods}>Show Red</Button>
+        <Button onClick={this.showAllGoods}>Show All</Button>
+        <Button onClick={this.showFiveGoods}>Show Top 5</Button>
+        <Button onClick={this.showRedGoods}>Show Red</Button>
         <GoodsList goods={goods} />
       </>
     );

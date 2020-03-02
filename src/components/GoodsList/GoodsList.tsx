@@ -1,8 +1,14 @@
 import React, { FC } from 'react';
 
 type Props = {
-  goods: {id: number; name: string; color: string}[];
+  goods: Good[];
 };
+
+export interface Good {
+  id: number;
+  name: string;
+  color: string;
+}
 
 export const GoodsList: FC<Props> = ({ goods }) => (
   <ul className="list">
