@@ -5,7 +5,7 @@ import { getGoods } from './api/api';
 
 interface AppState {
   isLoaded: boolean;
-  goods: Good[] | [];
+  goods: Good[];
 }
 
 export class App extends React.Component<{}, AppState> {
