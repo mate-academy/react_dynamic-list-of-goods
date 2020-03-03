@@ -1,17 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { GoodList } from './components/GoodsList';
 import { getGoods } from './getGoods';
 import './App.css';
 
 interface State {
-  goods: Goods[];
-  minLength: number;
+  goods: Good[];
 }
 
-class App extends React.Component<{}, State> {
+class App extends Component<{}, State> {
   state = {
     goods: [],
-    minLength: 1,
   };
 
   handleStart = () => {
@@ -30,17 +28,17 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  handleColorGoods = async () => {
-    const goods = await getGoods();
-    const fivesGoods = goods.filter((good: any) => good.color === 'red');
-
-    this.setState({
-      goods: fivesGoods,
-    });
+  handleColorGoods = () => {
+    getGoods()
+      .then(goods => {
+        this.setState({
+          goods: goods.filter((good) => good.color === 'red'),
+        });
+      });
   };
 
   render() {
-    const { goods, minLength } = this.state;
+    const { goods } = this.state;
 
     return (
       <>
@@ -49,7 +47,6 @@ class App extends React.Component<{}, State> {
         <button type="button" onClick={this.handleColorGoods}>Load red goods</button>
         <GoodList
           goods={goods}
-          minLength={minLength}
         />
       </>
     );

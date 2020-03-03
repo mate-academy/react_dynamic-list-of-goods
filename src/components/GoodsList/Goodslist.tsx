@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 interface Props {
-  goods: Goods[];
-  minLength: number;
+  goods: Good[];
 }
 
-export const GoodList = (props: Props) => {
+export const GoodList: FC<Props> = (props) => {
   const {
     goods,
   } = props;
