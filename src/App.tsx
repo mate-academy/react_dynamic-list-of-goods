@@ -30,7 +30,7 @@ export class App extends Component<{}, State> {
   loadRedGood = () => {
     getGoods().then(goods => {
       this.setState({
-        goods: goods.filter((good: {color: string}) => good.color === 'red'),
+        goods: goods.filter(good => good.color === 'red'),
       });
     });
   };
