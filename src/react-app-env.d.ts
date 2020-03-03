@@ -6,7 +6,3 @@ interface Good {
   name: string;
   color: string;
 }
-
-interface Goods {
-  goods: Good[];
-}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { List } from './components/List';
+import { ListOfGoods } from './components/List';
 import { Actions } from './components/Actions';
 import { loadGoods } from './api/loadGoods';
 
@@ -52,7 +52,7 @@ export class App extends Component<{}, State> {
         />
         {!isStarted
           ? (<div className="start">Press All to start</div>)
-          : (<List goods={goods} />)}
+          : (<ListOfGoods goods={goods} />)}
       </>
     );
   }

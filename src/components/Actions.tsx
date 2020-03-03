@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 
-interface Methods {
+interface Props {
   handleAll: () => void;
   handleFive: () => void;
   handleRed: () => void;
 }
 
-export const Actions: FC<Methods> = ({ handleAll, handleFive, handleRed }) => {
+export const Actions: FC<Props> = ({ handleAll, handleFive, handleRed }) => {
   return (
     <div className="actions">
       <button className="actions__button" type="button" onClick={handleAll}>All</button>
