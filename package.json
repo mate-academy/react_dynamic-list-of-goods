@@ -63,6 +63,5 @@
     "hooks": {
       "pre-commit": "lint-staged"
     }
-  },
-  "proxy": "https://mate-academy.github.io/react_dynamic-list-of-goods"
+  }
 }
