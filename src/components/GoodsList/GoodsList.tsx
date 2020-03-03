@@ -2,11 +2,11 @@ import React, { FC } from 'react';
 import 'bulma/css/bulma.css';
 import { GoodItem } from '../GoodItem/GoodItem';
 
-interface GoodsListProps {
+interface Props {
   goods: Good[];
 }
 
-export const GoodsList: FC<GoodsListProps> = ({ goods }) => (
+export const GoodsList: FC<Props> = ({ goods }) => (
   <ul className="list">
     {goods.map(good => (
       <GoodItem

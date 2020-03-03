@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import 'bulma/css/bulma.css';
 import { getGoods } from './api/api';
 import { GoodsList } from './components/GoodsList/GoodsList';
 import { Button } from './components/Button/Button';
 
-interface AppState {
+interface State {
   goods: Good[];
 }
 
-export class App extends React.Component<{}, AppState> {
+export class App extends Component<{}, State> {
   state = {
     goods: [],
   };
@@ -42,7 +42,7 @@ export class App extends React.Component<{}, AppState> {
     const { goods } = this.state;
 
     return (
-      <div className="App">
+      <div className="app">
         <h1 className="title">Dynamic list of Goods</h1>
         <Button onClick={this.downloadAllGoods}>
           All goods
