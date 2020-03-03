@@ -45,24 +45,28 @@ export class App extends Component<{}, State> {
     return (
       <div className="App">
         <h1>Goods</h1>
+
         <button
           type="button"
           onClick={this.loadGoods}
         >
           Load All goods
         </button>
+
         <button
           type="button"
           onClick={this.loadFiveGoods}
         >
           Load 5 first goods
         </button>
+
         <button
           type="button"
           onClick={this.loadRedGoods}
         >
           Load red goods
         </button>
+
         {(goods.length
           ? (
             <GoodsList goods={goods} />
