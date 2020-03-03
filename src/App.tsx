@@ -38,11 +38,8 @@ export const App: React.FC = () => {
 
   const handleRedGood = () => {
     downloadGoodsList()
-      .then(list => {
-        list.filter((item1: Good) => item1.color === 'red');
-
-        setGoods(list);
-      });
+      .then(list => setGoods(list
+        .filter((item1: Good) => item1.color === 'red')))
   };
 
   const handleAllGoods = () => {
