@@ -1,60 +1,51 @@
 import React from 'react';
 import './App.css';
 import { GoodsList } from './component/GoodsList/GoodsList';
+import { getGoodssFromServer } from './api/goodsListFromServer';
 
-interface AppIn {
-  goodsFromServer?: {id: number; name: string; color: string}[];
+interface AppTypes {
+  goodsFromServer: Good[];
 }
 
-// const goodsFromServer = [
-//   'Dumplings',
-//   'Carrot',
-//   'Eggs',
-//   'Ice cream',
-//   'Apple',
-//   'Bread',
-//   'Fish',
-//   'Honey',
-//   'Jam',
-//   'Garlic',
-// ];
-
-const goodsFromServer = [
-  { "id": 1, "name": "Potato", "color": "red" },
-  { "id": 2, "name": "Pear", "color": "green" },
-  { "id": 3, "name": "Mellon", "color": "blue" },
-  { "id": 4, "name": "Ice cream", "color": "red" },
-  { "id": 5, "name": "Apple", "color": "green" },
-  { "id": 6, "name": "Bread", "color": "blue" },
-  { "id": 7, "name": "Fish", "color": "red" },
-  { "id": 8, "name": "Honey", "color": "green" },
-  { "id": 9, "name": "Jam", "color": "blue" },
-  { "id": 10, "name": "Garlic", "color": "red" },
-  { "id": 11, "name": "Dumplings", "color": "red" },
-  { "id": 12, "name": "Carrot", "color": "green" },
-  { "id": 13, "name": "Eggs", "color": "blue" },
-];
-
-export class App extends React.Component<AppIn> {
+export class App extends React.Component<{}, AppTypes> {
   state = {
-    renderList: false,
+    goodsFromServer: [],
   };
 
-  renderGoodList = () => {
-    this.setState({
-      renderList: true,
-    });
+  loadAll = () => {
+    getGoodssFromServer()
+      .then(good => {
+        this.setState({ goodsFromServer: good });
+      });
+  };
+
+  loadRed = () => {
+    getGoodssFromServer()
+      .then(good => {
+        this.setState({ goodsFromServer: good.filter(item => item.color === 'red') });
+      });
+  };
+
+  loadFirstFive = () => {
+    getGoodssFromServer()
+      .then(good => {
+        this.setState({
+          goodsFromServer: good.slice(0, 5)
+            .sort((a, b) => a.name.localeCompare(b.name)),
+        });
+      });
   };
 
   render() {
+    const { goodsFromServer } = this.state;
+
     return (
       <div>
         <h1>GoodList</h1>
-        {
-          this.state.renderList
-            ? <GoodsList goodsFromServer={goodsFromServer} />
-            : <button type="button" onClick={this.renderGoodList}>Start</button>
-        }
+        <button type="button" onClick={this.loadAll}>Load all</button>
+        <button type="button" onClick={this.loadRed}>Load red</button>
+        <button type="button" onClick={this.loadFirstFive}>Load first 5</button>
+        <GoodsList goodsFromServer={goodsFromServer} />
       </div>
     );
   }
