@@ -1,26 +1,22 @@
 import React from 'react';
 import { GoodsList } from './components/GoodsList/GoodsList';
+import { API_URL } from './utils/constants';
+import { getGoods } from './utils/api';
 import './App.css';
 
-const url = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
-
-// const fetchData = (dataUrl: string) => {
-//   fetch(dataUrl).then(response => response.json())
-// };
-
-interface MyState {
+interface State {
   goods: Good[];
   isLoaded: boolean;
 }
 
-class App extends React.Component<{}, MyState> {
+class App extends React.Component<{}, State> {
   state = {
     goods: [],
     isLoaded: false,
   };
 
   loadAll = () => {
-    fetch(url).then(response => response.json())
+    getGoods(API_URL)
       .then(goods => {
         this.setState({
           goods,
@@ -30,7 +26,7 @@ class App extends React.Component<{}, MyState> {
   };
 
   load5Goods = () => {
-    fetch(url).then(response => response.json())
+    getGoods(API_URL)
       .then(goods => {
         const fiveGoods = [...goods]
           .sort((a, b) => a.name.localeCompare(b.name));
@@ -44,9 +40,10 @@ class App extends React.Component<{}, MyState> {
   };
 
   loadRedGoods = () => {
-    fetch(url).then(response => response.json())
+    getGoods(API_URL)
       .then(goods => {
-        const redGoods = goods.filter((good: Good) => good.color === 'red');
+        const redGoods = goods
+          .filter((good: Good) => good.color === 'red');
 
         this.setState({
           goods: redGoods,
