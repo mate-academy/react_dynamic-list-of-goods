@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import './App.css';
 import { GoodList } from './components/GoodList';
 
-const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[]>([]);
-   const url = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
+const url = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
 
+const App: FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
   const downloadData = async (): Promise<Good[]> => {
     return fetch(url)
       .then(response => {
@@ -23,8 +23,8 @@ const App: React.FC = () => {
   const fiveButtonHandler = () => {
     downloadData()
       .then(list => {
-        list.sort((item1: Good, item2: Good) => item1.name.localeCompare(item2.name));
-        list.splice(5);
+        list.sort((item1, item2) => item1.name.localeCompare(item2.name))
+          .splice(5);
         setGoods(list);
       });
   };
@@ -32,9 +32,7 @@ const App: React.FC = () => {
   const redButtonHandler = () => {
     downloadData()
       .then(list => {
-        const newlist = list.filter((item1: Good) => item1.color === 'red');
-
-        setGoods(newlist);
+        setGoods(list.filter((item1) => item1.color === 'red'));
       });
   };
 

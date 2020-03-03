@@ -1,7 +1,11 @@
 import React from 'react';
 import { Good } from './Good';
 
-export const GoodList: React.FC<{goods: Good[]}> = (props) => (
+interface Props {
+  goods: Good[];
+}
+
+export const GoodList: React.FC<Props> = (props) => (
   <ul>
     {props.goods.map(good => <Good good={good} />)}
   </ul>

@@ -1,5 +1,9 @@
 import React from 'react';
 
-export const Good: React.FC<{good: Good}> = (props) => (
+interface Props {
+  good: Good;
+}
+
+export const Good: React.FC<Props> = (props) => (
   <li style={{ color: props.good.color }}>{props.good.name}</li>
 );
