@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import { GoodsList, Good } from './Components/GoodsList';
 import { getGoods } from './Api';
@@ -8,7 +8,7 @@ interface State {
   goods: Good[];
 }
 
-class App extends React.Component<{}, State> {
+class App extends Component<{}, State> {
   state = {
     goods: [],
   };
