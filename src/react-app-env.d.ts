@@ -6,3 +6,5 @@ interface Good {
   name: string;
   color: string;
 }
+
+type Goods = Good[];

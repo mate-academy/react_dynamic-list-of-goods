@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
-
-const URL = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
-
-const getGoods = () => {
-  return fetch(URL).then(response => response.json());
-};
+import { getGoods } from './serverData';
 
 interface AppState {
-  goods: Good[];
+  goods: Goods;
 }
 
 export class App extends Component<{}, AppState> {
