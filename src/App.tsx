@@ -1,8 +1,67 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+import { GoodsList } from './GoodsList/GoodsList';
+import { getGoods } from './API/API';
 
-export default App;
+export default class App extends Component {
+  state = {
+    goods: [],
+  };
+
+  showGoods = () => {
+    getGoods()
+      .then((goods: StateApp['goods']) => {
+        this.setState({ goods });
+      });
+  };
+
+  showFirstFive = () => {
+    getGoods()
+      .then((goods: StateApp['goods']) => {
+        this.setState(({
+          goods: goods
+            .filter(good => good.id < 6)
+            .sort((a, b) => a.name.localeCompare(b.name)),
+        }));
+      });
+  };
+
+  showRed = () => {
+    getGoods()
+      .then((goods: StateApp['goods']) => {
+        this.setState(({
+          goods: goods.filter(good => good.color === 'red'),
+        }));
+      });
+  };
+
+  render() {
+    const { goods } = this.state;
+
+    return (
+      <div>
+        <h1>Goods</h1>
+        <button
+          type="button"
+          onClick={this.showGoods}
+        >
+          All goods
+        </button>
+        <button
+          type="button"
+          onClick={this.showFirstFive}
+        >
+          First 5 goods
+        </button>
+        <button
+          type="button"
+          onClick={this.showRed}
+        >
+          Red goods
+        </button>
+        <GoodsList goods={goods} />
+      </div>
+    );
+  }
+}
