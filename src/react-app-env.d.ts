@@ -7,11 +7,4 @@ interface Good {
   color: string;
 }
 
-interface Prop {
-  list: Good[];
-}
-
-interface State {
-  listOfGoods: Good[];
-  minLength: string;
-}
+type Goods = Good[];

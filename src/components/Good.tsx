@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-export const Good: React.FC<{key: number; good: Good}> = (props) => {
+interface Props {
+  key: number;
+  good: Good;
+}
+
+export const Good: FC<Props> = (props) => {
   const { color, name } = props.good;
 
   return (

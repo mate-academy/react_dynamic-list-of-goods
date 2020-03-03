@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import { getListOfGoods } from './Api';
+import { getGoods } from './Api';
 import { GoodsList } from './components/GoodsList';
 
-class App extends React.Component {
+interface AppState {
+  goodsList: Goods;
+  isLoaded: boolean;
+}
+
+class App extends Component<{}, AppState> {
   state = {
     goodsList: [],
     isLoaded: false,
@@ -14,7 +19,7 @@ class App extends React.Component {
 
     switch (name) {
       case 'All':
-        getListOfGoods()
+        getGoods()
           .then(goods => {
             this.setState({
               goodsList: goods,
@@ -25,10 +30,12 @@ class App extends React.Component {
         break;
 
       case 'FirstFive':
-        getListOfGoods()
+        getGoods()
           .then(goods => {
             this.setState({
-              goodsList: goods.slice(0, 5),
+              goodsList: goods
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .slice(0, 5),
               isLoaded: true,
             });
           });
@@ -36,10 +43,10 @@ class App extends React.Component {
         break;
 
       case 'Red':
-        getListOfGoods()
+        getGoods()
           .then(goods => {
             this.setState({
-              goodsList: goods.filter((good: { color: string }) => good.color === 'red'),
+              goodsList: goods.filter(good => good.color === 'red'),
               isLoaded: true,
             });
           });

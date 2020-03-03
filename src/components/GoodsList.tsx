@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Good } from './Good';
 
 import './GoodsList.css';
 
-export const GoodsList: React.FC<Prop> = ({ list }) => {
+interface Props {
+  list: Goods;
+}
+
+export const GoodsList: FC<Props> = ({ list }) => {
   return (
     <ul>
       {list.map(good => (
