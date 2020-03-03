@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
-import { getData } from './DATA_FROM_SERVER';
+import { getGoods } from './api/loadGoods/getData';
 
-export class App extends Component {
+interface State {
+  goods: Goods;
+}
+
+export class App extends Component<{}, State> {
   state = {
     goods: [],
   };
 
   loadGoods = () => {
-    getData()
+    getGoods()
       .then((goods) => {
         this.setState({ goods });
       });
   };
 
   loadFiveGoods = () => {
-    getData()
-      .then((goods: StateApp['goods']) => {
+    getGoods()
+      .then((goods) => {
         this.setState(({
           goods: goods
             .sort((a, b) => a.name.localeCompare(b.name))
@@ -27,8 +31,8 @@ export class App extends Component {
   };
 
   loadRedGoods = () => {
-    getData()
-      .then((goods: StateApp['goods']) => {
+    getGoods()
+      .then((goods) => {
         this.setState(({
           goods: goods.filter(good => good.color === 'red'),
         }));
