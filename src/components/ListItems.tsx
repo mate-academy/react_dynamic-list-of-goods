@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-const ListItems: React.FC<{goods: Good[]}> = ({ goods }) => (
+interface Props {
+  goods: Good[];
+}
+
+const ListItems: FC<Props> = ({ goods }) => (
   <>
     {goods.map(good => (
       <li className="item" key={good.id} style={{ color: `${good.color}` }}>

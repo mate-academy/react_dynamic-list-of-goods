@@ -2,14 +2,12 @@ import React, { Component } from 'react';
 import './App.css';
 import List from './components/List';
 import Actions from './components/Actions';
-
-const URL = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
+import { loadGoods } from './api/loadGoods';
 
 interface State {
   goods: Good[];
   isStarted: boolean;
 }
-
 
 export default class App extends Component<{}, State> {
   state = {
@@ -18,8 +16,7 @@ export default class App extends Component<{}, State> {
   };
 
   onShowAll = () => {
-    fetch(URL)
-      .then(response => response.json())
+    loadGoods()
       .then(goods => {
         return this.setState({
           goods,
@@ -29,24 +26,18 @@ export default class App extends Component<{}, State> {
   };
 
   onShowFive = () => {
-    this.setState(prevState => {
-      const newGoods = prevState.goods
-        .sort((a, b) => a.name.localeCompare(b.name));
-
-      if (newGoods.length > 5) {
-        newGoods.length = 5;
-      }
-
-      return {
-        goods: [...newGoods],
-      };
-    });
+    loadGoods()
+      .then(goods => this.setState({
+        goods: goods
+          .sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
+      }));
   };
 
   onShowRed = () => {
-    this.setState(prevState => ({
-      goods: prevState.goods.filter(good => good.color === 'red'),
-    }));
+    loadGoods()
+      .then(goods => this.setState({
+        goods: goods.filter(good => good.color === 'red'),
+      }));
   };
 
   render() {
