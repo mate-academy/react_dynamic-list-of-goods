@@ -7,12 +7,12 @@ interface Props {
 
 export const GoodsList: FC<Props> = ({ goodsList }) => (
   <ul>
-    {goodsList.map(item => (
+    {goodsList.map(good => (
       <li
-        key={item.id}
-        style={{ color: item.color }}
+        key={good.id}
+        style={{ color: good.color }}
       >
-        {item.name}
+        {good.name}
       </li>
     ))}
   </ul>

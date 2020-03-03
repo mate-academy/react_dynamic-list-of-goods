@@ -1,39 +1,32 @@
 import React, { Component } from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList/GoodsList';
-import { getGoods } from './components/GOODS_FROM_SERVER_API';
+import { getGoods } from './goods_from_server_api';
 import { Good } from './types';
 
-interface AppStateInterface {
+interface State {
   goodsList: Good[];
 }
 
-export default class App extends Component<{}, AppStateInterface> {
+export default class App extends Component<{}, State> {
   state = {
     goodsList: [],
   };
 
-  loadGoods = () => {
-    getGoods()
-      .then((goodsList) => {
-        this.setState({ goodsList });
-      });
-  }
-
   firstFiveSorted = () => {
     getGoods()
-    .then((goodsList) => {
-      this.setState({
-        goodsList: goodsList.sort((a, b) => a.name.localeCompare(b.name)).splice(0, 5),
-      });
-    })
+      .then((goodsList) => {
+        this.setState({
+          goodsList: goodsList.sort((a, b) => a.name.localeCompare(b.name)).splice(0, 5),
+        });
+      })
   }
 
   showedRed = () => {
     getGoods()
-    .then((goodsList) => {
-      this.setState({
-        goodsList: goodsList.filter(good => good.color === 'red'),
+      .then((goodsList) => {
+        this.setState({
+          goodsList: goodsList.filter(good => good.color === 'red'),
       });
     })
   }
@@ -49,21 +42,19 @@ export default class App extends Component<{}, AppStateInterface> {
   render() {
     const { goodsList } = this.state;
 
-    if (goodsList.length === 0) {
-      return (
+    return goodsList.length === 0 ?  (
         <>
           <p>
             Load your Goods
           </p>
           <button
             type="button"
-            onClick={this.loadGoods}>
+            onClick={this.showedAllGoods}>
             Load
           </button>
         </>
       )
-    }
-    return (
+    : (
       <div className="App">
         <h1>Goods</h1>
 
