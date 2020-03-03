@@ -1,4 +1,4 @@
-import { Good } from './Components/GoodsList';
+import { Good } from './interfaces';
 
 const URL = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
 

@@ -1,10 +1,5 @@
 import React, { FC } from 'react';
-
-export interface Good {
-  id: number;
-  name: string;
-  color: string;
-}
+import { Good } from '../interfaces';
 
 
 type Props = {
