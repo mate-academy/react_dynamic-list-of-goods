@@ -1,6 +1,6 @@
-export const getGoods = () => {
-  const goods = fetch('/goods.json')
-    .then(response => response.json());
+import { Good } from '../types';
 
-  return goods;
+export const getGoods = (): Promise<Good[]> => {
+  return fetch('/goods.json')
+    .then(response => response.json());
 };

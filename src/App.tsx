@@ -3,22 +3,27 @@ import './App.css';
 
 import { GoodsList } from './GoodsList/GoodsList';
 import { getGoods } from './API/API';
+import { Good } from './types';
 
-export default class App extends Component {
+interface State {
+  goods: Good[];
+}
+
+export default class App extends Component<{}, State> {
   state = {
     goods: [],
   };
 
   showGoods = () => {
     getGoods()
-      .then((goods: StateApp['goods']) => {
+      .then((goods) => {
         this.setState({ goods });
       });
   };
 
   showFirstFive = () => {
     getGoods()
-      .then((goods: StateApp['goods']) => {
+      .then((goods) => {
         this.setState(({
           goods: goods
             .filter(good => good.id < 6)
@@ -29,7 +34,7 @@ export default class App extends Component {
 
   showRed = () => {
     getGoods()
-      .then((goods: StateApp['goods']) => {
+      .then((goods) => {
         this.setState(({
           goods: goods.filter(good => good.color === 'red'),
         }));
