@@ -2,22 +2,27 @@ import React, { Component } from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList/GoodsList';
 import { getGoods } from './components/GOODS_FROM_SERVER_API';
+import { Good } from './types';
 
-export default class App extends Component {
+interface AppStateInterface {
+  goodsList: Good[];
+}
+
+export default class App extends Component<{}, AppStateInterface> {
   state = {
     goodsList: [],
   };
 
   loadGoods = () => {
     getGoods()
-      .then((goodsList: StateApp['goodsList']) => {
+      .then((goodsList) => {
         this.setState({ goodsList });
       });
   }
 
   firstFiveSorted = () => {
     getGoods()
-    .then((goodsList: StateApp['goodsList']) => {
+    .then((goodsList) => {
       this.setState({
         goodsList: goodsList.sort((a, b) => a.name.localeCompare(b.name)).splice(0, 5),
       });
@@ -26,7 +31,7 @@ export default class App extends Component {
 
   showedRed = () => {
     getGoods()
-    .then((goodsList: StateApp['goodsList']) => {
+    .then((goodsList) => {
       this.setState({
         goodsList: goodsList.filter(good => good.color === 'red'),
       });
@@ -35,7 +40,7 @@ export default class App extends Component {
 
   showedAllGoods = () => {
     getGoods()
-      .then((goodsList: StateApp['goodsList']) => {
+      .then((goodsList) => {
         this.setState({ goodsList });
       });
   }

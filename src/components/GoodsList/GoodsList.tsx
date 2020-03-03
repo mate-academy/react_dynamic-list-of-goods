@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { FC } from 'react';
+import { Good } from '../../types';
 
-export const GoodsList: React.FC<StateApp> = ({ goodsList }) => (
+interface Props {
+  goodsList: Good[];
+}
+
+export const GoodsList: FC<Props> = ({ goodsList }) => (
   <ul>
     {goodsList.map(item => (
       <li
