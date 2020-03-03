@@ -4,12 +4,7 @@ import { ListOfGoods } from './Components/ListOfGoods/ListOfGoods';
 import { Buttons } from './Components/Buttons/Buttons';
 
 const goodsUrl = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
-const getGoods = () => {
-  const dataPromise = fetch(goodsUrl)
-    .then(response => response.json());
-
-  return dataPromise;
-};
+const getGoods = () => (fetch(goodsUrl).then(response => response.json()));
 
 interface State {
   goods: { id: number; name: string; color: string }[];
