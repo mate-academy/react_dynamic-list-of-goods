@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { GoodsList } from './GoodsList/GoodsList';
+import { GoodsList, Good } from './GoodsList/GoodsList';
 
 const API_URL: string = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
 
@@ -9,10 +9,10 @@ const getGoods = () => {
 }
 
 interface State {
-  listOfGoods: {id: number, name: string, color: string}[]
+  listOfGoods: Good[]
 }
 
-export class App extends Component<{},State> {
+export class App extends Component<{}, State> {
   state = {
     listOfGoods: [],
   }
@@ -43,6 +43,7 @@ export class App extends Component<{},State> {
 
   render() {
     const { listOfGoods } = this.state;
+    
     return (
       <div>
           <GoodsList goods={listOfGoods}/>
