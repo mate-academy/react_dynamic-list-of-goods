@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
-import { getGoods } from './DATA_FROM_SERVER';
+import { getData } from './DATA_FROM_SERVER';
 
 export class App extends Component {
   state = {
@@ -9,14 +9,14 @@ export class App extends Component {
   };
 
   loadGoods = () => {
-    getGoods()
+    getData()
       .then((goods) => {
         this.setState({ goods });
       });
   };
 
   loadFiveGoods = () => {
-    getGoods()
+    getData()
       .then((goods: StateApp['goods']) => {
         this.setState(({
           goods: goods
@@ -27,7 +27,7 @@ export class App extends Component {
   };
 
   loadRedGoods = () => {
-    getGoods()
+    getData()
       .then((goods: StateApp['goods']) => {
         this.setState(({
           goods: goods.filter(good => good.color === 'red'),
