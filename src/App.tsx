@@ -7,7 +7,7 @@ const goodsUrl = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goo
 const getGoods = () => (fetch(goodsUrl).then(response => response.json()));
 
 interface State {
-  goods: { id: number; name: string; color: string }[];
+  goods: Good[];
 }
 
 class App extends Component<{}, State> {

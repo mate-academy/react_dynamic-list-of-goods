@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface Goods {
-  goods: { id: number; name: string; color: string }[];
+  goods: Good[];
 }
 
 export const ListOfGoods: React.FC<Goods> = ({ goods }) => (
