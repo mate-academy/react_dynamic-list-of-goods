@@ -1,17 +1,10 @@
 import React, { FC, useState } from 'react';
 import './App.css';
 import { GoodList } from './components/GoodList';
-
-const url = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
+import { downloadData } from './utils';
 
 const App: FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const downloadData = async (): Promise<Good[]> => {
-    return fetch(url)
-      .then(response => {
-        return response.json();
-      });
-  };
 
   const allButtonHandler = () => {
     downloadData()
@@ -23,22 +16,25 @@ const App: FC = () => {
   const fiveButtonHandler = () => {
     downloadData()
       .then(list => {
-        list.sort((item1, item2) => item1.name.localeCompare(item2.name))
-          .splice(5);
-        setGoods(list);
+        const newList = list
+          .sort((item1, item2) => item1.name.localeCompare(item2.name))
+          .slice(0, 5);
+
+        setGoods(newList);
       });
   };
 
   const redButtonHandler = () => {
     downloadData()
       .then(list => {
-        setGoods(list.filter((item1) => item1.color === 'red'));
+        setGoods(list.filter((item) => item.color === 'red'));
       });
   };
 
   return (
     <>
       <h1>Dynamic list of Goods</h1>
+
       <button type="button" onClick={allButtonHandler}>
         Download all
       </button>
@@ -48,6 +44,7 @@ const App: FC = () => {
       <button type="button" onClick={redButtonHandler}>
         Download red goods
       </button>
+
       {!goods.length
         ? <p>Data of goods is empty. Please load the data</p>
         : <GoodList goods={goods} />}
