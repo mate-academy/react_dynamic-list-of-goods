@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import { ListOfGoods } from './Components/ListOfGoods/ListOfGoods';
 import { Buttons } from './Components/Buttons/Buttons';
-
-const goodsUrl = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
-const getGoods = () => (fetch(goodsUrl).then(response => response.json()));
+import { getGoods } from './api/utils/getGoods';
 
 interface State {
   goods: Good[];
 }
 
-class App extends Component<{}, State> {
+export class App extends Component<{}, State> {
   state = {
     goods: [],
   };
@@ -20,7 +18,7 @@ class App extends Component<{}, State> {
   };
 
   loadFiveFirstGoods = () => {
-    getGoods().then((goods: State['goods']) => {
+    getGoods().then((goods) => {
       this.setState(({
         goods: goods
           .sort((a, b) => a.name.localeCompare(b.name))
@@ -40,8 +38,6 @@ class App extends Component<{}, State> {
   render() {
     const { goods } = this.state;
 
-    console.log(goods);
-
     return (
       <div className="App">
         <h1>List of goods</h1>
@@ -55,5 +51,3 @@ class App extends Component<{}, State> {
     );
   }
 }
-
-export default App;

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-interface Goods {
+interface Props {
   goods: Good[];
 }
 
-export const ListOfGoods: React.FC<Goods> = ({ goods }) => (
+export const ListOfGoods: FC<Props> = ({ goods }) => (
   <ul>
     {goods.map(good => (
       <li
