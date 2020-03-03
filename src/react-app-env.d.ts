@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 /// <reference types="react-scripts" />
 
-interface Good {
+interface Props {
   id: number;
   name: string;
   color: string;

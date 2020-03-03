@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 
-type Goods = { goods: Good[] };
+type Goods = { goods: Props[] };
 
 export const GoodsList: FC<Goods> = ({ goods }) => (
   <ul>
