@@ -14,48 +14,36 @@ class App extends Component<{}, AppState> {
     isLoaded: false,
   };
 
-  loadGoods = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const { name } = event.currentTarget.dataset;
+  loadAllGoods = () => {
+    getGoods()
+      .then(goods => {
+        this.setState({
+          goodsList: goods,
+          isLoaded: true,
+        });
+      });
+  };
 
-    switch (name) {
-      case 'All':
-        getGoods()
-          .then(goods => {
-            this.setState({
-              goodsList: goods,
-              isLoaded: true,
-            });
-          });
+  load5Goods = () => {
+    getGoods()
+      .then(goods => {
+        this.setState({
+          goodsList: goods
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .slice(0, 5),
+          isLoaded: true,
+        });
+      });
+  };
 
-        break;
-
-      case 'FirstFive':
-        getGoods()
-          .then(goods => {
-            this.setState({
-              goodsList: goods
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .slice(0, 5),
-              isLoaded: true,
-            });
-          });
-
-        break;
-
-      case 'Red':
-        getGoods()
-          .then(goods => {
-            this.setState({
-              goodsList: goods.filter(good => good.color === 'red'),
-              isLoaded: true,
-            });
-          });
-
-        break;
-
-      default:
-        break;
-    }
+  loadRedGoods = () => {
+    getGoods()
+      .then(goods => {
+        this.setState({
+          goodsList: goods.filter(good => good.color === 'red'),
+          isLoaded: true,
+        });
+      });
   };
 
   render() {
@@ -66,28 +54,25 @@ class App extends Component<{}, AppState> {
         <button
           className="button"
           type="button"
-          data-name="All"
-          onClick={this.loadGoods}
+          onClick={this.loadAllGoods}
         >
           Load All Goods
         </button>
         <button
           className="button"
           type="button"
-          data-name="FirstFive"
-          onClick={this.loadGoods}
+          onClick={this.load5Goods}
         >
           Load 5 first goods
         </button>
         <button
           className="button"
           type="button"
-          data-name="Red"
-          onClick={this.loadGoods}
+          onClick={this.loadRedGoods}
         >
           Load red goods
         </button>
-        {isLoaded && <GoodsList list={goodsList} />}
+        {isLoaded && <GoodsList goods={goodsList} />}
       </div>
     );
   }

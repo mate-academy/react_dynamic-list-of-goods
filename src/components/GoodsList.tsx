@@ -4,14 +4,14 @@ import { Good } from './Good';
 import './GoodsList.css';
 
 interface Props {
-  list: Goods;
+  goods: Goods;
 }
 
-export const GoodsList: FC<Props> = ({ list }) => {
+export const GoodsList: FC<Props> = ({ goods }) => {
   return (
     <ul>
-      {list.map(good => (
-        <Good key={good.id} good={good} />
+      {goods.map(good => (
+        <Good key={good.id} name={good.name} color={good.color} />
       ))}
     </ul>
   );
