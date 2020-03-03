@@ -1,8 +1,67 @@
 import React from 'react';
+import { GoodList } from './components/GoodsList';
+import { getGoods } from './getGoods';
 import './App.css';
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+interface State {
+  goods: Goods[];
+  minLength: number;
+}
+
+class App extends React.Component<{}, State> {
+  state = {
+    goods: [],
+    minLength: 1,
+  };
+
+  handleStart = () => {
+    getGoods()
+      .then(goods => {
+        this.setState({ goods });
+      });
+  };
+
+  handleFirstFive = async () => {
+    const goods = await getGoods();
+    const fivesGoods = goods.slice(0, 5);
+
+    this.setState({
+      goods: fivesGoods,
+    });
+  };
+
+  handleColorGoods = async () => {
+    const goods = await getGoods();
+    const fivesGoods = goods.filter((good: any) => good.color === 'red');
+
+    this.setState({
+      goods: fivesGoods,
+    });
+  };
+
+  // handleSelectList = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
+  //   this.setState(prevState => ({
+  //     minLength: +target.value,
+  //     goods: prevState.originalGoods
+  //       .filter(good => good.length >= +target.value),
+  //   }));
+  // };
+
+  render() {
+    const { goods, minLength } = this.state;
+
+    return (
+      <>
+        <button type="button" onClick={this.handleStart}>Load All goods</button>
+        <button type="button" onClick={this.handleFirstFive}>Load 5 first goods</button>
+        <button type="button" onClick={this.handleColorGoods}>Load red goods</button>
+        <GoodList
+          goods={goods}
+          minLength={minLength}
+        />
+      </>
+    );
+  }
+}
 
 export default App;
