@@ -1,14 +1,15 @@
 import React, { FC } from 'react';
+import { Good } from '../interfaces';
 import { Goods } from './Goods';
 
-interface Goods {
+interface Props {
   goods: Good[];
   handleClickAllGoods: () => void;
   handleClickFirstFive: () => void;
   handleClickOnlyRed: () => void;
 }
 
-export const GoodsList: FC<Goods> = (props) => {
+export const GoodsList: FC<Props> = (props) => {
   const {
     goods,
     handleClickAllGoods,

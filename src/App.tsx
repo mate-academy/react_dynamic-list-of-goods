@@ -1,20 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
-import { getGoods } from './GoodsApi';
+import { getGoods } from './api/getGoods';
+import { Good } from './interfaces';
 import { GoodsList } from './components/GoodsList';
 
-interface MyState {
+interface State {
   goods: Good[];
 }
 
-interface Good {
-  id: number;
-  name: string;
-  color: string;
-}
-
-class App extends React.Component<{}, MyState> {
-  state: MyState = {
+class App extends Component<{}, State> {
+  state: State = {
     goods: [],
   };
 
@@ -27,14 +22,14 @@ class App extends React.Component<{}, MyState> {
   handleClickFirstFive = () => {
     getGoods().then(goods => this.setState({
       goods: goods
-        .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
+        .sort((a, b) => a.name.localeCompare(b.name))
         .splice(0, 5),
     }));
   };
 
   handleClickOnlyRed = () => {
     getGoods().then(goods => this.setState({
-      goods: goods.filter((good: Good) => good.color === 'red'),
+      goods: goods.filter((good) => good.color === 'red'),
     }));
   };
 

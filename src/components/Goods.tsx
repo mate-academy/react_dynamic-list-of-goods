@@ -1,10 +1,11 @@
 import React, { FC } from 'react';
+import { Good } from '../interfaces';
 
-interface Goods {
+interface Props {
   goods: Good[];
 }
 
-export const Goods: FC<Goods> = ({ goods }) => (
+export const Goods: FC<Props> = ({ goods }) => (
   <ul className="menu-list">
     {Object.values(goods).map(good => (
       <li
