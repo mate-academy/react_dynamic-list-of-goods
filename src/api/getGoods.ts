@@ -10,5 +10,5 @@ const getData = async <T>(url: string): Promise<T> => {
 };
 
 export const getGoods = async (): Promise<Good[]> => {
-  return getData(URL);
+  return getData<Good[]>(URL);
 };

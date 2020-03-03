@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import { getGoods } from './api/getGoods';
 import { Good } from './interfaces';
+
 import { GoodsList } from './components/GoodsList';
+import { GoodsListButtons } from './components/GoodsListButtons';
 
 interface State {
   goods: Good[];
@@ -39,12 +41,17 @@ class App extends Component<{}, State> {
     return (
       <div className="container is-fluid">
         <h1 className="title">List of goods</h1>
-        <GoodsList
-          goods={goods}
+        <GoodsListButtons
           handleClickAllGoods={this.handleClickAllGoods}
           handleClickFirstFive={this.handleClickFirstFive}
           handleClickOnlyRed={this.handleClickOnlyRed}
         />
+        <div className="menu">
+          <p className="menu-label">
+            Goods
+          </p>
+          <GoodsList goods={goods} />
+        </div>
       </div>
     );
   }
