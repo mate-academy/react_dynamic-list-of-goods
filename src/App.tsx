@@ -3,7 +3,11 @@ import './App.css';
 import { GoodsList } from './components/GoodsList/GoodsList';
 import { getGoods } from './api';
 
-class App extends React.Component<{}, Goods> {
+interface State {
+  goods: Goods;
+}
+
+class App extends React.Component<State> {
   state = {
     goods: [],
   };

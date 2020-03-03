@@ -1,7 +1,11 @@
 import React from 'react';
 import './GoodsList.css';
 
-export const GoodsList: React.FC<Goods> = ({ goods }) => (
+interface State {
+  goods: Good[];
+}
+
+export const GoodsList: React.FC<State> = ({ goods }) => (
   <div className="goods">
     <ul className="goods__list">
       {goods.map(good => (
