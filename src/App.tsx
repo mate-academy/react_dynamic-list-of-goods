@@ -1,37 +1,41 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { GoodsList } from './components/GoodList';
+import { GoodsList, Good } from './components/GoodList';
 import { getGoods } from './API';
 
-export default class App extends Component {
+interface State {
+  goods: Good[];
+}
+
+export default class App extends Component<{}, State> {
   state = {
     goods: [],
   };
 
   loadAllGoods = () => {
     getGoods()
-      .then((goods: StateApp['goods']) => {
+      .then(goods => {
         this.setState({ goods });
       });
   };
 
   loadFiveSortedGoods = () => {
     getGoods()
-      .then((goods: StateApp['goods']) => {
+      .then(goods => {
         this.setState(({
           goods: goods
-            .filter(good => good.id < 6)
-            .sort((a, b) => a.name.localeCompare(b.name)),
+            .filter((good: Good) => good.id < 6)
+            .sort((a: Good, b: Good) => a.name.localeCompare(b.name)),
         }));
       });
   };
 
   loadRedGoods = () => {
     getGoods()
-      .then((goods: StateApp['goods']) => {
+      .then(goods => {
         this.setState(({
-          goods: goods.filter(good => good.color === 'red'),
+          goods: goods.filter((good: Good) => good.color === 'red'),
         }));
       });
   };
