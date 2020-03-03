@@ -44,6 +44,7 @@ export class App extends Component<{}, State> {
     return (
       <div className="app">
         <h1 className="title">Dynamic list of Goods</h1>
+
         <Button onClick={this.downloadAllGoods}>
           All goods
         </Button>
@@ -53,6 +54,7 @@ export class App extends Component<{}, State> {
         <Button onClick={this.downloadRedGoods}>
           Red goods
         </Button>
+
         <GoodsList goods={goods} />
       </div>
     );
