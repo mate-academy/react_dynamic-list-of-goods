@@ -39,14 +39,6 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  // handleSelectList = ({ target }: React.ChangeEvent<HTMLSelectElement>) => {
-  //   this.setState(prevState => ({
-  //     minLength: +target.value,
-  //     goods: prevState.originalGoods
-  //       .filter(good => good.length >= +target.value),
-  //   }));
-  // };
-
   render() {
     const { goods, minLength } = this.state;
 
