@@ -14,14 +14,14 @@ export class App extends Component<{}, AppState> {
 
   handleLoadAll = () => {
     getGoods()
-      .then((goods: AppState['goods']) => {
+      .then((goods: Goods) => {
         this.setState({ goods });
       });
   };
 
   handleLoadFive = () => {
     getGoods()
-      .then((goods: AppState['goods']) => {
+      .then((goods: Goods) => {
         this.setState(({
           goods: goods
             .sort((a, b) => a.name.localeCompare(b.name))
@@ -32,7 +32,7 @@ export class App extends Component<{}, AppState> {
 
   handleLoadRed = () => {
     getGoods()
-      .then((goods: AppState['goods']) => {
+      .then((goods: Goods) => {
         this.setState(({
           goods: goods.filter(good => good.color === 'red'),
         }));
@@ -43,6 +43,7 @@ export class App extends Component<{}, AppState> {
     return (
       <div className="App">
         <h1>Dynamic list of Goods</h1>
+
         <button
           type="button"
           onClick={this.handleLoadAll}
@@ -61,6 +62,7 @@ export class App extends Component<{}, AppState> {
         >
           Load red goods
         </button>
+
         <GoodsList goods={this.state.goods} />
       </div>
     );
