@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import './GoodList.css';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   handleRedGoods: () => void;
 }
 
-export const GoodsList = (props: Props) => {
+export const GoodsList: FC<Props> = (props) => {
   const {
     goods,
     handleAllGoods,

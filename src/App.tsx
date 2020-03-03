@@ -10,7 +10,7 @@ interface State {
 }
 
 class App extends React.Component<{}, State> {
-  state: State = {
+  state = {
     renderList: false,
     goods: [],
   };
@@ -42,7 +42,7 @@ class App extends React.Component<{}, State> {
           renderList: true,
           goods: goods
             .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
-            .filter((good: Good) => good.id <= 5),
+            .slice(0, 5),
         });
       });
   };
@@ -78,7 +78,7 @@ class App extends React.Component<{}, State> {
           : (
             <button
               type="button"
-              className="start-button"
+              className="button"
               onClick={this.handleClickStart}
             >
               Load goods
