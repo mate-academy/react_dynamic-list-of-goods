@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
-import { GoodList, Good } from './GoodList';
+import { GoodList } from './GoodList';
+import { Good } from './types';
+import { loadGoods } from './LoadGoods';
 import './App.css';
-
-const loadGoods = () => {
-  const goodsUrl = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
-
-  return fetch(goodsUrl)
-    .then(res => res.json());
-};
 
 interface State {
   goods: Good[];
@@ -55,21 +50,21 @@ class App extends Component<{}, State> {
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
-          className="goods__button"
+          className="button"
           onClick={this.loadAllGoods}
         >
           Load All goods
         </button>
         <button
           type="button"
-          className="goods__button"
+          className="button"
           onClick={this.loadFiveFirstGoods}
         >
           Load 5 first goods
         </button>
         <button
           type="button"
-          className="goods__button"
+          className="button"
           onClick={this.loadRedGoods}
         >
           Load red goods
