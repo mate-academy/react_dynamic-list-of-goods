@@ -1,43 +1,43 @@
 import React from 'react';
 import './App.css';
 import { GoodsList } from './component/GoodsList/GoodsList';
-import { getGoodssFromServer } from './api/goodsListFromServer';
+import { getGoods } from './api/goodsListFromServer';
 
-interface AppTypes {
-  goodsFromServer: Good[];
+interface State {
+  goods: Good[];
 }
 
-export class App extends React.Component<{}, AppTypes> {
+export class App extends React.Component<{}, State> {
   state = {
-    goodsFromServer: [],
+    goods: [],
   };
 
   loadAll = () => {
-    getGoodssFromServer()
+    getGoods()
       .then(good => {
-        this.setState({ goodsFromServer: good });
+        this.setState({ goods: good });
       });
   };
 
   loadRed = () => {
-    getGoodssFromServer()
+    getGoods()
       .then(good => {
-        this.setState({ goodsFromServer: good.filter(item => item.color === 'red') });
+        this.setState({ goods: good.filter(item => item.color === 'red') });
       });
   };
 
   loadFirstFive = () => {
-    getGoodssFromServer()
+    getGoods()
       .then(good => {
         this.setState({
-          goodsFromServer: good.slice(0, 5)
+          goods: good.slice(0, 5)
             .sort((a, b) => a.name.localeCompare(b.name)),
         });
       });
   };
 
   render() {
-    const { goodsFromServer } = this.state;
+    const { goods } = this.state;
 
     return (
       <div>
@@ -45,7 +45,7 @@ export class App extends React.Component<{}, AppTypes> {
         <button type="button" onClick={this.loadAll}>Load all</button>
         <button type="button" onClick={this.loadRed}>Load red</button>
         <button type="button" onClick={this.loadFirstFive}>Load first 5</button>
-        <GoodsList goodsFromServer={goodsFromServer} />
+        <GoodsList goods={goods} />
       </div>
     );
   }

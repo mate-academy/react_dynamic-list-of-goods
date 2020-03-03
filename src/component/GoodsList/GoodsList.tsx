@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
 
-interface StateTypes {
-  goodsFromServer: Good[];
+interface Props {
+  goods: Good[];
 }
 
-export const GoodsList: FC<StateTypes> = ({ goodsFromServer }) => (
+export const GoodsList: FC<Props> = ({ goods }) => (
   <ul>
     {
-      goodsFromServer.map(good => (
+      goods.map(good => (
         <li key={good.id} style={{ color: good.color }}>{good.name}</li>
       ))
     }
