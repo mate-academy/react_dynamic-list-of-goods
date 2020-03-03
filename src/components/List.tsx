@@ -1,15 +1,11 @@
 import React, { FC } from 'react';
-import ListItems from './ListItems';
 
-interface Props {
-  goods: Good[];
-}
-
-
-const List: FC<Props> = ({ goods }) => (
+export const List: FC<Goods> = ({ goods }) => (
   <ul className="list">
-    <ListItems goods={goods} />
+    {goods.map(good => (
+      <li className="item" key={good.id} style={{ color: good.color }}>
+        {good.name}
+      </li>
+    ))}
   </ul>
 );
-
-export default List;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import List from './components/List';
-import Actions from './components/Actions';
+import { List } from './components/List';
+import { Actions } from './components/Actions';
 import { loadGoods } from './api/loadGoods';
 
 interface State {
@@ -9,7 +9,7 @@ interface State {
   isStarted: boolean;
 }
 
-export default class App extends Component<{}, State> {
+export class App extends Component<{}, State> {
   state = {
     goods: [],
     isStarted: false,
@@ -18,7 +18,7 @@ export default class App extends Component<{}, State> {
   onShowAll = () => {
     loadGoods()
       .then(goods => {
-        return this.setState({
+        this.setState({
           goods,
           isStarted: true,
         });
