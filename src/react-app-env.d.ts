@@ -1,9 +1,7 @@
 // eslint-disable-next-line
 /// <reference types="react-scripts" />
 
-interface Goods {
-  goods: Good[];
-}
+type Goods = Good[];
 
 interface Good {
   id: number;

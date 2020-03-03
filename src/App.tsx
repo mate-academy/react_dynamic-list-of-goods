@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList/GoodsList';
 import { getGoods } from './api';
 
 interface State {
-  goods: Goods;
+  goods: Good[];
 }
 
-class App extends React.Component<State> {
+class App extends Component<{}, State> {
   state = {
     goods: [],
   };
@@ -25,7 +25,7 @@ class App extends React.Component<State> {
       this.setState({
         goods: goods
           .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
-          .splice(0, 5),
+          .slice(0, 5),
       });
     });
   };
