@@ -4,30 +4,30 @@ import { Goods } from './Goods';
 import { getGoods } from './api/api';
 
 interface AppState {
-  isLoaded: boolean;
+  isLoading: boolean;
   goods: Good[];
 }
 
 export class App extends React.Component<{}, AppState> {
   state = {
-    isLoaded: false,
+    isLoading: false,
     goods: [],
   };
 
   loadAllGoods = () => {
     this.setState({
-      isLoaded: true,
+      isLoading: true,
     });
 
     getGoods()
       .then(goods => {
-        this.setState({ goods, isLoaded: false });
+        this.setState({ goods, isLoading: false });
       });
   };
 
   loadFirstFiveGoods = () => {
     this.setState({
-      isLoaded: true,
+      isLoading: true,
     });
 
     getGoods()
@@ -36,14 +36,14 @@ export class App extends React.Component<{}, AppState> {
           goods: goods
             .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
             .filter((good: Good) => good.id <= 5),
-          isLoaded: false,
+          isLoading: false,
         });
       });
   };
 
   loadRedGoods = () => {
     this.setState({
-      isLoaded: true,
+      isLoading: true,
     });
 
     getGoods()
@@ -51,18 +51,18 @@ export class App extends React.Component<{}, AppState> {
         this.setState({
           goods: goods
             .filter((good: Good) => good.color === 'red'),
-          isLoaded: false,
+          isLoading: false,
         });
       });
   };
 
   render() {
-    const { isLoaded, goods } = this.state;
+    const { isLoading, goods } = this.state;
 
     return (
       <div className="App">
         <h1>Goods</h1>
-        {isLoaded ? 'loading...' : ''}
+        {isLoading && 'loading...'}
 
         <Goods goods={goods} />
 
