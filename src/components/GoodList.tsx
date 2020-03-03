@@ -6,11 +6,11 @@ export interface Good {
   color: string;
 }
 
-interface GoodsListState {
+interface GoodsList {
   goods: Good[],
 }
 
-export const GoodsList: FC<GoodsListState> = ({ goods }) => (
+export const GoodsList: FC<GoodsList> = ({ goods }) => (
   <ul>
     {goods.map(good => (
       <li key={good.id} style={{ color: good.color }}>
