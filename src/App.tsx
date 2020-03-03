@@ -20,7 +20,7 @@ export class App extends React.Component<{}, AppState> {
     });
 
     getGoods()
-      .then(goods => {
+      .then((goods: Good[]) => {
         this.setState({ goods, isLoading: false });
       });
   };
@@ -31,7 +31,7 @@ export class App extends React.Component<{}, AppState> {
     });
 
     getGoods()
-      .then(goods => {
+      .then((goods: Good[]) => {
         this.setState({
           goods: goods
             .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
@@ -47,7 +47,7 @@ export class App extends React.Component<{}, AppState> {
     });
 
     getGoods()
-      .then(goods => {
+      .then((goods: Good[]) => {
         this.setState({
           goods: goods
             .filter((good: Good) => good.color === 'red'),
