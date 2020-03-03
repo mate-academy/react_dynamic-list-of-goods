@@ -42,41 +42,46 @@ export default class App extends Component<{}, State> {
   render() {
     const { goodsList } = this.state;
 
-    return goodsList.length === 0 ?  (
-        <>
-          <p>
-            Load your Goods
-          </p>
-          <button
-            type="button"
-            onClick={this.showedAllGoods}>
-            Load
-          </button>
-        </>
-      )
-    : (
+    return (
       <div className="App">
         <h1>Goods</h1>
-
-        <button
-          type="button"
-          onClick={this.showedAllGoods}
-        >
-          Load All goods
-        </button>
-        <button
-          type="button"
-          onClick={this.firstFiveSorted}
-        >
-          Load 5 first goods
-        </button>
-        <button
-          type="button"
-          onClick={this.showedRed}
-        >
-          Load red goods
-        </button>
-          <GoodsList goodsList={goodsList} />
+        {(goodsList.length === 0
+          ? (
+            <>
+              <p>
+                Load your Goods
+              </p>
+              <button
+                type="button"
+                onClick={this.showedAllGoods}>
+                Load
+              </button>
+            </>
+          )
+          : (
+            <>
+              <button
+                type="button"
+                onClick={this.showedAllGoods}
+              >
+                Load All goods
+              </button>
+              <button
+                type="button"
+                onClick={this.firstFiveSorted}
+              >
+                Load 5 first goods
+              </button>
+              <button
+                type="button"
+                onClick={this.showedRed}
+              >
+                Load red goods
+              </button>
+              <GoodsList goodsList={goodsList} />
+            </>
+          )
+        )}
       </div>
     );
   }
