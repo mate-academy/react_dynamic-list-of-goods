@@ -8,29 +8,29 @@ interface State {
 }
 
 export class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     goods: [],
   };
 
   loadAll = () => {
     getGoods()
-      .then(good => {
-        this.setState({ goods: good });
+      .then(goods => {
+        this.setState({ goods });
       });
   };
 
   loadRed = () => {
     getGoods()
-      .then(good => {
-        this.setState({ goods: good.filter(item => item.color === 'red') });
+      .then(goods => {
+        this.setState({ goods: goods.filter(item => item.color === 'red') });
       });
   };
 
   loadFirstFive = () => {
     getGoods()
-      .then(good => {
+      .then(goods => {
         this.setState({
-          goods: good.slice(0, 5)
+          goods: goods.slice(0, 5)
             .sort((a, b) => a.name.localeCompare(b.name)),
         });
       });
@@ -42,9 +42,15 @@ export class App extends React.Component<{}, State> {
     return (
       <div>
         <h1>GoodList</h1>
-        <button type="button" onClick={this.loadAll}>Load all</button>
-        <button type="button" onClick={this.loadRed}>Load red</button>
-        <button type="button" onClick={this.loadFirstFive}>Load first 5</button>
+        <button type="button" onClick={this.loadAll}>
+          Load all
+        </button>
+        <button type="button" onClick={this.loadRed}>
+          Load red
+        </button>
+        <button type="button" onClick={this.loadFirstFive}>
+          Load first 5
+        </button>
         <GoodsList goods={goods} />
       </div>
     );
