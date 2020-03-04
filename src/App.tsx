@@ -4,7 +4,7 @@ import { GoodsList } from './components/GoodsList';
 import { getGoods } from './api/api';
 
 interface State {
-  goods: Props[];
+  goods: Good[];
 }
 
 class App extends React.Component<{}, State> {
@@ -20,14 +20,14 @@ class App extends React.Component<{}, State> {
 
   loadFiveGoods = () => {
     getGoods().then(goods => this.setState({
-      goods: goods.sort((a: Props, b: Props) => a.name.localeCompare(b.name))
+      goods: goods.sort((a: Good, b: Good) => a.name.localeCompare(b.name))
         .slice(0, 5),
     }));
   };
 
   loadRedGoods = () => {
     getGoods().then(goods => this.setState({
-      goods: goods.filter((good: Props) => good.color === 'red'),
+      goods: goods.filter((good: Good) => good.color === 'red'),
     }));
   };
 
