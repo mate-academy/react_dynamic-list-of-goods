@@ -1,11 +1,11 @@
-import React from 'react';
-import { Good } from '../react-app-env';
+import React, { FC } from 'react';
+import { Good } from '../api';
 
 interface Props {
-  goods: Good[],
+  goods: Good[];
 }
 
-export const GoodsList: React.FC<Props> = ({ goods }) => (
+export const GoodsList: FC<Props> = ({ goods }) => (
   <ul>
     {goods.map(good => (
       <li
