@@ -1,8 +1,6 @@
-import { GOODS_URL } from '../conatants/const';
+import { GOODS_URL } from '../constants';
 
 export const downloadGoodsList = async (): Promise<Good[]> => {
   return fetch(GOODS_URL)
-    .then(response => {
-      return response.json();
-    });
+    .then(response => response.json());
 };

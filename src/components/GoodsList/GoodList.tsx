@@ -5,9 +5,9 @@ interface Props {
   goods: Good[];
 }
 
-export const GoodList: FC<Props> = (props) => (
+export const GoodList: FC<Props> = ({ goods }) => (
   <ul className="list-group">
-    {props.goods.map(good => (
+    {goods.map(good => (
       <GoodItem
         key={good.id}
         good={good}

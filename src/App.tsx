@@ -14,16 +14,23 @@ export const App: FC = () => {
 
     downloadGoodsList()
       .then(list => {
-        if (filterName === 'sortAndFive') {
-          list.sort((a: Good, b: Good) => a.name.localeCompare(b.name));
-          setGoods(list.slice(0, 5));
-        } else if (filterName === 'redOnly') {
-          setGoods(list.filter((item1: Good) => item1.color === 'red'));
-        } else {
-          setGoods(list);
+        switch (filterName) {
+          case ('sortAndFive'): {
+            list.sort((a: Good, b: Good) => a.name.localeCompare(b.name));
+            break;
+          }
+
+          case ('redOnly'): {
+            setGoods(list.filter((item1: Good) => item1.color === 'red'));
+            break;
+          }
+
+          default: {
+            setGoods(list);
+          }
         }
       }).then(response => {
-      // setTimeout for demo only
+        // setTimeout for demo only
         setTimeout(() => {
           setIsLoading(false);
         }, 500);
