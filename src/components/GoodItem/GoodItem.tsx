@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { FC } from 'react';
 
-export const GoodItem: React.FC<{good: Good}> = (props) => (
-  <li
-    className="list-group-item"
-    style={{ color: props.good.color }}
-  >
-    {props.good.name}
-  </li>
-);
+interface Props {
+  good: Good;
+}
+
+export const GoodItem: FC<Props> = ({ good }) => {
+  const { color, name } = good;
+
+  return (
+    <li
+      className="list-group-item"
+      style={{ color }}
+    >
+      {name}
+    </li>
+  );
+};

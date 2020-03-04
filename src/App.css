@@ -6,13 +6,16 @@
   margin: 20px 5px;
 }
 
+.content {
+  position: relative;
+}
+
 .loader {
-  background: #000  url(./components/images/loader.svg) no-repeat center center;
-  background-size: 60px;
-  position: fixed;
-  top: 0;
+  background: url(./components/images/loader.svg) no-repeat center center;
+  background-size: 31px;
+  width: 31px;
+  height: 31px;
+  position: absolute;
+  top: -51px;
   left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 100;
 }

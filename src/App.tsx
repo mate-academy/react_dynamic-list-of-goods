@@ -1,82 +1,68 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import 'bootswatch/dist/lux/bootstrap.min.css';
 import { GoodList } from './components/GoodsList/GoodList';
 import './App.css';
+import { downloadGoodsList } from './utils/api';
 
-export const App: React.FC = () => {
+export const App: FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const url = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
-
-  const downloadGoodsList = async (): Promise<Good[]> => {
+  const handleFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
     setIsLoading(true);
+    const filterName = event.currentTarget.dataset.name;
 
-    const goodsData = fetch(url)
-      .then(response => {
-        return response.json();
-      });
-
-    // setTimeout for demo only
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 500);
-
-    return goodsData;
-  };
-
-
-  const handleFirstGoods = () => {
     downloadGoodsList()
       .then(list => {
-        list.sort((a: Good, b: Good) => a.name.localeCompare(b.name));
-        list.splice(5);
+        if (filterName === 'sortAndFive') {
+          list.sort((a: Good, b: Good) => a.name.localeCompare(b.name));
+          setGoods(list.slice(0, 5));
+        } else if (filterName === 'redOnly') {
+          setGoods(list.filter((item1: Good) => item1.color === 'red'));
+        } else {
+          setGoods(list);
+        }
+      }).then(response => {
+      // setTimeout for demo only
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 500);
 
-        setGoods(list);
+        return response;
       });
   };
-
-  const handleRedGood = () => {
-    downloadGoodsList()
-      .then(list => setGoods(list
-        .filter((item1: Good) => item1.color === 'red')))
-  };
-
-  const handleAllGoods = () => {
-    downloadGoodsList()
-      .then(list => {
-        setGoods(list);
-      });
-  };
-
 
   return (
     <div className="container text-center">
-      {isLoading && <div className="loader" />}
       <h1 className="title">Dynamic list of Goods</h1>
+
       <button
+        data-name="all"
         type="button"
-        onClick={handleAllGoods}
+        onClick={handleFilter}
         className="btn btn-primary btn-sm"
       >
         Load all products
       </button>
       <button
+        data-name="sortAndFive"
         type="button"
-        onClick={handleFirstGoods}
+        onClick={handleFilter}
         className="btn btn-primary btn-sm"
       >
         Load 5 products
       </button>
       <button
+        data-name="redOnly"
         type="button"
-        onClick={handleRedGood}
+        onClick={handleFilter}
         className="btn btn-primary btn-sm"
       >
         Load Red products
       </button>
-
-      <GoodList goods={goods} />
+      <div className="content">
+        {isLoading ? <div className="loader" /> : <GoodList goods={goods} />}
+      </div>
     </div>
   );
 };
