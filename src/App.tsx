@@ -8,19 +8,19 @@ export const App: FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleFilter = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLoad = (filterName: string) => {
     setIsLoading(true);
-    const filterName = event.currentTarget.dataset.name;
 
     downloadGoodsList()
       .then(list => {
         switch (filterName) {
-          case ('sortAndFive'): {
-            list.sort((a: Good, b: Good) => a.name.localeCompare(b.name));
+          case 'sortAndFive': {
+            setGoods(list.sort((a: Good, b: Good) => a.name.localeCompare(b.name))
+              .slice(0, 5));
             break;
           }
 
-          case ('redOnly'): {
+          case 'redOnly': {
             setGoods(list.filter((item1: Good) => item1.color === 'red'));
             break;
           }
@@ -44,25 +44,22 @@ export const App: FC = () => {
       <h1 className="title">Dynamic list of Goods</h1>
 
       <button
-        data-name="all"
         type="button"
-        onClick={handleFilter}
+        onClick={() => handleLoad('all')}
         className="btn btn-primary btn-sm"
       >
         Load all products
       </button>
       <button
-        data-name="sortAndFive"
         type="button"
-        onClick={handleFilter}
+        onClick={() => handleLoad('sortAndFive')}
         className="btn btn-primary btn-sm"
       >
         Load 5 products
       </button>
       <button
-        data-name="redOnly"
         type="button"
-        onClick={handleFilter}
+        onClick={() => handleLoad('redOnly')}
         className="btn btn-primary btn-sm"
       >
         Load Red products
