@@ -1,0 +1,21 @@
+.title {
+  margin-top: 40px;
+}
+
+.btn {
+  margin: 20px 5px;
+}
+
+.content {
+  position: relative;
+}
+
+.loader {
+  background: url(./components/images/loader.svg) no-repeat center center;
+  background-size: 31px;
+  width: 31px;
+  height: 31px;
+  position: absolute;
+  top: -51px;
+  left: 0;
+}
