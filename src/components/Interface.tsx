@@ -3,3 +3,8 @@ export interface Good {
   name: string;
   color: string;
 }
+
+export interface Button {
+  title: string;
+  clickEvent: () => void;
+}

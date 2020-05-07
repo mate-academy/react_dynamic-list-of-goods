@@ -1,34 +1,21 @@
 import React from 'react';
+import { Button } from './Interface';
 
 interface Props {
-  loadAll: () => void;
-  loadFirstFive: () => void;
-  loadRedGoods: () => void;
+  buttonsDetails: Button[];
 }
-const Buttons: React.FC<Props> = ({ loadAll, loadFirstFive, loadRedGoods }) => {
+const Buttons: React.FC<Props> = ({ buttonsDetails }) => {
   return (
     <div className="container">
-      <button
-        className="button"
-        type="button"
-        onClick={() => loadAll()}
-      >
-        Load All goods
-      </button>
-      <button
-        type="button"
-        className="button"
-        onClick={() => loadFirstFive()}
-      >
-        Load 5 first goods
-      </button>
-      <button
-        className="button"
-        type="button"
-        onClick={() => loadRedGoods()}
-      >
-        Load red goods
-      </button>
+      {buttonsDetails.map(({ title, clickEvent }) => (
+        <button
+          type="button"
+          className="button"
+          onClick={() => clickEvent()}
+        >
+          {title}
+        </button>
+      ))}
     </div>
   );
 };

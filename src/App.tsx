@@ -2,13 +2,14 @@ import React from 'react';
 import './App.css';
 import Buttons from './components/Buttons';
 import GoodsList from './components/GoodsList';
-import { Good } from './components/Interface';
-import { GetElement } from './api/getElement';
+import { Good, Button } from './components/Interface';
+import { getElement } from './api/getElement';
 
 interface State {
   goods: Good[];
   isLoading: boolean;
 }
+
 
 class App extends React.Component {
   state: State = {
@@ -19,7 +20,7 @@ class App extends React.Component {
   loadAll = () => {
     this.setState({ isLoading: true });
 
-    GetElement()
+    getElement()
       .then(goods => this.setState({ goods }))
       .finally(() => {
         this.setState({ isLoading: false });
@@ -29,7 +30,7 @@ class App extends React.Component {
   loadFirstFive = () => {
     this.setState({ isLoading: true });
 
-    GetElement()
+    getElement()
       .then(goods => {
         const sortGoods = goods.sort((a: Good, b: Good) => a.name.localeCompare(b.name));
 
@@ -43,7 +44,7 @@ class App extends React.Component {
   loadRedGoods = () => {
     this.setState({ isLoading: true });
 
-    GetElement()
+    getElement()
       .then(goods => {
         const filteredGoods = goods.filter((good: Good) => good.color === 'red');
 
@@ -57,12 +58,16 @@ class App extends React.Component {
   render() {
     const { goods, isLoading } = this.state;
 
+    const buttonsDetails: Button[] = [
+      { title: 'Load All goods', clickEvent: this.loadAll },
+      { title: 'Load 5 first goods', clickEvent: this.loadFirstFive },
+      { title: 'Load red goods', clickEvent: this.loadRedGoods },
+    ];
+
     return (
       <>
         <Buttons
-          loadAll={this.loadAll}
-          loadFirstFive={this.loadFirstFive}
-          loadRedGoods={this.loadRedGoods}
+          buttonsDetails={buttonsDetails}
         />
         {isLoading ? (
           <p>Loading...</p>
