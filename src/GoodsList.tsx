@@ -1,6 +1,6 @@
 import React from 'react';
 
-const url = 'https://github.com/mate-academy/react_dynamic-list-of-goods/goods.json';
+const url = 'https://vsm2k17.github.io/react_dynamic-list-of-goods/goods.json';
 
 const getGoods = async () => {
   const response = await fetch(url);
