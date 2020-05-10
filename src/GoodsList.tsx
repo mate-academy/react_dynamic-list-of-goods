@@ -1,11 +1,11 @@
 import React from 'react';
 
-const url = 'http://localhost:3000/goods.json';
+const url = 'https://github.com/mate-academy/react_dynamic-list-of-goods/goods.json';
 
 const getGoods = async () => {
-  const resolve = await fetch(url);
+  const response = await fetch(url);
 
-  return resolve.json();
+  return response.json();
 };
 
 type good = {id: number; name: string; color: string};
