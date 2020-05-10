@@ -1,0 +1,40 @@
+html {
+  font-family: sans-serif;
+  font-size: 17px;
+}
+
+body {
+  margin: 0;
+}
+
+.goods {
+  width: 500px;
+  margin: 30px auto;
+}
+
+.goods__container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.buttons {
+  width: 500px;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  padding: 1rem;
+
+  font-size: inherit;
+
+  border: none;
+  border-radius: 0.5rem;
+
+  background-color: tomato;
+  color: #fff;
+
+  cursor: pointer;
+}
