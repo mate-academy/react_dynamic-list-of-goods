@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { getGoods } from './api/api';
 import './App.css';
 import { GoodsList, Goods } from './components/GoodsList';
+import { Button } from './components/Button';
+import { Loader } from './components/Loader';
 
 
 const App: React.FC = () => {
@@ -35,32 +37,22 @@ const App: React.FC = () => {
   return (
     <div className="good-list">
       <h1>Dynamic list of Goods</h1>
-      <button
-        type="button"
-        className="waves-effect waves-light indigo accent-1 btn"
-        onClick={() => loadGoods('all')}
-      >
-        Load All goods
-      </button>
-      <button
-        type="button"
-        className="waves-effect waves-light indigo accent-1 btn"
-        onClick={() => loadGoods('first-5')}
-      >
-        Load 5 first goods
-      </button>
-      <button
-        type="button"
-        className="waves-effect waves-light indigo accent-1 btn"
-        onClick={() => loadGoods('only-red')}
-      >
-        Load red goods
-      </button>
-      {isLoading && (
-        <div className="progress centered #ede7f6 deep-purple lighten-5">
-          <div className="indeterminate deep-purple lighten-2" />
-        </div>
-      )}
+      <Button
+        filter="all"
+        title="Load All goods"
+        loadGoods={loadGoods}
+      />
+      <Button
+        filter="first-5"
+        title="Load 5 first goods"
+        loadGoods={loadGoods}
+      />
+      <Button
+        filter="only-red"
+        title="Load red goods"
+        loadGoods={loadGoods}
+      />
+      {isLoading && <Loader />}
       <GoodsList goods={goods} />
     </div>
   );
