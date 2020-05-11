@@ -1,25 +1,17 @@
 import React from 'react';
 
-const url = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
-
-const getGoods = async () => {
-  const response = await fetch(url);
-
-  return response.json();
-};
+import { getGoods } from './Api';
 
 type good = {id: number; name: string; color: string};
 
+interface State {
+  goods: good[];
+}
+
 export class GoodsList extends React.Component {
-  state = {
+  state: State = {
     goods: [],
   };
-
-  componentDidMount() {
-    getGoods().then(resolve => {
-      this.setState({ goods: resolve });
-    });
-  }
 
   handleClick = (maxValue = Infinity, color?: string) => {
     getGoods().then(resolve => {
