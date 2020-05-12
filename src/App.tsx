@@ -7,24 +7,35 @@ import './App.css';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<IGoodsItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function loadGoods(filterName: string) {
     try {
       const goods = await getGoods();
+      setIsLoading(true);
       switch (filterName) {
         case 'all':
-          setGoods(goods);
+          setTimeout(() => {
+            setGoods(goods);
+            setIsLoading(false);
+          }, 1000);
           break;
 
         case 'firstFive':
-          setGoods([...goods]
-            .sort((a: IGoodsItem, b: IGoodsItem) => a.name.localeCompare(b.name))
-            .slice(0, 5));
+          setTimeout(() => {
+            setGoods([...goods]
+              .sort((a: IGoodsItem, b: IGoodsItem) => a.name.localeCompare(b.name))
+              .slice(0, 5));
+            setIsLoading(false);
+          }, 1000)
           break;
 
         case 'redOnly':
-          setGoods(goods
-            .filter((goodsItem: IGoodsItem) => goodsItem.color === 'red'));
+          setTimeout(() => {
+            setGoods(goods
+              .filter((goodsItem: IGoodsItem) => goodsItem.color === 'red'));
+            setIsLoading(false);
+          }, 1000)
           break;
 
         default:
@@ -55,12 +66,27 @@ const App: React.FC = () => {
           loadGoods={loadGoods}
         />
       </div>
-      <div className="row">
-        <div className="col s6 offset-s3">
-          <GoodsList goods={goods}/>
+      {isLoading ? (
+        <div className="row center-align">
+          <div className="preloader-wrapper small active">
+            <div className="spinner-layer spinner-green-only">
+              <div className="circle-clipper left">
+                <div className="circle"></div>
+              </div><div className="gap-patch">
+                <div className="circle"></div>
+              </div><div className="circle-clipper right">
+                <div className="circle"></div>
+              </div>
+            </div>
+          </div>
         </div>
-
-      </div>
+        ) : (
+          <div className="row">
+            <div className="col s6 offset-s3">
+              <GoodsList goods={goods}/>
+            </div>
+          </div>
+        )}
     </div>
   );
 };
