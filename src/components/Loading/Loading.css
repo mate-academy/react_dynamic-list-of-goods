@@ -1,0 +1,120 @@
+@keyframes ldio-jkl8prmfycb {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.ldio-jkl8prmfycb div {
+  box-sizing: border-box !important;
+}
+
+.ldio-jkl8prmfycb > div {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  top: 76px;
+  left: 76px;
+  border-radius: 50%;
+  border: 4px solid #000;
+  border-color: #20232a transparent;
+  animation: ldio-jkl8prmfycb 0.63s linear infinite;
+}
+
+.ldio-jkl8prmfycb > div:nth-child(2),
+.ldio-jkl8prmfycb > div:nth-child(4) {
+  width: 36px;
+  height: 36px;
+  top: 82px;
+  left: 82px;
+  animation: ldio-jkl8prmfycb 0.63s linear infinite reverse;
+}
+
+.ldio-jkl8prmfycb > div:nth-child(2) {
+  border-color: transparent #61dafb;
+}
+
+.ldio-jkl8prmfycb > div:nth-child(3) {
+  border-color: transparent;
+}
+
+.ldio-jkl8prmfycb > div:nth-child(3) div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+}
+
+.ldio-jkl8prmfycb > div:nth-child(3) div:before,
+.ldio-jkl8prmfycb > div:nth-child(3) div:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  top: -4px;
+  left: 18px;
+  background: #20232a;
+  border-radius: 50%;
+  box-shadow: 0 44px 0 0 #20232a;
+}
+
+.ldio-jkl8prmfycb > div:nth-child(3) div:after {
+  left: -4px;
+  top: 18px;
+  box-shadow: 44px 0 0 0 #20232a;
+}
+
+.ldio-jkl8prmfycb > div:nth-child(4) {
+  border-color: transparent;
+}
+
+.ldio-jkl8prmfycb > div:nth-child(4) div {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: rotate(45deg);
+}
+
+.ldio-jkl8prmfycb > div:nth-child(4) div:before,
+.ldio-jkl8prmfycb > div:nth-child(4) div:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  top: -4px;
+  left: 12px;
+  background: #61dafb;
+  border-radius: 50%;
+  box-shadow: 0 32px 0 0 #61dafb;
+}
+
+.ldio-jkl8prmfycb > div:nth-child(4) div:after {
+  left: -4px;
+  top: 12px;
+  box-shadow: 32px 0 0 0 #61dafb;
+}
+
+.loadingio-spinner-double-ring-6ykkz8fvcky {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  overflow: hidden;
+  background: #f1f2f3;
+}
+
+.ldio-jkl8prmfycb {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+
+.ldio-jkl8prmfycb div {
+  box-sizing: content-box;
+}
