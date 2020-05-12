@@ -4,7 +4,14 @@ import { getGoods } from './GoodsFromServer';
 import GoodsList from './GoodsList';
 import { Good } from './IGood';
 
-class App extends React.Component {
+type AppState = {
+  goods: Good[],
+  isLoading: boolean,
+};
+
+type AppProps = {};
+
+class App extends React.Component<AppProps, AppState> {
   state = {
     goods: [],
     isLoading: false,
