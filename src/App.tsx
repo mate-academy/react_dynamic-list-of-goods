@@ -13,34 +13,28 @@ const App: React.FC = () => {
     try {
       const goods = await getGoods();
       setIsLoading(true);
-      switch (filterName) {
-        case 'all':
-          setTimeout(() => {
-            setGoods(goods);
-            setIsLoading(false);
-          }, 1000);
-          break;
 
-        case 'firstFive':
-          setTimeout(() => {
+      setTimeout(() => {
+        switch (filterName) {
+          case 'firstFive':
             setGoods([...goods]
               .sort((a: IGoodsItem, b: IGoodsItem) => a.name.localeCompare(b.name))
               .slice(0, 5));
             setIsLoading(false);
-          }, 1000)
-          break;
+            break;
 
-        case 'redOnly':
-          setTimeout(() => {
+          case 'redOnly':
             setGoods(goods
               .filter((goodsItem: IGoodsItem) => goodsItem.color === 'red'));
             setIsLoading(false);
-          }, 1000)
-          break;
+            break;
 
-        default:
-          break;
-      }
+          default:
+            setGoods(goods);
+            setIsLoading(false);
+            break;
+        }
+      }, 1000);
 
     } catch (error) {
       console.log(error);
