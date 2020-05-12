@@ -1,7 +1,7 @@
 
-const getGoods = async () => {
+const getGoods = () => {
   const API_URL = 'http://localhost:3000';
-  const goods = await fetch(`${API_URL}/goods.json`).then(response => response.json());
+  const goods = fetch(`${API_URL}/goods.json`).then(response => response.json());
 
   return goods;
 };
