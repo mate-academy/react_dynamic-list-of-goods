@@ -3,7 +3,7 @@ import React from 'react';
 type ButtonProps = {
   title: string
   filterName: string
-  loadGoods: Function
+  loadGoods: (filterName: string) => void
 }
 
 export const Button: React.FC<ButtonProps> = ({
