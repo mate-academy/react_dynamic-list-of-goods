@@ -1,0 +1,26 @@
+li {
+  list-style-type: none;
+}
+
+ul {
+  text-align: center;
+  padding: 0;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+.mr {
+  margin-right: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.snip {
+  position: absolute;
+  left: calc(50% - 15px);
+}
