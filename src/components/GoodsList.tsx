@@ -7,7 +7,7 @@ export interface Good {
 }
 
 export interface GoodsArr {
-  goods: IGood[];
+  goods: Good[];
 }
 
 export const GoodsList: React.FC<GoodsArr> = ({ goods }) => {
