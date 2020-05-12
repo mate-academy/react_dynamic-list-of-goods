@@ -1,0 +1,59 @@
+body {
+  background: #f5f5f5;
+  width: 100vw;
+}
+
+h1 {
+  text-align: center;
+}
+
+.goodslist {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 50px;
+}
+
+.good {
+  margin-bottom: 15px;
+  list-style: none;
+  font-size: 28px;
+}
+
+.goods-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button {
+  display: inline-block;
+  width: 180px;
+  height: 40px;
+  text-decoration: none;
+  border-radius: 4px;
+  color: #a675b3;
+  text-align: center;
+  line-height: 30px;
+  margin: 20px 10px;
+  font-size: 17px;
+  border-style: none;
+  outline: none;
+}
+
+.button:not(.active) {
+  box-shadow: inset 0 1px 1px #6f377dcc, inset 0 -1px 0 #3f3b7133;
+  background-image: linear-gradient(#3b2751, #271739);
+  text-shadow: 0 0 21px #dfcee480, 0 -1px 0 #311d47;
+}
+
+.button:not(.active):hover,
+.button:not(.active):focus {
+  transition: color 200ms linear, text-shadow 500ms linear;
+  color: #fff;
+  text-shadow: 0 0 21px #dfcee480, 0 0 10px #dfcee466, 0 0 2px #2a153c;
+}
+
+.button:not(:hover) {
+  transition: 0.6s;
+}
