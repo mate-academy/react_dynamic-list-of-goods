@@ -1,11 +1,15 @@
 import React from 'react';
-
+import { SortButtons } from './SortButtons';
 import { getGoods } from './Api';
 
-type good = {id: number; name: string; color: string};
+interface Good {
+  id: number;
+  name: string;
+  color: string;
+}
 
 interface State {
-  goods: good[];
+  goods: Good[];
 }
 
 export class GoodsList extends React.Component {
@@ -15,7 +19,7 @@ export class GoodsList extends React.Component {
 
   handleClick = (maxValue = Infinity, color?: string) => {
     getGoods().then(resolve => {
-      const filteredArray = resolve.filter((good: good, index: number) => index < maxValue
+      const filteredArray = resolve.filter((good: Good, index: number) => index < maxValue
         && good.color === (!color ? good.color : color));
 
       this.setState({ goods: filteredArray });
@@ -28,30 +32,22 @@ export class GoodsList extends React.Component {
     return (
       <div>
         <ul>
-          {goods.map((good: good) => {
-            const style = {
+          {goods.map(good => {
+            const goodStyle = {
               color: good.color,
             };
 
             return (
               <li
                 key={good.id}
-                style={style}
+                style={goodStyle}
               >
                 {good.name}
               </li>
             );
           })}
         </ul>
-        <button type="button" onClick={() => this.handleClick()}>
-          Load All goods
-        </button>
-        <button type="button" onClick={() => this.handleClick(5)}>
-          Load 5 first goods
-        </button>
-        <button type="button" onClick={() => this.handleClick(Infinity, 'red')}>
-          Load red goods
-        </button>
+        <SortButtons handleClick={this.handleClick} />
       </div>
     );
   }
