@@ -18,7 +18,7 @@ const App: React.FC = () => {
         switch (filterName) {
           case 'firstFive':
             setGoods([...goods]
-              .sort((a: IGoodsItem, b: IGoodsItem) => a.name.localeCompare(b.name))
+              .sort((a, b) => a.name.localeCompare(b.name))
               .slice(0, 5));
             setIsLoading(false);
             break;
