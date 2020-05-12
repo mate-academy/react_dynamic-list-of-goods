@@ -17,8 +17,8 @@ class App extends React.Component<AppProps, AppState> {
     isLoading: false,
   };
 
-  loadGoods = (event: any) => {
-    const id: string = event.target.id;
+  loadGoods = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const id = event.currentTarget.id;
 
     this.setState({ isLoading: true });
 
