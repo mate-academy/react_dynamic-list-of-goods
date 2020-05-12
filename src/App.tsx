@@ -11,16 +11,18 @@ class App extends React.Component {
   };
 
   loadGoods = (event: any) => {
+    const id: string = event.target.id;
+
     this.setState({ isLoading: true });
 
-    if (event.target.id === 'all') {
+    if (id === 'all') {
       getGoods()
         .then(goods => {
           this.setState({ goods, isLoading: false });
         });
     }
 
-    if (event.target.id === 'first5') {
+    if (id === 'first5') {
       getGoods()
         .then(goods => {
           this.setState({
@@ -30,7 +32,7 @@ class App extends React.Component {
         });
     }
 
-    if (event.target.id === 'red') {
+    if (id === 'red') {
       getGoods()
         .then(goods => {
           this.setState({
