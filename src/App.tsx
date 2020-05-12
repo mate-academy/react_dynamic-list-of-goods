@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { GoodList, Goods } from './components/GoodList';
 import { getElements } from './components/api';
-
-interface State {
-  goods: Array<Goods>;
-  isLoading: boolean;
-}
+import { State } from './components/interface';
 
 export default class App extends Component {
   state: State = {
@@ -22,7 +18,7 @@ export default class App extends Component {
     });
   };
 
-  downloadSome = () => {
+  loadFirstFiveGoods = () => {
     this.setState({ isLoading: true });
 
     getElements().then(goods => {
@@ -33,12 +29,12 @@ export default class App extends Component {
     });
   };
 
-  sortData = () => {
+  loadRedGoods = (color: string) => {
     this.setState({ isLoading: true });
 
     getElements().then(goods => {
       this.setState({
-        goods: goods.filter((good: Goods) => good.color === 'red'),
+        goods: goods.filter((good: Goods) => good.color === color),
         isLoading: false,
       });
     });
@@ -61,14 +57,14 @@ export default class App extends Component {
           <button
             type="button"
             className="button"
-            onClick={this.downloadSome}
+            onClick={this.loadFirstFiveGoods}
           >
             Load 5 first goods
           </button>
           <button
             type="button"
             className="button"
-            onClick={this.sortData}
+            onClick={() => this.loadRedGoods('red')}
           >
             Load red goods
           </button>
