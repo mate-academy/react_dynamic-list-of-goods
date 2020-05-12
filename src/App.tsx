@@ -30,7 +30,7 @@ const buttonForFilter = [
 const App: React.FC = () => {
 const [goods, setGoods] =  useState<Good[]>([]);
 const [isLoading, loadData] =  useState<boolean>(false);
-const [filter, setFilter] = useState<string>(buttonForFilter[1].type);
+const [filter, setFilter] = useState<string>('');
 
 useEffect(()=>{
   getGoodsByParams(filter);
@@ -40,19 +40,17 @@ useEffect(()=>{
 const getGoodsByParams = async (type: string) => {
   loadData(true);
   const goodsFromServer = await getGoods();
-    if (type === FILTER_TYPES.all) {
-      console.log(goodsFromServer);
-    setGoods(goodsFromServer || []);
-    }
-    if (type === FILTER_TYPES.red) {
-      setGoods(goodsFromServer.filter((good) => (good.color === 'red')) || []);
-    }
-    if (type === FILTER_TYPES.firstFive) {
-      setGoods(goodsFromServer.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5) || []);
-    }
+  if (type === FILTER_TYPES.all) {
+  setGoods(goodsFromServer || []);
+  }
+  if (type === FILTER_TYPES.red) {
+    setGoods(goodsFromServer.filter((good) => (good.color === 'red')) || []);
+  }
+  if (type === FILTER_TYPES.firstFive) {
+    setGoods(goodsFromServer.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5) || []);
+  }
 }
 
-console.log(goods);
   return (
     <>
       <h1>Dynamic list of Goods</h1>
