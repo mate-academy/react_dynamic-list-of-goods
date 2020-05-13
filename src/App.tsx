@@ -20,20 +20,19 @@ const App: React.FC = () => {
             setGoods([...goods]
               .sort((a, b) => a.name.localeCompare(b.name))
               .slice(0, 5));
-            setIsLoading(false);
             break;
 
           case 'redOnly':
             setGoods(goods
               .filter((goodsItem: IGoodsItem) => goodsItem.color === 'red'));
-            setIsLoading(false);
             break;
 
           default:
             setGoods(goods);
-            setIsLoading(false);
             break;
         }
+
+        setIsLoading(false);
       }, 1000);
 
     } catch (error) {
