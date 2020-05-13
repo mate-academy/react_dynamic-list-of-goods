@@ -8,12 +8,12 @@ interface Good {
   color: string;
 }
 
-interface State {
+type State = {
   goods: Good[];
-}
+};
 
-export class GoodsList extends React.Component {
-  state: State = {
+export class GoodsList extends React.Component<{}, State> {
+  state = {
     goods: [],
   };
 
@@ -32,7 +32,7 @@ export class GoodsList extends React.Component {
     return (
       <div>
         <ul>
-          {goods.map(good => {
+          {goods.map((good: Good) => {
             const goodStyle = {
               color: good.color,
             };
