@@ -44,7 +44,7 @@ class App extends Component<{}, State> {
       getGoodsList()
         .then((goodsList) => {
           this.setState({
-            goodsList: goodsList.slice(0, num - 1),
+            goodsList: goodsList.slice(0, num),
             isLoading: false,
           });
         });
