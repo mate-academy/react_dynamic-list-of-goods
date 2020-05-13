@@ -1,8 +1,13 @@
 import React from 'react';
 import './App.css';
+import { GoodsList } from './GoodsList';
 
 const App = () => (
-  <h1>Dynamic list of Goods</h1>
+  <div>
+    <h1>List of Goods</h1>
+    <GoodsList />
+  </div>
 );
+
 
 export default App;
