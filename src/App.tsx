@@ -58,7 +58,7 @@ export default class App extends React.Component {
           className="button button__redGoods"
           onClick={this.LoadRedGoods}
         >
-          Show 5 first goods
+          Show red goods
         </button>
         <div className="GoodsList">
           <GoodsList goods={goods} />
