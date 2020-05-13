@@ -2,7 +2,7 @@
 import React from 'react';
 
 import { GoodItem } from './GoodItem';
-import { Good } from './interfaces';
+
 
 type GoodsListProps = {
   goods: Good[];

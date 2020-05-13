@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 type GoodItemProps = {
   id: number;
   name: string;
