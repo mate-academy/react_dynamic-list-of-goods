@@ -7,8 +7,8 @@ interface Props {
   goods: Array<Goods>;
 }
 
-export const GoodsList = (props: Props) => {
-  const { goods } = props;
+export const GoodsList = ({ goods }: Props) => {
+  // const { goods } = props;
 
   return (
     <div>

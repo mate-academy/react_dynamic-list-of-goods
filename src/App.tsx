@@ -9,7 +9,7 @@ export default class App extends React.Component {
     goods: [],
   };
 
-  LoadAllGoods = () => {
+  loadAllGoods = () => {
     getGoods().then(goods => {
       this.setState({
         goods,
@@ -17,7 +17,7 @@ export default class App extends React.Component {
     });
   };
 
-  LoadFiveFirstGoods = () => {
+  loadFiveFirstGoods = () => {
     getGoods().then(goods => {
       this.setState({
         goods: goods.sort((a: Goods, b: Goods) => a.name.localeCompare(b.name)).slice(0, 5),
@@ -25,7 +25,7 @@ export default class App extends React.Component {
     });
   };
 
-  LoadRedGoods = () => {
+  loadRedGoods = () => {
     getGoods().then(goods => {
       this.setState({
         goods: goods.filter((good: Goods) => good.color === 'red'),
@@ -42,21 +42,21 @@ export default class App extends React.Component {
         <button
           type="button"
           className="button button__loadAll"
-          onClick={this.LoadAllGoods}
+          onClick={this.loadAllGoods}
         >
           Show List
         </button>
         <button
           type="button"
           className="button button__fiveFirst"
-          onClick={this.LoadFiveFirstGoods}
+          onClick={this.loadFiveFirstGoods}
         >
           Show 5 first goods
         </button>
         <button
           type="button"
           className="button button__redGoods"
-          onClick={this.LoadRedGoods}
+          onClick={this.loadRedGoods}
         >
           Show red goods
         </button>
