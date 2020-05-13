@@ -3,3 +3,9 @@ export interface IGoodsItem {
   name: string
   color: string
 }
+
+export interface IFilters {
+  id: number
+  name: string
+  title: string
+}

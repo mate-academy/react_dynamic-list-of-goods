@@ -1,4 +1,6 @@
-export const FILTERS = [
+import { IFilters } from "./interfaces";
+
+export const FILTERS: IFilters[] = [
   {
     id: 1,
     name: 'all',
