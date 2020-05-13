@@ -24,7 +24,7 @@ const App: React.FC = () => {
 
           case 'redOnly':
             setGoods(goods
-              .filter((goodsItem: IGoodsItem) => goodsItem.color === 'red'));
+              .filter(goodsItem => goodsItem.color === 'red'));
             break;
 
           default:
