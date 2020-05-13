@@ -4,6 +4,12 @@ import { getGoods } from './GoodsFromServer';
 import GoodsList from './GoodsList';
 import { Good } from './IGood';
 
+const FILTERS = {
+  all: "all",
+  first5: "first5",
+  red: "red"
+}
+
 type AppState = {
   goods: Good[],
   isLoading: boolean,
@@ -22,14 +28,14 @@ class App extends React.Component<AppProps, AppState> {
 
     this.setState({ isLoading: true });
 
-    if (id === 'all') {
+    if (id === FILTERS.all) {
       getGoods()
         .then(goods => {
           this.setState({ goods, isLoading: false });
         });
     }
 
-    if (id === 'first5') {
+    if (id === FILTERS.first5) {
       getGoods()
         .then(goods => {
           this.setState({
@@ -39,7 +45,7 @@ class App extends React.Component<AppProps, AppState> {
         });
     }
 
-    if (id === 'red') {
+    if (id === FILTERS.red) {
       getGoods()
         .then(goods => {
           this.setState({
