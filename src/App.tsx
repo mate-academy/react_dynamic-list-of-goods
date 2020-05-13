@@ -27,7 +27,9 @@ class App extends Component<Props, State> {
     getGoodsList()
       .then(data => {
         this.setState({
-          goods: data.slice(0, 5),
+          goods: data.slice(0, 5).sort((a: { name: string }, b: { name: string }) => (
+            a.name.localeCompare(b.name)
+          )),
         });
       });
   };

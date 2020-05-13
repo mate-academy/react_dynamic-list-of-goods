@@ -6,8 +6,3 @@ interface Goods {
   name: string;
   color: string;
 }
-
-type Props = {
-  name?: string;
-  color?: string;
-};
