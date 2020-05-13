@@ -9,7 +9,10 @@ const GoodsList: React.FC<Props> = ({ goodsList }) => {
   return (
     <ul>
       {goodsList.map((goodsItem: GoodsItem) => (
-        <GoodsItem key={goodsItem.id} goodsItem={goodsItem} />
+        <GoodsItem
+          key={goodsItem.id}
+          goodsItem={goodsItem}
+        />
       ))}
     </ul>
   );
