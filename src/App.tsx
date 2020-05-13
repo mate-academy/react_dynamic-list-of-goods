@@ -53,8 +53,8 @@ export class App extends React.Component<AppProps, AppState> {
       .then((goodsFromServer) => {
         this.setState({
           goods: goodsFromServer
-            .slice(0, 5)
-            .sort((a: Good, b: Good) => a.name.localeCompare(b.name)),
+            .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
+            .slice(0, 5),
           isLoaded: false,
         });
       });
