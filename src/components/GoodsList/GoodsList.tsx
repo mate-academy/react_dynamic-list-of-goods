@@ -5,7 +5,7 @@ type Props = {
   goods: IGood[];
 }
 
-const GoodList: React.FC<Props> = ({ goods }) => {
+const GoodList: React.FunctionComponent<Props> = ({ goods }) => {
   return (
     <ul>
       {goods.map((good: IGood) => (

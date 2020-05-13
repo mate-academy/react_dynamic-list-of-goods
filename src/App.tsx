@@ -3,22 +3,37 @@ import { getGoods } from './helpers/api';
 import GoodsList from './components/GoodsList/GoodsList';
 import './App.css';
 import { IGood } from './models/IGood';
+import { Button } from 'reactstrap';
+import { Spinner } from 'reactstrap';
 
 
 export default class App extends React.Component {
   state = {
-    goods: []
+    goods: [],
+    isLoading: false
   }
 
-  showAllGoods = () => {
-    getGoods()
+  _getData = (dataReceiver:() => Promise<any>):any => {
+    this.setState({
+      isLoading: true
+    });
+    dataReceiver().finally(()=>{
+      this.setState({
+        isLoading: false
+      });
+    });
+  }
+  showAllGoods = (): Promise<void> => {
+   return getGoods()
       .then((goodsFromServer) => {
-        this.setState({ goods: goodsFromServer as IGood[] });
+        this.setState({
+          goods: goodsFromServer as IGood[]
+        });
       });
   };
 
   showFiveGoods = () => {
-    getGoods()
+   return getGoods()
       .then(goodsFromServer => {
         this.setState({
           goods: [...goodsFromServer]
@@ -29,37 +44,43 @@ export default class App extends React.Component {
   };
 
   showRedGoods = () => {
-    getGoods()
+   return getGoods()
       .then((goodsFromServer) => {
         this.setState({ goods: goodsFromServer.filter((good: IGood) => good.color === 'red') });
       });
   };
 
 
+
   render() {
-    const { goods } = this.state;
+    const { goods, isLoading } = this.state;
+    if (isLoading) {
+      return <p> Is loading ... <Spinner size="sm" color="secondary" /></p>
+    }
+
     return (
       <>
         <h1>Dynamic list of Goods</h1>
         <GoodsList goods={goods} />
-        <button
+        <Button outline color="info"
           type="button"
-          onClick={this.showAllGoods}
+          onClick={()=> this._getData(this.showAllGoods)}
         >
           Load all
-        </button>
-        <button
+        </Button>
+        <Button outline color="success"
           type="button"
-          onClick = {this.showFiveGoods}
+          onClick={()=> this._getData(this.showFiveGoods)}
         >
           Load 5 goods
-        </button>
-        <button
+        </Button>
+        <Button outline
+          color="danger"
           type="button"
-          onClick = {this.showRedGoods}
+          onClick={()=> this._getData(this.showRedGoods)}
         >
           Load only red
-        </button>
+        </Button>
       </>
     )
   }
