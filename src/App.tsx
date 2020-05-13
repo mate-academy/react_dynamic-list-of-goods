@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { getGoods } from './helpers/api';
-import { GoodsList } from './components/GoodsList';
 import { IGoodsItem } from './helpers/interfaces';
-import { Button } from './components/Button';
+import { FILTERS } from './helpers/filters';
+import { GoodsList } from './components/GoodsList';
 import './App.css';
 
 const App: React.FC = () => {
@@ -44,21 +44,16 @@ const App: React.FC = () => {
   return (
     <div className="container">
       <div className="row center-align">
-        <Button
-          title="Load All goods"
-          filterName="all"
-          loadGoods={loadGoods}
-        />
-        <Button
-          title="Load 5 first goods"
-          filterName="firstFive"
-          loadGoods={loadGoods}
-        />
-        <Button
-          title="Load red goods"
-          filterName="redOnly"
-          loadGoods={loadGoods}
-        />
+        {FILTERS.map(({ id, name, title }) => (
+          <button
+            key={id}
+            type="button"
+            className="waves-effect waves-light btn-large mx1"
+            onClick={() => loadGoods(name)}
+          >
+            {title}
+          </button>
+        ))}
       </div>
       {isLoading ? (
         <div className="row center-align">
