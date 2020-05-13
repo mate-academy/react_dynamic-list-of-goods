@@ -11,8 +11,8 @@ interface State {
   loading: boolean;
 }
 
-class App extends React.Component<{}, State> {
-  state = {
+class App extends React.Component {
+  state: State = {
     goods: [],
     loading: false,
   };
