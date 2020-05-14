@@ -23,7 +23,7 @@ class App extends React.Component {
     });
     setTimeout(() => {
       getGoods()
-        .then(goods => this.setState({ goods }))
+        .then((goods: Good[]) => this.setState({ goods }))
         .finally(() => {
           this.setState({ loading: false });
         });
@@ -36,10 +36,10 @@ class App extends React.Component {
     });
     setTimeout(() => {
       getGoods()
-        .then(goods => {
+        .then((goods: Good[]) => {
           this.setState({
             goods: goods
-              .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
+              .sort((a,b) => a.name.localeCompare(b.name))
               .slice(0, 5),
           });
         })
@@ -55,7 +55,7 @@ class App extends React.Component {
     });
     setTimeout(() => {
       getGoods()
-        .then(goods => {
+        .then((goods: Good[]) => {
           this.setState({ goods: goods.filter((good: Good) => good.color === 'red') });
         })
         .finally(() => {
