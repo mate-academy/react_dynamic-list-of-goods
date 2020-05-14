@@ -3,11 +3,11 @@ import './App.css';
 
 import { getGoods } from './helpers/goods';
 
-import { GoodsList, Good, GoodsArr } from './components/GoodsList';
+import { GoodsList } from './components/GoodsList';
 
 
-class App extends React.Component<{}, GoodsArr> {
-  state = {
+class App extends React.Component {
+  state:GoodsArr = {
     goods: [],
   };
 
