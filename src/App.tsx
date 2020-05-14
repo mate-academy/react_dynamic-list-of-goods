@@ -1,65 +1,39 @@
-import React, { Component } from 'react';
+import React, { ChangeEventHandler, Component } from 'react';
 import { getGoods } from './api/getGoods';
 import GoodsList from './components/GoodsList';
-import Button from './components/Button';
+import Buttons, { filterConfigs } from './components/Buttons';
 import './App.scss';
-
-interface FilterConfigs {
-  all: string;
-  firstFive: string;
-  color: string;
-}
-
-interface FilterButtons {
-  id: number;
-  name: string;
-}
-
-const filterConfigs: FilterConfigs = {
-  all: 'Load goods',
-  firstFive: 'Load first five goods',
-  color: 'Load red goods',
-};
-
-const FILTER_BUTTONS: FilterButtons[] = [
-  {
-    id: 0,
-    name: filterConfigs.all,
-  },
-  {
-    id: 1,
-    name: filterConfigs.firstFive,
-  },
-  {
-    id: 2,
-    name: filterConfigs.color,
-  },
-];
 
 type State = {
   goods: Good[];
   error: string;
-  active: boolean[];
+  active: {};
+  selectedColor: string;
 };
 
 class App extends Component<{}, State> {
   state = {
     goods: [],
     error: '',
-    active: [false, false, false],
+    active: {
+      activeLoad: false,
+      activeLoadFive: false,
+      activeLoadColor: false,
+    },
+    selectedColor: '',
   };
 
-  /* eslint-disable no-return-assign, no-param-reassign */
-  loadGoods = async (id: number, name: string) => {
+  handleChange: ChangeEventHandler<HTMLSelectElement> = (event) => {
+    const { name, value } = event.target;
+
+    this.setState(state => ({ ...state, [name]: value }));
+    this.loadGoods(value);
+  };
+
+  loadGoods = async (name: string) => {
     getGoods()
       .then(goods => this.filterGoods(goods, name))
-      .then(goods => this.setState(state => ({
-        goods,
-        error: '',
-        active: state.active.map((_bool: boolean, idx: number): boolean => (
-          id === idx ? _bool = true : _bool = false
-        )),
-      })))
+      .then(goods => this.setState({ goods, error: '' }))
       .catch((error) => {
         this.setState({
           error: `Something went wrong! ${error}`,
@@ -69,37 +43,58 @@ class App extends Component<{}, State> {
   };
 
   filterGoods = async (goods: Good[], name: string) => {
-    if (name === filterConfigs.color) {
-      return goods.filter((good: Good) => good.color === name) || [];
-    }
+    const { selectedColor } = this.state;
 
     if (name === filterConfigs.firstFive) {
+      this.setState({
+        active: {
+          activeLoad: false,
+          activeLoadFive: true,
+          activeLoadColor: false,
+        },
+      });
+
       return goods
         .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
         .slice(0, 5) || [];
     }
 
+    if (name === selectedColor) {
+      this.setState({
+        active: {
+          activeLoad: false,
+          activeLoadFive: false,
+          activeLoadColor: true,
+        },
+      });
+
+      return goods.filter((good: Good) => good.color === selectedColor) || [];
+    }
+
+    this.setState({
+      active: {
+        activeLoad: true,
+        activeLoadFive: false,
+        activeLoadColor: false,
+      },
+    });
+
     return goods;
   };
 
   render() {
-    const { goods, error, active } = this.state;
+    const { goods, error, active, selectedColor } = this.state;
 
     return (
       <section className="goods">
         <h1 className="main-title">Dynamic List Of Goods</h1>
 
-        <div className="goods__buttons-container">
-          {FILTER_BUTTONS.map(({ id, name }) => (
-            <Button
-              key={id}
-              handleClick={() => this.loadGoods(id, name)}
-              active={active[id]}
-            >
-              {name}
-            </Button>
-          ))}
-        </div>
+        <Buttons
+          handleClick={this.loadGoods}
+          onChange={this.handleChange}
+          {...active}
+          selectedColor={selectedColor}
+        />
 
         <div className="goods__error">{error}</div>
 
