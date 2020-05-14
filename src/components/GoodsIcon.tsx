@@ -1,10 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ReactHtmlParser from 'react-html-parser';
 
-/* eslint max-len: ["error", { "ignoreTemplateLiterals": true }] */
-const GoodsIcon = ({ commodity, w, h }) => {
-  const drawSvg = (name) => {
+type Props = {
+  commodity: string;
+  w: string;
+  h: string;
+};
+
+export const GoodsIcon: React.FC<Props> = ({ commodity, w, h }) => {
+  const drawSvg = (name: string): string => {
     switch (name) {
       case 'Apple':
         return `
@@ -74,11 +78,3 @@ const GoodsIcon = ({ commodity, w, h }) => {
     </svg>
   );
 };
-
-GoodsIcon.propTypes = {
-  commodity: PropTypes.string.isRequired,
-  w: PropTypes.string.isRequired,
-  h: PropTypes.string.isRequired,
-};
-
-export default GoodsIcon;

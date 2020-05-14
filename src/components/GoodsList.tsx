@@ -1,5 +1,5 @@
 import React from 'react';
-import GoodsIcon from './GoodsIcon';
+import { GoodsIcon } from './GoodsIcon';
 
 type Props = {
   goods: Good[];
