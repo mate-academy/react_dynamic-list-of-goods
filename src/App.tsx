@@ -34,7 +34,9 @@ class App extends React.Component<AppProps, AppState> {
     getGoods()
       .then((goodsFromServer) => {
         this.setState({
-          goods: [...goodsFromServer].slice(0, 5),
+          goods: [...goodsFromServer]
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .slice(0, 5),
         });
       });
   };
