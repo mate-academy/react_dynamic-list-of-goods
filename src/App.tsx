@@ -86,20 +86,23 @@ class App extends Component<{}, State> {
     const { goods, error, active, selectedColor } = this.state;
 
     return (
-      <section className="goods">
-        <h1 className="main-title">Dynamic List Of Goods</h1>
+      <div className="page">
+        <h1 className="page__title">Dynamic List Of Goods</h1>
+        <section className="goods">
 
-        <Buttons
-          handleClick={this.loadGoods}
-          onChange={this.handleChange}
-          {...active}
-          selectedColor={selectedColor}
-        />
+          <Buttons
+            handleClick={this.loadGoods}
+            onChange={this.handleChange}
+            {...active}
+            selectedColor={selectedColor}
+          />
 
-        <div className="goods__error">{error}</div>
+          <div className="goods__error">{error}</div>
 
-        <GoodsList goodsList={goods} />
-      </section>
+          <GoodsList goods={goods} />
+        </section>
+      </div>
+
     );
   }
 }
