@@ -13,12 +13,6 @@ export class App extends React.Component<{}, State> {
     goodsList: [],
   };
 
-  componentDidMount() {
-    getGoodsList().then((goodsList) => {
-      this.setState({ goodsList });
-    });
-  }
-
   handleLoadAllGoods = () => {
     getGoodsList().then((goodsList) => {
       this.setState({ goodsList });
@@ -26,11 +20,16 @@ export class App extends React.Component<{}, State> {
   };
 
   handleLoadSomeGoods = (number: number) => {
-    getGoodsList().then((goodsList) => {
-      this.setState({
-        goodsList: goodsList.slice(0, number),
+    const sortGoodsList = (goods: GoodsItem[]) => (
+      [...goods].sort((a, b) => a.name.localeCompare(b.name)));
+
+    getGoodsList()
+      .then(sortGoodsList)
+      .then((goodsList) => {
+        this.setState({
+          goodsList: goodsList.slice(0, number),
+        });
       });
-    });
   };
 
   handleLoadGoodsByColor = (color: string) => {
@@ -45,29 +44,31 @@ export class App extends React.Component<{}, State> {
     const { goodsList } = this.state;
 
     return (
-      <div>
+      <div className="goods-list-wrap">
+        <div className="goods-list__button-wrap">
+          <button
+            type="button"
+            className="goods-list__button"
+            onClick={this.handleLoadAllGoods}
+          >
+            Load All goods
+          </button>
+          <button
+            type="button"
+            className="goods-list__button"
+            onClick={() => this.handleLoadSomeGoods(5)}
+          >
+            Load 5 first goods
+          </button>
+          <button
+            type="button"
+            className="goods-list__button"
+            onClick={() => this.handleLoadGoodsByColor('red')}
+          >
+            Load red goods
+          </button>
+        </div>
         <GoodsList goodsList={goodsList} />
-        <button
-          type="button"
-          className="goods-list__button"
-          onClick={this.handleLoadAllGoods}
-        >
-          Load All goods
-        </button>
-        <button
-          type="button"
-          className="goods-list__button"
-          onClick={() => this.handleLoadSomeGoods(5)}
-        >
-          Load 5 first goods
-        </button>
-        <button
-          type="button"
-          className="goods-list__button"
-          onClick={() => this.handleLoadGoodsByColor('red')}
-        >
-          Load red goods
-        </button>
       </div>
     );
   }
