@@ -1,12 +1,12 @@
 import React from 'react';
 
-type Props = {
+type GoodsListProps = {
   goodList: Good[];
 };
 
-const GoodsList: React.FC<Props> = ({ goodList }) => (
+const GoodsList: React.FC<GoodsListProps> = ({ goodList }) => (
   <ul>
-    {goodList.map((good: Good) => (
+    {goodList.map((good) => (
       <li
         key={good.id}
         style={{ color: `${good.color}` }}
