@@ -36,8 +36,7 @@ class App extends Component<{}, State> {
       .then(goods => this.setState({ goods, error: '' }))
       .catch((error) => {
         this.setState({
-          error: `Something went wrong! ${error}`,
-          goods: [],
+          error: `Something went wrong! ${error.message}`,
         });
       });
   };
