@@ -20,13 +20,13 @@ const App = () => {
   };
 
   const loadFirst5Goods = () => {
-    const SortGoodsByName = (goodsFromServer: Good) => {
+    const sortGoodsByName = (goodsFromServer: Good[]) => {
       return [...goodsFromServer]
         .sort((a, b) => a.name.localeCompare(b.name));
     };
 
     getGoods()
-      .then(SortGoodsByName)
+      .then(sortGoodsByName)
       .then((goodsFromServer: Good[]) => goodsFromServer.slice(0, 5))
       .then(setGoods);
   };
