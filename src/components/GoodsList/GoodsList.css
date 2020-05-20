@@ -1,0 +1,12 @@
+.goods {
+  width: 60%;
+  margin: auto;
+}
+
+.goods__list {
+  margin: auto;
+  padding-top: 40px;
+  list-style: none;
+  font-size: 20px;
+  text-align: center;
+}
