@@ -4,7 +4,7 @@
 - Follow the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline)
 
 ## Task
-> Load [the goods](https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json) and show them on the page
+> Load [the goods](https://mate.academy/students-api/goods) and show them on the page
 
 1. Create a component `GoodsList` accepting an array of goods and rendering them inside a `<ul>`
 1. Show `good.name` using a `good.color`(for example `style={{ color: 'red' }}`)
