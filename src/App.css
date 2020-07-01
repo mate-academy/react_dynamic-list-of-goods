@@ -1,0 +1,18 @@
+.goods {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.button {
+  margin-right: 25px;
+}
+
+.button:last-child {
+  margin-right: 0;
+}
