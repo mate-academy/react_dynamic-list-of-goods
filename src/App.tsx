@@ -16,7 +16,7 @@ class App extends React.Component<{}, State> {
     isLoading: false,
   };
 
-  loadFive = () => {
+  loadFive = (): void => {
     this.setState({ isLoading: true });
     getGoods().then(goods => {
       const sorted = goods.data.sort((a: GoodProps, b: GoodProps) => {
@@ -27,14 +27,14 @@ class App extends React.Component<{}, State> {
     });
   };
 
-  loadAll = () => {
+  loadAll = (): void => {
     this.setState({ isLoading: true });
     getGoods().then(goods => {
       this.setState({ goods: goods.data, isLoading: false });
     });
   };
 
-  loadRed = () => {
+  loadRed = (): void => {
     this.setState({ isLoading: true });
     getGoods().then(goods => {
       const goodsList = goods.data.filter((good: GoodProps) => good.color === 'red');
