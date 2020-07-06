@@ -3,9 +3,15 @@ import React from 'react';
 import './App.css';
 import { GoodsList } from './GoodsList';
 import { getGoods } from './api';
+import { GoodProps } from './interfaces';
 
-class App extends React.Component {
-  state = {
+interface State {
+  isLoading: boolean;
+  goods: GoodProps[];
+}
+
+class App extends React.Component<{}, State> {
+  state: State = {
     goods: [],
     isLoading: false,
   };
@@ -13,7 +19,11 @@ class App extends React.Component {
   loadFive = () => {
     this.setState({ isLoading: true });
     getGoods().then(goods => {
-      this.setState({ goods: goods.data.slice(0, 5), isLoading: false });
+      const sorted = goods.data.sort((a: GoodProps, b: GoodProps) => {
+        return (a.name > b.name) ? 1 : -1;
+      });
+
+      this.setState({ goods: sorted.slice(0, 5), isLoading: false });
     });
   };
 
@@ -27,7 +37,7 @@ class App extends React.Component {
   loadRed = () => {
     this.setState({ isLoading: true });
     getGoods().then(goods => {
-      const goodsList = goods.data.filter((good: any) => good.color === 'red');
+      const goodsList = goods.data.filter((good: GoodProps) => good.color === 'red');
 
       this.setState({
         goods: goodsList,
