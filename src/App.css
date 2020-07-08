@@ -1,0 +1,45 @@
+body {
+  margin: 0;
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  font-family: "Roboto", sans-serif;
+  font-size: 30px;
+  color: #e4813f;
+}
+
+.button {
+  width: 150px;
+  height: 40px;
+
+  padding: 2px 4px;
+  margin-right: 10px;
+
+  font-weight: bold;
+  font-size: 14px;
+  
+  color: rgb(255, 255, 255);
+  background-color: #3fa2e4;
+
+  outline: none;
+  border: none;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.button:hover {
+  box-shadow: 2px 4px 10px rgba(85, 84, 84, 0.5);
+}
+
+.goods {
+  font-family: "Caveat", cursive;
+  font-size: 28px;
+}
