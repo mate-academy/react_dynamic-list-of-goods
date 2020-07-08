@@ -1,16 +1,11 @@
 import React from 'react';
-import { GoodsList } from './components/GoodsList/GoodsList';
 import './App.css';
-
-const url = 'https://mate.academy/students-api/goods';
-
-const fetchGoods = () => {
-  return fetch(url)
-    .then(response => response.json());
-};
+import { fetchGoods } from './api';
+import { GoodsList } from './components/GoodsList/GoodsList';
+import { GoodParam, StateParam } from './interfaces';
 
 class App extends React.Component {
-  state = {
+  state: StateParam = {
     goods: [],
     error: false,
   };
@@ -33,7 +28,7 @@ class App extends React.Component {
     fetchGoods()
       .then(response => {
         this.setState({
-          goods: response.data.sort((a: { name: string }, b: { name: string }) => (
+          goods: [...response.data].sort((a: GoodParam, b: GoodParam) => (
             a.name.localeCompare(b.name))).slice(0, 5),
         });
       })
@@ -48,7 +43,7 @@ class App extends React.Component {
     fetchGoods()
       .then(response => {
         this.setState({
-          goods: response.data.filter((item: { color: string }) => item.color === 'red'),
+          goods: response.data.filter((item: GoodParam) => item.color === 'red'),
         });
       })
       .catch(error => {

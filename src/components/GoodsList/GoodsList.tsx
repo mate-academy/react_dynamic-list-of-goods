@@ -1,11 +1,12 @@
 import React from 'react';
+import { GoodList } from '../../interfaces';
 
-export const GoodsList = (props: { goods: any }) => {
+export const GoodsList: React.FC<GoodList> = (props) => {
   const { goods } = props;
 
   return (
     <ul className="list">
-      {goods.map((item: { id: number; color: string; name: string }) => (
+      {goods.map(item => (
         <li
           key={item.id}
           style={{ color: item.color }}
