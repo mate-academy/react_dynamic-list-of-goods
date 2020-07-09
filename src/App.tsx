@@ -3,11 +3,11 @@ import React from 'react';
 import './App.css';
 import { GoodsList } from './GoodsList';
 import { getGoods } from './api';
-import { GoodProps } from './interfaces';
+import { GoodInterface } from './interfaces';
 
 interface State {
   isLoading: boolean;
-  goods: GoodProps[];
+  goods: GoodInterface[];
 }
 
 class App extends React.Component<{}, State> {
@@ -16,33 +16,34 @@ class App extends React.Component<{}, State> {
     isLoading: false,
   };
 
-  loadFive = (): void => {
+  loadFive = async () => {
     this.setState({ isLoading: true });
-    getGoods().then(goods => {
-      const sorted = goods.data.sort((a: GoodProps, b: GoodProps) => {
-        return (a.name > b.name) ? 1 : -1;
-      });
+    const goods = await getGoods<GoodInterface>();
+    const sorted = goods.data.sort((a, b) => {
+      return (a.name > b.name) ? 1 : -1;
+    });
 
-      this.setState({ goods: sorted.slice(0, 5), isLoading: false });
+    this.setState({ goods: sorted.slice(0, 5), isLoading: false });
+  };
+
+  loadAll= async () => {
+    this.setState({ isLoading: true });
+    const goods = await getGoods<GoodInterface>();
+
+    this.setState({
+      goods: goods.data,
+      isLoading: false,
     });
   };
 
-  loadAll = (): void => {
+  loadRed = async () => {
     this.setState({ isLoading: true });
-    getGoods().then(goods => {
-      this.setState({ goods: goods.data, isLoading: false });
-    });
-  };
+    const goods = await getGoods<GoodInterface>();
+    const filtered = goods.data.filter(good => good.color === 'red');
 
-  loadRed = (): void => {
-    this.setState({ isLoading: true });
-    getGoods().then(goods => {
-      const goodsList = goods.data.filter((good: GoodProps) => good.color === 'red');
-
-      this.setState({
-        goods: goodsList,
-        isLoading: false,
-      });
+    this.setState({
+      goods: filtered,
+      isLoading: false,
     });
   };
 

@@ -1,14 +1,16 @@
 import React from 'react';
-import { GoodsProps } from './interfaces';
+import { GoodInterface } from './interfaces';
 
-export const GoodsList: React.FC<GoodsProps> = ({ goods }) => {
-  return (
-    <ul>
-      {
-        goods.map(good => (
-          <li key={good.name} style={{ color: good.color }}>{good.name}</li>
-        ))
-      }
-    </ul>
-  );
-};
+interface GoodsInterface {
+  goods: GoodInterface[];
+}
+
+export const GoodsList: React.FC<GoodsInterface> = ({ goods }) => (
+  <ul>
+    {
+      goods.map(good => (
+        <li key={good.name} style={{ color: good.color }}>{good.name}</li>
+      ))
+    }
+  </ul>
+);
