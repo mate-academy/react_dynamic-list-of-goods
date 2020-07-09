@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 
 interface ButtonProps {
   onClick(): void;
@@ -6,7 +6,7 @@ interface ButtonProps {
   isDisabled: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({ onClick, title, isDisabled }) => (
+export const Button: FC<ButtonProps> = ({ onClick, title, isDisabled }) => (
   <button
     className="btn button"
     type="button"

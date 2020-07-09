@@ -1,42 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, FC } from 'react';
 import './App.css';
 import { getGoods } from './api/api';
 import { Product } from './interfaces/Product';
 import { GoodsList } from './components/GoodsList';
 import { Button } from './components/Button';
 
-const App: React.FC = () => {
+const App: FC = () => {
   const [goods, setGoods] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setLoading] = useState<boolean>(false);
 
-  const load = () => {
-    setIsLoading(true);
+  const fetchGoods = async (): Promise<Product[]> => {
+    setLoading(true);
 
-    return getGoods().then(data => {
-      setIsLoading(false);
+    const goodsFromServer = await getGoods<Product>();
 
-      return data;
-    });
+    setLoading(false);
+
+    return goodsFromServer;
   };
 
-  const loadAll = (): void => {
-    load().then((data: Product[]) => setGoods(data));
+  const loadGoods = () => {
+    fetchGoods().then(data => setGoods(data));
   };
 
-  const loadPart = (): void => {
-    load().then((data: Product[]) => {
-      const goodsList = data
-        .sort((a: Product, b: Product) => a.name.length - b.name.length);
+  const loadPart = () => {
+    fetchGoods().then((data) => {
+      const goodsList = data.sort((a, b) => a.name.length - b.name.length);
 
       goodsList.length = 5;
-
       setGoods(goodsList);
     });
   };
 
-  const loadRed = (): void => {
-    load().then((data: Product[]) => {
-      const goodsList = data.filter((product: Product) => product.color === 'red');
+  const loadRed = () => {
+    fetchGoods().then((data) => {
+      const goodsList = data.filter((product) => product.color === 'red');
 
       setGoods(goodsList);
     });
@@ -47,8 +45,8 @@ const App: React.FC = () => {
       <h1 className="center-align">List of goods</h1>
       <div className="buttons">
         <Button
-          onClick={loadAll}
-          title="Load all"
+          onClick={loadGoods}
+          title="Load all goods"
           isDisabled={isLoading}
         />
         <Button

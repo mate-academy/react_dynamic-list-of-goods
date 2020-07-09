@@ -1,6 +1,5 @@
-export const getGoods = async () => {
-  const response = await fetch('https://mate.academy/students-api/goods');
-  const goods = await response.json();
+export const getGoods = async <T>(): Promise<T[]> => {
+  const response = await fetch('https://mate.academy/students-api/goods').then(respond => respond.json());
 
-  return goods.data;
+  return response.data;
 };
