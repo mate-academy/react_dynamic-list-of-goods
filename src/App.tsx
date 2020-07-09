@@ -2,16 +2,21 @@ import React from 'react';
 import './App.css';
 import { fetchGoods } from './api';
 import { GoodsList } from './components/GoodsList/GoodsList';
-import { GoodParam, StateParam } from './interfaces';
+import { GoodInterface } from './interfaces';
+
+interface StateInterface {
+  goods: GoodInterface[];
+  error: boolean;
+}
 
 class App extends React.Component {
-  state: StateParam = {
+  state: StateInterface = {
     goods: [],
     error: false,
   };
 
   getAllGoods = () => {
-    fetchGoods()
+    fetchGoods<GoodInterface>()
       .then(response => {
         this.setState({
           goods: response.data,
@@ -25,10 +30,10 @@ class App extends React.Component {
   };
 
   getFiveGoods = () => {
-    fetchGoods()
+    fetchGoods<GoodInterface>()
       .then(response => {
         this.setState({
-          goods: [...response.data].sort((a: GoodParam, b: GoodParam) => (
+          goods: [...response.data].sort((a, b) => (
             a.name.localeCompare(b.name))).slice(0, 5),
         });
       })
@@ -40,10 +45,10 @@ class App extends React.Component {
   };
 
   getRedGoods = () => {
-    fetchGoods()
+    fetchGoods<GoodInterface>()
       .then(response => {
         this.setState({
-          goods: response.data.filter((item: GoodParam) => item.color === 'red'),
+          goods: response.data.filter(item => item.color === 'red'),
         });
       })
       .catch(error => {
