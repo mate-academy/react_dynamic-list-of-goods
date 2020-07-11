@@ -1,0 +1,28 @@
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 18px;
+}
+
+.error {
+  color: #e11;
+}
+
+.load {
+  color: #1d72aa;
+}
+
+.control {
+  padding: 10px;
+}
+
+.control__btn {
+  display: block;
+  width: 240px;
+  padding: 8px 0;
+  font-size: 20px;
+  text-align: center;
+}
+
+.control__btn:not(:last-of-type) {
+  margin-bottom: 15px;
+}
