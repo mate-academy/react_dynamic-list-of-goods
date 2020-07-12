@@ -1,0 +1,11 @@
+.good__button {
+  padding: 10px ;
+  border: 0;
+  margin-left: 10px;
+  transition: color 2s;
+}
+
+.good__button:hover {
+  color: white;
+  outline: #daa;
+}
