@@ -19,13 +19,13 @@ export const LoadButtons: React.FC<LoadButtonsProps> = (props) => {
   };
 
   const filterFirstFive = (data: Good[]) => {
-    return data.sort((a: Good, b: Good) => {
+    return data.sort((a, b) => {
       return (a.name > b.name) ? 1 : -1;
     }).splice(0, 5);
   };
 
   const filterReds = (data: Good[]) => {
-    return data.filter((good: Good) => good.color === 'red');
+    return data.filter(good => good.color === 'red');
   };
 
   const loadGoods = (callback: (data: Good[]) => Good[] = getAll) => {
