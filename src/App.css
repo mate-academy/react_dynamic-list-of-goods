@@ -1,0 +1,16 @@
+.app {
+  text-align: center;
+}
+
+.app__list {
+  list-style: none;
+  padding: 0;
+}
+
+.app__button {
+  margin-right: 5%;
+}
+
+.app__button:last-child {
+  margin-right: 0;
+}
