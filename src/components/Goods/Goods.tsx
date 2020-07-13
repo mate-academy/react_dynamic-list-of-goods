@@ -3,13 +3,13 @@ import { GoodsList } from '../GoodsList/GoodsList';
 import { LoadButtons } from '../LoadButtons/LoadButtons';
 import { Good } from '../../interfaces/good';
 
-interface GoodsState {
+interface State {
   goods: Good[];
   isLoading: boolean;
   hasError: boolean;
 }
 
-export class Goods extends React.Component<{}, GoodsState> {
+export class Goods extends React.Component<{}, State> {
   state = {
     goods: [],
     isLoading: false,

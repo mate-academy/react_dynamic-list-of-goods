@@ -1,11 +1,11 @@
 import React from 'react';
 
-type ButtonProps = {
+type Props = {
   handle(): void;
   name: string;
 };
 
-export const Button: React.FC<ButtonProps> = ({ handle, name }) => (
+export const Button: React.FC<Props> = ({ handle, name }) => (
   <button
     className="control__btn"
     type="button"

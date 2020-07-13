@@ -3,13 +3,13 @@ import { Button } from '../Button/Button';
 import { fetchData } from '../../api/fetchData';
 import { Good } from '../../interfaces/good';
 
-interface LoadButtonsProps {
+interface Props {
   updateList(list: Good[]): void;
   setLoading(status: boolean): void;
   setError(status: boolean): void;
 }
 
-export const LoadButtons: React.FC<LoadButtonsProps> = (props) => {
+export const LoadButtons: React.FC<Props> = (props) => {
   const { updateList, setLoading, setError } = props;
 
   const API_URL = 'https://mate.academy/students-api/goods';

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Good } from '../../interfaces/good';
 
-interface TopCategoriesProps {
+interface Props {
   goods: Good[];
 }
 
-export const GoodsList: React.FC<TopCategoriesProps> = ({ goods }) => (
+export const GoodsList: React.FC<Props> = ({ goods }) => (
   <ul>
     {goods.map((good: Good) => (
       <li key={good.id}>
