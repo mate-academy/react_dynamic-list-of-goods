@@ -1,8 +1,88 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
+import { GoodsList } from './components/GoodsList/GoodsList';
+import { getGoods } from './goods_from_server_api';
+import { Good } from './types';
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+interface State {
+  goodsList: Good[];
+}
 
-export default App;
+export default class App extends Component<{}, State> {
+  state = {
+    goodsList: [],
+  };
+
+  firstFiveSorted = () => {
+    getGoods()
+      .then((goodsList) => {
+        this.setState({
+          goodsList: goodsList.sort((a, b) => a.name.localeCompare(b.name)).splice(0, 5),
+        });
+      })
+  }
+
+  showedRed = () => {
+    getGoods()
+      .then((goodsList) => {
+        this.setState({
+          goodsList: goodsList.filter(good => good.color === 'red'),
+      });
+    })
+  }
+
+  showedAllGoods = () => {
+    getGoods()
+      .then((goodsList) => {
+        this.setState({ goodsList });
+      });
+  }
+
+
+  render() {
+    const { goodsList } = this.state;
+
+    return (
+      <div className="App">
+        <h1>Goods</h1>
+        {(goodsList.length === 0
+          ? (
+            <>
+              <p>
+                Load your Goods
+              </p>
+              <button
+                type="button"
+                onClick={this.showedAllGoods}>
+                Load
+              </button>
+            </>
+          )
+          : (
+            <>
+              <button
+                type="button"
+                onClick={this.showedAllGoods}
+              >
+                Load All goods
+              </button>
+              <button
+                type="button"
+                onClick={this.firstFiveSorted}
+              >
+                Load 5 first goods
+              </button>
+              <button
+                type="button"
+                onClick={this.showedRed}
+              >
+                Load red goods
+              </button>
+              <GoodsList goodsList={goodsList} />
+            </>
+          )
+        )}
+      </div>
+    );
+  }
+}
