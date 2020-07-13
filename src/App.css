@@ -1,0 +1,15 @@
+.button {
+  height: 30px;
+  background-color: lightblue;
+  border: 1px solid lightblue;
+  outline: none;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin: 8px;
+}
+
+.button:hover {
+  background-color: lightgrey;
+  border: 1px solid lightgrey;
+  cursor: pointer;
+}
