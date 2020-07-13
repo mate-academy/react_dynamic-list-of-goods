@@ -14,8 +14,9 @@ class App extends React.Component<{}, AppState> {
 
   showFiveGoods = () => {
     itemsPromise.then(data => this.setState({
-      goods: data.data
-        .sort((a: GoodListItem, b: GoodListItem) => a.name.localeCompare(b.name))
+      goods: [...data.data]
+        .sort((item: GoodListItem, nextItem: GoodListItem) => (
+          item.name.localeCompare(nextItem.name)))
         .slice(0, 5),
     }));
   };
