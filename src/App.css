@@ -1,0 +1,17 @@
+.App {
+  text-align: center;
+}
+
+.App__btn {
+  margin: 25px;
+  width: 150px;
+  height: 40px;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
