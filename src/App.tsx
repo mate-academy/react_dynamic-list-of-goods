@@ -1,19 +1,19 @@
 import React from 'react';
 import './App.css';
 import { GoodsList } from './GoodList';
-import { GoodListItem, AppState } from './Interfaces';
+import { GoodListItem } from './Interfaces';
+import { loadGoods } from './api';
 
-const API_URL = 'https://mate.academy/students-api/goods';
-
-const itemsPromise = fetch(API_URL).then(response => response.json());
-
-class App extends React.Component<{}, AppState> {
+interface State {
+  goods: Array<GoodListItem>;
+}
+class App extends React.Component<{}, State> {
   state = {
     goods: [],
   };
 
   showFiveGoods = () => {
-    itemsPromise.then(data => this.setState({
+    loadGoods().then(data => this.setState({
       goods: [...data.data]
         .sort((item: GoodListItem, nextItem: GoodListItem) => (
           item.name.localeCompare(nextItem.name)))
@@ -22,13 +22,13 @@ class App extends React.Component<{}, AppState> {
   };
 
   showAllGoods = () => {
-    itemsPromise.then(data => this.setState({
+    loadGoods().then(data => this.setState({
       goods: data.data,
     }));
   };
 
   showRedGoods = () => {
-    itemsPromise.then(data => this.setState({
+    loadGoods().then(data => this.setState({
       goods: data.data.filter((good: GoodListItem) => good.color === 'red'),
     }));
   };

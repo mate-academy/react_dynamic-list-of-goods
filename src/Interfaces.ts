@@ -5,7 +5,3 @@ export interface GoodListItem {
   createdAt: string;
   updatedAt: string;
 }
-
-export interface AppState {
-  goods: Array<GoodListItem>;
-}
