@@ -8,7 +8,7 @@ interface State {
 }
 
 class App extends React.Component<{}, State> {
-  state: State = {
+  state = {
     goods: [],
   };
 
@@ -38,7 +38,6 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-
     return (
       <>
         <h1>Dynamic list of Goods</h1>
