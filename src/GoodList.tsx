@@ -2,11 +2,11 @@ import React from 'react';
 import { Product } from './interface';
 import { GoodItem } from './GoodItem';
 
-interface GoodProps {
+interface Props {
   goods: Product[];
 }
 
-export const GoodList: React.FC<GoodProps> = ({ goods }) => {
+export const GoodList: React.FC<Props> = ({ goods }) => {
   return (
     <ul>
       {goods.map(good => (
