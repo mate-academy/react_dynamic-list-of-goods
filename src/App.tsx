@@ -37,7 +37,7 @@ export default class App extends React.Component<{}, State> {
     getData()
       .then(response => {
         this.setState({
-          goodsList: [...response.data].filter(item => item.color === 'red'),
+          goodsList: response.data.filter(item => item.color === 'red'),
         });
       });
   };
