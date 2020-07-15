@@ -1,4 +1,4 @@
-export interface Elements {
+export interface Good {
   id: number;
   name: string;
   color: string;
@@ -7,10 +7,10 @@ export interface Elements {
 }
 
 export interface State {
-  goods: Elements[];
+  goods: Good[];
   isLoaded: boolean;
 }
 
-export interface Gods {
-  goods: Elements[];
+export interface Goods {
+  goods: Good[];
 }

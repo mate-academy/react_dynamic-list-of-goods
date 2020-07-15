@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Elements, State } from './interface';
+import { Good, State } from './interface';
 import List from './List';
 
 class App extends React.Component <{}, State> {
@@ -35,7 +35,7 @@ class App extends React.Component <{}, State> {
       .then(response => {
         this.setState({
           goods: response.data
-            .sort((a: Elements, b: Elements) => a.name.localeCompare(b.name))
+            .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
             .slice(0, 5),
           isLoaded: true,
         });
@@ -46,7 +46,7 @@ class App extends React.Component <{}, State> {
     this.getGoods()
       .then(response => {
         this.setState({
-          goods: response.data.filter((good: Elements) => good.color === 'red'),
+          goods: response.data.filter((good: Good) => good.color === 'red'),
           isLoaded: true,
         });
       });
