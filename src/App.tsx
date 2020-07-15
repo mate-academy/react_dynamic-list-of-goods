@@ -2,35 +2,63 @@ import React from 'react';
 
 import getGoods from './api';
 import GoodsList from './components/GoodsList/GoodsList';
+import Error from './components/Error/Error';
 import './App.css';
 
 interface State {
   goods: Good[];
+  isLoadingError: boolean;
 }
 
 class App extends React.Component<{}, State> {
   state = {
     goods: [],
+    isLoadingError: false,
+  };
+
+  offLoadingError = () => {
+    this.setState({
+      isLoadingError: false,
+    });
   };
 
   loadGoods = () => {
-    getGoods().then(goods => this.setState({
-      goods,
-    }));
+    this.offLoadingError();
+
+    getGoods()
+      .then(goods => this.setState({
+        goods,
+      }))
+      .catch(() => this.setState({
+        isLoadingError: true,
+      }));
   };
 
   loadFiveGoods = () => {
-    getGoods().then(goods => goods.sort((good1, good2) => (good1.name.localeCompare(good2.name))))
-      .then(goods => goods.filter((_, index) => index < 5))
-      .then(goods => this.setState({
-        goods,
+    this.offLoadingError();
+
+    getGoods()
+      .then(goods => {
+        goods.sort((good1, good2) => good1.name.localeCompare(good2.name));
+
+        this.setState({
+          goods: goods.filter((_, index) => index < 5),
+        });
+      })
+      .catch(() => this.setState({
+        isLoadingError: true,
       }));
   };
 
   loadRedGoods = () => {
-    getGoods().then(goods => goods.filter(good => good.color === 'red'))
+    this.offLoadingError();
+
+    getGoods()
       .then(goods => this.setState({
-        goods,
+        goods: goods.filter(good => good.color === 'red'),
+      }))
+      .catch(() => this.setState({
+        isLoadingError: true,
       }));
   };
 
@@ -39,6 +67,7 @@ class App extends React.Component<{}, State> {
       <>
         <h1 className="app__header">Dynamic list of Goods</h1>
         <GoodsList goods={this.state.goods} />
+        {this.state.isLoadingError && <Error />}
         <button
           className="app__button"
           type="button"

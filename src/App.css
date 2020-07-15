@@ -7,6 +7,10 @@
   padding: 0;
 }
 
+.app__error {
+  color: red;
+}
+
 .app__button {
   margin-right: 5%;
 }
