@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
-import { Good } from '../types';
-import { GoodItem } from './GoodItem';
+import { Good } from '../../types';
+import { GoodItem } from '../GoodItem/GoodItem';
 
 type Props = {
   goods: Good[];

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import { Good } from './types';
 import { getGoods } from './API/API';
-import { GoodsList } from './Components/GoodsList'
+import { GoodsList } from './Components/GoodsList/GoodsList'
 
 type State = {
   goods: Good[];
