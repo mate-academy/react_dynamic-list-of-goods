@@ -1,0 +1,22 @@
+.wrap {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.list {
+  list-style-type: none;
+}
+
+.button {
+  margin: 10px;
+  padding: 10px;
+  color: #fff;
+  background-color: #000;
+  cursor: pointer;
+}
+
+.button:hover {
+  color: red;
+  background-color: white;
+  transition: background-color 250ms ease-in-out;
+}
