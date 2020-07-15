@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import './App.css';
 import { Good } from './types';
 import { getGoods } from './API/API';
+import { GoodsList } from './Components/GoodsList'
 
 type State = {
-  goods: Good[],
-}
+  goods: Good[];
+};
 
 class App extends Component<{}, State> {
   state: State = {
     goods: [],
-  }
+  };
 
   componentDidMount() {
     getGoods()
@@ -19,13 +20,15 @@ class App extends Component<{}, State> {
       }))
       .catch(error => {
         throw new Error(error.message)
-      })
+      });
   }
 
   render() {
+    const { goods } = this.state;
+
     return (
-      <h1>Test</h1>
-    )
+      <GoodsList goods={goods} />
+    );
   }
 }
 
