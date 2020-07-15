@@ -4,7 +4,7 @@ import { FilterButtonsData } from './FilterButtonsData';
 import { FilterPattern, SortPattern } from '../interfaces/interfaces';
 
 interface FilterButtonsProps {
-  onFilteredGoods: (callBack: FilterPattern, sorting?: SortPattern) => void;
+  onFilteredGoods: (filter: FilterPattern, sorting?: SortPattern) => void;
 }
 
 export const FilterButtons: FC<FilterButtonsProps> = (props) => {
