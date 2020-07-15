@@ -1,11 +1,11 @@
 import React from 'react';
 
-interface GoodItemProps {
+interface Props {
   name: string;
   color: string;
 }
 
-export const GoodItem: React.FC<GoodItemProps> = ({ color, name }) => {
+export const GoodItem: React.FC<Props> = ({ color, name }) => {
   return (
     <li style={{ color }}>
       {name}
