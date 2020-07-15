@@ -1,11 +1,11 @@
 import React from 'react';
 import { Good } from '../../interfaces';
 
-interface GoodsListProps {
+interface Props {
   goods: Good[];
 }
 
-export const GoodsList: React.FC<GoodsListProps> = ({ goods }) => {
+export const GoodsList: React.FC<Props> = ({ goods }) => {
   return (
     <ul className="list">
       {
