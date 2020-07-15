@@ -6,6 +6,10 @@ export interface Good {
   updatedAt: string;
 }
 
-export interface Pattern {
+export interface FilterPattern {
   (good: Good): boolean;
+}
+
+export interface SortPattern {
+  (goodA: Good, goodB: Good): number;
 }

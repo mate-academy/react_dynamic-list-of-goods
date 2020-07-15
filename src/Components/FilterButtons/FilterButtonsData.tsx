@@ -1,8 +1,9 @@
-import { Pattern } from '../interfaces/interfaces';
+import { FilterPattern, SortPattern } from '../interfaces/interfaces';
 
 export interface Button {
   title: string;
-  filterPattern: Pattern;
+  filterPattern: FilterPattern;
+  sortPattern?: SortPattern;
 }
 
 export const FilterButtonsData: Button[] = [
@@ -13,6 +14,7 @@ export const FilterButtonsData: Button[] = [
   {
     title: 'Load 5 first goods',
     filterPattern: (good) => Number(good.id) <= 5,
+    sortPattern: (goodA, goodB) => goodA.name.localeCompare(goodB.name),
   },
   {
     title: 'Load red goods',

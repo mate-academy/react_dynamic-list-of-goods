@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { loadData } from './Components/api/api';
-import { Good, Pattern } from './Components/interfaces/interfaces';
+import { Good, FilterPattern, SortPattern } from './Components/interfaces/interfaces';
 import { GoodsList } from './Components/GoodsList/GoodsList';
 import { FilterButtons } from './Components/FilterButtons/FilterButtons';
 
@@ -13,7 +13,7 @@ interface Item {
   data: Good[];
 }
 
-export class App extends Component {
+export class App extends Component<{}, State> {
   state: State = {
     goods: [],
   };
@@ -26,10 +26,18 @@ export class App extends Component {
     });
   }
 
-  onFilteredGoods = (filterPattern: Pattern): void => {
+  onFilteredGoods = (filterPattern: FilterPattern, sorting?: SortPattern): void => {
     loadData<Item>().then(item => {
-      this.setState({
-        goods: [...item.data].filter(filterPattern),
+      this.setState(() => {
+        const { data } = item;
+
+        if (sorting) {
+          data.sort(sorting);
+        }
+
+        return {
+          goods: data.filter(filterPattern),
+        };
       });
     });
   };
