@@ -1,9 +1,9 @@
 import React from 'react';
 
-type Props = {
+interface Props {
   handle(): void;
   name: string;
-};
+}
 
 export const Button: React.FC<Props> = ({ handle, name }) => (
   <button

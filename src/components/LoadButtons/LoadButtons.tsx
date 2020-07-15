@@ -14,10 +14,6 @@ export const LoadButtons: React.FC<Props> = (props) => {
 
   const API_URL = 'https://mate.academy/students-api/goods';
 
-  const getAll = (data: Good[]) => {
-    return data;
-  };
-
   const filterFirstFive = (data: Good[]) => {
     return data.sort((a, b) => {
       return (a.name > b.name) ? 1 : -1;
@@ -28,14 +24,18 @@ export const LoadButtons: React.FC<Props> = (props) => {
     return data.filter(good => good.color === 'red');
   };
 
-  const loadGoods = (callback: (data: Good[]) => Good[] = getAll) => {
+  const loadGoods = (callback?: (data: Good[]) => Good[]) => {
     setError(false);
     setLoading(true);
 
     fetchData<Good>(API_URL)
       .then(data => {
         setLoading(false);
-        updateList(callback(data.data));
+        if (callback) {
+          updateList(callback(data.data));
+        } else {
+          updateList(data.data);
+        }
       })
       .catch(() => {
         setLoading(false);
