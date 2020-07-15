@@ -31,7 +31,7 @@ class App extends React.Component<{}, State> {
     goodsFromServer<Goods>()
       .then(response => {
         this.setState({
-          goods: [...response.data].sort((a, b) => (
+          goods: response.data.sort((a, b) => (
             a.name.localeCompare(b.name))).slice(0, 5),
         });
       })
