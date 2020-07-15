@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, { FC } from 'react';
 import { Good } from '../../types';
 import { GoodItem } from '../GoodItem/GoodItem';
 

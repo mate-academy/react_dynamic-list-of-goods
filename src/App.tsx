@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Good } from './types';
+import { Good, GoodsData } from './types';
 import { getGoods } from './API/API';
 import { GoodsList } from './Components/GoodsList/GoodsList'
+import { Button } from './Components/Button/Button';
 
 type State = {
   goods: Good[];
 };
-
-interface ResponseData<D> {
-  data: D;
-}
-
-type GoodsData = ResponseData<Good[]>;
 
 export class App extends Component<{}, State> {
   state: State = {
@@ -32,7 +27,9 @@ export class App extends Component<{}, State> {
   get5FirstGoods = () => {
     getGoods()
       .then(({ data }: GoodsData) => this.setState({
-        goods: data.slice(0, 5),
+        goods: data
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .slice(0, 5),
       }))
       .catch(error => {
         throw new Error(error.message);
@@ -54,24 +51,20 @@ export class App extends Component<{}, State> {
 
     return (
       <div>
-        <button
-          type="button"
+        <Button
+          text="Load All goods"
           onClick={this.getAllGoods}
-        >
-          Load All goods
-        </button>
-        <button
-          type="button"
+        />
+
+        <Button
+          text="Load 5 first goods"
           onClick={this.get5FirstGoods}
-        >
-          Load 5 first goods
-        </button>
-        <button
-          type="button"
+        />
+        <Button
+          text="Load red goods"
           onClick={this.getRedGoods}
-        >
-          Load red goods
-        </button>
+        />
+
         <GoodsList goods={goods} />
       </div>
     );

@@ -5,3 +5,9 @@ export type Good = {
   createdAt: string;
   updatedAt: string;
 };
+
+interface ResponseData<D> {
+  data: D;
+}
+
+export type GoodsData = ResponseData<Good[]>;
