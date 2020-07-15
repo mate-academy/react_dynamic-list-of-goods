@@ -37,7 +37,6 @@ class App extends React.Component <{}, State> {
           goods: response.data
             .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
             .slice(0, 5),
-          isLoaded: true,
         });
       });
   };
@@ -47,7 +46,6 @@ class App extends React.Component <{}, State> {
       .then(response => {
         this.setState({
           goods: response.data.filter((good: Good) => good.color === 'red'),
-          isLoaded: true,
         });
       });
   };
