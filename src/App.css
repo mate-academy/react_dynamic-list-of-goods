@@ -1,9 +1,9 @@
-.godsList {
+.goodsList {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.godsList__button {
+.goodsList__button {
   width: 100px;
 }

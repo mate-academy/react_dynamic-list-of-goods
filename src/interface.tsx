@@ -7,10 +7,10 @@ export interface Elements {
 }
 
 export interface State {
-  godsList: Elements[];
-  isLoad: boolean;
+  goods: Elements[];
+  isLoaded: boolean;
 }
 
 export interface Gods {
-  godsList: Elements[];
+  goods: Elements[];
 }

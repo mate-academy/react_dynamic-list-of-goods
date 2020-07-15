@@ -5,85 +5,87 @@ import List from './List';
 
 class App extends React.Component <{}, State> {
   state: State = {
-    godsList: [],
-    isLoad: false,
+    goods: [],
+    isLoaded: false,
   };
 
-  godsURL = 'https://mate.academy/students-api/goods';
+  goodsURL = 'https://mate.academy/students-api/goods';
 
   componentDidMount() {
-    this.getAllGods();
+    this.getAllGoods();
   }
 
-  getAllGods = () => {
-    return fetch(this.godsURL)
-      .then(response => response.json())
+  getGoods = () => {
+    return fetch(this.goodsURL)
+      .then(response => response.json());
+  };
+
+  getAllGoods = () => {
+    this.getGoods()
       .then(response => {
         this.setState({
-          godsList: response.data,
-          isLoad: true,
+          goods: response.data,
+          isLoaded: true,
         });
       });
   };
 
-  getFiveFirstGods = () => {
-    return fetch(this.godsURL)
-      .then(response => response.json())
+  getFiveFirstGoods = () => {
+    this.getGoods()
       .then(response => {
         this.setState({
-          godsList: response.data
+          goods: response.data
             .sort((a: Elements, b: Elements) => a.name.localeCompare(b.name))
             .slice(0, 5),
-          isLoad: true,
+          isLoaded: true,
         });
       });
   };
 
-  getAllRedGods = () => {
-    return fetch(this.godsURL)
-      .then(response => response.json())
+  getAllRedGoods = () => {
+    this.getGoods()
       .then(response => {
         this.setState({
-          godsList: response.data.filter((good: Elements) => good.color === 'red'),
-          isLoad: true,
+          goods: response.data.filter((good: Elements) => good.color === 'red'),
+          isLoaded: true,
         });
       });
   };
 
   render() {
-    const { godsList, isLoad } = this.state;
+    const { goods, isLoaded } = this.state;
 
-    if (isLoad) {
+    if (isLoaded) {
       return (
-        <section className="godsList">
+        <section className="goods">
           <button
             type="button"
-            onClick={this.getAllGods}
-            className="godsList__button"
+            onClick={this.getAllGoods}
+            className="goods__button"
           >
             All
           </button>
           <button
             type="button"
-            onClick={this.getFiveFirstGods}
-            className="godsList__button"
+            onClick={this.getFiveFirstGoods}
+            className="goods__button"
           >
             5 first
           </button>
           <button
             type="button"
-            onClick={this.getAllRedGods}
-            className="godsList__button"
+            onClick={this.getAllRedGoods}
+            className="goods__button"
           >
             Red
           </button>
-          <List godsList={godsList} />
+          <List goods={goods} />
         </section>
       );
     }
 
     return (
-      <section className="godsList">
+      <section className="goods">
         <h1>Please, wait</h1>
       </section>
     );
