@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Good, State } from './interface';
+import { State, goodsInPromise } from './interface';
 import List from './List';
 
 class App extends React.Component <{}, State> {
@@ -15,7 +15,7 @@ class App extends React.Component <{}, State> {
     this.getAllGoods();
   }
 
-  getGoods = () => {
+  getGoods = (): Promise<goodsInPromise> => {
     return fetch(this.goodsURL)
       .then(response => response.json());
   };
@@ -35,7 +35,7 @@ class App extends React.Component <{}, State> {
       .then(response => {
         this.setState({
           goods: response.data
-            .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
+            .sort((a, b) => a.name.localeCompare(b.name))
             .slice(0, 5),
         });
       });
@@ -45,7 +45,7 @@ class App extends React.Component <{}, State> {
     this.getGoods()
       .then(response => {
         this.setState({
-          goods: response.data.filter((good: Good) => good.color === 'red'),
+          goods: response.data.filter((good) => good.color === 'red'),
         });
       });
   };

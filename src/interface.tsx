@@ -14,3 +14,7 @@ export interface State {
 export interface Goods {
   goods: Good[];
 }
+
+export interface goodsInPromise {
+  data: Good[];
+}
