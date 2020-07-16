@@ -1,0 +1,9 @@
+.goodsList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.goodsList__button {
+  width: 100px;
+}
