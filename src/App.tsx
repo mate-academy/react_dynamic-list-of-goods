@@ -1,40 +1,39 @@
 import React from 'react';
 import './App.css';
-import { State, goodsInPromise } from './interface';
+import { Goods, Good } from './interface';
 import List from './List';
 
-class App extends React.Component <{}, State> {
-  state: State = {
-    goods: [],
-    isLoaded: false,
-  };
+const goodsURL = 'https://mate.academy/students-api/goods';
 
-  goodsURL = 'https://mate.academy/students-api/goods';
+function getGoods <T>(): Promise<T[]> {
+  return fetch(goodsURL)
+    .then(response => response.json())
+    .then(response => response.data);
+}
+
+class App extends React.Component <{}, Goods> {
+  state: Goods = {
+    goods: [],
+  };
 
   componentDidMount() {
     this.getAllGoods();
   }
 
-  getGoods = (): Promise<goodsInPromise> => {
-    return fetch(this.goodsURL)
-      .then(response => response.json());
-  };
-
   getAllGoods = () => {
-    this.getGoods()
+    getGoods<Good>()
       .then(response => {
         this.setState({
-          goods: response.data,
-          isLoaded: true,
+          goods: response,
         });
       });
   };
 
   getFiveFirstGoods = () => {
-    this.getGoods()
+    getGoods<Good>()
       .then(response => {
         this.setState({
-          goods: response.data
+          goods: response
             .sort((a, b) => a.name.localeCompare(b.name))
             .slice(0, 5),
         });
@@ -42,18 +41,18 @@ class App extends React.Component <{}, State> {
   };
 
   getAllRedGoods = () => {
-    this.getGoods()
+    getGoods<Good>()
       .then(response => {
         this.setState({
-          goods: response.data.filter((good) => good.color === 'red'),
+          goods: response.filter((good) => good.color === 'red'),
         });
       });
   };
 
   render() {
-    const { goods, isLoaded } = this.state;
+    const { goods } = this.state;
 
-    if (isLoaded) {
+    if (goods.length > 0) {
       return (
         <section className="goods">
           <button
@@ -84,6 +83,13 @@ class App extends React.Component <{}, State> {
 
     return (
       <section className="goods">
+        <button
+          type="button"
+          onClick={this.getAllGoods}
+          className="goods__button"
+        >
+          All
+        </button>
         <h1>Please, wait</h1>
       </section>
     );

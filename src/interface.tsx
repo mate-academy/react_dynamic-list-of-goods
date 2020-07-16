@@ -6,15 +6,6 @@ export interface Good {
   updatedAt: string;
 }
 
-export interface State {
-  goods: Good[];
-  isLoaded: boolean;
-}
-
 export interface Goods {
   goods: Good[];
-}
-
-export interface goodsInPromise {
-  data: Good[];
 }
