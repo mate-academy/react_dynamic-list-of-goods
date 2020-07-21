@@ -22,17 +22,22 @@ interface ResponseData<D> {
 
 type GoodsData = ResponseData<Good[]>;
 
+function loadGoods(): Promise<Good[]> {
+  return fetch(API_URL)
+    .then(response => response.json())
+    .then(({ data }: GoodsData) => data);
+}
+
 export class App extends React.Component<{}, State> {
   state: State = {
     goods: goodsFromServer,
   };
 
   componentDidMount() {
-    fetch(API_URL)
-      .then(response => response.json())
-      .then(({ data }: GoodsData) => {
+    loadGoods()
+      .then((goods) => {
         this.setState({
-          goods: data,
+          goods,
         });
       });
   }
