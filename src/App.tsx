@@ -6,11 +6,13 @@ import { loadGoods } from './api';
 
 interface State {
   goods: Good[];
+  error: string;
 }
 
 export class App extends React.Component<{}, State> {
   state: State = {
     goods: [],
+    error: '',
   };
 
   componentDidMount() {
@@ -19,16 +21,19 @@ export class App extends React.Component<{}, State> {
         this.setState({
           goods,
         });
-      });
+      })
+      .catch(error => this.setState({ error: error.message }));
   }
 
   render() {
-    const { goods } = this.state;
+    const { goods, error } = this.state;
 
     return (
       <div className="container">
         <h1>Dynamic list of Goods</h1>
-        <GoodsList goods={goods} />
+        {error
+          ? (<p>{error}</p>)
+          : (<GoodsList goods={goods} />)}
       </div>
     );
   }
