@@ -5,7 +5,6 @@ const API_URL = 'https://mate.academy/students-api/goods';
 interface ResponseData<D> {
   data: D;
   error?: string;
-  meta?: any;
 }
 
 type GoodsData = ResponseData<Good[]>;

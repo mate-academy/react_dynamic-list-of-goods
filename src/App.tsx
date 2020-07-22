@@ -41,15 +41,21 @@ import { loadGoods } from './api';
 
 // export default App;
 
-const AppHooks: FC = () => {
+const useGoods = (): [Good[], string] => {
   const [goods, setGoods] = useState<Good[]>([]); // touple
   const [error, setError] = useState(''); // touple
 
   useEffect(() => {
     loadGoods()
       .then(goodsFromServer => setGoods(goodsFromServer))
-      .catch(errorr => setError(errorr.message));
+      .catch(err => setError(err.message));
   }, []);
+
+  return [goods, error];
+};
+
+const AppHooks: FC = () => {
+  const [goods, error] = useGoods();
 
   return (
     <div className="container">
