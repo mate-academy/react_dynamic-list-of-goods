@@ -55,18 +55,21 @@ export class App extends React.Component<{}, State> {
       <div className="container">
         <h1>Dynamic list of Goods</h1>
         <button
+          className="button"
           type="button"
           onClick={this.onLoadAll}
         >
           All goods
         </button>
         <button
+          className="button"
           type="button"
           onClick={this.onLoad5}
         >
           5 goods
         </button>
         <button
+          className="button"
           type="button"
           onClick={this.onLoadRed}
         >
