@@ -1,4 +1,3 @@
-// import React, { useState, FC, useEffect } from 'react';
 import React from 'react';
 import './App.css';
 import { GoodsList } from './components/GoodsList';
