@@ -3,10 +3,6 @@ import './App.css';
 import GoodsList from './components/GoodsList';
 import { Goods, Good } from './components/interfaces';
 
-// interface State extends Goods {
-//   hello?: any;
-// }
-
 const GOODSURL = 'https://mate.academy/students-api/goods';
 
 export default class App extends Component {
