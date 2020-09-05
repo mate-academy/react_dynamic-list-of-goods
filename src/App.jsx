@@ -10,14 +10,16 @@ class App extends React.Component {
   }
 
   getAll = async () => {
-    const data = await fetch(url).json();
+    const api = await fetch(url)
+    const data = await api.json();
     this.setState({
       goods: data,
     })
   }
 
   get5 = async () => {
-    const data = await fetch(url).json();
+    const api = await fetch(url)
+    const data = await api.json();
     console.log(data.length)
     data.length = 5;
     this.setState({
@@ -26,10 +28,11 @@ class App extends React.Component {
   }
 
   getRed = async () => {
-    const data = await fetch(url).json();
+    const api = await fetch(url)
+    const data = await api.json();
     console.log(data.length);
     const redGood = data.filter(good=>(good.color==='red'));
-    
+
     this.setState({
       goods: redGood,
     });
