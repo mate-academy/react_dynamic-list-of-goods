@@ -11,37 +11,43 @@ const url = 'https://mate-academy.github.io/react_dynamic-list-of-goods/';
 class App extends React.Component {
   state = {
     goods: [],
+    color: 'red',
+    start: 0,
+    count: 5,
   }
 
-  loadAllGoods = async() => {
+  allGoods = async() => {
     const promise = await fetch(`${url}goods.json`);
     const result = await promise.json();
 
+    return result;
+  }
+
+  loadAllGoods = async() => {
     this.setState({
-      goods: result,
+      goods: await this.allGoods(),
     });
   }
 
   loadFiveGoods = async() => {
-    const promise = await fetch(`${url}goods.json`);
-    const result = await promise.json();
+    const { start, count } = this.state;
 
     this.setState({
-      goods: result.slice(1, 5),
+      goods: (await this.allGoods()).slice(start, count),
     });
   }
 
   loadColorGoods = async() => {
-    const promise = await fetch(`${url}goods.json`);
-    const result = await promise.json();
+    const { color } = this.state;
 
     this.setState({
-      goods: result.filter(good => good.color === 'red'),
+      goods: (await this.allGoods())
+        .filter(good => good.color === color),
     });
   }
 
   render() {
-    const { goods } = this.state;
+    const { goods, count, start, color } = this.state;
 
     return (
       <>
@@ -58,14 +64,24 @@ class App extends React.Component {
           type="button"
           onClick={this.loadFiveGoods}
         >
-          Load 5 first goods
+          Download
+          {' '}
+          {count}
+          {' '}
+          products starting with
+          {' '}
+          {start + 1}
         </button>
 
         <button
           type="button"
           onClick={this.loadColorGoods}
         >
-          Load red goods
+          Load
+          {' '}
+          {color}
+          {' '}
+          goods
         </button>
 
         {goods.map(good => (
