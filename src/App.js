@@ -3,24 +3,16 @@ import React from 'react';
 import './App.scss';
 import { GoodList } from './GoodList';
 import { getAll, get5First, getRedGoods } from './api/goods';
+// or
+// import * as goodsAPI from './api/goods';
 
 export class App extends React.Component {
   state = {
     goods: [],
   }
 
-  loadAllGoods = () => {
-    getAll()
-      .then(goods => this.setState({ goods }));
-  }
-
-  loadFive = () => {
-    get5First()
-      .then(goods => this.setState({ goods }));
-  }
-
-  loadRed = () => {
-    getRedGoods()
+  loadGoods = (func) => {
+    func()
       .then(goods => this.setState({ goods }));
   }
 
@@ -31,19 +23,19 @@ export class App extends React.Component {
       <>
         <button
           type="button"
-          onClick={this.loadAllGoods}
+          onClick={() => this.loadGoods(getAll)}
         >
           Load All Goods
         </button>
         <button
           type="button"
-          onClick={this.loadFive}
+          onClick={() => this.loadGoods(get5First)}
         >
           Load 5 First Goods
         </button>
         <button
           type="button"
-          onClick={this.loadRed}
+          onClick={() => this.loadGoods(getRedGoods)}
         >
           Load Red Goods
         </button>
