@@ -1,13 +1,65 @@
 import React from 'react';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import GoodList from './components/GoodList';
 
 import './App.scss';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+class App extends React.Component {
+  state = {
+    goods: [],
+  };
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+  loadAllGoods = () => {
+    getAll()
+      .then((goods) => {
+        this.setState({ goods });
+      });
+  };
+
+  load5FirstGoods = () => {
+    get5First()
+      .then((goods) => {
+        this.setState({ goods });
+      });
+  };
+
+  loadRedGoods = () => {
+    getRedGoods()
+      .then((goods) => {
+        this.setState({ goods });
+      });
+  };
+
+  render() {
+    const { goods } = this.state;
+
+    return (
+      <div>
+        <button
+          type="button"
+          onClick={this.loadAllGoods}
+        >
+          Load all goods
+        </button>
+
+        <button
+          type="button"
+          onClick={this.load5FirstGoods}
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          type="button"
+          onClick={this.loadRedGoods}
+        >
+          Load red goods
+        </button>
+
+        <GoodList goods={goods} />
+      </div>
+    );
+  }
+}
 
 export default App;
