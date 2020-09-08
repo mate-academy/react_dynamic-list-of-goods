@@ -1,1 +1,32 @@
-// styles go here
+body {
+  background-color: rgb(233, 210, 210);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.app {
+  text-align: center;
+
+  &__header {
+    color: rgb(87, 38, 38);
+  }
+}
+
+.button {
+  width: 150px;
+  height: 30px;
+  margin: 10px;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  background-color: rgb(146, 64, 64);
+  transition: background-color 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(87, 38, 38);
+  }
+}
