@@ -12,7 +12,11 @@ const ListOfGoods = ({ goods }) => (
 );
 
 ListOfGoods.propTypes = {
-  goods: PropTypes.arrayOf(PropTypes.object).isRequired,
+  goods: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    color: PropTypes.string.isRequired,
+  })).isRequired,
 };
 
 export default ListOfGoods;
