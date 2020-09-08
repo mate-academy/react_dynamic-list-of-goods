@@ -1,1 +1,21 @@
-// styles go here
+p {
+  margin: 0;
+}
+
+.App {
+  display: grid;
+  grid-auto-rows: auto;
+  grid-row-gap: 20px;
+  justify-content: center;
+}
+
+.box-button {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: max-content;
+  grid-column-gap: 10px;
+}
+
+.list {
+  justify-self: center;
+}
