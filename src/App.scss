@@ -1,1 +1,23 @@
-// styles go here
+.App {
+  background-color: #f1f9f9;
+  width: 400px;
+  height: 400px;
+  margin: 10px auto;
+  padding: 20px;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__button {
+    background-color: #f3dfe3;
+    border: 1px solid #e9b2bc;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 30px;
+    margin: 10px;
+    &:hover {
+      background-color: #e9b2bc;
+    }
+  }
+}
