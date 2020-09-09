@@ -10,25 +10,23 @@ class App extends React.PureComponent {
     goods: [],
   }
 
-  enlistGoods = async(promise) => {
+  loadGoods = async(promise) => {
     const goods = await promise();
 
-    this.setState({
-      goods,
-    });
+    this.setState({ goods });
   }
 
   render() {
     return (
       <>
         <h1>Dynamic list of Goods</h1>
-        <button type="button" onClick={() => this.enlistGoods(getAll)}>
+        <button type="button" onClick={() => this.loadGoods(getAll)}>
           Load All goods
         </button>
-        <button type="button" onClick={() => this.enlistGoods(get5First)}>
+        <button type="button" onClick={() => this.loadGoods(get5First)}>
           Load 5 first goods
         </button>
-        <button type="button" onClick={() => this.enlistGoods(getRedGoods)}>
+        <button type="button" onClick={() => this.loadGoods(getRedGoods)}>
           Load red goods
         </button>
         <GoodsList goods={this.state.goods} />
