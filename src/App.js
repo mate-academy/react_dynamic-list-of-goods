@@ -10,29 +10,13 @@ class App extends React.Component {
     goods: '',
   }
 
-  loadAllGoods = () => {
-    getAll()
+  handleQuery = (func) => {
+    func()
       .then((goods) => {
         this.setState({
           goods,
         });
       });
-  }
-
-  loadFirst5 = () => {
-    get5First()
-      .then((goods) => {
-        this.setState({
-          goods,
-        });
-      });
-  }
-
-  loadRedGoods = () => {
-    getRed()
-      .then(goods => this.setState({
-        goods,
-      }));
   }
 
   render() {
@@ -44,19 +28,19 @@ class App extends React.Component {
         {goods && <GoodsList goods={goods} />}
         <button
           type="button"
-          onClick={this.loadAllGoods}
+          onClick={() => this.handleQuery(getAll)}
         >
           Load all goods
         </button>
         <button
           type="button"
-          onClick={this.loadFirst5}
+          onClick={() => this.handleQuery(get5First)}
         >
           Load 5 first goods
         </button>
         <button
           type="button"
-          onClick={this.loadRedGoods}
+          onClick={() => this.handleQuery(getRed)}
         >
           Load red goods
         </button>
