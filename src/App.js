@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
+import { GoodsList } from './components/GoodsList';
 
 export class App extends Component {
   state = {
@@ -30,20 +31,7 @@ export class App extends Component {
     return (
       <>
         <h1>Dynamic list of Goods</h1>
-        <div className="goods">
-          <ul>
-            {goods.map(good => (
-              <li
-                key={good.id}
-                style={{
-                  color: good.color,
-                }}
-              >
-                {good.name}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <GoodsList goods={goods} />
         <div className="buttons">
           <button
             type="button"
