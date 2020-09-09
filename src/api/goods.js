@@ -6,10 +6,14 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = () => fetch(API_URL)
-  .then(response => response.json())
-  .then(goods => goods.slice(0, 5));
+export const get5First = async() => {
+  const goods = await getAll();
 
-export const getRedGoods = () => fetch(API_URL)
-  .then(response => response.json())
-  .then(goods => goods.filter(good => good.color === 'red'));
+  return goods.slice(0, 5);
+};
+
+export const getRedGoods = async() => {
+  const goods = await getAll();
+
+  return goods.filter(good => good.color === 'red');
+};
