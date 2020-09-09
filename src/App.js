@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-// import './App.scss';
+import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
