@@ -1,1 +1,13 @@
-// styles go here
+.button {
+  color: black;
+  background-color: white;
+  height: 50px;
+  margin-right: 10px;
+  outline: none;
+  border: 1px solid #f0f0f0;
+  cursor: pointer;
+
+  &:hover {
+    background-color: lightgreen;
+  }
+}
