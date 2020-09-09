@@ -23,7 +23,7 @@ class App extends React.Component {
     this.setState({
       goods: (await getGoods())
         .sort((goodA, goodB) => goodA.name.localeCompare(goodB.name))
-        .filter((_, index) => index < 5),
+        .slice(0, 5),
     });
   }
 
