@@ -1,0 +1,14 @@
+.goods {
+  display: flex;
+  justify-content: center;
+
+  &__list {
+    padding: 10px 0;
+    margin-bottom: 0;
+  }
+
+  &__item {
+    list-style: none;
+    font-size: 18px;
+  }
+}
