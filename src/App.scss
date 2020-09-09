@@ -1,1 +1,17 @@
-// styles go here
+.btn {
+  margin: 10px;
+  width: 130px;
+  padding: 10px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: rgb(255, 187, 0);
+
+  &:hover {
+    background-color: rgb(253, 199, 51);
+  }
+
+  &:active {
+    background-color: rgb(255, 217, 103);
+  }
+}
