@@ -8,8 +8,8 @@ export function getAll() {
 
 export const get5First = () => getAll()
   .then(result => result
-    .filter((elem, i) => i < 5)
-    .sort((a, b) => a.name.localeCompare(b.name)));
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .slice(0, 5));
 
 export const getRed = () => getAll()
   .then(result => result
