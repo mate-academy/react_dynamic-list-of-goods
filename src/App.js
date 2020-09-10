@@ -12,29 +12,13 @@ class App extends PureComponent {
    data: [],
  }
 
-  getAllGoods = () => {
-    getAll()
+  getGoods = (func) => {
+    func()
       .then((result) => {
         this.setState({
           data: result,
         });
       });
-  }
-
-  getFirstFiveGoods = () => {
-    get5First().then((result) => {
-      this.setState({
-        data: result,
-      });
-    });
-  }
-
-  getRedGoods = () => {
-    getRedGoods().then((result) => {
-      this.setState({
-        data: result,
-      });
-    });
   }
 
   render() {
@@ -44,19 +28,19 @@ class App extends PureComponent {
         <div className="open-list-buttons">
           <button
             type="button"
-            onClick={this.getAllGoods}
+            onClick={() => this.getGoods(getAll)}
           >
             Show all goods
           </button>
           <button
             type="button"
-            onClick={this.getFirstFiveGoods}
+            onClick={() => this.getGoods(get5First)}
           >
             Show first 5
           </button>
           <button
             type="button"
-            onClick={this.getRedGoods}
+            onClick={() => this.getGoods(getRedGoods)}
           >
             Show red goods
           </button>
