@@ -1,1 +1,22 @@
-// styles go here
+html {
+  background-image: url("./components/istockphoto-1028886502-170667a.jpg");
+  font-family: "Lucida Sans", "Lucida Sans Regular", sans-serif;
+  display: flex;
+  justify-content: center;
+  
+}
+
+.buttons {
+  width: 300px;
+  background-color: rgb(182, 216, 205);
+  height: 400px;
+  margin-top: 30px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+button {
+  height: 60px;
+  width: 100px;
+  font-weight: bold;
+}
