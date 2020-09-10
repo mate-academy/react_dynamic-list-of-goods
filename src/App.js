@@ -9,22 +9,8 @@ class App extends React.Component {
     goods: [],
   };
 
-  loadAll = () => {
-    getAll()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  loadFirst = () => {
-    get5First()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  loadRed = () => {
-    getRedGoods()
+  handleShow = (fromServer) => {
+    fromServer()
       .then((goods) => {
         this.setState({ goods });
       });
@@ -38,7 +24,7 @@ class App extends React.Component {
         <button
           type="submit"
           onClick={() => {
-            this.loadAll();
+            this.handleShow(getAll);
           }}
         >
           Load All goods
@@ -46,7 +32,7 @@ class App extends React.Component {
         <button
           type="submit"
           onClick={() => {
-            this.loadFirst();
+            this.handleShow(get5First);
           }}
         >
           Load 5 first goods
@@ -54,7 +40,7 @@ class App extends React.Component {
         <button
           type="submit"
           onClick={() => {
-            this.loadRed();
+            this.handleShow(getRedGoods);
           }}
         >
           Load red goods
