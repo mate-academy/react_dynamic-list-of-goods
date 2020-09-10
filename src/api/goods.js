@@ -6,6 +6,18 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+// eslint-disable-next-line arrow-body-style
+export const get5First = () => {
+  return fetch(API_URL)
+    .then(response => response.json())
+    .then(data => data
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .slice(0, 5));
+};
 
-export const getRedGoods = () => {};
+// eslint-disable-next-line arrow-body-style
+export const getRed = () => {
+  return fetch(API_URL)
+    .then(response => response.json())
+    .then(data => data.filter(good => good.color === 'red'));
+};
