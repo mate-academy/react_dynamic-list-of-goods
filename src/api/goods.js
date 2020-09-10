@@ -7,17 +7,15 @@ export function getAll() {
 }
 
 export const get5First = async() => {
-  const allGoods = await getAll();
-  const goods = allGoods
+  const goods = await getAll();
+
+  return goods
     .sort((a, b) => a.name.localeCompare(b.name))
     .slice(0, 5);
-
-  return goods;
 };
 
 export const getRedGoods = async() => {
-  const allGoods = await getAll();
-  const goods = allGoods.filter(good => good.color === 'red');
+  const goods = await getAll();
 
-  return goods;
+  return goods.filter(good => good.color === 'red');
 };
