@@ -29,14 +29,14 @@ class App extends React.Component {
           className="button"
           onClick={() => this.getGoods(getRedGoods)}
         >
-          Load 5 first goods
+          Load red goods
         </button>
         <button
           type="button"
           className="button"
           onClick={() => this.getGoods(get5First)}
         >
-          Load red goods
+          Load 5 first goods
         </button>
         <GoodsList goods={this.state.goods} />
       </div>
