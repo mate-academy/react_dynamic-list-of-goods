@@ -1,1 +1,12 @@
-// styles go here
+body {
+  font-family: sans-serif;
+}
+
+button {
+  width: 100px;
+  height: 40px;
+  font-size: 18px;
+  font-weight: 600;
+  margin-right: 10px;
+  cursor: pointer;
+}
