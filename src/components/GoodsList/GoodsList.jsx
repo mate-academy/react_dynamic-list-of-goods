@@ -2,26 +2,18 @@ import React from 'react';
 import './GoodsList.scss';
 import PropTypes from 'prop-types';
 
-export class GoodsList extends React.Component {
-  state = {};
-
-  render() {
-    const { goods } = this.props;
-
-    return (
-      <ul>
-        {goods.map(good => (
-          <li
-            style={{ color: `${good.color}` }}
-            key={good.id}
-          >
-            {good.name}
-          </li>
-        ))}
-      </ul>
-    );
-  }
-}
+export const GoodsList = ({ goods }) => (
+  <ul className="list">
+    {goods.map(good => (
+      <li
+        style={{ color: `${good.color}` }}
+        key={good.id}
+      >
+        {good.name}
+      </li>
+    ))}
+  </ul>
+);
 
 GoodsList.propTypes = {
   goods: PropTypes.arrayOf(
