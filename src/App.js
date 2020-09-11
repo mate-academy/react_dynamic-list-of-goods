@@ -11,30 +11,10 @@ class App extends Component {
     isGoodsLoaded: false,
   };
 
-  fetchAll = (event) => {
+  fetchData = (event, getDataFunc) => {
     event.preventDefault();
 
-    getAll()
-      .then(goods => this.setState({
-        goods,
-        isGoodsLoaded: true,
-      }));
-  }
-
-  fetchFive = (event) => {
-    event.preventDefault();
-
-    get5First()
-      .then(goods => this.setState({
-        goods,
-        isGoodsLoaded: true,
-      }));
-  }
-
-  fetchRed = (event) => {
-    event.preventDefault();
-
-    getRed()
+    getDataFunc()
       .then(goods => this.setState({
         goods,
         isGoodsLoaded: true,
@@ -49,19 +29,19 @@ class App extends Component {
         <h1>Dynamic list of Goods</h1>
 
         <button
-          onClick={event => this.fetchAll(event)}
+          onClick={event => this.fetchData(event, getAll)}
           type="button"
         >
           get all
         </button>
         <button
-          onClick={event => this.fetchFive(event)}
+          onClick={event => this.fetchData(event, get5First)}
           type="button"
         >
           get 5
         </button>
         <button
-          onClick={event => this.fetchRed(event)}
+          onClick={event => this.fetchData(event, getRed)}
           type="button"
         >
           get red
