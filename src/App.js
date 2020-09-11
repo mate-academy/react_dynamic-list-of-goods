@@ -3,34 +3,12 @@ import { getAll, get5First, getRed } from './api/goods';
 import { GoodsList } from './components/GoodsList/GoodsList';
 import './App.scss';
 
-//
-// or
-// import * as goodsAPI from './api/goods';
-// const loadAll = async() => {
-//   const all = await getAll();
-//   return all;
-// };
-
 const App = () => {
   const [goods, loadGoods] = useState([]);
 
-  const loadAll = () => {
-    getAll()
-      .then((units) => {
-        loadGoods([...units]);
-      });
-  };
-
-  const load5First = () => {
-    get5First()
+  const load = (func) => {
+    func()
       .then(units => loadGoods([...units]));
-  };
-
-  const loadRed = () => {
-    getRed()
-      .then((units) => {
-        loadGoods([...units]);
-      });
   };
 
   return (
@@ -39,13 +17,13 @@ const App = () => {
       <ul>
         <GoodsList goods={goods} />
       </ul>
-      <button type="button" onClick={loadAll}>
+      <button type="button" onClick={() => load(getAll)}>
         Load all goods
       </button>
-      <button type="button" onClick={load5First}>
+      <button type="button" onClick={() => load(get5First)}>
         Load 5 first
       </button>
-      <button type="button" onClick={loadRed}>
+      <button type="button" onClick={() => load(getRed)}>
         Load red
       </button>
     </>
