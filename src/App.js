@@ -3,6 +3,7 @@ import React from 'react';
 import './App.scss';
 
 import { getAll, get5First, getRed } from './api/goods';
+import GoodsList from './Components/GoodsList/GoodsList';
 
 class App extends React.Component {
   state = {
@@ -37,6 +38,8 @@ class App extends React.Component {
   }
 
   render() {
+    const { goods } = this.state;
+
     return (
       <section className="App">
         <h1>Dynamic list of Goods</h1>
@@ -58,13 +61,7 @@ class App extends React.Component {
         >
           Get red
         </button>
-        <ul>
-          {
-            this.state.goods.map(good => (
-              <li key={good.id}>{good.name}</li>
-            ))
-          }
-        </ul>
+        <GoodsList goods={goods} />
       </section>
     );
   }
