@@ -44,9 +44,7 @@ class App extends React.Component {
         >
           Clear
         </button>
-        <ul>
-          <GoodsList goods={goods} />
-        </ul>
+        <GoodsList goods={goods} />
       </>
     );
   }
