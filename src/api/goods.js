@@ -6,6 +6,22 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+// eslint-disable-next-line arrow-body-style
+export const get5First = () => {
+  return (
+    fetch(API_URL)
+      .then(response => response.json())
+      .then(goods => [...goods]
+        .sort((a, b) => (a.name.localeCompare(b.name)))
+        .filter((good, index) => index <= 4))
+  );
+};
 
-export const getRedGoods = () => {};
+// eslint-disable-next-line arrow-body-style
+export const getRedGoods = () => {
+  return (
+    fetch(API_URL)
+      .then(response => response.json())
+      .then(goods => goods.filter(good => good.color === 'red'))
+  );
+};
