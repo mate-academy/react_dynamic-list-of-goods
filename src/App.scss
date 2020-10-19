@@ -1,1 +1,17 @@
-// styles go here
+.goods {
+  margin: 0;
+  padding: 0;
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #000;
+    margin-bottom: 10px;
+
+    &-id,
+    &-name,
+    &-color {
+      padding: 10px 20px;
+    }
+  }
+}
