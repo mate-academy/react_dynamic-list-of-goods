@@ -6,6 +6,6 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export const get5First = () => getAll();
 
-export const getRedGoods = () => {};
+export const getRedGoods = () => getAll();
