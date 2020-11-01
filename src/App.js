@@ -9,24 +9,33 @@ import { GoodsList } from './components/GoodsList';
 class App extends React.Component {
   state = {
     isLoadingGoods: false,
+    hasError: false,
     goods: [],
   }
 
   loadGoods = async(loading) => {
     this.setState({
       isLoadingGoods: true,
+      hasError: false,
     });
 
-    const loadedGoods = await loading();
+    try {
+      const loadedGoods = await loading();
 
-    this.setState({
-      isLoadingGoods: false,
-      goods: loadedGoods,
-    });
+      this.setState({
+        isLoadingGoods: false,
+        goods: loadedGoods,
+      });
+    } catch (error) {
+      this.setState({
+        isLoadingGoods: false,
+        hasError: true,
+      });
+    }
   }
 
   render() {
-    const { isLoadingGoods, goods } = this.state;
+    const { isLoadingGoods, goods, hasError } = this.state;
 
     return (
       <div className="container-fluid">
@@ -48,7 +57,16 @@ class App extends React.Component {
           buttonText="Load Red Goods"
         />
 
-        <GoodsList goods={goods} />
+        {
+          hasError
+            ? (
+              <div className="alert alert-danger mt-3 col-4" role="alert">
+                Something went wrong!
+              </div>
+            ) : (
+              <GoodsList goods={goods} />
+            )
+        }
       </div>
     );
   }
