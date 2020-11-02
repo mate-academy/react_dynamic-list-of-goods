@@ -65,7 +65,7 @@ class App extends React.PureComponent {
         {isError
           ? (
             <div className="alert alert-danger w-50 mt-3" role="alert">
-              Ooops..Error 404
+              Ooops..something went wrong
             </div>
           )
           : <GoodsList goods={goods} />

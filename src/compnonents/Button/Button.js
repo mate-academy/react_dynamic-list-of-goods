@@ -17,7 +17,7 @@ class Button extends React.PureComponent {
       setGoods(goods);
 
       this.setState({ isLoading: false });
-    } catch (e) {
+    } catch (error) {
       ifError();
       this.setState({ isLoading: false });
     }
