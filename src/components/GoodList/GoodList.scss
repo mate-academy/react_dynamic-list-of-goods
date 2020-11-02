@@ -1,0 +1,27 @@
+.list__item {
+  width: 400px;
+  height: 40px;
+
+  font-size: 18px;
+
+  background-color: white;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  border-radius: 5px;
+
+  margin-bottom: 5px;
+
+  text-align: center;
+  line-height: 40px;
+}
+
+.red {
+  background-color: #f14668;
+}
+
+.green {
+  background-color: #48c774;
+}
+
+.blue {
+  background-color: #3298dc;
+}

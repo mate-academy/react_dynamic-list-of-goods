@@ -1,1 +1,24 @@
-// styles go here
+.App {
+  padding-top: 50px;
+  margin: 0 auto;
+  max-width: 800px;
+
+  &__title {
+    text-align: center;
+    font-size: 28px;
+  }
+
+  &__buttons {
+    max-width: 300px;
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
