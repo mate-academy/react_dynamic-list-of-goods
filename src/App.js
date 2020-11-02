@@ -1,13 +1,60 @@
-import React from 'react';
-
+import React, { Component } from 'react';
 import './App.scss';
+import { Button } from './components/Button';
+import { GoodsList } from './components/List';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+class App extends Component {
+  state = {
+    list: [],
+  }
+
+  loadList = (getData) => {
+    getData()
+      .then(result => this.setState({
+        list: result,
+      }));
+  }
+
+  render() {
+    const { list } = this.state;
+    const { loadList } = this;
+
+    return (
+      <>
+        <h1 className="text-center mt-3">Dynamic list of Goods</h1>
+
+        <div className="d-flex justify-content-center mt-5">
+          <Button
+            title="Load All goods"
+            loadList={loadList}
+            getData={getAll}
+          />
+          <Button
+            title="Load 5 first goods"
+            loadList={loadList}
+            getData={get5First}
+          />
+          <Button
+            title="Load red goods"
+            loadList={loadList}
+            getData={getRedGoods}
+          />
+        </div>
+
+        {list.length ? (
+          <div className="d-flex justify-content-center mt-5">
+            <GoodsList list={list} />
+          </div>
+        ) : (
+          <h3 className="text-center mt-3 text-secondary">
+            Click any  button to load list
+          </h3>
+        )}
+      </>
+    );
+  }
+}
 
 export default App;
