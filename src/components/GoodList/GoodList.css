@@ -1,0 +1,10 @@
+.goods {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.goods li {
+  margin-top: 10px;
+  font-style: oblique;
+  font-weight: bold;
+}
