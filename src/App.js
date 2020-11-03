@@ -42,18 +42,15 @@ class App extends React.PureComponent {
 
         <div className="mb-2">
           <Button
-            loadGoods={loadGoods}
-            fetch={getAll}
+            onClick={() => loadGoods(getAll)}
             text="Load All goods"
           />
           <Button
-            loadGoods={loadGoods}
-            fetch={get5First}
+            onClick={() => loadGoods(get5First)}
             text="Load 5 first goods"
           />
           <Button
-            loadGoods={loadGoods}
-            fetch={getRedGoods}
+            onClick={() => loadGoods(getRedGoods)}
             text="Load red goods"
           />
         </div>

@@ -1,15 +1,11 @@
 import React from 'react';
 import { ButtonProps } from '../../props/ButtonProps';
 
-export const Button = ({
-  loadGoods,
-  fetch,
-  text,
-}) => (
+export const Button = ({ onClick, text }) => (
   <button
     className="btn btn-primary mx-1"
     type="button"
-    onClick={() => loadGoods(fetch)}
+    onClick={onClick}
   >
     {text}
   </button>
