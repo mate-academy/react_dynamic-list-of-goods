@@ -1,1 +1,21 @@
-// styles go here
+@import "bulma/bulma.sass";
+
+.app {
+  margin: 50px auto;
+}
+
+.good {
+  display: block;
+  padding: 5px;
+  border: 1px solid rgb(236, 235, 235);
+  border-radius: 5px;
+  width: 200px;
+  text-align: center;
+  margin: 5px auto;
+}
+
+.buttons {
+  margin: 20px auto;
+  width: 50%;
+  justify-content: center;
+}
