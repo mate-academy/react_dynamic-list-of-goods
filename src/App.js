@@ -1,65 +1,30 @@
 import React, { PureComponent } from 'react';
 import 'bulma';
 
-import './App.scss';
+import { GoodsList } from './components/GoodsList/GoodsList';
+import { ButtonsGroup } from './components/ButtonsGroup/ButtonsGroup';
 
-import { getAll, get5First, getRedGoods } from './api/goods';
+import './App.scss';
 
 class App extends PureComponent {
   state = {
     goods: [],
   }
 
-  loadAllGoods = async() => {
-    const goods = await getAll();
-
-    this.setState({ goods });
-  }
-
-  load5Goods = async() => {
-    const goods = await get5First();
-
-    this.setState({ goods });
-  }
-
-  loadRedGoods = async() => {
-    const goods = await getRedGoods();
+  loadGoodsList = async(getTypeFunction) => {
+    const goods = await getTypeFunction;
 
     this.setState({ goods });
   }
 
   render() {
+    const { goods } = this.state;
+
     return (
       <section className="app">
         <h1>Dynamic list of Goods</h1>
-        <div className="buttons">
-          <button
-            className="button is-primary"
-            type="button"
-            onClick={this.loadAllGoods}
-          >
-            Load All goods
-          </button>
-          <button
-            className="button is-primary"
-            type="button"
-            onClick={this.load5Goods}
-          >
-            Load 5 first goods
-          </button>
-          <button
-            className="button is-primary"
-            type="button"
-            onClick={this.loadRedGoods}
-          >
-            Load red goods
-          </button>
-        </div>
-        <ul>
-          {this.state.goods.map(({ id, name, color }) => (
-            <li key={id} style={{ color }}>{name}</li>
-          ))}
-        </ul>
+        <ButtonsGroup onClick={this.loadGoodsList} />
+        <GoodsList goods={goods} />
       </section>
     );
   }
