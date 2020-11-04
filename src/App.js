@@ -3,14 +3,15 @@ import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList';
+import { Button } from './components/Button';
 
 class App extends React.PureComponent {
   state = {
     goods: [],
   }
 
-  setGoods = (callback) => {
-    callback().then((goods) => {
+  setGoods = (fuctionType) => {
+    fuctionType().then((goods) => {
       this.setState({
         goods,
       });
@@ -25,29 +26,26 @@ class App extends React.PureComponent {
         <h1 className="title">Dynamic list of Goods</h1>
 
         <div className="app__buttons">
-          <button
-            className="button is-primary"
-            type="button"
-            onClick={() => this.setGoods(getAll)}
-          >
-            Load All goods
-          </button>
+          <Button
+            text="Load all goods"
+            handleClick={() => (
+              this.setGoods(getAll)
+            )}
+          />
 
-          <button
-            className="button is-primary"
-            type="button"
-            onClick={() => this.setGoods(get5First)}
-          >
-            Load 5 first goods
-          </button>
+          <Button
+            text="Load 5 first goods"
+            handleClick={() => (
+              this.setGoods(get5First)
+            )}
+          />
 
-          <button
-            className="button is-danger"
-            type="button"
-            onClick={() => this.setGoods(getRedGoods)}
-          >
-            Load red goods
-          </button>
+          <Button
+            text="Load red goods"
+            handleClick={() => (
+              this.setGoods(getRedGoods)
+            )}
+          />
         </div>
 
         <div className="content">
