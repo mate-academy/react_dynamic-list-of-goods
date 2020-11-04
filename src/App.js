@@ -28,18 +28,15 @@ class App extends Component {
         <div className="d-flex justify-content-center mt-5">
           <Button
             title="Load All goods"
-            loadList={loadList}
-            getData={getAll}
+            loadList={() => loadList(getAll)}
           />
           <Button
             title="Load 5 first goods"
-            loadList={loadList}
-            getData={get5First}
+            loadList={() => loadList(get5First)}
           />
           <Button
             title="Load red goods"
-            loadList={loadList}
-            getData={getRedGoods}
+            loadList={() => loadList(getRedGoods)}
           />
         </div>
 
