@@ -1,1 +1,9 @@
-// styles go here
+.app {
+  padding: 50px;
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 500px;
+  }
+}
