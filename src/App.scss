@@ -1,1 +1,15 @@
-// styles go here
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+.list-group {
+  width: 400px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
