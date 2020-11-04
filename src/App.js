@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 
-import { getAll, get5First, getRed, testFakeApi } from './api/goods';
+import { getAll, get5First, getRed } from './api/goods';
 import GoodsList from './compnonents/GoodsList/GoodsList';
 import Button from './compnonents/Button/Button';
 
@@ -11,15 +11,19 @@ class App extends React.PureComponent {
     isError: false,
   };
 
-  setGoods = (goods) => {
-    this.setState({
-      goods,
-      isError: false,
-    });
-  };
+  setGoods = async(callback) => {
+    try {
+      const goods = await callback();
 
-  ifError = () => {
-    this.setState({ isError: true });
+      this.setState({
+        goods,
+        isError: false,
+      });
+    } catch (error) {
+      this.setState({
+        isError: true,
+      });
+    }
   };
 
   render() {
@@ -30,36 +34,21 @@ class App extends React.PureComponent {
         <h1>Dynamic list of Goods</h1>
 
         <Button
-          getGoods={getAll}
-          setGoods={this.setGoods}
-          ifError={this.ifError}
+          getGoods={() => this.setGoods(getAll)}
         >
           Load All Goods
         </Button>
 
         <Button
-          getGoods={get5First}
-          setGoods={this.setGoods}
-          ifError={this.ifError}
+          getGoods={() => this.setGoods(get5First)}
         >
           Load First 5
         </Button>
 
         <Button
-          getGoods={getRed}
-          setGoods={this.setGoods}
-          ifError={this.ifError}
+          getGoods={() => this.setGoods(getRed)}
         >
           Load Red Goods
-        </Button>
-
-        <Button
-          className="btn btn-warning ml-3"
-          getGoods={testFakeApi}
-          setGoods={this.setGoods}
-          ifError={this.ifError}
-        >
-          Try make Error
         </Button>
 
         {isError

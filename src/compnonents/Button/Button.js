@@ -6,22 +6,12 @@ class Button extends React.PureComponent {
     isLoading: false,
   }
 
-  getGoodsFromServer = async() => {
-    const { getGoods, setGoods, ifError } = this.props;
-
+  loadData = async() => {
     this.setState({ isLoading: true });
+    await this.props.getGoods();
 
-    try {
-      const goods = await getGoods();
-
-      setGoods(goods);
-
-      this.setState({ isLoading: false });
-    } catch (error) {
-      ifError();
-      this.setState({ isLoading: false });
-    }
-  };
+    this.setState({ isLoading: false });
+  }
 
   render() {
     const { children, className } = this.props;
@@ -29,7 +19,7 @@ class Button extends React.PureComponent {
 
     return (
       <button
-        onClick={this.getGoodsFromServer}
+        onClick={this.loadData}
         className={className || `btn btn-primary ml-3`}
         type="button"
       >
@@ -48,8 +38,6 @@ class Button extends React.PureComponent {
 
 Button.propTypes = {
   getGoods: PropTypes.func.isRequired,
-  setGoods: PropTypes.func.isRequired,
-  ifError: PropTypes.func.isRequired,
   children: PropTypes.string.isRequired,
   className: PropTypes.string,
 };
