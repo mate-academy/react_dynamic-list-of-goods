@@ -6,23 +6,24 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './Components/GoodsList';
 import { Button } from './Components/Button';
 
+const buttons = [
+  {
+    text: 'Load all goods',
+    onClick: getAll,
+  },
+  {
+    text: 'Load 5 first goods',
+    onClick: get5First,
+  },
+  {
+    text: 'Get red goods',
+    onClick: getRedGoods,
+  },
+];
+
 class App extends React.PureComponent {
   state = {
     goods: [],
-    data: [
-      {
-        name: 'Load all goods',
-        api: getAll,
-      },
-      {
-        name: 'Load 5 first goods',
-        api: get5First,
-      },
-      {
-        name: 'Get red goods',
-        api: getRedGoods,
-      },
-    ],
   };
 
   handleChange = (dataFromServer) => {
@@ -33,15 +34,16 @@ class App extends React.PureComponent {
   };
 
   render() {
-    const { goods, data } = this.state;
+    const { goods } = this.state;
 
     return (
       <div className="app">
         <h1 className="app__title">Dynamic list of Goods</h1>
-        {data.map(itemOfData => (
+        {buttons.map(button => (
           <Button
-            key={itemOfData.name}
-            data={itemOfData}
+            key={button.text}
+            text={button.text}
+            data={button.onClick}
             handleChange={this.handleChange}
           />
         ))}
