@@ -1,1 +1,15 @@
-// styles go here
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  width: 600px;
+  margin: 0 auto;
+  text-align: center;
+
+  &__title {
+    margin: 10px 0;
+  }
+}

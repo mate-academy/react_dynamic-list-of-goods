@@ -4,57 +4,47 @@ import './App.scss';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 import { GoodsList } from './Components/GoodsList';
+import { Button } from './Components/Button';
 
 class App extends React.PureComponent {
   state = {
     goods: [],
+    data: [
+      {
+        name: 'Load all goods',
+        api: getAll,
+      },
+      {
+        name: 'Load 5 first goods',
+        api: get5First,
+      },
+      {
+        name: 'Get red goods',
+        api: getRedGoods,
+      },
+    ],
   };
 
-  handlerGetAll = () => {
-    getAll()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  };
-
-  handlerGet5First = () => {
-    get5First()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  };
-
-  handlerGetRedGoods = () => {
-    getRedGoods()
+  handleChange = (dataFromServer) => {
+    dataFromServer()
       .then((goods) => {
         this.setState({ goods });
       });
   };
 
   render() {
-    const { goods } = this.state;
+    const { goods, data } = this.state;
 
     return (
-      <div>
-        <h1>Dynamic list of Goods</h1>
-        <button
-          type="button"
-          onClick={this.handlerGetAll}
-        >
-          Load all goods
-        </button>
-        <button
-          type="button"
-          onClick={this.handlerGet5First}
-        >
-          Load 5 first goods
-        </button>
-        <button
-          type="button"
-          onClick={this.handlerGetRedGoods}
-        >
-          Get red goods
-        </button>
+      <div className="app">
+        <h1 className="app__title">Dynamic list of Goods</h1>
+        {data.map(itemOfData => (
+          <Button
+            key={itemOfData.name}
+            data={itemOfData}
+            handleChange={this.handleChange}
+          />
+        ))}
         <GoodsList goods={goods} />
       </div>
     );
