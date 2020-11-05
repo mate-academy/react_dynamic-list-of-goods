@@ -6,30 +6,15 @@ import { getAll, get5First, getRed } from './api/goods';
 import { Button } from './Button';
 import { GoodsList } from './GoodsList';
 
+const buttons = {
+  'Load All goods': getAll(),
+  'Load 5 first goods': get5First(),
+  'Load red goods': getRed(),
+};
+
 class App extends React.Component {
   state = {
     goods: [],
-  }
-
-  loadAll = () => {
-    getAll()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  load5First = () => {
-    get5First()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  loadRed = () => {
-    getRed()
-      .then((goods) => {
-        this.setState({ goods });
-      });
   }
 
   render() {
@@ -38,18 +23,15 @@ class App extends React.Component {
     return (
       <div className="app">
         <div className="app__container">
-          <Button
-            name="Load All goods"
-            handleClick={this.loadAll}
-          />
-          <Button
-            name="Load 5 first goods"
-            handleClick={this.load5First}
-          />
-          <Button
-            name="Load red goods"
-            handleClick={this.loadRed}
-          />
+          {Object.entries(buttons).map(([name, loader]) => (
+            <Button
+              key={name}
+              name={name}
+              handleClick={() => loader.then((goodsFromServer) => {
+                this.setState({ goods: goodsFromServer });
+              })}
+            />
+          ))}
         </div>
 
         <GoodsList goods={goods} />
