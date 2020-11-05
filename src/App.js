@@ -10,14 +10,17 @@ const callbacks = [
   {
     callback: getAll,
     text: 'Load All goods',
+    id: 1,
   },
   {
     callback: get5First,
     text: 'Load 5 first goods',
+    id: 2,
   },
   {
     callback: getRedGoods,
     text: 'Load red goods',
+    id: 3,
   },
 ];
 
@@ -41,11 +44,12 @@ class App extends React.PureComponent {
     return (
       <div>
         <h1>Dynamic list of Goods</h1>
-        {callbacks.map(({ callback, text }) => (
+        {callbacks.map(({ callback, text, id }) => (
           <Button
             text={text}
             onClick={this.getGoods}
             callback={callback}
+            key={id}
           />
         ))}
         {goods && (
