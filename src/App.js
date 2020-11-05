@@ -1,13 +1,43 @@
 import React from 'react';
+import 'bulma';
 
 import './App.scss';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { GoodsList } from './components/GoodsList';
+import { Buttons } from './components/Buttons';
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+class App extends React.Component {
+  state = {
+    goods: null,
+  }
+
+  addGoods = async(callback) => {
+    const goods = await callback();
+
+    this.setState({ goods });
+  }
+
+  render() {
+    const { goods } = this.state;
+
+    return (
+      <>
+        <h1 className="title">
+          Dynamic list of Goods
+        </h1>
+
+        <Buttons
+          addGoods={this.addGoods}
+        />
+
+        <div className="content">
+          {goods && (
+            <GoodsList goods={goods} />
+          )}
+        </div>
+      </>
+    );
+  }
+}
 
 export default App;
