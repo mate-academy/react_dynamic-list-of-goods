@@ -4,8 +4,6 @@ import { Buttons } from './components/Buttons/Buttons';
 
 import './App.scss';
 
-import * as goodsAPI from './api/goods';
-
 class App extends PureComponent {
   state = {
     goods: [],
@@ -33,13 +31,12 @@ class App extends PureComponent {
         {goods.length === 0
           ? (
             <Buttons
-              callback={getGoods}
-              API={goodsAPI}
+              getGoods={getGoods}
             />
           ) : (
             <GoodsList
               goods={goods}
-              callback={cleanGoods}
+              cleanGoods={cleanGoods}
             />
           )}
       </>

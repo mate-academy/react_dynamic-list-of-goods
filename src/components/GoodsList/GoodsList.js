@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './GoodsList.scss';
 
-export const GoodsList = ({ goods, callback }) => (
+export const GoodsList = ({ goods, cleanGoods }) => (
   <>
     <button
-      onClick={callback}
+      onClick={cleanGoods}
       type="button"
     >
       Back
@@ -25,7 +25,7 @@ export const GoodsList = ({ goods, callback }) => (
 );
 
 GoodsList.propTypes = {
-  callback: PropTypes.func.isRequired,
+  cleanGoods: PropTypes.func.isRequired,
   goods: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,

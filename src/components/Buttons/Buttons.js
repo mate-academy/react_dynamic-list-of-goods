@@ -2,24 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './Buttons.scss';
 
-export const Buttons = ({ callback, API }) => (
+import { getAll, get5First, getRedGoods } from '../../api/goods';
+
+export const Buttons = ({ getGoods }) => (
   <>
     <button
-      onClick={() => callback(API.getAll)}
+      onClick={() => getGoods(getAll)}
       type="button"
     >
       Load All goods
     </button>
 
     <button
-      onClick={() => callback(API.get5First)}
+      onClick={() => getGoods(get5First)}
       type="button"
     >
       Load 5 first goods
     </button>
 
     <button
-      onClick={() => callback(API.getRedGoods)}
+      onClick={() => getGoods(getRedGoods)}
       type="button"
     >
       Load red goods
@@ -28,6 +30,5 @@ export const Buttons = ({ callback, API }) => (
 );
 
 Buttons.propTypes = {
-  callback: PropTypes.func.isRequired,
-  API: PropTypes.objectOf(PropTypes.func).isRequired,
+  getGoods: PropTypes.func.isRequired,
 };
