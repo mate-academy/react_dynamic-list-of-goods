@@ -1,1 +1,15 @@
-// styles go here
+.App {
+  text-align: center;
+  &__button {
+    margin: 15px;
+  }
+  
+  &__list {
+    list-style: none;
+    font-size: 20px;
+  }
+
+  &__item {
+    margin-bottom: 15px;
+  }
+}
