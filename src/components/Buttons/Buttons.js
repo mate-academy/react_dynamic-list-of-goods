@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Buttons = ({ getAll, get5First, getRedGoods, handleGoods }) => (
+import { getAll, get5First, getRedGoods } from '../../api/goods';
+
+export const Buttons = ({ handleGoods }) => (
   <>
     <button
       type="button"
@@ -29,8 +31,5 @@ export const Buttons = ({ getAll, get5First, getRedGoods, handleGoods }) => (
 );
 
 Buttons.propTypes = {
-  getAll: PropTypes.arrayOf.isRequired,
-  get5First: PropTypes.arrayOf.isRequired,
-  getRedGoods: PropTypes.arrayOf.isRequired,
   handleGoods: PropTypes.func.isRequired,
 };

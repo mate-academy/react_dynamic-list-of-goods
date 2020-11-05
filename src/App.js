@@ -5,8 +5,6 @@ import { Buttons } from './components/Buttons/Buttons';
 
 import './App.scss';
 
-import { getAll, get5First, getRedGoods } from './api/goods';
-
 export class App extends React.Component {
   state = {
     goods: [],
@@ -28,9 +26,6 @@ export class App extends React.Component {
       <div className="App">
         <h1 className="ui header">Dynamic list of Goods</h1>
         <Buttons
-          getAll={getAll}
-          get5First={get5First}
-          getRedGoods={getRedGoods}
           handleGoods={this.handleGoods}
         />
         <GoodsList goods={goods} />
