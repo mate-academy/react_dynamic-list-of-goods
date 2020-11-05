@@ -10,8 +10,8 @@ class App extends React.Component {
     goods: [],
   }
 
-  setGoods = (getGoods) => {
-    getGoods()
+  setGoods = (functionType) => {
+    functionType()
       .then((goods) => {
         this.setState({
           goods,
