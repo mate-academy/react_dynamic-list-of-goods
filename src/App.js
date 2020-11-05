@@ -11,20 +11,8 @@ class App extends PureComponent {
     goods: [],
   }
 
-  loadAllGoods = async() => {
-    const goods = await getAll();
-
-    this.setState({ goods });
-  }
-
-  load5Goods = async() => {
-    const goods = await get5First();
-
-    this.setState({ goods });
-  }
-
-  loadRedGoods = async() => {
-    const goods = await getRedGoods();
+  loadGoods = async(functionType) => {
+    const goods = await functionType();
 
     this.setState({ goods });
   }
@@ -35,15 +23,15 @@ class App extends PureComponent {
         <h1>Dynamic list of Goods</h1>
         <div className="f-flex">
           <Button
-            onClick={this.loadAllGoods}
+            onClick={() => this.loadGoods(getAll)}
             title="Load All goods"
           />
           <Button
-            onClick={this.load5Goods}
+            onClick={() => this.loadGoods(get5First)}
             title="Load 5 first goods"
           />
           <Button
-            onClick={this.loadRedGoods}
+            onClick={() => this.loadGoods(getRedGoods)}
             title="Load red goods"
           />
         </div>
