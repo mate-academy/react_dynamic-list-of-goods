@@ -16,12 +16,7 @@ export const GoodList = ({ goods }) => (
             key={good.id}
             className={itemClassName}
           >
-            Name:
-            {' '}
-            {good.name}
-            , color:
-            {' '}
-            {good.color}
+            {`Name: ${good.name}, color: ${good.color}`}
           </li>
         );
       })}
