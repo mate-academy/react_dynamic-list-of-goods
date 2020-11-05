@@ -4,27 +4,15 @@ import { Buttons } from './components/Buttons/Buttons';
 
 import './App.scss';
 
-import { getAll, get5First, getRedGoods } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import * as goodsAPI from './api/goods';
 
 class App extends PureComponent {
   state = {
     goods: [],
   }
 
-  allGoods = () => {
-    getAll()
-      .then(this.handleGoods);
-  }
-
-  sortedGoods = () => {
-    get5First()
-      .then(this.handleGoods);
-  }
-
-  redGoods = () => {
-    getRedGoods()
+  getGoods = (callback) => {
+    callback()
       .then(this.handleGoods);
   }
 
@@ -35,7 +23,7 @@ class App extends PureComponent {
   cleanGoods = () => this.handleGoods([]);
 
   render() {
-    const { cleanGoods } = this;
+    const { cleanGoods, getGoods } = this;
     const { goods } = this.state;
 
     return (
@@ -44,9 +32,15 @@ class App extends PureComponent {
 
         {goods.length === 0
           ? (
-            <Buttons {...this} />
+            <Buttons
+              callback={getGoods}
+              API={goodsAPI}
+            />
           ) : (
-            <GoodsList goods={goods} callback={cleanGoods} />
+            <GoodsList
+              goods={goods}
+              callback={cleanGoods}
+            />
           )}
       </>
     );
