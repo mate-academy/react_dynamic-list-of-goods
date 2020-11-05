@@ -7,9 +7,9 @@ import { Button } from './Button';
 import { GoodsList } from './GoodsList';
 
 const buttons = {
-  'Load All goods': getAll(),
-  'Load 5 first goods': get5First(),
-  'Load red goods': getRed(),
+  'Load All goods': getAll,
+  'Load 5 first goods': get5First,
+  'Load red goods': getRed,
 };
 
 class App extends React.Component {
@@ -27,7 +27,7 @@ class App extends React.Component {
             <Button
               key={name}
               name={name}
-              handleClick={() => loader.then((goodsFromServer) => {
+              handleClick={() => loader().then((goodsFromServer) => {
                 this.setState({ goods: goodsFromServer });
               })}
             />
