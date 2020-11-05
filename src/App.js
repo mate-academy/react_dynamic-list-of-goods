@@ -4,6 +4,7 @@ import './App.scss';
 
 import { getAll, get5First, getRed } from './api/goods';
 import { GoodList } from './components/GoodList';
+import { Button } from './components/Button';
 
 class App extends React.Component {
   state = {
@@ -25,29 +26,18 @@ class App extends React.Component {
     return (
       <div className="App">
         <div>
-          <button
-            className="App__button"
-            type="button"
-            onClick={() => this.setGoods(getAll)}
-          >
-            All
-          </button>
-
-          <button
-            className="App__button"
-            type="button"
-            onClick={() => this.setGoods(get5First)}
-          >
-            5 First
-          </button>
-
-          <button
-            className="App__button"
-            type="button"
-            onClick={() => this.setGoods(getRed)}
-          >
-            Red
-          </button>
+          <Button
+            text="All"
+            setGoods={() => this.setGoods(getAll)}
+          />
+          <Button
+            text="5 First"
+            setGoods={() => this.setGoods(get5First)}
+          />
+          <Button
+            text="Red"
+            setGoods={() => this.setGoods(getRed)}
+          />
         </div>
 
         <GoodList
