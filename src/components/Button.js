@@ -4,9 +4,7 @@ import PropTypes from 'prop-types';
 export const Button = ({ text, onClick, callback }) => (
   <button
     type="button"
-    onClick={() => {
-      onClick(callback);
-    }}
+    onClick={callback}
     className="btn btn-dark"
   >
     {text}

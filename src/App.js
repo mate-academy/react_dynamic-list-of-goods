@@ -6,7 +6,7 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodList } from './components/GoodList';
 import { Button } from './components/Button';
 
-const callbacks = [
+const buttons = [
   {
     callback: getAll,
     text: 'Load All goods',
@@ -44,11 +44,11 @@ class App extends React.PureComponent {
     return (
       <div>
         <h1>Dynamic list of Goods</h1>
-        {callbacks.map(({ callback, text, id }) => (
+        {buttons.map(({ callback, text, id }) => (
           <Button
             text={text}
             onClick={this.getGoods}
-            callback={callback}
+            callback={() => this.getGoods(callback)}
             key={id}
           />
         ))}
