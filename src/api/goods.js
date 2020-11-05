@@ -11,7 +11,7 @@ export function get5First() {
     .then(response => response.json())
     .then(goods => goods.slice(0, 5)
       .sort((a, b) => (
-        a.color.localeCompare(b.color)
+        a.name.localeCompare(b.name)
       )));
 }
 
