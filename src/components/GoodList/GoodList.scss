@@ -1,0 +1,10 @@
+.GoodList {
+  text-align: center;
+  list-style-type: none;
+
+  &__item {
+    margin: 5px;
+    padding: 5px 40px;
+    border: 1px solid silver;
+  }
+}
