@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { getAll, get5First, getRed } from '../api/goods';
 
-export function Buttons({ addAllGoods, addFiveGoods, addRedGoods }) {
+export function Buttons({ addGoods }) {
   return (
     <>
       <button
         className="button"
         type="button"
-        onClick={addAllGoods}
+        onClick={() => addGoods(getAll)}
       >
         Load All goods
       </button>
@@ -15,7 +16,7 @@ export function Buttons({ addAllGoods, addFiveGoods, addRedGoods }) {
       <button
         className="button"
         type="button"
-        onClick={addFiveGoods}
+        onClick={() => addGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -23,7 +24,7 @@ export function Buttons({ addAllGoods, addFiveGoods, addRedGoods }) {
       <button
         className="button"
         type="button"
-        onClick={addRedGoods}
+        onClick={() => addGoods(getRed)}
       >
         Load red goods
       </button>
