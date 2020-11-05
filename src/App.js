@@ -1,47 +1,24 @@
 import React, { PureComponent } from 'react';
 import GoodsList from './components/GoodsList';
-import getInfo from './components/helpers';
+import { getAll, get5First, getRedGoods } from './api/goods';
 import './App.scss';
 // eslint-disable-next-line max-len
-const BASE_URL = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
 
 class App extends PureComponent {
   state = {
-    goodsToRender: [],
-    goodsFromServer: [],
+    goodsToRender: null,
   }
 
-  async componentDidMount() {
-    const goodsFromServer = await getInfo(BASE_URL);
-
-    this.setState({ goodsFromServer });
+  renderGoods = () => {
+    getAll().then(goods => this.setState({ goodsToRender: goods }));
   }
 
-  loadAllGoods = () => {
-    const goods = [...this.state.goodsFromServer];
-
-    this.setState(state => ({
-      goodsToRender: goods,
-    }));
+  getRedsGoods = () => {
+    getRedGoods().then(goods => this.setState({ goodsToRender: goods }));
   }
 
-  sortByNameGoods = () => {
-    const sortedGoods = [...this.state.goodsFromServer]
-      .sort((currGood, nextGood) => currGood.name.localeCompare(nextGood.name));
-
-    sortedGoods.length = 5;
-    this.setState(state => ({
-      goodsToRender: sortedGoods,
-    }));
-  }
-
-  filterByColorGoods = () => {
-    const filteredGoods = [...this.state.goodsFromServer]
-      .filter(good => good.color === 'red');
-
-    this.setState(state => ({
-      goodsToRender: filteredGoods,
-    }));
+  getSortedGoods = () => {
+    get5First().then(goods => this.setState({ goodsToRender: goods }));
   }
 
   render() {
@@ -51,21 +28,21 @@ class App extends PureComponent {
         <div className="ui buttons">
           <button
             className="ui button"
-            onClick={this.loadAllGoods}
+            onClick={this.renderGoods}
             type="button"
           >
             Load All goods
           </button>
           <button
             className="ui button"
-            onClick={this.sortByNameGoods}
+            onClick={this.getSortedGoods}
             type="button"
           >
             Load 5 first goods
           </button>
           <button
             className="ui button"
-            onClick={this.filterByColorGoods}
+            onClick={this.getRedsGoods}
             type="button"
           >
             Load red goods
