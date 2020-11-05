@@ -9,10 +9,11 @@ export function getAll() {
 export function get5First() {
   return fetch(API_URL)
     .then(response => response.json())
-    .then(goods => goods.slice(0, 5)
+    .then(goods => goods
       .sort((a, b) => (
         a.name.localeCompare(b.name)
-      )));
+      ))
+      .slice(0, 5));
 }
 
 export function getRed() {
