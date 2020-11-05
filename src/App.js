@@ -1,13 +1,30 @@
 import React from 'react';
+import { Buttons } from './components/Buttons';
+import { GoodsList } from './components/GoodsList';
 
 import './App.scss';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+class App extends React.Component {
+  state = {
+    goods: [],
+  }
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+  addAllGoods = (callback) => {
+    callback()
+      .then(goods => this.setState({ goods }));
+  }
+
+  render() {
+    const { goods } = this.state;
+
+    return (
+      <div className="container">
+        <h1 className="container__title">Dynamic list of Goods</h1>
+        <Buttons addAllGoods={this.addAllGoods} />
+        <GoodsList goods={goods} />
+      </div>
+    );
+  }
+}
 
 export default App;
