@@ -1,1 +1,18 @@
-// styles go here
+.content__inner {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.content__button {
+  width: 150px;
+  transition: transform 0.3s ease;
+  &:hover {
+    transform: scale(1.105);
+  }
+}
+
+.content__button:not(:last-child) {
+  margin-bottom: 20px;
+}
