@@ -16,7 +16,7 @@ export const GoodsList = ({ goods, cleanGoods }) => (
       {goods.map(({ name, id, color }) => (
         <li
           key={id}
-          style={{ color: `${color}` }}
+          style={{ color }}
         >
           {name}
         </li>
