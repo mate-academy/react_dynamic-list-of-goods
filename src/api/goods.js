@@ -11,4 +11,4 @@ export const get5First = () => getAll()
   .then(sortedData => sortedData.splice(0, 5));
 
 export const getRedGoods = () => getAll()
-  .then(data => data.filter(item => item.color === 'red'));
+  .then(goods => goods.filter(item => item.color === 'red'));
