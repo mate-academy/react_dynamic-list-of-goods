@@ -1,1 +1,10 @@
-// styles go here
+.app {
+  text-align: center;
+  height: 100vh;
+  padding-top: 70px;
+
+  &__title {
+    font-size: 32px;
+    color: #16ab39;
+  }
+}
