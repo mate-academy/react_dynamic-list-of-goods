@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const ListCreator = ({ array }) => (
+export const ListCreator = ({ goods }) => (
   <ul>
-    {array.map(item => (
+    {goods.map(item => (
       <li
         key={item.id}
         style={{ color: item.color }}
@@ -15,7 +15,7 @@ export const ListCreator = ({ array }) => (
 );
 
 ListCreator.propTypes = {
-  array: PropTypes.arrayOf(
+  goods: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
