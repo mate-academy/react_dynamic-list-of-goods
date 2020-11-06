@@ -36,7 +36,7 @@ class App extends React.Component {
           callback={() => this.changeList(getRed)}
         />
 
-        <ListCreator array={goods} />
+        <ListCreator goods={goods} />
       </main>
     );
   }
