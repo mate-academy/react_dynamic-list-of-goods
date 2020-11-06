@@ -11,6 +11,9 @@ export const GoodList = ({ goods }) => (
   </ul>
 );
 
-GoodList.propTypes = {
-  goods: propTypes.arrayOf.isRequired,
+GoodsList.propTypes = {
+  goods: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+  })).isRequired,
 };

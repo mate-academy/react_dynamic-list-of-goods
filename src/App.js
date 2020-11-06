@@ -13,7 +13,7 @@ class App extends React.Component {
     goods: [],
   }
 
-  getList = (getGoods) => {
+  setGoods = (getGoods) => {
     getGoods()
       .then(goods => this.setState({ goods }));
   }
@@ -26,15 +26,15 @@ class App extends React.Component {
         <h1>Dynamic list of Goods</h1>
         <div>
           <Button
-            onClick={() => this.getList(getAll)}
+            onClick={() => this.setGoods(getAll)}
             name="All goods"
           />
           <Button
-            onClick={() => this.getList(get5First)}
+            onClick={() => this.setGoods(get5First)}
             name="5 first goods"
           />
           <Button
-            onClick={() => this.getList(getRedGoods)}
+            onClick={() => this.setGoods(getRedGoods)}
             name="Red goods"
           />
         </div>
