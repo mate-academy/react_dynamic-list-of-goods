@@ -9,7 +9,7 @@ class App extends React.Component {
     goods: [],
   }
 
-  addAllGoods = (callback) => {
+  addGoods = (callback) => {
     callback()
       .then(goods => this.setState({ goods }));
   }
@@ -20,7 +20,7 @@ class App extends React.Component {
     return (
       <div className="container">
         <h1 className="container__title">Dynamic list of Goods</h1>
-        <Buttons addAllGoods={this.addAllGoods} />
+        <Buttons addGoods={this.addGoods} />
         <GoodsList goods={goods} />
       </div>
     );
