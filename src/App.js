@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { GoodsList } from './components/GoodsList';
+import { Button } from './components/Button';
 import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
@@ -21,27 +22,18 @@ class App extends PureComponent {
     return (
       <div>
         <h1>Dynamic list of Goods</h1>
-        <button
-          className="ui primary button"
-          type="button"
-          onClick={() => this.setGoods(getAll)}
-        >
-          Load All goods
-        </button>
-        <button
-          className="ui primary button"
-          type="button"
-          onClick={() => this.setGoods(get5First)}
-        >
-          Load 5 first goods
-        </button>
-        <button
-          className="ui primary button"
-          type="button"
-          onClick={() => this.setGoods(getRedGoods)}
-        >
-          Load red goods
-        </button>
+        <Button
+          text="Load All goods"
+          addClick={() => this.setGoods(getAll)}
+        />
+        <Button
+          text="Load 5 first goods"
+          addClick={() => this.setGoods(get5First)}
+        />
+        <Button
+          text="Load red goods"
+          addClick={() => this.setGoods(getRedGoods)}
+        />
         <GoodsList goods={goods} />
       </div>
     );
