@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from './components/Button';
+import { ListCreator } from './components/ListCrator';
 import './App.scss';
 
 import { getAll, get5First, getRed } from './api/goods';
@@ -35,11 +36,7 @@ class App extends React.Component {
           callback={() => this.changeList(getRed)}
         />
 
-        {goods.map(good => (
-          <ul key={good.id}>
-            <li style={{ color: good.color }}>{good.name}</li>
-          </ul>
-        ))}
+        <ListCreator array={goods} />
       </main>
     );
   }
