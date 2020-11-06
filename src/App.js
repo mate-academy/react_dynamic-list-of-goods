@@ -5,8 +5,8 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
-import { GoodList } from './components/GoodList/GoodList';
-import { Buttons } from './components/GoodList/Buttons/Buttons';
+import { GoodList } from './components/GoodList';
+import { Button } from './components/Button';
 
 class App extends React.Component {
   state = {
@@ -25,19 +25,16 @@ class App extends React.Component {
       <div className="app">
         <h1>Dynamic list of Goods</h1>
         <div>
-          <Buttons
-            getList={this.getList}
-            getfilteredList={getAll}
+          <Button
+            onClick={() => this.getList(getAll)}
             name="All goods"
           />
-          <Buttons
-            getList={this.getList}
-            getfilteredList={get5First}
+          <Button
+            onClick={() => this.getList(get5First)}
             name="5 first goods"
           />
-          <Buttons
-            getList={this.getList}
-            getfilteredList={getRedGoods}
+          <Button
+            onClick={() => this.getList(getRedGoods)}
             name="Red goods"
           />
         </div>

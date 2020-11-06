@@ -1,20 +1,19 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-export const Buttons = ({ getList, getfilteredList, name }) => (
+export const Button = ({ onClick, name }) => (
   <>
     <button
       type="button"
       className="button is-primary is-large"
-      onClick={() => getList(getfilteredList)}
+      onClick={onClick}
     >
       {name.toUpperCase()}
     </button>
   </>
 );
 
-Buttons.propTypes = {
-  getList: propTypes.func.isRequired,
-  getfilteredList: propTypes.func.isRequired,
+Button.propTypes = {
+  onClick: propTypes.func.isRequired,
   name: propTypes.string.isRequired,
 };
