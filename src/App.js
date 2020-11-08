@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import GoodsList from './components/GoodsList';
-import { getAll, get5First, getRedGoods } from './api/goods';
 import './App.scss';
-import Button from './components/Button';
+import { requestGoods, get5First, getRedGoods } from './api/goods';
+
 // eslint-disable-next-line max-len
 
 class App extends PureComponent {
@@ -10,35 +10,35 @@ class App extends PureComponent {
     goodsToRender: null,
   }
 
-  renderGoods = () => {
-    getAll().then(goods => this.setState({ goodsToRender: goods }));
-  }
-
-  getRedsGoods = () => {
-    getRedGoods().then(goods => this.setState({ goodsToRender: goods }));
-  }
-
-  getSortedGoods = () => {
-    get5First().then(goods => this.setState({ goodsToRender: goods }));
-  }
+  renderGoods = callback => callback()
+    .then(goods => this.setState({ goodsToRender: goods }));
 
   render() {
     return (
       <div className="App">
         <h1>Dynamic list of Goods</h1>
         <div className="ui buttons">
-          <Button
-            handler={this.renderGoods}
-            buttonName="Load All goods"
-          />
-          <Button
-            handler={this.getSortedGoods}
-            buttonName="Load 5 first goods"
-          />
-          <Button
-            handler={this.getRedsGoods}
-            buttonName="Load red goods"
-          />
+          <button
+            className="ui button"
+            onClick={() => this.renderGoods(requestGoods)}
+            type="button"
+          >
+            Load All goods
+          </button>
+          <button
+            className="ui button"
+            type="button"
+            onClick={() => this.renderGoods(get5First)}
+          >
+            Load 5 first goods
+          </button>
+          <button
+            className="ui button"
+            type="button"
+            onClick={() => this.renderGoods(getRedGoods)}
+          >
+            Load red goods
+          </button>
         </div>
         {this.state.goodsToRender
         && (
