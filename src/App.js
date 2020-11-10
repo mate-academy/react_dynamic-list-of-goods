@@ -4,7 +4,7 @@ import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodList } from './components/GoodList';
-import { ButtonGoods } from './components/ButtonGoods';
+import { GoodsButton } from './components/ButtonGoods';
 // or
 // import * as goodsAPI from './api/goods';
 
@@ -21,20 +21,20 @@ const App = () => {
         />
 
         <div className="goods__button">
-          <ButtonGoods
-            name={getAll}
+          <GoodsButton
+            handleClick={getAll}
             setGoods={setGoods}
             title="Load all goods"
           />
 
-          <ButtonGoods
-            name={get5First}
+          <GoodsButton
+            handleClick={get5First}
             setGoods={setGoods}
             title="Load 5 first goods"
           />
 
-          <ButtonGoods
-            name={getRedGoods}
+          <GoodsButton
+            handleClick={getRedGoods}
             setGoods={setGoods}
             title="Load red goods"
           />

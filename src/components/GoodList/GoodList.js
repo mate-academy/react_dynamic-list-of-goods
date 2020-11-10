@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './GoodList.scss';
+import classNames from 'classnames';
 
 const GoodList = ({ goods }) => (
   <ul className="content">
     {goods.map(good => (
       <li
         key={good.id}
-        style={{ color: `${good.color}` }}
-        className={`content__${good.color || ''}  content__item`}
+        className={classNames('content__item', `content__${good.color}`)}
       >
         {good.name}
       </li>
@@ -16,14 +16,14 @@ const GoodList = ({ goods }) => (
   </ul>
 );
 
+const goodShape = PropTypes.shape({
+  id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+});
+
 GoodList.propTypes = {
-  goods: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
+  goods: PropTypes.arrayOf(goodShape).isRequired,
 };
 
 export { GoodList };

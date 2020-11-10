@@ -1,22 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ButtonGoods = ({ name, setGoods, title }) => (
+export const GoodsButton = ({ handleClick, setGoods, title }) => (
   <div>
     <button
       type="button"
       className="button is-primary"
-      onClick={async() => setGoods(await name())}
+      onClick={async() => {
+        setGoods(await handleClick());
+      }}
     >
       { title }
     </button>
   </div>
 );
 
-ButtonGoods.propTypes = {
-  name: PropTypes.func.isRequired,
+GoodsButton.propTypes = {
+  handleClick: PropTypes.func.isRequired,
   setGoods: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
 };
-
-export { ButtonGoods };
