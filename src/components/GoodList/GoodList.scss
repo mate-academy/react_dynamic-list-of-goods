@@ -1,0 +1,25 @@
+.content {
+  &__item {
+    display: block;
+    width: 300px;
+  
+    margin-bottom: 5px;
+
+    text-align: center;
+  }
+
+  &__red {
+    color: red;
+    background: rgba($color: red, $alpha: 0.2);
+  }
+
+  &__green {
+    color: green;
+    background: rgba($color: green, $alpha: 0.2);
+  }
+
+  &__blue {
+    color:blue;
+    background: rgba($color: blue, $alpha: 0.2);
+  }
+}
