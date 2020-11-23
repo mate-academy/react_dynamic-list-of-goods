@@ -1,1 +1,18 @@
 // styles go here
+.App {
+  display: grid;
+  justify-content: center;
+  margin: 10px;
+  text-align: center;
+}
+
+.buttons {
+  margin: 5px;
+}
+
+button {
+  border-radius: 15px;
+  margin: 5px;
+  height: 25px;
+  background-color: #82ccdd;
+}
