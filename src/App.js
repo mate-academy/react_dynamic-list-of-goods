@@ -1,13 +1,38 @@
 import React from 'react';
-
 import './App.scss';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { GoodsList } from './components/GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export class App extends React.Component {
+  state = {
+    goods: [],
+  }
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+  handleClick = async(promise) => {
+    const goods = await promise();
 
-export default App;
+    this.setState({ goods });
+  }
+
+  render() {
+    const { goods } = this.state;
+    const buttonNames = {
+      all: getAll,
+      '5 first': get5First,
+      red: getRedGoods,
+    };
+
+    return (
+      <div className="App">
+        <h1>Dynamic list of Goods</h1>
+        <h2>{`Counter: ${goods.length}`}</h2>
+        {Object.entries(buttonNames).map(name => (
+          <button type="button" onClick={() => this.handleClick(name[1])}>
+            {`${name[0]} goods`}
+          </button>
+        ))}
+        <GoodsList goods={goods} />
+      </div>
+    );
+  }
+}
