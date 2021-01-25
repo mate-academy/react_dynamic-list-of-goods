@@ -1,1 +1,13 @@
-// styles go here
+.buttons {
+  height: 30px;
+  font-family: "Roboto", sans-serif;
+  background: rgb(150, 224, 154);
+  color: #fff;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    color: rgb(150, 224, 154);
+    background-color: #fff;
+  }
+}
