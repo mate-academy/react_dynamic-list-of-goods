@@ -6,10 +6,8 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = async() => {
-  [...await getAll()].slice(0, 5);
-};
+export const get5First = async() => [...await getAll()].slice(0, 5);
 
-export const getRedGoods = async() => {
-  [...await getAll()].filter(good => good.color === 'red');
-};
+export const getRedGoods = async() => (
+  [...await getAll()].filter(good => good.color === 'red')
+);
