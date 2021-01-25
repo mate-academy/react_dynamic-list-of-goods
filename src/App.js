@@ -35,18 +35,21 @@ class App extends React.Component {
       <>
         <h1>Dynamic list of goods</h1>
         <Button
+          variant="success"
           type="button"
           onClick={this.allHandler}
         >
-          GetAll
+          Get All
         </Button>
         <Button
+          variant="dark"
           type="button"
           onClick={this.fiveHandler}
         >
-          Get5
+          Get Five
         </Button>
         <Button
+          variant="danger"
           type="button"
           onClick={this.redHandler}
         >
