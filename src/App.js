@@ -1,19 +1,11 @@
 import React from 'react';
 import './App.scss';
-import { PropTypes } from 'prop-types';
 import { getAll, get5First, getRed } from './goods';
 import { GoodsList } from './components/GoodsList/GoodsList';
-import { TypeGood } from './types';
 
 export class App extends React.Component {
   state = {
     goods: [],
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.goods !== this.props.goods) {
-      this.loadGoods();
-    }
   }
 
   loadGoods = async(e) => {
@@ -73,11 +65,3 @@ export class App extends React.Component {
     );
   }
 }
-
-App.propTypes = {
-  goods: PropTypes.arrayOf(TypeGood),
-};
-
-App.defaultProps = {
-  goods: [],
-};
