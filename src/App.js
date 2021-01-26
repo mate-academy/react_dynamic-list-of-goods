@@ -13,7 +13,7 @@ class App extends React.Component {
   }
 
   getAllGoods = () => {
-    getAll().then(result => this.setState({ goods: [...result] }));
+    getAll().then(result => this.setState({ goods: result }));
   }
 
   getFive = () => {
