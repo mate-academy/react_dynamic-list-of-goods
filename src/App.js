@@ -3,28 +3,14 @@ import React from 'react';
 import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
 
 class App extends React.Component {
   state = {
     goods: [],
   }
 
-  showAll = () => {
-    getAll().then((data) => {
-      this.setState({ goods: data });
-    });
-  }
-
-  show5First = () => {
-    get5First().then((data) => {
-      this.setState({ goods: data });
-    });
-  }
-
-  showRed = () => {
-    getRedGoods().then((data) => {
+  showSomething = (callback) => {
+    callback.then((data) => {
       this.setState({ goods: data });
     });
   }
@@ -36,19 +22,19 @@ class App extends React.Component {
         <div className="wrapper">
           <button
             type="button"
-            onClick={this.showAll}
+            onClick={() => this.showSomething(getAll())}
           >
             Show all goods
           </button>
           <button
             type="button"
-            onClick={this.show5First}
+            onClick={() => this.showSomething(get5First())}
           >
             Show 5 first goods
           </button>
           <button
             type="button"
-            onClick={this.showRed}
+            onClick={() => this.showSomething(getRedGoods())}
           >
             Show red goods
           </button>

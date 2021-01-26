@@ -6,18 +6,14 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = () => fetch(API_URL)
-  .then(response => response
-    .json()
-    .then((data) => {
-      const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
+export const get5First = () => getAll()
+  .then((data) => {
+    const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
 
-      return sortedData.slice(0, 5);
-    }));
+    return sortedData.slice(0, 5);
+  });
 
-export const getRedGoods = () => fetch(API_URL)
-  .then(response => response
-    .json()
-    .then(data => data
-      .filter(item => item
-        .color === 'red')));
+export const getRedGoods = () => getAll()
+  .then(data => data
+    .filter(item => item
+      .color === 'red'));
