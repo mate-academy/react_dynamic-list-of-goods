@@ -10,8 +10,8 @@ class App extends React.Component {
     goods: [],
   }
 
-  handleLoad = async(callback) => {
-    await callback
+  getGoods = (callback) => {
+    callback()
       .then((goods) => {
         this.setState({ goods });
       });
@@ -26,7 +26,7 @@ class App extends React.Component {
         <button
           type="button"
           className="buttons"
-          onClick={() => this.handleLoad(getAll())}
+          onClick={() => this.getGoods(getAll)}
         >
           Load All Goods
         </button>
@@ -34,7 +34,7 @@ class App extends React.Component {
         <button
           type="button"
           className="buttons"
-          onClick={() => this.handleLoad(get5First())}
+          onClick={() => this.getGoods(get5First)}
         >
           Load 5 first goods
         </button>
@@ -42,7 +42,7 @@ class App extends React.Component {
         <button
           type="button"
           className="buttons"
-          onClick={() => this.handleLoad(getRed())}
+          onClick={() => this.getGoods(getRed)}
         >
           Load red goods
         </button>
