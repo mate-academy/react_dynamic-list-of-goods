@@ -5,20 +5,17 @@ import { GoodsList } from './GoodsList';
 
 class App extends React.Component {
   state = {
-    show: false,
     goods: [],
   }
 
   render() {
-    const { show, goods } = this.state;
+    const { goods } = this.state;
 
     return (
       <>
         <h1>Dynamic list of Goods</h1>
 
-        {show && (
-          <GoodsList goods={goods} />
-        )}
+        <GoodsList goods={goods} />
 
         <button
           type="button"
@@ -26,7 +23,6 @@ class App extends React.Component {
             getAll()
               .then((res) => {
                 this.setState(state => ({
-                  show: !state.show,
                   goods: res,
                 }));
               });
@@ -40,7 +36,6 @@ class App extends React.Component {
             get5First()
               .then((res) => {
                 this.setState(state => ({
-                  show: !state.show,
                   goods: res,
                 }));
               });
@@ -54,7 +49,6 @@ class App extends React.Component {
             getRedGoods()
               .then((res) => {
                 this.setState(state => ({
-                  show: !state.show,
                   goods: res,
                 }));
               });
