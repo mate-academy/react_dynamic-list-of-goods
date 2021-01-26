@@ -7,13 +7,13 @@ export function getAll() {
 }
 
 export const get5First = async() => {
-  const goods = [...await getAll()].slice(0, 5);
+  const goods = [...await getAll()];
 
-  return goods;
+  return goods.slice(0, 5);
 };
 
 export const getRedGoods = async() => {
-  const goods = [...await getAll()].filter(good => good.color === 'red');
+  const goods = [...await getAll()];
 
-  return goods;
+  return goods.filter(good => good.color === 'red');
 };
