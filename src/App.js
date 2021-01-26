@@ -1,13 +1,67 @@
 import React from 'react';
+import { GoodsList } from './components/GoodsList/GoodsList';
 
 import './App.scss';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRed } from './api/goods';
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+class App extends React.Component {
+  state = {
+    rightGoods: [],
+    selectedFilter: getAll,
+  }
+
+  componentDidUpdate() {
+    this.state.selectedFilter()
+      .then((goodsFromServer) => {
+        this.setState({
+          rightGoods: [...goodsFromServer],
+        });
+      });
+  }
+
+  selectFilter = (filter) => {
+    this.setState({
+      selectedFilter: filter,
+    });
+  }
+
+  render() {
+    const { rightGoods } = this.state;
+
+    return (
+      <>
+        <h1>Dynamic list of Goods</h1>
+
+        <div className="App__buttons">
+          <button
+            type="button"
+            onClick={() => this.selectFilter(getAll)}
+          >
+            All goods
+          </button>
+
+          <button
+            type="button"
+            onClick={() => this.selectFilter(get5First)}
+          >
+            5 first goods
+          </button>
+
+          <button
+            type="button"
+            onClick={() => this.selectFilter(getRed)}
+          >
+            Red goods
+          </button>
+        </div>
+
+        <GoodsList
+          rightGoods={rightGoods}
+        />
+      </>
+    );
+  }
+}
 
 export default App;
