@@ -11,30 +11,23 @@ class App extends React.Component {
   }
 
   selectAll = () => {
-    getAll()
-      .then((result) => {
-        this.setState({
-          goods: [...result],
-        });
-      });
+    this.func(getAll);
   }
 
   selectFive = () => {
-    get5First()
-      .then((result) => {
-        this.setState({
-          goods: [...result],
-        });
-      });
+    this.func(get5First);
   }
 
   selectRed = () => {
-    getRedGoods()
-      .then((result) => {
-        this.setState({
-          goods: [...result],
-        });
+    this.func(getRedGoods);
+  }
+
+  func = (toGet) => {
+    toGet().then((result) => {
+      this.setState({
+        goods: [...result],
       });
+    });
   }
 
   render() {
