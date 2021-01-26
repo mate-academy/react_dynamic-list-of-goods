@@ -3,9 +3,16 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 
 export function getAll() {
   return fetch(API_URL)
-    .then(response => response.json());
+    .then(response => response.json())
+    .then(result => result);
 }
 
-export const get5First = () => {};
+export const get5First = () => fetch(API_URL)
+  .then(response => response.json())
+  .then(result => result
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .slice(0, 5));
 
-export const getRedGoods = () => {};
+export const getRedGoods = () => fetch(API_URL)
+  .then(response => response.json())
+  .then(result => result.filter(good => good.color === 'red'));
