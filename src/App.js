@@ -10,19 +10,18 @@ class App extends React.Component {
     goods: [],
   };
 
-  eachGood = () => {
+  setAllGoods = () => {
     getAll().then(goods => this.setState({
       goods,
     }));
   };
 
-  onlyFive = () => {
-    get5First().then(goods => this.setState({
-      goods,
-    }));
+  setFirstFiveGoods = () => {
+    get5First()
+      .then(goods => this.setState({ goods }));
   };
 
-  onlyReds = () => {
+  setRedOnlyGoods = () => {
     getRedGoods().then(goods => this.setState({
       goods,
     }));
@@ -32,32 +31,32 @@ class App extends React.Component {
     const { goods } = this.state;
 
     return (
-      <React.Fragment>
+      <div>
         <h1>Dynamic List of Goods</h1>
         <button
           type="button"
-          onClick={this.eachGood}
+          onClick={this.setAllGoods}
         >
           Get all the goods
         </button>
 
         <button
           type="button"
-          onClick={this.onlyFive}
+          onClick={this.setFirstFiveGoods}
         >
           Get 5 first goods
         </button>
 
         <button
           type="button"
-          onClick={this.onlyReds}
+          onClick={this.setRedOnlyGoods}
         >
           Get only red goods
         </button>
         {goods.length > 0 && (
           <ListOfGoods goods={goods} />
         )}
-      </React.Fragment>
+      </div>
     );
   }
 }
