@@ -12,22 +12,8 @@ class App extends React.Component {
     goodsList: [],
   }
 
-  loadAllGoods = () => {
-    getAll()
-      .then((goods) => {
-        this.setState({ goodsList: goods });
-      });
-  };
-
-  loadFiveGoods = () => {
-    get5First()
-      .then((goods) => {
-        this.setState({ goodsList: goods });
-      });
-  }
-
-  loadRedGoods = () => {
-    getRed()
+  loadData = (callback) => {
+    callback()
       .then((goods) => {
         this.setState({ goodsList: goods });
       });
@@ -45,7 +31,9 @@ class App extends React.Component {
             <button
               className="button is-white"
               type="button"
-              onClick={this.loadAllGoods}
+              onClick={() => {
+                this.loadData(getAll);
+              }}
             >
               Load All goods
             </button>
@@ -53,7 +41,9 @@ class App extends React.Component {
             <button
               className="button is-white"
               type="button"
-              onClick={this.loadFiveGoods}
+              onClick={() => {
+                this.loadData(get5First);
+              }}
             >
               Load 5 first goods
             </button>
@@ -61,7 +51,9 @@ class App extends React.Component {
             <button
               className="button is-white"
               type="button"
-              onClick={this.loadRedGoods}
+              onClick={() => {
+                this.loadData(getRed);
+              }}
             >
               Load red goods
             </button>
