@@ -12,11 +12,13 @@ export const GoodsList = ({ goods }) => (
 );
 
 GoodsList.propTypes = {
-  goods: PropTypes.arrayOf({
-    id: PropTypes.number.isRequire,
-    color: PropTypes.string.isRequire,
-    name: PropTypes.string.isRequire,
-  }),
+  goods: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequire,
+      color: PropTypes.string.isRequire,
+      name: PropTypes.string.isRequire,
+    }).isRequired,
+  ),
 };
 
 GoodsList.defaultProps = {

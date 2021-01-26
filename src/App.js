@@ -18,16 +18,13 @@ class App extends React.Component {
   }
 
   setting5First = async() => {
-    const allGoods = await get5First();
-    // eslint-disable-next-line
-    const goods = allGoods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5);
+    const goods = await get5First();
 
     this.setState({ goods });
   }
 
   settingOnlyRed = async() => {
-    const allGoods = await getRedGoods();
-    const goods = allGoods.filter(item => item.color === 'red');
+    const goods = await getRedGoods();
 
     this.setState({ goods });
   }
