@@ -10,21 +10,8 @@ export class App extends React.Component {
     goods: [],
   }
 
-  loadGoods = (event) => {
-    const sortType = () => {
-      switch (event.target.name) {
-        case 'getRed':
-          return getRedGoods();
-
-        case 'get5':
-          return get5First();
-
-        default:
-          return getAll();
-      }
-    };
-
-    sortType().then((result) => {
+  loadGoods = (getSome) => {
+    getSome().then((result) => {
       this.setState({
         goods: result,
       });
@@ -39,7 +26,7 @@ export class App extends React.Component {
         <button
           name="loadAll"
           type="button"
-          onClick={this.loadGoods}
+          onClick={() => this.loadGoods(getAll)}
         >
           Load All goods
         </button>
@@ -47,7 +34,7 @@ export class App extends React.Component {
         <button
           name="get5"
           type="button"
-          onClick={this.loadGoods}
+          onClick={() => this.loadGoods(get5First)}
         >
           Load 5 first goods
         </button>
@@ -55,7 +42,7 @@ export class App extends React.Component {
         <button
           name="getRed"
           type="button"
-          onClick={this.loadGoods}
+          onClick={() => this.loadGoods(getRedGoods)}
         >
           Load red goods
         </button>
