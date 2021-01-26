@@ -1,1 +1,43 @@
-// styles go here
+* {
+  box-sizing: border-box;
+  font-family: 'Londrina Solid', cursive;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 25px;
+  background-image: url(https://image.freepik.com/free-photo/hand-painted-watercolor-background-with-sky-and-clouds-shape_24972-1095.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.app {
+  &__header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  &__buttons {
+    margin: 0 auto;
+    width: max-content;
+    margin-bottom: 20px;
+  }
+
+  &__btn {
+    height: 48px;
+    margin: 10px;
+    padding: 10px;
+    font-size: 18px;
+  }
+
+  &__list {
+    list-style: none;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  &__item {
+    margin-bottom: 15px;
+  }
+}
