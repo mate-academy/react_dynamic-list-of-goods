@@ -20,7 +20,8 @@ export function getAll() {
 }
 
 export const get5First = () => request()
-  .then(goods => goods.slice(0, 5));
+  .then(goods => goods.slice(0, 5)
+    .sort((a, b) => a.name.localeCompare(b.name)));
 
 export const getRed = () => request()
   .then(goods => goods.filter(good => good.color === 'red'));
