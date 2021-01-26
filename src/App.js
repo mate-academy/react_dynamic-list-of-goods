@@ -38,19 +38,35 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <h1>Dynamic list of Goods</h1>
+        <h1 className="app__header">
+          Dynamic list of Goods
+        </h1>
 
-        <button type="button" onClick={this.loadAll}>
-          Load All goods
-        </button>
+        <div className="app__buttons">
+          <button
+            type="button"
+            className="app__btn"
+            onClick={this.loadAll}
+          >
+            Load all goods
+          </button>
 
-        <button type="button" onClick={this.loadFive}>
-          Load 5 first goods
-        </button>
+          <button
+            type="button"
+            className="app__btn"
+            onClick={this.loadFive}
+          >
+            Load 5 first goods
+          </button>
 
-        <button type="button" onClick={this.loadRed}>
-          Load red goods
-        </button>
+          <button
+            type="button"
+            className="app__btn"
+            onClick={this.loadRed}
+          >
+            Load red goods
+          </button>
+        </div>
 
         <ul className="app__list">
           <GoodsList goods={this.state.goods} />
