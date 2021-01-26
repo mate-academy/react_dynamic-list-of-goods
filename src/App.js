@@ -16,30 +16,30 @@ class App extends React.Component {
   showAll = () => {
     getAll()
       .then((goods) => {
-        this.setState(prevState => ({
+        this.setState({
           goods,
-          isListVisible: !prevState.isListVisible,
-        }));
+          isListVisible: true,
+        });
       });
   }
 
   show5First = () => {
     get5First()
       .then((goods) => {
-        this.setState(prevState => ({
+        this.setState({
           goods,
-          isListVisible: !prevState.isListVisible,
-        }));
+          isListVisible: true,
+        });
       });
   }
 
   showRedGoods = () => {
     getRedGoods()
       .then((goods) => {
-        this.setState(prevState => ({
+        this.setState({
           goods,
-          isListVisible: !prevState.isListVisible,
-        }));
+          isListVisible: true,
+        });
       });
   }
 
