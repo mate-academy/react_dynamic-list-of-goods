@@ -10,8 +10,6 @@ export class App extends React.Component {
     goods: [],
   }
 
-Хоча
-
   loadGoods = (event) => {
     const sortType = () => {
       switch (event.target.name) {
