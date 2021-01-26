@@ -8,24 +8,24 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 class App extends React.Component {
   state = {
-    items: [],
+    goods: [],
   }
 
   showAll = () => {
     getAll().then((data) => {
-      this.setState({ items: data });
+      this.setState({ goods: data });
     });
   }
 
   show5First = () => {
     get5First().then((data) => {
-      this.setState({ items: data });
+      this.setState({ goods: data });
     });
   }
 
   showRed = () => {
     getRedGoods().then((data) => {
-      this.setState({ items: data });
+      this.setState({ goods: data });
     });
   }
 
@@ -54,14 +54,13 @@ class App extends React.Component {
           </button>
 
           <ul>
-            {this.state.items.map(user => (
-              <li key={user.id}>
-                ID:
-                {user.id}
+            {this.state.goods.map(good => (
+              <li
+                key={good.id}
+                className={good.color}
+              >
                 Name:
-                {user.name}
-                Color:
-                {user.color}
+                {good.name}
               </li>
             ))}
           </ul>
