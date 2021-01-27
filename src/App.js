@@ -17,39 +17,27 @@ class App extends React.Component {
       });
   }
 
-  showAll = () => {
-    this.getGoods(getAll);
-  }
-
-  showFive = () => {
-    this.getGoods(get5First);
-  }
-
-  showRed = () => {
-    this.getGoods(getRed);
-  }
-
   render() {
     return (
       <div className="App">
         <h1>Dynamic list of Goods</h1>
         <button
           className="btn"
-          onClick={this.showAll}
+          onClick={() => (this.getGoods(getAll))}
           type="button"
         >
           Show All Goods
         </button>
         <button
           className="btn"
-          onClick={this.showFive}
+          onClick={() => (this.getGoods(get5First))}
           type="button"
         >
           Show First Five
         </button>
         <button
           className="btn"
-          onClick={this.showRed}
+          onClick={() => (this.getGoods(getRed))}
           type="button"
         >
           Show Red Goods
