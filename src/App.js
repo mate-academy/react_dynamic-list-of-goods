@@ -10,24 +10,8 @@ class App extends React.Component {
     goods: null,
   }
 
-  getAllHandler = async() => {
-    const goods = [...await getAll()];
-
-    this.setState({
-      goods,
-    });
-  };
-
-  get5FirstHandler = async() => {
-    const goods = await get5First();
-
-    this.setState({
-      goods,
-    });
-  };
-
-  getRedHandler = async() => {
-    const goods = await getRedGoods();
+  goodsHandler = async(callback) => {
+    const goods = [...await callback()];
 
     this.setState({
       goods,
@@ -40,13 +24,28 @@ class App extends React.Component {
     return (
       <>
         <h1>Dynamic list of Goods</h1>
-        <button type="button" onClick={this.getAllHandler}>
+        <button
+          type="button"
+          onClick={() => {
+            this.goodsHandler(getAll);
+          }}
+        >
           getAll;
         </button>
-        <button type="button" onClick={this.get5FirstHandler}>
+        <button
+          type="button"
+          onClick={() => {
+            this.goodsHandler(get5First);
+          }}
+        >
           get5First;
         </button>
-        <button type="button" onClick={this.getRedHandler}>
+        <button
+          type="button"
+          onClick={() => {
+            this.goodsHandler(getRedGoods);
+          }}
+        >
           getRedGoods;
         </button>
         {this.state.goods && <GoodList list={goods} />}
