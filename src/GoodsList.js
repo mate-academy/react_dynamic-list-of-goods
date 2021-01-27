@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const GoodsList = ({ goods }) => (
-  // <span>hjds</span>
   <ul>
     {goods.map(good => (
       <li

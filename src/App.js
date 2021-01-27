@@ -8,6 +8,31 @@ class App extends React.Component {
     goods: [],
   }
 
+  setGoods = (res) => {
+    this.setState(state => ({
+      goods: res,
+    }));
+  }
+
+  displayGoods = (value) => {
+    switch (value) {
+      case 'all':
+        getAll()
+          .then(response => this.setGoods(response));
+        break;
+      case 'five':
+        get5First()
+          .then(response => this.setGoods(response));
+        break;
+      case 'red':
+        getRedGoods()
+          .then(response => this.setGoods(response));
+        break;
+      default:
+        break;
+    }
+  }
+
   render() {
     const { goods } = this.state;
 
@@ -19,40 +44,19 @@ class App extends React.Component {
 
         <button
           type="button"
-          onClick={() => {
-            getAll()
-              .then((res) => {
-                this.setState(state => ({
-                  goods: res,
-                }));
-              });
-          }}
+          onClick={() => this.displayGoods('all')}
         >
           Load All goods
         </button>
         <button
           type="button"
-          onClick={() => {
-            get5First()
-              .then((res) => {
-                this.setState(state => ({
-                  goods: res,
-                }));
-              });
-          }}
+          onClick={() => this.displayGoods('five')}
         >
           Load 5 first goods
         </button>
         <button
           type="button"
-          onClick={() => {
-            getRedGoods()
-              .then((res) => {
-                this.setState(state => ({
-                  goods: res,
-                }));
-              });
-          }}
+          onClick={() => this.displayGoods('red')}
         >
           Load red goods
         </button>
