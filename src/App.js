@@ -9,8 +9,8 @@ class App extends React.Component {
     goods: [],
   };
 
-  selectGoods = (neededGoods) => {
-    neededGoods()
+  selectGoods = (fetchGoods) => {
+    fetchGoods()
       .then((goods) => {
         this.setState({ goods });
       });
