@@ -1,1 +1,25 @@
-// styles go here
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.container {
+  max-width: 1170px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.page-title {
+  text-align: center;
+}
+
+.goods {
+  &__buttons {
+    text-align: center;
+  }
+
+  &__button {
+    cursor: pointer;
+    padding: 20px;
+    margin-right: 20px;
+  }
+}
