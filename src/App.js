@@ -8,9 +8,9 @@ class App extends React.Component {
     goods: [],
   }
 
-  setGoods = (res) => {
+  setGoods = (goods) => {
     this.setState(state => ({
-      goods: res,
+      goods,
     }));
   }
 
