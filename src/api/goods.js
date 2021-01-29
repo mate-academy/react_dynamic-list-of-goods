@@ -5,6 +5,12 @@ export const getAll = () => fetch(API_URL)
   .then(response => response.json())
   .then(goods => goods);
 
-export const get5First = () => {};
+export const get5FirstHandler = () => getAll()
+  .then(goods => (
+    goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5)
+  ));
 
-export const getRedGoods = () => {};
+export const getRedHandler = () => getAll()
+  .then(goods => (
+    goods.filter(good => good.color === 'red')
+  ));
