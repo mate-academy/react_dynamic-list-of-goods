@@ -8,22 +8,15 @@ import { getAll, get5First, getRed } from './api/goods';
 class App extends React.Component {
   state = {
     rightGoods: [],
-    selectedFilter: getAll,
   }
 
-  componentDidUpdate() {
-    this.state.selectedFilter()
+  getGoods = (filter) => {
+    filter()
       .then((goodsFromServer) => {
         this.setState({
           rightGoods: [...goodsFromServer],
         });
       });
-  }
-
-  selectFilter = (filter) => {
-    this.setState({
-      selectedFilter: filter,
-    });
   }
 
   render() {
@@ -36,21 +29,21 @@ class App extends React.Component {
         <div className="App__buttons">
           <button
             type="button"
-            onClick={() => this.selectFilter(getAll)}
+            onClick={() => this.getGoods(getAll)}
           >
             All goods
           </button>
 
           <button
             type="button"
-            onClick={() => this.selectFilter(get5First)}
+            onClick={() => this.getGoods(get5First)}
           >
             5 first goods
           </button>
 
           <button
             type="button"
-            onClick={() => this.selectFilter(getRed)}
+            onClick={() => this.getGoods(getRed)}
           >
             Red goods
           </button>
