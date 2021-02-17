@@ -10,8 +10,8 @@ class App extends React.Component {
     goods: [],
   }
 
-  async handleClick(func) {
-    const goods = await func();
+  async handleClick(serverRequest) {
+    const goods = await serverRequest();
 
     this.setState({ goods });
   }
