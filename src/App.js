@@ -48,7 +48,7 @@ class App extends React.Component {
             onClick={() => (this.loadGoods(getRedGoods))}
             type="button"
           >
-            Load 5 first goods
+            Load red goods
           </button>
         </div>
         <GoodsList goods={goods} />
