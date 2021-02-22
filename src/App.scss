@@ -1,1 +1,7 @@
-// styles go here
+.button_wrap {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+  margin-bottom: 20px;
+  max-width: 520px;
+}
