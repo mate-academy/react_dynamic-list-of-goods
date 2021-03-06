@@ -10,7 +10,7 @@ class App extends React.Component {
     goods: [],
   }
 
-  loadAllGoods = async(e) => {
+  loadGoods = async(e) => {
     const { name } = e.target;
     let goods;
 
@@ -44,7 +44,7 @@ class App extends React.Component {
           <button
             type="button"
             name="allGoods"
-            onClick={this.loadAllGoods}
+            onClick={this.loadGoods}
           >
             Load All goods
           </button>
@@ -52,7 +52,7 @@ class App extends React.Component {
           <button
             type="button"
             name="first5Goods"
-            onClick={this.loadAllGoods}
+            onClick={this.loadGoods}
           >
             Load 5 first goods
           </button>
@@ -60,7 +60,7 @@ class App extends React.Component {
           <button
             type="button"
             name="redGoods"
-            onClick={this.loadAllGoods}
+            onClick={this.loadGoods}
           >
             Load red goods
           </button>
