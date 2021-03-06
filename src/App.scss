@@ -1,1 +1,27 @@
-// styles go here
+.container {
+  margin: auto;
+  width: 500px;
+  height: 300px;
+  text-align: center;
+}
+
+.list {
+  list-style-type: none;
+}
+button {
+  font-size: 13px;
+  margin: 0px 5px;
+  padding: 8px 15px;
+  border: solid 1px rgb(224, 224, 224);
+
+  background-image: linear-gradient(
+    #f0f0f0 100%, #afafaf 50%, #ebebeb 0%
+  );
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-image: linear-gradient(
+    #e4e4e4 100%, #dbdbdb 50%, #ebe8e8 0%
+  );
+}
