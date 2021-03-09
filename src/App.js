@@ -9,7 +9,7 @@ class App extends React.Component {
     goods: [],
   }
 
-  loadGoods = (goodsFromServer) => {
+  onLoadGoods = (goodsFromServer) => {
     goodsFromServer()
       .then((response) => {
         this.setState({
@@ -28,7 +28,7 @@ class App extends React.Component {
         <button
           type="button"
           className="button is-dark"
-          onClick={() => this.loadGoods(getAll)}
+          onClick={() => this.onLoadGoods(getAll)}
         >
           Load All goods
         </button>
@@ -36,7 +36,7 @@ class App extends React.Component {
         <button
           type="button"
           className="button is-dark"
-          onClick={() => this.loadGoods(get5First)}
+          onClick={() => this.onLoadGoods(get5First)}
         >
           Load 5 first goods
         </button>
@@ -44,7 +44,7 @@ class App extends React.Component {
         <button
           type="button"
           className="button is-dark"
-          onClick={() => this.loadGoods(getRedGoods)}
+          onClick={() => this.onLoadGoods(getRedGoods)}
         >
           Load red goods
         </button>
