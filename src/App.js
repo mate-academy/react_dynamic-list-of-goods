@@ -8,20 +8,17 @@ import { GoodsList } from './components/GoodsList';
 class App extends React.Component {
   state = {
     goods: [],
-    loading: [],
+    loading: false,
   }
 
-  // eslint-disable-next-line
-  onLoadGoods = async (e, goodsFromServer) => {
-    const { id } = e.target;
-
-    this.setState(state => ({ loading: [...state.loading, id] }));
+  onLoadGoods = async(goodsFromServer) => {
+    this.setState({ loading: true });
 
     const goods = await goodsFromServer();
 
     this.setState({
       goods,
-      loading: [],
+      loading: false,
     });
   }
 
@@ -38,9 +35,9 @@ class App extends React.Component {
           className={className(
             'button',
             'is-dark',
-            { 'is-loading': this.state.loading.includes('1') },
           )}
-          onClick={e => this.onLoadGoods(e, getAll)}
+          disabled={this.state.loading}
+          onClick={() => this.onLoadGoods(getAll)}
         >
           Load All goods
         </button>
@@ -51,9 +48,9 @@ class App extends React.Component {
           className={className(
             'button',
             'is-dark',
-            { 'is-loading': this.state.loading.includes('2') },
           )}
-          onClick={e => this.onLoadGoods(e, get5First)}
+          disabled={this.state.loading}
+          onClick={() => this.onLoadGoods(get5First)}
         >
           Load 5 first goods
         </button>
@@ -64,9 +61,9 @@ class App extends React.Component {
           className={className(
             'button',
             'is-dark',
-            { 'is-loading': this.state.loading.includes('3') },
           )}
-          onClick={e => this.onLoadGoods(e, getRedGoods)}
+          disabled={this.state.loading}
+          onClick={() => this.onLoadGoods(getRedGoods)}
         >
           Load red goods
         </button>

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export const GoodsList = ({ goods }) => (
   <>
-    {goods.length !== 0 && (
+    {goods.length > 0 && (
       <div className="box">
         <ul>
           {goods.map(good => (
