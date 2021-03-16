@@ -12,12 +12,12 @@ class App extends React.Component {
     this.setState({ goods });
   }
 
-  showAllButton = () => {
+  showAllGoodsButton = () => {
     getAll()
       .then(this.changeState);
   }
 
-  show5Button = () => {
+  show5firstGoodsButton = () => {
     get5First()
       .then(this.changeState);
   }
@@ -35,7 +35,7 @@ class App extends React.Component {
         <button
           className="button"
           type="button"
-          onClick={this.showAllButton}
+          onClick={this.showAllGoodsButton}
         >
           Load All goods
         </button>
@@ -43,7 +43,7 @@ class App extends React.Component {
         <button
           className="button"
           type="button"
-          onClick={this.show5Button}
+          onClick={this.show5firstGoodsButton}
         >
           Load 5 first goods
         </button>
