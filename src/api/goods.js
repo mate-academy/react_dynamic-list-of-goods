@@ -1,14 +1,14 @@
 // eslint-disable-next-line
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
-export const getAll = async() => {
+export const getAllGoods = async() => {
   const request = await fetch(API_URL);
   const result = await request.json();
 
   return result;
 };
 
-export const get5First = async() => {
+export const get5FirstGoods = async() => {
   const request = await fetch(API_URL);
   const result = await request.json();
 
