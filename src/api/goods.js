@@ -8,7 +8,13 @@ export function getAll() {
 
 export const get5First = () => (
   getAll()
-    .then(result => result.slice(0, 5))
+    .then(result => (
+      result
+        .slice(0, 5)
+        .sort((curr, next) => (
+          curr.name.localeCompare(next.name)
+        ))
+    ))
 );
 
 export const getRedGoods = () => (
