@@ -4,21 +4,21 @@ import './App.scss';
 import { GoodsList } from './components/GoodsList';
 import { ButtonToShowGoods } from './components/ButtonToShowGoods';
 
-import { getAll, get5First, getRedGoods } from './api/goods';
+import { getAllGoods, get5FirstGoods, getRedGoods } from './api/goods';
 
 class App extends React.Component {
   state = {
     goods: [],
   }
 
-  loadAll = async() => {
-    const goods = await getAll();
+  loadAllGoods = async() => {
+    const goods = await getAllGoods();
 
     this.setState({ goods });
   }
 
-  load5First = async() => {
-    const goods = await get5First();
+  load5FirstGoods = async() => {
+    const goods = await get5FirstGoods();
 
     this.setState({ goods });
   }
@@ -37,11 +37,11 @@ class App extends React.Component {
         <h1>Dynamic list of Goods</h1>
         <ButtonToShowGoods
           text="Load All goods"
-          onClick={this.loadAll}
+          onClick={this.loadAllGoods}
         />
         <ButtonToShowGoods
           text="Load 5 first goods"
-          onClick={this.load5First}
+          onClick={this.load5FirstGoods}
         />
         <ButtonToShowGoods
           text="Load red goods"
