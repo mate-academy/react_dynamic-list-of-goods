@@ -8,23 +8,25 @@ class App extends React.Component {
     goods: '',
   }
 
-  changeState = (goods) => {
-    this.setState({ goods });
-  }
-
   showAllGoodsButton = () => {
     getAll()
-      .then(this.changeState);
+      .then((goods) => {
+        this.setState({ goods });
+      });
   }
 
   show5firstGoodsButton = () => {
     get5First()
-      .then(this.changeState);
+      .then((goods) => {
+        this.setState({ goods });
+      });
   }
 
   showRedGoodsButton = () => {
     getRedGoods()
-      .then(this.changeState);
+      .then((goods) => {
+        this.setState({ goods });
+      });
   }
 
   render() {
