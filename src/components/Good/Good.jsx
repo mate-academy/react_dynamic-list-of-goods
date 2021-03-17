@@ -2,12 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const Good = ({ good }) => (
-  <li
-    key={good.id}
-    style={{ color: `${good.color}` }}
-  >
+  <p>
     {good.name}
-  </li>
+  </p>
 );
 
 Good.propTypes = {
