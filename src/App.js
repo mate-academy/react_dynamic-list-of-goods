@@ -10,12 +10,35 @@ export class App extends Component {
     listOfGoods: [],
   };
 
-  setList = (list) => {
-    this.setState({ listOfGoods: list });
+  setList = async() => {
+    const data = await getAllGoods();
+
+    this.setState({ listOfGoods: data });
+  }
+
+  setSortedGoods = async() => {
+    const data = await get5FirstGoods();
+    const sortedGoods = data.sort(
+      (currentGoods, nextGoods) => (
+        currentGoods.name.localeCompare(nextGoods.name)
+      ),
+    );
+
+    this.setState({ listOfGoods: sortedGoods.slice(0, 5) });
+  }
+
+  setGoodsWithColor = async() => {
+    const data = await getRedGoods();
+
+    this.setState({
+      listOfGoods: data.filter(
+        goods => goods.color === 'red',
+      ),
+    });
   }
 
   render() {
-    const { setList } = this;
+    const { setList, setSortedGoods, setGoodsWithColor } = this;
     const { listOfGoods } = this.state;
 
     return (
@@ -25,20 +48,17 @@ export class App extends Component {
         </h1>
         <Button
           text="Load All goods"
-          onClick={getAllGoods}
-          onGet={setList}
+          onClick={setList}
         />
 
         <Button
           text="Load 5 first goods"
-          onClick={get5FirstGoods}
-          onGet={setList}
+          onClick={setSortedGoods}
 
         />
         <Button
           text="Load red goods"
-          onClick={getRedGoods}
-          onGet={setList}
+          onClick={setGoodsWithColor}
         />
         {listOfGoods.length > 0
         && (<GoodsList goods={listOfGoods} />)}
