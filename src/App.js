@@ -1,28 +1,28 @@
 import React from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-import { getAll, get5First, getRedGoods } from './api/goods';
+import { getAllGoods, get5FirstGoods, getRedGoods } from './api/goods';
 
 class App extends React.Component {
   state = {
     goods: '',
   }
 
-  showAllGoodsButton = () => {
-    getAll()
+  showAllGoods = () => {
+    getAllGoods()
       .then((goods) => {
         this.setState({ goods });
       });
   }
 
-  show5firstGoodsButton = () => {
-    get5First()
+  show5firstGoods = () => {
+    get5FirstGoods()
       .then((goods) => {
         this.setState({ goods });
       });
   }
 
-  showRedGoodsButton = () => {
+  showRedGoods = () => {
     getRedGoods()
       .then((goods) => {
         this.setState({ goods });
@@ -37,7 +37,7 @@ class App extends React.Component {
         <button
           className="button"
           type="button"
-          onClick={this.showAllGoodsButton}
+          onClick={this.showAllGoods}
         >
           Load All goods
         </button>
@@ -45,7 +45,7 @@ class App extends React.Component {
         <button
           className="button"
           type="button"
-          onClick={this.show5firstGoodsButton}
+          onClick={this.show5firstGoods}
         >
           Load 5 first goods
         </button>
@@ -53,7 +53,7 @@ class App extends React.Component {
         <button
           className="button"
           type="button"
-          onClick={this.showRedGoodsButton}
+          onClick={this.showRedGoods}
         >
           Load red goods
         </button>
