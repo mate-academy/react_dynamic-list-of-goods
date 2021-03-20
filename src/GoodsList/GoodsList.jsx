@@ -1,4 +1,5 @@
 import React from 'react';
+import { TodoType } from '../types';
 
 export const GoodsList = ({ goods }) => {
   return (
@@ -10,4 +11,12 @@ export const GoodsList = ({ goods }) => {
       ))}
     </ul>
   );
+};
+
+GoodsList.propTypes = {
+  goods: arrayOf(TodoType)
+};
+
+GoodsList.defaultProps = {
+  goods: [],
 };
