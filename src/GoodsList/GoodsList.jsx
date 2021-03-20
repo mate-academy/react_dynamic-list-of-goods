@@ -1,5 +1,5 @@
-import PropTypes, { arrayOf } from 'prop-types';
 import React from 'react';
+import PropTypes, { arrayOf } from 'prop-types';
 
 export const GoodsList = ({ goods }) => (
   <ul>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { GoodsList } from './GoodsList/GoodsList';
+import { Button } from './Button/Button';
 
 import './App.scss';
 
@@ -37,24 +38,18 @@ class App extends React.Component {
     return (
       <>
         <div>
-          <button
-            type="button"
-            onClick={this.getAllGoods}
-          >
-            Load All goods
-          </button>
-          <button
-            type="button"
-            onClick={this.getFiveGoods}
-          >
-            Load 5 first goods
-          </button>
-          <button
-            type="button"
-            onClick={this.getOnlyRedGoods}
-          >
-            Load red goods
-          </button>
+          <Button
+            name="Load All goods"
+            onShow={this.getAllGoods}
+          />
+          <Button
+            name="Load 5 first goods"
+            onShow={this.getFiveGoods}
+          />
+          <Button
+            name="Load red goods"
+            onShow={this.getOnlyRedGoods}
+          />
         </div>
         {goods.length > 0 && <GoodsList goods={goods} />}
       </>
