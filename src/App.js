@@ -3,7 +3,6 @@ import { GoodsList } from './GoodsList/GoodsList';
 import { Button } from './Button/Button';
 
 import './App.scss';
-
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 class App extends React.Component {
@@ -11,22 +10,8 @@ class App extends React.Component {
     goods: [],
   };
 
-  getAllGoods = () => {
-    getAll()
-      .then(response => this.setState({
-        goods: response,
-      }));
-  };
-
-  getFiveGoods = () => {
-    get5First()
-      .then(response => this.setState({
-        goods: response,
-      }));
-  };
-
-  getOnlyRedGoods = () => {
-    getRedGoods()
+  getGoods = (callback) => {
+    callback()
       .then(response => this.setState({
         goods: response,
       }));
@@ -40,15 +25,18 @@ class App extends React.Component {
         <div>
           <Button
             name="Load All goods"
-            onShow={this.getAllGoods}
+            callback={getAll}
+            onClick={this.getGoods}
           />
           <Button
             name="Load 5 first goods"
-            onShow={this.getFiveGoods}
+            callback={get5First}
+            onClick={this.getGoods}
           />
           <Button
             name="Load red goods"
-            onShow={this.getOnlyRedGoods}
+            callback={getRedGoods}
+            onClick={this.getGoods}
           />
         </div>
         {goods.length > 0 && <GoodsList goods={goods} />}

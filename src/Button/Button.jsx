@@ -1,16 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Button = ({ onShow, name }) => (
-  <button
-    type="button"
-    onClick={() => onShow()}
-  >
-    {name}
-  </button>
-);
+export class Button extends React.Component {
+  loadGoods = () => {
+    const { onClick, callback } = this.props;
+
+    onClick(callback);
+  };
+
+  render() {
+    const { name } = this.props;
+    return (
+      <button
+        type="button"
+        onClick={this.loadGoods}
+      >
+        {name}
+      </button>
+    )
+  }
+}
 
 Button.propTypes = {
-  onShow: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+  callback: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
 };
