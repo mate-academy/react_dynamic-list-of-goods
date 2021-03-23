@@ -6,11 +6,13 @@ export function getAllGoods() {
     .then(response => response.json());
 }
 
-export const get5FirstGoods = () => fetch(API_URL)
-  .then(response => response.json())
-  .then(goods => goods.sort((currGood, nextGood) => (
-    currGood.name.localeCompare(nextGood.name))).slice(0, 5));
+export const get5FirstGoods = () => (
+  getAllGoods()
+    .then(goods => goods.sort((currGood, nextGood) => (
+      currGood.name.localeCompare(nextGood.name))).slice(0, 5))
+);
 
-export const getRedGoods = () => fetch(API_URL)
-  .then(response => response.json())
-  .then(goods => goods.filter(good => good.color === 'red'));
+export const getRedGoods = () => (
+  getAllGoods()
+    .then(goods => goods.filter(good => good.color === 'red'))
+);

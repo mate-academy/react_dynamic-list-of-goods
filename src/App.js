@@ -8,22 +8,8 @@ class App extends React.Component {
     goods: '',
   }
 
-  showAllGoods = () => {
-    getAllGoods()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  show5firstGoods = () => {
-    get5FirstGoods()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  showRedGoods = () => {
-    getRedGoods()
+  showGoods = (showSpecialGoods) => {
+    showSpecialGoods()
       .then((goods) => {
         this.setState({ goods });
       });
@@ -37,7 +23,7 @@ class App extends React.Component {
         <button
           className="button"
           type="button"
-          onClick={this.showAllGoods}
+          onClick={() => this.showGoods(getAllGoods)}
         >
           Load All goods
         </button>
@@ -45,7 +31,7 @@ class App extends React.Component {
         <button
           className="button"
           type="button"
-          onClick={this.show5firstGoods}
+          onClick={() => this.showGoods(get5FirstGoods)}
         >
           Load 5 first goods
         </button>
@@ -53,7 +39,7 @@ class App extends React.Component {
         <button
           className="button"
           type="button"
-          onClick={this.showRedGoods}
+          onClick={() => this.showGoods(getRedGoods)}
         >
           Load red goods
         </button>
