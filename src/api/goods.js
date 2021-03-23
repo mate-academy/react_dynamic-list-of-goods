@@ -1,11 +1,16 @@
-// eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
+import { request } from '../helpers';
 
-export function getAll() {
-  return fetch(API_URL)
-    .then(response => response.json());
-}
+export const getAll = () => request();
 
-export const get5First = () => {};
+export const get5First = () => (
+  request()
+    .then(response => response
+      .sort((a, b) => a.name.localeCompare(b.name)))
+    .then(response => response.splice(0, 5))
+);
 
-export const getRedGoods = () => {};
+export const getRedGoods = () => (
+  request()
+    .then(response => response
+      .filter(good => good.color === 'red'))
+);
