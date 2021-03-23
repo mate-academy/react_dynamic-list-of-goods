@@ -1,1 +1,17 @@
 // styles go here
+html {
+  font-family: sans-serif;
+}
+
+button {
+  background-color: goldenrod;
+  padding: 10px;
+  margin-left: 15px;
+  border: 1px solid goldenrod;
+  border-radius: 5px;
+  font-size: 1rem;
+
+  &:active {
+    transform: translateY(-5px);
+  }
+}
