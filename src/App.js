@@ -1,13 +1,45 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Button } from './components/Button';
+import { GoodsList } from './components/GoodsList';
+import { fetchAllGoods, fetch5FirstGoods, fetchRedGoods } from './api/goods';
 
 import './App.scss';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export class App extends Component {
+  state = {
+    goods: [],
+  };
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+  setList = async callback => this.setState({
+    goods: await callback(),
+  });
 
-export default App;
+  render() {
+    const { setList } = this;
+    const { goods } = this.state;
+
+    return (
+      <>
+        <h1 className="title">
+          Dynamic list of Goods
+        </h1>
+        <Button
+          text="Load All goods"
+          onClick={() => setList(fetchAllGoods)}
+        />
+
+        <Button
+          text="Load 5 first goods"
+          onClick={() => setList(fetch5FirstGoods)}
+
+        />
+        <Button
+          text="Load red goods"
+          onClick={() => setList(fetchRedGoods)}
+        />
+        {goods.length > 0
+        && (<GoodsList goods={goods} />)}
+      </>
+    );
+  }
+}
