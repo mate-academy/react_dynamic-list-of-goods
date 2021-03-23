@@ -10,26 +10,12 @@ export class App extends Component {
     goods: [],
   };
 
-  setList = async() => {
-    const data = await fetchAllGoods();
-
-    this.setState({ goods: data });
-  }
-
-  setSortedGoods = async() => {
-    const data = await fetch5FirstGoods();
-
-    this.setState({ goods: data.slice(0, 5) });
-  }
-
-  setGoodsWithColor = async() => {
-    const data = await fetchRedGoods();
-
-    this.setState({ goods: data });
-  }
+  setList = async callback => this.setState({
+    goods: await callback(),
+  });
 
   render() {
-    const { setList, setSortedGoods, setGoodsWithColor } = this;
+    const { setList } = this;
     const { goods } = this.state;
 
     return (
@@ -39,17 +25,17 @@ export class App extends Component {
         </h1>
         <Button
           text="Load All goods"
-          onClick={setList}
+          onClick={() => setList(fetchAllGoods)}
         />
 
         <Button
           text="Load 5 first goods"
-          onClick={setSortedGoods}
+          onClick={() => setList(fetch5FirstGoods)}
 
         />
         <Button
           text="Load red goods"
-          onClick={setGoodsWithColor}
+          onClick={() => setList(fetchRedGoods)}
         />
         {goods.length > 0
         && (<GoodsList goods={goods} />)}
