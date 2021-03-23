@@ -11,28 +11,9 @@ class App extends React.Component {
     goods: [],
   }
 
-  loadAllGoods() {
-    getAll()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  load5First() {
-    get5First()
-      .then((goods) => {
-        goods.sort((currGood, nextGood) => (
-          currGood.name.localeCompare(nextGood.name)
-        ));
-        this.setState({ goods });
-      });
-  }
-
-  loadRedGoods() {
-    getRedGoods()
-      .then((goods) => {
-        this.setState({ goods });
-      });
+  loadGoods(goods) {
+    goods()
+      .then(response => this.setState({ goods: response }));
   }
 
   render() {
@@ -40,20 +21,21 @@ class App extends React.Component {
       <>
         <h1>Dynamic list of Goods</h1>
         <button
-          onClick={() => this.loadAllGoods()}
+          onClick={() => this.loadGoods(getAll)
+          }
           type="button"
         >
           Load All goods
         </button>
         <button
           type="button"
-          onClick={() => this.load5First()}
+          onClick={() => this.loadGoods(get5First)}
         >
           Load 5 first goods
         </button>
         <button
           type="button"
-          onClick={() => this.loadRedGoods()}
+          onClick={() => this.loadGoods(getRedGoods)}
         >
           Load red goods
         </button>
