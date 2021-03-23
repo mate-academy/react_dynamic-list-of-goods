@@ -10,7 +10,7 @@ class App extends React.Component {
     goods: [],
   };
 
-  getGoods = (callback) => {
+  loadGoods = (callback) => {
     callback()
       .then(response => this.setState({
         goods: response,
@@ -25,18 +25,15 @@ class App extends React.Component {
         <div>
           <Button
             name="Load All goods"
-            callback={getAll}
-            onClick={this.getGoods}
+            onLoad={() => this.loadGoods(getAll)}
           />
           <Button
             name="Load 5 first goods"
-            callback={get5First}
-            onClick={this.getGoods}
+            onLoad={() => this.loadGoods(get5First)}
           />
           <Button
             name="Load red goods"
-            callback={getRedGoods}
-            onClick={this.getGoods}
+            onLoad={() => this.loadGoods(getRedGoods)}
           />
         </div>
         {goods.length > 0 && <GoodsList goods={goods} />}
