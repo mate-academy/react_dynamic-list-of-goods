@@ -3,29 +3,20 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 import './App.scss';
 import { GoodList } from './components/GoodList/GoodList';
-import { ShowButton } from './components/ShowButton/ShowButton';
+import { Button } from './components/Button/Button';
 
 class App extends React.Component {
   state = {
     goods: [],
   }
 
-  allGoods = async() => {
-    const goods = await getAll();
-
-    this.setState({ goods });
-  }
-
-  add5FirstGoods = async() => {
-    const goods = await get5First();
-
-    this.setState({ goods });
-  }
-
-  redGoods = async() => {
-    const goods = await getRedGoods();
-
-    this.setState({ goods });
+  clickHandler = (good) => {
+    good()
+      .then((goods) => {
+        this.setState({
+          goods,
+        });
+      });
   }
 
   render() {
@@ -33,9 +24,18 @@ class App extends React.Component {
 
     return (
       <div>
-        <ShowButton handler={this.allGoods} text="All goods" />
-        <ShowButton handler={this.add5FirstGoods} text="Load 5 first goods" />
-        <ShowButton handler={this.redGoods} text="Load red goods" />
+        <Button
+          onClick={() => this.clickHandler(getAll)}
+          text="All goods"
+        />
+        <Button
+          onClick={() => this.clickHandler(get5First)}
+          text="Load 5 first goods"
+        />
+        <Button
+          onClick={() => this.clickHandler(getRedGoods)}
+          text="Load red goods"
+        />
         <GoodList goods={goods} />
       </div>
     );
