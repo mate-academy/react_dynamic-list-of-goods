@@ -5,7 +5,7 @@ export function Button({ onClick, text }) {
   return (
     <button
       type="button"
-      onClick={() => onClick()}
+      onClick={onClick}
     >
       {text}
     </button>

@@ -10,8 +10,8 @@ class App extends React.Component {
     goods: [],
   }
 
-  clickHandler = (good) => {
-    good()
+  clickHandler = (callbak) => {
+    callbak()
       .then((goods) => {
         this.setState({
           goods,
