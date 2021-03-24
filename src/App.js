@@ -10,22 +10,8 @@ class App extends React.Component {
     goods: [],
   };
 
-  loadAllGoods = () => {
-    getAll()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  };
-
-  loadFirstFive = () => {
-    get5First()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  };
-
-  loadRed = () => {
-    getRedGoods()
+  loadGoods = (goodsLoader) => {
+    goodsLoader()
       .then((goods) => {
         this.setState({ goods });
       });
@@ -40,21 +26,27 @@ class App extends React.Component {
 
         <button
           type="button"
-          onClick={this.loadAllGoods}
+          onClick={() => {
+            this.loadGoods(getAll);
+          }}
         >
           Load All Goods
         </button>
 
         <button
           type="button"
-          onClick={this.loadFirstFive}
+          onClick={() => {
+            this.loadGoods(get5First);
+          }}
         >
           Load 5 first goods
         </button>
 
         <button
           type="button"
-          onClick={this.loadRed}
+          onClick={() => {
+            this.loadGoods(getRedGoods);
+          }}
         >
           Load red goods
         </button>

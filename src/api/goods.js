@@ -9,17 +9,9 @@ export function getAll() {
 export const get5First = () => (
   getAll()
     .then(users => (
-      users.sort((firstElement, secondElement) => {
-        if (firstElement.name > secondElement.name) {
-          return 1;
-        }
-
-        if (firstElement.name < secondElement.name) {
-          return -1;
-        }
-
-        return 0;
-      })
+      users.sort((firstElement, secondElement) => (
+        firstElement.name.localeCompare(secondElement.name)
+      ))
     ))
     .then(users => users.slice(0, 5))
 );
