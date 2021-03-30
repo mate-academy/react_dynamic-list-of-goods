@@ -8,14 +8,14 @@ export function getAll() {
 
 export const get5First = async() => {
   const goods = await getAll();
-  const result = goods.filter((_, index) => (index < 5) && true);
+  const result = goods.slice(0, 5);
 
   return result;
 };
 
 export const getRed = async() => {
   const goods = await getAll();
-  const result = goods.filter(good => (good.color === 'red') && true);
+  const result = goods.filter(good => (good.color === 'red'));
 
   return result;
 };
