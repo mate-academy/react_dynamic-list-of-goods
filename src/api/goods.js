@@ -6,6 +6,16 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export const get5First = async() => {
+  const goods = await getAll();
+  const result = goods.slice(0, 5);
 
-export const getRedGoods = () => {};
+  return result;
+};
+
+export const getRed = async() => {
+  const goods = await getAll();
+  const result = goods.filter(good => (good.color === 'red'));
+
+  return result;
+};
