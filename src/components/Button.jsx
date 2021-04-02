@@ -1,23 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export class Button extends React.Component {
-  state = {
-
-  }
-
-  render() {
-    const { text, onClick } = this.props;
-
-    return (
-      <button
-        type="button"
-        onClick={onClick}
-      >
-        {text}
-      </button>
-    );
-  }
+export function Button({ text, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+    >
+      {text}
+    </button>
+  );
 }
 
 Button.propTypes = {
