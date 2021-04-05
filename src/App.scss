@@ -1,1 +1,33 @@
-// styles go here
+.App {
+  &__buttons {
+    display: flex;
+  }
+}
+
+.list-button {
+  cursor: pointer;
+
+  margin-right: 15px;
+
+  border: 1px solid transparent;
+  box-shadow: 1px 1px 5px #2367db;
+  text-transform: uppercase;
+  color: #fff;
+
+  background: linear-gradient(#2367db, #236ada);
+
+  outline: none;
+
+  height: 50px;
+  width: 150px;
+
+  transition: box-shadow 0.3s ease-in, background 0.3s ease-in-out;
+
+  &:hover {
+    background: white;
+    border: 1px solid #2367db;
+    color: #2367db;
+
+    box-shadow: 2px 2px 15px #2367db;
+  }
+}
