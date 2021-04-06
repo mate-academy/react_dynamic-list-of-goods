@@ -8,7 +8,8 @@ export function getAll() {
 
 export const get5First = () => fetch(API_URL)
   .then(response => response.json())
-  .then(products => products.filter(product => products.indexOf(product) < 5));
+  .then(products => products.slice(0, 5)
+    .sort((previos, next) => previos.name.localeCompare(next.name)));
 
 export const getRedGoods = () => fetch(API_URL)
   .then(response => response.json())
