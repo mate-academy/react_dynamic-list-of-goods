@@ -1,1 +1,21 @@
-// styles go here
+body {
+  display: flex;
+  justify-content: center;
+  height: 50vw;
+
+  background-color: rgba(129, 250, 244, 0.1);
+}
+
+h1,
+.goods-lists {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.goods-list {
+  list-style: none;
+}
+
+.goods-button {
+  margin: 10px;
+}
