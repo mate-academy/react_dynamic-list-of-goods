@@ -18,7 +18,9 @@ export function getAll() {
 
 export function get5First() {
   return getAll()
-    .then(result => result.slice(0, 5));
+    .then(result => result
+      .slice(0, 5)
+      .sort((good1, good2) => good1.name.localeCompare(good2.name)));
 }
 
 export function getRedGoods() {
