@@ -6,30 +6,46 @@ import { GoodsList } from './component/GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 class App extends React.PureComponent {
-  state={
-    loadGoods: false,
-    goodsList: [],
+  state = {
+    goods: [],
+  }
+
+  loadAllGoods = () => {
+    getAll()
+      .then((result) => {
+        this.setState({
+          goods: result,
+        });
+      });
+  }
+
+  loadFirstFiveGoods = () => {
+    get5First()
+      .then((result) => {
+        this.setState({
+          goods: result,
+        });
+      });
+  }
+
+  loadRedGoods = () => {
+    getRedGoods()
+      .then((result) => {
+        this.setState({
+          goods: result,
+        });
+      });
   }
 
   render() {
     return (
       <>
-
         <h1>Dynamic List</h1>
-
         <div className="App__buttons">
           <button
             className="list-button"
             type="button"
-            onClick={() => {
-              getAll()
-                .then((result) => {
-                  this.setState({
-                    goodsList: result,
-                    loadGoods: true,
-                  });
-                });
-            }}
+            onClick={this.loadAllGoods}
           >
             Load All goods
           </button>
@@ -37,15 +53,7 @@ class App extends React.PureComponent {
           <button
             className="list-button"
             type="button"
-            onClick={() => {
-              get5First()
-                .then((result) => {
-                  this.setState({
-                    goodsList: result,
-                    loadGoods: true,
-                  });
-                });
-            }}
+            onClick={this.loadFirstFiveGoods}
           >
             Load first five goods
           </button>
@@ -53,23 +61,15 @@ class App extends React.PureComponent {
           <button
             className="list-button"
             type="button"
-            onClick={() => {
-              getRedGoods()
-                .then((result) => {
-                  this.setState({
-                    goodsList: result,
-                    loadGoods: true,
-                  });
-                });
-            }}
+            onClick={this.loadRedGoods}
           >
             Load red goods
           </button>
 
         </div>
 
-        {this.state.loadGoods && (
-          <GoodsList goodsList={this.state.goodsList} />
+        {this.state.goods.length > 0 && (
+          <GoodsList goodsList={this.state.goods} />
         )}
 
       </>

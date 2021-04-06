@@ -8,12 +8,12 @@ export function getAll() {
 
 export const get5First = () => getAll().then((res) => {
   const firstFiveGoods = res.sort(
-    (prevVeriable, nexVeriable) => prevVeriable.name
-      .localeCompare(nexVeriable.name),
+    (firstElement, secondElement) => firstElement.name
+      .localeCompare(secondElement.name),
   );
 
   return firstFiveGoods.slice(0, 5);
 });
 
 export const getRedGoods = () => getAll()
-  .then(response => response.filter(item => item.color === 'red'));
+  .then(goods => goods.filter(good => good.color === 'red'));
