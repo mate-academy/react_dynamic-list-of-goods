@@ -16,15 +16,15 @@ class App extends React.Component {
     this.setState({ goods });
   }
 
-  showAllGoods = async() => {
+  showAllGoods = () => {
     this.showGoods(getAll);
   }
 
-  showFirst5Goods = async() => {
+  showFirst5Goods = () => {
     this.showGoods(get5First);
   }
 
-  showRedGoods = async() => {
+  showRedGoods = () => {
     this.showGoods(getRedGoods);
   }
 
