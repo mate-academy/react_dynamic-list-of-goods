@@ -1,18 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Button = ({ callback, text }) => (
-  <>
-    <button
-      type="button"
-      onClick={callback}
-    >
-      {text}
-    </button>
-  </>
+export const Button = ({ onclick, text }) => (
+  <button
+    type="button"
+    onClick={onclick}
+  >
+    {text}
+  </button>
 );
 
 Button.propTypes = {
-  callback: PropTypes.func.isRequired,
+  onclick: PropTypes.func.isRequired,
   text: PropTypes.string.isRequired,
 };

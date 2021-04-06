@@ -7,8 +7,7 @@ export function getAll() {
 }
 
 export function get5First() {
-  return fetch(API_URL)
-    .then(response => response.json())
+  return getAll()
     .then(list => list.slice(0, 5)
       .sort(
         (current, next) => current.name.localeCompare(next.name),
@@ -16,7 +15,6 @@ export function get5First() {
 }
 
 export function getRedGoods() {
-  return fetch(API_URL)
-    .then(response => response.json())
+  return getAll()
     .then(list => list.filter(product => product.color === 'red'));
 }

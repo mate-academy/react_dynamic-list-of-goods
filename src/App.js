@@ -11,22 +11,8 @@ class App extends React.Component {
     goods: [],
   }
 
-  loadGoods = () => {
-    getAll()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  loadFiveGoods = () => {
-    get5First()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  loadRedGoods = () => {
-    getRedGoods()
+  loadData = (fetchedGoods) => {
+    fetchedGoods()
       .then((goods) => {
         this.setState({ goods });
       });
@@ -39,17 +25,17 @@ class App extends React.Component {
       <>
         <h1>Dynamic list of Goods</h1>
         <Button
-          callback={this.loadGoods}
+          onclick={() => this.loadData(getAll)}
           text="Load All goods"
         />
 
         <Button
-          callback={this.loadFiveGoods}
+          onclick={() => this.loadData(get5First)}
           text="Load 5 first goods"
         />
 
         <Button
-          callback={this.loadRedGoods}
+          onclick={() => this.loadData(getRedGoods)}
           text="Load red goods"
         />
 
