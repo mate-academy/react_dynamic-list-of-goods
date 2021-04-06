@@ -10,22 +10,22 @@ class App extends React.Component {
     goods: [],
   }
 
-  showAllGoods = async() => {
-    const goods = await getAll();
+  showGoods = async(callback) => {
+    const goods = await callback();
 
     this.setState({ goods });
+  }
+
+  showAllGoods = async() => {
+    this.showGoods(getAll);
   }
 
   showFirst5Goods = async() => {
-    const goods = await get5First();
-
-    this.setState({ goods });
+    this.showGoods(get5First);
   }
 
   showRedGoods = async() => {
-    const goods = await getRedGoods();
-
-    this.setState({ goods });
+    this.showGoods(getRedGoods);
   }
 
   render() {
