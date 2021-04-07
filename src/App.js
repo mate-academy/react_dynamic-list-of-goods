@@ -8,9 +8,10 @@ class App extends React.Component {
     goods: [],
   }
 
-  loadGoods = (sortFunction) => {
-    sortFunction()
-      .then(result => this.setState({ goods: result }));
+  loadGoods = async(sortFunction) => {
+    const prepearedGoods = await sortFunction();
+
+    this.setState({ goods: prepearedGoods });
   }
 
   render() {
