@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const GoodsList = ({ goodsList }) => (
+export const GoodsList = ({ goods }) => (
   <ul>
     {
-      goodsList.map(item => (
+      goods.map(item => (
         <li
           key={item.id}
           style={{ color: item.color }}

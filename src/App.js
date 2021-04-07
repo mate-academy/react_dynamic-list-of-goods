@@ -10,26 +10,8 @@ class App extends React.PureComponent {
     goods: [],
   }
 
-  loadAllGoods = () => {
-    getAll()
-      .then((result) => {
-        this.setState({
-          goods: result,
-        });
-      });
-  }
-
-  loadFirstFiveGoods = () => {
-    get5First()
-      .then((result) => {
-        this.setState({
-          goods: result,
-        });
-      });
-  }
-
-  loadRedGoods = () => {
-    getRedGoods()
+  loadGoods = (method) => {
+    method()
       .then((result) => {
         this.setState({
           goods: result,
@@ -45,7 +27,9 @@ class App extends React.PureComponent {
           <button
             className="list-button"
             type="button"
-            onClick={this.loadAllGoods}
+            onClick={() => {
+              this.loadGoods(getAll);
+            }}
           >
             Load All goods
           </button>
@@ -53,7 +37,9 @@ class App extends React.PureComponent {
           <button
             className="list-button"
             type="button"
-            onClick={this.loadFirstFiveGoods}
+            onClick={() => {
+              this.loadGoods(get5First);
+            }}
           >
             Load first five goods
           </button>
@@ -61,7 +47,9 @@ class App extends React.PureComponent {
           <button
             className="list-button"
             type="button"
-            onClick={this.loadRedGoods}
+            onClick={() => {
+              this.loadGoods(getRedGoods);
+            }}
           >
             Load red goods
           </button>
@@ -69,7 +57,7 @@ class App extends React.PureComponent {
         </div>
 
         {this.state.goods.length > 0 && (
-          <GoodsList goodsList={this.state.goods} />
+          <GoodsList goods={this.state.goods} />
         )}
 
       </>
