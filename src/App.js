@@ -8,25 +8,14 @@ class App extends React.Component {
     goods: [],
   }
 
-  loadAllGoods = async() => {
-    const loadGoods = await getAll();
-
-    this.setState({ goods: loadGoods });
-  }
-
-  loadFiveFirstGoods = async() => {
-    const loadGoods = await get5First();
-
-    this.setState({ goods: loadGoods });
-  }
-
-  loadRedGoods = async() => {
-    const loadGoods = await getRedGoods();
+  loadGoods = async(loader) => {
+    const loadGoods = await loader();
 
     this.setState({ goods: loadGoods });
   }
 
   render() {
+    const { loadGoods } = this;
     const { goods } = this.state;
 
     return (
@@ -36,21 +25,21 @@ class App extends React.Component {
         <button
           type="button"
           className="button"
-          onClick={this.loadAllGoods}
+          onClick={() => loadGoods(getAll)}
         >
           All goods
         </button>
         <button
           type="button"
           className="button"
-          onClick={this.loadFiveFirstGoods}
+          onClick={() => loadGoods(get5First)}
         >
           First five goods
         </button>
         <button
           type="button"
           className="button"
-          onClick={this.loadRedGoods}
+          onClick={() => loadGoods(getRedGoods)}
         >
           Red goods
         </button>
