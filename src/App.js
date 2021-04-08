@@ -12,25 +12,25 @@ export class App extends React.Component {
     goods: [],
   };
 
+  changeState = (goods) => {
+    this.setState({
+      goods,
+    });
+  }
+
   showAllGoods = () => {
     getAll()
-      .then(goods => this.setState({
-        goods,
-      }));
+      .then(this.changeState);
   };
 
   show5Goods = () => {
     get5First()
-      .then(goods => this.setState({
-        goods,
-      }));
+      .then(this.changeState);
   };
 
   showRedGoods = () => {
     getRedGoods()
-      .then(goods => this.setState({
-        goods,
-      }));
+      .then(this.changeState);
   };
 
   render() {
