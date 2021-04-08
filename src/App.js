@@ -18,20 +18,9 @@ export class App extends React.Component {
     });
   }
 
-  showAllGoods = () => {
-    getAll()
-      .then(this.changeState);
-  };
-
-  show5Goods = () => {
-    get5First()
-      .then(this.changeState);
-  };
-
-  showRedGoods = () => {
-    getRedGoods()
-      .then(this.changeState);
-  };
+  showGoods = (promise) => {
+    promise.then(this.changeState);
+  }
 
   render() {
     const { goods } = this.state;
@@ -42,21 +31,21 @@ export class App extends React.Component {
 
         <button
           type="button"
-          onClick={this.showAllGoods}
+          onClick={() => this.showGoods(getAll)}
         >
           Load All goods
         </button>
 
         <button
           type="button"
-          onClick={this.show5Goods}
+          onClick={() => this.showGoods(get5First)}
         >
           Load 5 first goods
         </button>
 
         <button
           type="button"
-          onClick={this.showRedGoods}
+          onClick={() => this.showGoods(getRedGoods)}
         >
           Load red goods
         </button>
