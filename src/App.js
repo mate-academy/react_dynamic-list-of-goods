@@ -12,7 +12,7 @@ export class App extends React.Component {
     goods: [],
   };
 
-  changeState = (goods) => {
+  setGoods = (goods) => {
     this.setState({
       goods,
     });
