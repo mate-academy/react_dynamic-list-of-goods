@@ -19,7 +19,8 @@ export class App extends React.Component {
   }
 
   showGoods = (promise) => {
-    promise.then(this.changeState);
+    promise()
+      .then(this.setGoods);
   }
 
   render() {
