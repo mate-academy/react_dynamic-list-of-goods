@@ -10,8 +10,8 @@ export class App extends React.Component {
     products: [],
   }
 
-  loadData = (getData) => {
-    getData()
+  loadGoods = (fetchedGoods) => {
+    fetchedGoods()
       .then(response => this.setState({
         products: response,
       }));
@@ -23,19 +23,19 @@ export class App extends React.Component {
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
-          onClick={() => this.loadData(getAll)}
+          onClick={() => this.loadGoods(getAll)}
         >
           Load All goods
         </button>
         <button
           type="button"
-          onClick={() => this.loadData(get5First)}
+          onClick={() => this.loadGoods(get5First)}
         >
           Load 5 first goods
         </button>
         <button
           type="button"
-          onClick={() => this.loadData(getRedGoods)}
+          onClick={() => this.loadGoods(getRedGoods)}
         >
           Load red goods
         </button>
