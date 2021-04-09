@@ -14,8 +14,9 @@ export const GoodsList = ({ listOfGoods }) => (
 GoodsList.propTypes = {
   listOfGoods: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
       id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
     }),
   ),
 };
