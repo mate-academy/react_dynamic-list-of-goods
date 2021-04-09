@@ -32,7 +32,7 @@ export class App extends Component {
           loadBy={getAll}
         />
         <Button
-          text="Load All goods"
+          text="Load 5 first goods"
           handleClick={this.getGoodsByLoader}
           loadBy={get5First}
         />
