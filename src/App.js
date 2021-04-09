@@ -45,7 +45,7 @@ class App extends React.Component {
           </button>
         </div>
 
-        <GoodsList listOfGoods={goods} />
+        <GoodsList goods={goods} />
       </div>
     );
   }

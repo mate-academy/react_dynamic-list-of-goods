@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const GoodsList = ({ listOfGoods }) => (
+export const GoodsList = ({ goods }) => (
   <ul>
-    {listOfGoods.map(({ id, name, color }) => (
+    {goods.map(({ id, name, color }) => (
       <li key={id} style={{ color }}>
         {name}
       </li>
@@ -12,7 +12,7 @@ export const GoodsList = ({ listOfGoods }) => (
 );
 
 GoodsList.propTypes = {
-  listOfGoods: PropTypes.arrayOf(
+  goods: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
@@ -22,5 +22,5 @@ GoodsList.propTypes = {
 };
 
 GoodsList.defaultProps = {
-  listOfGoods: [],
+  goods: [],
 };
