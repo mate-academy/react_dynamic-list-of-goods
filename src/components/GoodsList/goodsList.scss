@@ -1,0 +1,12 @@
+.goods {
+  padding: 0;
+  font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-transform: uppercase;
+
+  &__item {
+    list-style-type: none;
+  }
+}
