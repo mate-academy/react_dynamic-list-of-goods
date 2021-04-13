@@ -9,7 +9,9 @@ export function getAll() {
 export const get5First = async() => {
   const result = await getAll();
 
-  return result.slice(0, 5);
+  return result
+    .slice(0, 5)
+    .sort((prev, next) => prev.name.localeCompare(next.name));
 };
 
 export const getRedGoods = async() => {
