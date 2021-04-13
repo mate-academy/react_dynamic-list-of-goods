@@ -7,14 +7,12 @@ export function getAll() {
 }
 
 export function get5First() {
-  return fetch(API_URL)
-    .then(response => response.json())
+  return getAll()
     .then(goods => goods.sort((a, b) => a.name.localeCompare(b.name)))
     .then(goods => goods.slice(0, 5));
 }
 
 export function getRedGoods() {
-  return fetch(API_URL)
-    .then(response => response.json())
+  return getAll()
     .then(goods => goods.filter(good => good.color === 'red'));
 }
