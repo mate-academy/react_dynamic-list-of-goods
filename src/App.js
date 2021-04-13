@@ -11,8 +11,8 @@ export class App extends PureComponent {
     visible: [],
   }
 
-  handleGetAll = () => {
-    getAll()
+  handleGetAll = async() => {
+    await getAll()
       .then((goods) => {
         this.setState({
           visible: goods,
@@ -20,8 +20,8 @@ export class App extends PureComponent {
       });
   }
 
-  handleGetFive = () => {
-    get5First()
+  handleGetFive = async() => {
+    await get5First()
       .then((goods) => {
         this.setState({
           visible: goods,
@@ -29,8 +29,8 @@ export class App extends PureComponent {
       });
   }
 
-  handleGetRed = () => {
-    getRedGoods()
+  handleGetRed = async() => {
+    await getRedGoods()
       .then((goods) => {
         this.setState({
           visible: goods,
