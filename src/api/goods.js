@@ -8,7 +8,7 @@ export function getAll() {
 
 export const get5First = () => fetch(API_URL)
   .then(response => response.json())
-  .then(goods => goods.filter(good => good.id <= 5));
+  .then(goods => goods.sort().filter(good => good.id <= 5));
 
 export const getRed = () => fetch(API_URL)
   .then(response => response.json())
