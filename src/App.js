@@ -13,8 +13,8 @@ export class App extends React.Component {
     products: null,
   }
 
-  handlerForGoods = (callback) => {
-    callback().then((products) => {
+  handlerForGoods = (loadGoods) => {
+    loadGoods().then((products) => {
       this.setState({ products });
     });
   }
