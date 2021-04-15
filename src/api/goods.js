@@ -11,7 +11,7 @@ export const get5First = () => fetch(API_URL)
   .then(
     goods => goods
       .sort((a, b) => a.name.localeCompare(b.name))
-      .filter((_, index) => index <= 5),
+      .filter((_, index) => index < 5),
   );
 
 export const getRed = () => fetch(API_URL)
