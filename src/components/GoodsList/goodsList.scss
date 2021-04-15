@@ -1,0 +1,12 @@
+.goods {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__item {
+    font-size: 20px;
+  }
+}
