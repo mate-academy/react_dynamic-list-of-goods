@@ -9,6 +9,7 @@ export function getAll() {
 
 export const get5First = () => (
   getAll()
+    .then(result => result.sort((a, b) => a.name.localeCompare(b.name)))
     .then(result => (result.filter(ele => ele.id < 6)))
 );
 
