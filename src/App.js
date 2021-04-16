@@ -12,30 +12,21 @@ export class App extends PureComponent {
   }
 
   handleGetAll = async() => {
-    await getAll()
-      .then((goods) => {
-        this.setState({
-          visible: goods,
-        });
-      });
+    const goods = await getAll();
+
+    this.setState({ visible: goods });
   }
 
   handleGetFive = async() => {
-    await get5First()
-      .then((goods) => {
-        this.setState({
-          visible: goods,
-        });
-      });
+    const goods = await get5First();
+
+    this.setState({ visible: goods });
   }
 
   handleGetRed = async() => {
-    await getRedGoods()
-      .then((goods) => {
-        this.setState({
-          visible: goods,
-        });
-      });
+    const goods = await getRedGoods();
+
+    this.setState({ visible: goods });
   }
 
   render() {
