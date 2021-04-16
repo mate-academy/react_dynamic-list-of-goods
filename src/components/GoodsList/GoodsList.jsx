@@ -13,6 +13,7 @@ export const GoodsList = ({ goods }) => {
         <li
           key={product.id}
           className="productElement"
+          style={{ color: product.color }}
         >
           {product.name}
         </li>
