@@ -1,0 +1,20 @@
+.goodList {
+  list-style-type: none;
+  counter-reset: num;
+
+  &__item {
+    position: relative;
+    // text-align: left;
+
+    &::before {
+      font-size: 14px;
+      content: counter(num) " )";
+      counter-increment: num;
+      color: rgb(185, 106, 3);
+      font-style: italic;
+      position: absolute;
+      top: 0;
+      left: 170px;
+    }
+  }
+}
