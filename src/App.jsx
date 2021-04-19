@@ -10,18 +10,6 @@ export class App extends React.Component {
     goods: null,
   }
 
-  showAll = () => {
-    this.requestGoods(getAll);
-  }
-
-  show5First = () => {
-    this.requestGoods(get5First);
-  }
-
-  showRedGoods = async() => {
-    this.requestGoods(getRedGoods);
-  }
-
   async requestGoods(func) {
     const goodsFromServer = await func();
 
@@ -36,13 +24,13 @@ export class App extends React.Component {
     return (
       <>
         <h1>Dynamic list of Goods</h1>
-        <button type="button" className="button" onClick={this.showAll}>
+        <button type="button" className="button" onClick={() => this.requestGoods(getAll)}>
           Get All
         </button>
-        <button type="button" className="button" onClick={this.show5First}>
+        <button type="button" className="button" onClick={() => this.requestGoods(get5First)}>
           Get 5 first
         </button>
-        <button type="button" className="button" onClick={this.showRedGoods}>
+        <button type="button" className="button" onClick={() => this.requestGoods(getRedGoods)}>
           Get Red
         </button>
         <GoodsList goods={goods} />
