@@ -17,8 +17,3 @@ export const getRedGoods = () => (
   getAll()
     .then(result => (result.filter(ele => ele.color === 'red')))
 );
-
-// export async function getAll() {
-//   const response = await fetch(API_URL);
-//   const data = await response.json();
-// }

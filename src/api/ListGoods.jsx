@@ -7,10 +7,10 @@ export class ListGoods extends React.PureComponent {
   }
 
   addGood = async(loadGoods) => {
-    const loadListGoods = await loadGoods();
+    const loadedListGoods = await loadGoods();
 
     this.setState({
-      listGoods: loadListGoods,
+      listGoods: loadedListGoods,
     });
   }
 
@@ -18,8 +18,8 @@ export class ListGoods extends React.PureComponent {
     return (
       <>
         <ul>
-          {this.state.listGoods.map(ele => (
-            <li key={ele.id} style={{ color: ele.color }}>{ele.name}</li>
+          {this.state.listGoods.map(good => (
+            <li key={good.id} style={{ color: good.color }}>{good.name}</li>
           ))}
         </ul>
         <button
