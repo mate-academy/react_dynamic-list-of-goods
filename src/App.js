@@ -7,29 +7,17 @@ import { GoodsList } from './components';
 
 export class App extends React.PureComponent {
   state = {
-    visibleGoods: [],
+    goods: [],
   }
 
-  handleGetAll = async() => {
-    const goods = await getAll();
+  async handleLoadedData(data) {
+    const goods = await data();
 
-    this.setState({ visibleGoods: goods });
-  }
-
-  handleGetFive = async() => {
-    const goods = await get5First();
-
-    this.setState({ visibleGoods: goods });
-  }
-
-  handleGetRed = async() => {
-    const goods = await getRedGoods();
-
-    this.setState({ visibleGoods: goods });
+    this.setState({ goods });
   }
 
   render() {
-    const { visibleGoods } = this.state;
+    const { goods } = this.state;
 
     return (
       <div className="wrapper">
@@ -37,25 +25,25 @@ export class App extends React.PureComponent {
         <button
           type="button"
           className="btn btn-primary"
-          onClick={this.handleGetAll}
+          onClick={() => this.handleLoadedData(getAll)}
         >
           Load All goods
         </button>
         <button
           type="button"
           className="btn btn-secondary"
-          onClick={this.handleGetFive}
+          onClick={() => this.handleLoadedData(get5First)}
         >
           Load 5 first goods
         </button>
         <button
           type="button"
           className="btn btn-danger"
-          onClick={this.handleGetRed}
+          onClick={() => this.handleLoadedData(getRedGoods)}
         >
           Load red goods
         </button>
-        <GoodsList goods={visibleGoods} />
+        <GoodsList goods={goods} />
       </div>
     );
   }
