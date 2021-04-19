@@ -9,22 +9,8 @@ class App extends React.Component {
     goods: [],
   }
 
-  showAllGoods = () => {
-    getAll()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  showFiveGoods = () => {
-    get5First()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  showRedGoods= () => {
-    getRedGoods()
+  handleOnClick = (callback) => {
+    callback()
       .then((goods) => {
         this.setState({ goods });
       });
@@ -38,19 +24,22 @@ class App extends React.Component {
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
-          onClick={this.showAllGoods}
+          onClick={() => this.handleOnClick(getAll)
+        }
         >
           Load All goods
         </button>
         <button
           type="button"
-          onClick={this.showFiveGoods}
+          onClick={() => this.handleOnClick(get5First)
+        }
         >
           Load 5 first goods
         </button>
         <button
           type="button"
-          onClick={this.showRedGoods}
+          onClick={() => this.handleOnClick(getRedGoods)
+        }
         >
           Load red goods
         </button>
