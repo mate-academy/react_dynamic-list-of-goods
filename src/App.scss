@@ -1,1 +1,59 @@
-// styles go here
+html,
+body {
+  font-family: "Gill Sans",
+    "Gill Sans MT",
+    Calibri,
+    "Trebuchet MS",
+    sans-serif;
+  font-size: 16px;
+  color: #828282;
+}
+
+a,
+p,
+li {
+  font-size: 20px;
+}
+
+body {
+  background-color: #e4dfd3;
+}
+
+h1 {
+  color: #344f10;
+}
+
+button {
+  margin-top: 7px;
+  margin-bottom: 7px;
+  margin-right: 12px;
+  padding: 18px 1rem;
+  min-width: 180px;
+  color: #f2f2f2;
+  background-color: #333;
+  border: none;
+  font-size: 1rem;
+  text-transform: capitalize;
+  cursor: pointer;
+  -webkit-appearance: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+.container {
+  padding: 100px 150px 200px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.list {
+  padding: 0;
+  list-style: none;
+  &-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #344f10;
+  }
+}
