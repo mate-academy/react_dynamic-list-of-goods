@@ -1,10 +1,6 @@
 html,
 body {
-  font-family: "Gill Sans",
-    "Gill Sans MT",
-    Calibri,
-    "Trebuchet MS",
-    sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   color: #828282;
 }
@@ -39,10 +35,26 @@ button {
   &:focus {
     outline: none;
   }
+  @media (max-width: 767px) {
+    padding: 14px 0.25rem;
+    min-width: 165px;
+  }
 }
 
 .container {
   padding: 100px 150px 200px;
+  @media (max-width: 1199px) {
+    padding: 90px 120px 150px;
+  }
+  @media (max-width: 767px) {
+    padding: 75px 100px 120px;
+  }
+  @media (max-width: 767px) {
+    padding: 60px 90px 100px;
+  }
+  @media (max-width: 375px) {
+    padding: 30px 30px 60px;
+  }
 }
 
 .text-center {

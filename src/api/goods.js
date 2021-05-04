@@ -6,16 +6,6 @@ export function getAll() {
     .then(res => res.json());
 }
 
-// return fetch(API_URL)
-// .then(response => {
-//   response.json();
-//   if (!response.ok) {
-//     throw new Error(`${response.status} &ndash; ${response.statusText}`);
-//   }
-
-//   return response.json();
-// });
-
 export const get5First = () => getAll()
   .then(res => res.slice(0, 5))
   .then(res => res.sort((prev, curr) => prev.name.localeCompare(curr.name)));
