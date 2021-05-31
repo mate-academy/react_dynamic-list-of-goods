@@ -1,0 +1,14 @@
+.goods {
+  &__list {
+    width: 30%;
+    list-style: none;
+    padding-top: 50px;
+  }
+
+  &__item {
+    font-size: 18px;
+    line-height: 22px;
+    padding-top: 30px;
+    border-bottom: 1px solid rgb(197, 197, 197);
+  }
+}
