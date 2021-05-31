@@ -12,7 +12,9 @@ export function getAll() {
     });
 }
 
-export const get5First = result => result.slice(0, 5);
+export const get5First = result => result.sort(
+  (a, b) => (a.name).localeCompare(b.name),
+).slice(0, 5);
 
 export const getRedGoods = result => result
   .filter(good => good.color === 'red');
