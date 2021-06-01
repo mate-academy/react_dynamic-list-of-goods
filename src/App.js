@@ -9,49 +9,34 @@ class App extends React.Component {
     goods: [],
   }
 
+  goodsFilter = (callback) => {
+    callback()
+      .then((goods) => {
+        this.setState({
+          goods,
+        });
+      });
+  }
+
   render() {
     return (
       <div className="App">
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
-          onClick={() => {
-            getAll()
-              .then((goods) => {
-                this.setState({
-                  goods,
-                });
-              });
-          }
-          }
+          onClick={() => this.goodsFilter(getAll)}
         >
           Load All goods
         </button>
         <button
           type="button"
-          onClick={() => {
-            get5First()
-              .then((goods) => {
-                this.setState({
-                  goods,
-                });
-              });
-          }
-          }
+          onClick={() => this.goodsFilter(get5First)}
         >
           Load 5 first goods
         </button>
         <button
           type="button"
-          onClick={() => {
-            getRedGoods()
-              .then((goods) => {
-                this.setState({
-                  goods,
-                });
-              });
-          }
-          }
+          onClick={() => this.goodsFilter(getRedGoods)}
         >
           Load red goods
         </button>
