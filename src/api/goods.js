@@ -12,9 +12,9 @@ export function getAll() {
     });
 }
 
-export const get5First = result => result.sort(
-  (a, b) => (a.name).localeCompare(b.name),
-).slice(0, 5);
+export const get5First = () => getAll()
+  .then(data => data.sort((a, b) => (a.name).localeCompare(b.name))
+    .slice(0, 5));
 
-export const getRedGoods = result => result
-  .filter(good => good.color === 'red');
+export const getRedGoods = () => getAll()
+  .then(data => data.filter(good => good.color === 'red'));

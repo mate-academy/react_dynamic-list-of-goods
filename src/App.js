@@ -19,8 +19,7 @@ class App extends Component {
   }
 
   ShowFiveFirstGoods = async() => {
-    const prepearedGoods = await getAll()
-      .then(response => get5First(response));
+    const prepearedGoods = await get5First();
 
     this.setState({
       goods: prepearedGoods,
@@ -28,8 +27,7 @@ class App extends Component {
   }
 
   ShowOnlyRedGoods = async() => {
-    const prepearedGoods = await getAll()
-      .then(response => getRedGoods(response));
+    const prepearedGoods = await getRedGoods();
 
     this.setState({
       goods: prepearedGoods,
