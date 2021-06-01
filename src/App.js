@@ -20,19 +20,19 @@ const App = () => {
     <>
       <div>
         <button
-          type="submit"
+          type="button"
           onClick={() => handleGoods(getAll)}
         >
           all
         </button>
         <button
-          type="submit"
+          type="button"
           onClick={() => handleGoods(getRedGoods)}
         >
           red
         </button>
         <button
-          type="submit"
+          type="button"
           onClick={() => handleGoods(get5First)}
         >
           5
