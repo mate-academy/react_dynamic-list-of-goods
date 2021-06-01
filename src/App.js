@@ -17,8 +17,8 @@ class App extends React.Component {
   getFirstFiveGoods = () => {
     getResponse().then((goodsList) => {
       const preparedList = goodsList
-        .sort((g1, g2) => g1.name.localeCompare(g2.name))
-        .slice(0, 6);
+        .sort((firstGood, secondGood) => (
+          firstGood.name.localeCompare(secondGood.name))).slice(0, 5);
 
       this.setState({ goodsList: preparedList });
     });

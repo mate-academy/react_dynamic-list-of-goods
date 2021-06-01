@@ -26,7 +26,7 @@ const GoodsList = ({ goodsList,
       </button>
       <ul>
         {goodsList.map(good => (
-          <li key={good.id}>
+          <li key={good.id} style={{ color: good.color }}>
             <p>
               Good name:
               {good.name}
