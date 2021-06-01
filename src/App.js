@@ -4,8 +4,6 @@ import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodList } from './components';
-// or
-// import * as goodsAPI from './api/goods';
 
 class App extends React.Component {
   state = {
