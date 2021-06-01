@@ -1,13 +1,46 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
 import './App.scss';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { GoodsList } from './Components/GoodsList/GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+const App = () => {
+  const handleGoods = async(func) => {
+    const arr = await func();
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+    setGoods(arr);
+  };
+
+  const [goods, setGoods] = useState([]);
+
+  useEffect(() => {
+    handleGoods(getAll);
+  }, []);
+
+  return (
+    <>
+      <div>
+        <button
+          type="button"
+          onClick={() => handleGoods(getAll)}
+        >
+          all
+        </button>
+        <button
+          type="button"
+          onClick={() => handleGoods(getRedGoods)}
+        >
+          red
+        </button>
+        <button
+          type="button"
+          onClick={() => handleGoods(get5First)}
+        >
+          5
+        </button>
+      </div>
+      <GoodsList goods={goods} />
+    </>
+  );
+};
 
 export default App;
