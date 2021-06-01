@@ -7,10 +7,11 @@ export function getAll() {
 }
 
 export const get5First = () => getAll().then(
-  response => response.splice(0, 5)
+  response => response
     .sort((
       firstGood, secondGood,
-    ) => firstGood.name.localeCompare(secondGood.name)),
+    ) => firstGood.name.localeCompare(secondGood.name))
+    .splice(0, 5),
 );
 
 export const getRedGoods = () => getAll()
