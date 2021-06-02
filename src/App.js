@@ -3,7 +3,7 @@ import GoodsList from './components/GoodsList';
 
 import './App.scss';
 
-import getResponse from './api/goods';
+import { getResponse, get5First, getRedGoods } from './api/goods';
 
 class App extends React.Component {
   state = {
@@ -15,28 +15,35 @@ class App extends React.Component {
   }
 
   getFirstFiveGoods = () => {
-    getResponse().then((goodsList) => {
-      const preparedList = goodsList
-        .sort((firstGood, secondGood) => (
-          firstGood.name.localeCompare(secondGood.name))).slice(0, 5);
-
-      this.setState({ goodsList: preparedList });
-    });
+    get5First().then(goodsList => this.setState({ goodsList }));
   }
 
   getRedGoods = () => {
-    getResponse().then((goodsList) => {
-      const preparedList = goodsList
-        .filter(good => good.color === 'red');
-
-      this.setState({ goodsList: preparedList });
-    });
+    getRedGoods().then(goodsList => this.setState({ goodsList }));
   }
 
   render() {
     return (
       <>
         <h1>Dynamic list of Goods</h1>
+        <button
+          type="button"
+          onClick={this.getALlGoods}
+        >
+          Load All goods
+        </button>
+        <button
+          type="button"
+          onClick={this.getFirstFiveGoods}
+        >
+          Load 5 first goods
+        </button>
+        <button
+          type="button"
+          onClick={this.getRedGoods}
+        >
+          Load red goods
+        </button>
         <GoodsList
           goodsList={this.state.goodsList}
           getALlGoods={this.getALlGoods}
