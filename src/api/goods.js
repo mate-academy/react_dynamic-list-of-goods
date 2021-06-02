@@ -6,6 +6,11 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export const get5First = () => getAll()
+  .then(goods => goods
+    .sort(({ name: a }, { name: b }) => a.localeCompare(b))
+    .slice(0, 5));
 
-export const getRedGoods = () => {};
+export const getRedGoods = () => getAll()
+  .then(goods => goods
+    .filter(({ color }) => color === 'red'));
