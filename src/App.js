@@ -9,22 +9,8 @@ class App extends React.Component {
     goods: [],
   }
 
-  visibleAll = () => {
-    getAll()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  visibleFive = () => {
-    get5First()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  visibleRedGoods = () => {
-    getRed()
+  visibleAll = (callback) => {
+    callback()
       .then((goods) => {
         this.setState({ goods });
       });
@@ -36,19 +22,19 @@ class App extends React.Component {
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
-          onClick={this.visibleAll}
+          onClick={() => this.visibleAll(getAll)}
         >
           Load All goods
         </button>
         <button
           type="button"
-          onClick={this.visibleFive}
+          onClick={() => this.visibleAll(get5First)}
         >
           Load 5 first goods
         </button>
         <button
           type="button"
-          onClick={this.visibleRedGoods}
+          onClick={() => this.visibleAll(getRed)}
         >
           Load red goods
         </button>
