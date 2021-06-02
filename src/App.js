@@ -10,20 +10,8 @@ class App extends React.Component {
     goods: [],
   }
 
-  getAllGoods = async() => {
-    const prepearedGoods = await getAll();
-
-    this.setState({ goods: prepearedGoods });
-  }
-
-  get5FirstGoods = async() => {
-    const prepearedGoods = await get5First();
-
-    this.setState({ goods: prepearedGoods });
-  }
-
-  getRedGoods = async() => {
-    const prepearedGoods = await getRed();
+  getGoods = async(callback) => {
+    const prepearedGoods = await callback();
 
     this.setState({ goods: prepearedGoods });
   }
@@ -36,21 +24,21 @@ class App extends React.Component {
 
         <button
           type="button"
-          onClick={this.getAllGoods}
+          onClick={() => this.getGoods(getAll)}
         >
           Display all goods
         </button>
 
         <button
           type="button"
-          onClick={this.get5FirstGoods}
+          onClick={() => this.getGoods(get5First)}
         >
           Display 5 firs goods
         </button>
 
         <button
           type="button"
-          onClick={this.getRedGoods}
+          onClick={() => this.getGoods(getRed)}
         >
           Display all red goods
         </button>
