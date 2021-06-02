@@ -9,8 +9,8 @@ class App extends React.Component {
     goods: [],
   }
 
-  buttonClick = (func) => {
-    func().then(goods => this.setState({ goods }));
+  handleButtonClick = (method) => {
+    method().then(goods => this.setState({ goods }));
   }
 
   render() {
@@ -22,21 +22,21 @@ class App extends React.Component {
 
         <button
           type="button"
-          onClick={() => this.buttonClick(getAll)}
+          onClick={() => this.handleButtonClick(getAll)}
         >
           Load All goods
         </button>
 
         <button
           type="button"
-          onClick={() => this.buttonClick(get5First)}
+          onClick={() => this.handleButtonClick(get5First)}
         >
           Load 5 first goods
         </button>
 
         <button
           type="button"
-          onClick={() => this.buttonClick(getRedGoods)}
+          onClick={() => this.handleButtonClick(getRedGoods)}
         >
           Load red goods
         </button>
