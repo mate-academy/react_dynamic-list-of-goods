@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 export function GoodsList({ goodList }) {
   return (
     <>
-      {goodList.map(good => (
+      {goodList.map(({ id, color, name }) => (
         <li
-          key={good.id}
-          style={{ color: good.color }}
+          key={id}
+          style={{ color }}
         >
-          {good.name}
+          {name}
         </li>
       ))}
     </>
