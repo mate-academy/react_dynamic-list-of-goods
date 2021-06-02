@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 export const GoodsList = ({ goods }) => (
   <ul>
-    {goods.map(good => (
-      <li key={good.id} style={{ color: good.color }}>
-        {good.name}
+    {goods.map(({ id, color, name }) => (
+      <li key={id} style={{ color }}>
+        {name}
       </li>
     ))}
   </ul>
