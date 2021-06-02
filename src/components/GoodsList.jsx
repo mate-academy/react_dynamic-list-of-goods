@@ -5,7 +5,10 @@ export function GoodsList({ goods }) {
   return (
     <ul>
       {goods.map(good => (
-        <li key={good.id}>
+        <li
+          key={good.id}
+          className={good.color}
+        >
           {good.name}
         </li>
       ))}
@@ -14,5 +17,9 @@ export function GoodsList({ goods }) {
 }
 
 GoodsList.propTypes = {
-  goods: propTypes.arrayOf({}).isRequired,
+  goods: propTypes.arrayOf({
+    id: propTypes.number.isRequired,
+    name: propTypes.string.isRequired,
+    color: propTypes.string.isRequired,
+  }).isRequired,
 };
