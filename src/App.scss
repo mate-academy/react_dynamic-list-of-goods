@@ -1,1 +1,13 @@
-// styles go here
+.app {
+  width: max-content;
+  margin: 0 auto;
+  font-family: sans-serif;
+
+  &__button {
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 200px;
+    height: 70px;
+  }
+}
