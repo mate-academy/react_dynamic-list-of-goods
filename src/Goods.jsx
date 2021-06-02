@@ -12,5 +12,5 @@ export const Goods = ({ goods }) => (
 );
 
 Goods.propTypes = {
-  goods: PropTypes.arrayOf({}).isRequired,
+  goods: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
