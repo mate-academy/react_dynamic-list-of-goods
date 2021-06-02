@@ -9,8 +9,8 @@ export function getAll() {
 export const get5First = () => fetch(API_URL)
   .then(response => response.json())
   .then(goods => goods
-    .slice(0, 5)
-    .sort((a, b) => a.name.localeCompare(b.name)));
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .slice(0, 5));
 
 export const getRedGoods = () => fetch(API_URL)
   .then(response => response.json())

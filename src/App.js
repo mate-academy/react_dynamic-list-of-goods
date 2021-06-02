@@ -9,6 +9,10 @@ class App extends React.Component {
     goods: [],
   }
 
+  buttonClick = (func) => {
+    func().then(goods => this.setState({ goods }));
+  }
+
   render() {
     return (
       <>
@@ -18,21 +22,21 @@ class App extends React.Component {
 
         <button
           type="button"
-          onClick={() => getAll().then(goods => this.setState({ goods }))}
+          onClick={() => this.buttonClick(getAll)}
         >
           Load All goods
         </button>
 
         <button
           type="button"
-          onClick={() => get5First().then(goods => this.setState({ goods }))}
+          onClick={() => this.buttonClick(get5First)}
         >
           Load 5 first goods
         </button>
 
         <button
           type="button"
-          onClick={() => getRedGoods().then(goods => this.setState({ goods }))}
+          onClick={() => this.buttonClick(getRedGoods)}
         >
           Load red goods
         </button>
