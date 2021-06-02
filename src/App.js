@@ -27,8 +27,8 @@ class App extends React.Component {
           Load All goods
         </button>
         <button
-          className="app__button"
           type="submit"
+          className="app__button"
           onClick={() => this.renderGoods(get5First)}
         >
           Load 5 first goods
