@@ -10,10 +10,8 @@ class App extends React.Component {
     goods: [],
   }
 
-  renderGoods = (method) => {
-    method.then(goods => this.setState({
-      goods,
-    }));
+  renderGoods = (callback) => {
+    callback().then(goods => this.setState({ goods }));
   }
 
   render() {
@@ -24,28 +22,26 @@ class App extends React.Component {
         <button
           className="app__button"
           type="submit"
-          onClick={() => this.renderGoods(getAll())}
+          onClick={() => this.renderGoods(getAll)}
         >
           Load All goods
         </button>
         <button
           className="app__button"
           type="submit"
-          onClick={() => this.renderGoods(get5First())}
+          onClick={() => this.renderGoods(get5First)}
         >
           Load 5 first goods
         </button>
         <button
           className="app__button"
           type="submit"
-          onClick={() => this.renderGoods(getRedGoods())}
+          onClick={() => this.renderGoods(getRedGoods)}
         >
           Load red goods
         </button>
         {!goods.length || (
-          <GoodsList
-            goods={goods}
-          />
+          <GoodsList goods={goods} />
         )}
       </div>
     );
