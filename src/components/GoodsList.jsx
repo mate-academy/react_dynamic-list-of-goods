@@ -4,19 +4,19 @@ import PropTypes from 'prop-types';
 const GoodsList = ({ goodsList }) => (
   <>
     <ul>
-      {goodsList.map(good => (
-        <li key={good.id} style={{ color: good.color }}>
+      {goodsList.map(({ id, color, name }) => (
+        <li key={id} style={{ color }}>
           <p>
             Good name:
-            {good.name}
+            {name}
           </p>
           <p>
             Color:
-            {good.color}
+            {color}
           </p>
           <p>
             id:
-            {good.id}
+            {id}
           </p>
         </li>
       ))}

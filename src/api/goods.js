@@ -4,22 +4,14 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 export const getResponse = () => fetch(API_URL)
   .then(response => response.json());
 
-export const get5First = () => fetch(API_URL)
-  .then(response => response.json())
-  .then((goodsList) => {
-    const preparedList = goodsList
+export const get5First = () => getResponse()
+  .then(goodsList => (
+    goodsList
       .sort((firstGood, secondGood) => (
         firstGood.name.localeCompare(secondGood.name)
       ))
-      .slice(0, 5);
+      .slice(0, 5)
+  ));
 
-    return preparedList;
-  });
-
-export const getRedGoods = () => fetch(API_URL)
-  .then(response => response.json())
-  .then((goodsList) => {
-    const preparedList = goodsList.filter(good => good.color === 'red');
-
-    return preparedList;
-  });
+export const getRedGoods = () => getResponse()
+  .then(goodsList => goodsList.filter(good => good.color === 'red'));
