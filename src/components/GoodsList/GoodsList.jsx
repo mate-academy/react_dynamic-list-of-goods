@@ -4,18 +4,25 @@ import PropTypes from 'prop-types';
 export const GoodsList = ({ goodsList }) => {
   if (goodsList.length === 0) {
     return (
-      <p>Please press the load button</p>
+      <>
+        <p>Please press the load button</p>
+        <i>
+          P.S. If you will click the button,
+          but still don&apos;t see the list of products,
+          then they are not there.
+        </i>
+      </>
     );
   }
 
   return (
     <ul>
-      {goodsList.map(good => (
+      {goodsList.map(({ id, color, name }) => (
         <li
-          key={good.id}
-          style={{ color: good.color }}
+          key={id}
+          style={{ color }}
         >
-          {good.name}
+          {name}
         </li>
       ))}
     </ul>
