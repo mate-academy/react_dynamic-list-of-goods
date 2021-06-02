@@ -1,1 +1,14 @@
-// styles go here
+
+.button {
+  height: 25px;
+  width: 150px;
+  border-radius: 5px;
+  border: 0.5px solid grey;
+  margin-right: 20px;
+
+  &:hover {
+    background: #0000ff30;
+    border: 0.5px solid grey;
+    border-radius: 5px;
+  }
+}
