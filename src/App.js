@@ -8,20 +8,7 @@ import { GoodsList } from './components/GoodsList';
 
 class App extends React.Component {
   state = {
-    allGoods: [],
-    fiveFirstGoods: [],
-    redGoods: [],
     chosenGoods: [],
-  }
-
-  async componentDidMount() {
-    const allGoods = await getAll();
-    const fiveFirstGoods = await get5First();
-    const redGoods = await getRedGoods();
-
-    this.setState({
-      allGoods, fiveFirstGoods, redGoods,
-    });
   }
 
   render() {
@@ -30,25 +17,29 @@ class App extends React.Component {
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
-          onClick={() => this.setState(state => (
-            { chosenGoods: state.allGoods }
-          ))}
+          onClick={() => {
+            getAll().then(response => this.setState({ chosenGoods: response }));
+          }}
         >
           all goods
         </button>
         <button
           type="button"
-          onClick={() => this.setState(state => (
-            { chosenGoods: state.fiveFirstGoods }
-          ))}
+          onClick={() => {
+            get5First().then(response => this.setState({
+              chosenGoods: response,
+            }));
+          }}
         >
           five first goods
         </button>
         <button
           type="button"
-          onClick={() => this.setState(state => (
-            { chosenGoods: state.redGoods }
-          ))}
+          onClick={() => {
+            getRedGoods().then(response => this.setState({
+              chosenGoods: response,
+            }));
+          }}
         >
           all red goods
         </button>
