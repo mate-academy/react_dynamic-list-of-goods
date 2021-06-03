@@ -3,38 +3,29 @@ import './GoodsList.scss';
 
 class GoodsList extends React.Component {
   state = {
-    products: null,
+    products: this.props.allGoods,
     isVisible: false,
   };
 
   showAllGoods = () => {
-    this.props.getAll()
-      .then(goods => this.setState(
-        prevState => ({
-          products: goods,
-          isVisible: !prevState.isVisible,
-        })
-      ))
+    this.setState({
+      products: this.props.allGoods,
+      isVisible: true,
+    });
   }
 
   show5FirstOnly = () => {
-    this.props.get5First()
-      .then(goods => this.setState(
-        prevState => ({
-          products: goods,
-          isVisible: !prevState.isVisible,
-        })
-      ))
+    this.setState({
+      products: this.props.fiveFirstGoods,
+      isVisible: true,
+    });
   }
 
   showRedOnly = () => {
-    this.props.getRedGoods()
-      .then(goods => this.setState(
-        prevState => ({
-          products: goods,
-          isVisible: !prevState.isVisible,
-        })
-      ))
+    this.setState({
+      products: this.props.onlyRedGoods,
+      isVisible: true,
+    });
   }
 
   render() {
