@@ -18,6 +18,7 @@ class App extends Component {
   render() {
     return (
       <>
+        <h1>Dynamic list of Goods</h1>
         <button
           type="button"
           onClick={() => this.responseHandler(getAll)}

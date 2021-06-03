@@ -5,7 +5,7 @@ export const getAll = () => fetch(API_URL)
   .then(response => response.json());
 
 export const get5First = () => getAll()
-  .then(data => data.slice(0, 5));
+  .then(data => data.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5));
 
 export const getRedGoods = () => getAll()
   .then(data => data.filter(element => element.color === 'red'));

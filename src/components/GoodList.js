@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 const GoodList = ({ goods }) => (
   <ul>
-    {goods.map(good => (
+    {goods.map(({ color, name, id }) => (
       <li
-        key={good.id}
-        style={{ color: good.color }}
+        key={id}
+        style={{ color }}
       >
-        {good.name}
+        {name}
       </li>
     ))}
   </ul>
