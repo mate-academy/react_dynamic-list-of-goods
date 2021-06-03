@@ -9,8 +9,8 @@ class App extends React.Component {
     goods: [],
   }
 
-  loadGoods = getType => (
-    getType().then((goods) => {
+  loadGoods = callback => (
+    callback().then((goods) => {
       this.setState({ goods });
     })
   )
@@ -24,7 +24,7 @@ class App extends React.Component {
 
         <button
           type="button"
-          onClick={() => (this.loadGoods(getAll))}
+          onClick={() => this.loadGoods(getAll)}
         >
           Load All goods
         </button>
