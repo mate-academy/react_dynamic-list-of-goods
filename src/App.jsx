@@ -13,7 +13,7 @@ import './App.scss';
 
 import {
   getAll,
-  get5First,
+  getFirstFive,
   getGoodsByColor,
 } from './api/goods';
 
@@ -59,7 +59,7 @@ class App extends React.Component {
           <button
             type="button"
             name="goods"
-            onClick={event => this.handleChange(event, get5First)}
+            onClick={event => this.handleChange(event, getFirstFive)}
           >
             5 First Goods
           </button>

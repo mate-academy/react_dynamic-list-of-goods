@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { v4 as uuidv4 } from 'uuid';
 
 import { Card } from '../Card';
 
@@ -15,7 +14,7 @@ export const GoodsList = ({ goods, images }) => (
           return (
             <li
               className="wrapper"
-              key={uuidv4()}
+              key={good.id}
             >
               <Card
                 {...good}
