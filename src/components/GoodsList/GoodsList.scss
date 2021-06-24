@@ -1,0 +1,12 @@
+.goods-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.wrapper {
+  display: flex;
+  width: 300px;
+  height: 350px;
+}
