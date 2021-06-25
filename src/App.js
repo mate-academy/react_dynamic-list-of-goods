@@ -58,7 +58,7 @@ export class App extends React.Component {
           type="button"
           onClick={() => this.handlegetRedGoods()}
         >
-          load 5 first goods
+          Load red goods
         </button>
 
         {this.state.loadGoods
