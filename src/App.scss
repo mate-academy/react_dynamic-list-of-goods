@@ -1,1 +1,44 @@
-// styles go here
+$container-width: 400px;
+
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container {
+  width: $container-width;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 30px 1fr;
+
+  grid-template-areas: 
+    "buttonAll button5First buttonRed"
+    "loadAll load5First loadRed";
+}
+
+.buttonAll {
+  grid-area: buttonAll;
+}
+
+.button5First {
+  grid-area: button5First;
+}
+
+.buttonRed {
+  grid-area: buttonRed;
+}
+
+.loadAll {
+  grid-area: loadAll;
+}
+
+.load5First {
+  grid-area: load5First;
+}
+
+.loadRed {
+  grid-area: loadRed;
+}
