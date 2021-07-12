@@ -57,7 +57,7 @@ class App extends React.Component {
             type="submit"
             onClick={this.loadRedGoods}
           >
-            Load first 5 goods
+            Load only red goods
           </button>
         </div>
         {goods && (
