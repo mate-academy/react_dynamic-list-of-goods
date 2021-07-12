@@ -10,7 +10,7 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 class App extends React.Component {
   state = {
-    goods: '',
+    goods: [],
   }
 
   loadAllGoods = async() => {
@@ -40,27 +40,27 @@ class App extends React.Component {
         <div className="buttons">
           <button
             className="button is-link is-light"
-            type="submit"
+            type="button"
             onClick={this.loadAllGoods}
           >
             Load All goods
           </button>
           <button
             className="button is-link is-light"
-            type="submit"
+            type="button"
             onClick={this.loadFiveFirstGoods}
           >
             Load first 5 goods
           </button>
           <button
             className="button is-link is-light"
-            type="submit"
+            type="button"
             onClick={this.loadRedGoods}
           >
             Load only red goods
           </button>
         </div>
-        {goods && (
+        {goods.length > 0 && (
           <GoodsList goods={goods} />
         )}
       </div>
