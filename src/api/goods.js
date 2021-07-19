@@ -9,7 +9,7 @@ export function getAll() {
 export const get5First = () => (
   getAll().then(response => (
     response.sort((prev, next) => (
-      prev.name.localeCompare(next.name)).slice(0, 5))
+      prev.name.localeCompare(next.name))).slice(0, 5)
   ))
 );
 
