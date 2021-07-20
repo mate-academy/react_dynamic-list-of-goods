@@ -5,47 +5,40 @@ import { GoodList } from './Components/GoodList';
 
 class App extends React.Component {
   state = {
-    show: 'all',
-    currentListGoods: getAll(),
+    show: '',
+    currentListGoods: [],
   }
 
-  getFirstFiveGoods = () => {
-    this.setState((state) => {
-      if (state.show !== 'firstFive') {
-        return {
-          show: 'firstFive',
-          currentListGoods: get5First(),
-        };
-      }
+  componentDidMount() {
+    this.recordListFromServer(getAll);
+  }
 
-      return true;
-    });
+  recordListFromServer = (promiseList, show = 'all') => {
+    promiseList()
+      .then((res) => {
+        this.setState((state) => {
+          if (state.show !== show) {
+            return {
+              currentListGoods: [...res],
+              show,
+            };
+          }
+
+          return true;
+        });
+      });
+  };
+
+  getFirstFiveGoods = () => {
+    this.recordListFromServer(get5First, 'firstFive');
   };
 
   getRedGoods = () => {
-    this.setState((state) => {
-      if (state.show !== 'onlyRed') {
-        return {
-          show: 'onlyRed',
-          currentListGoods: getRed(),
-        };
-      }
-
-      return true;
-    });
+    this.recordListFromServer(getRed, 'onlyRed');
   };
 
   getAllGoods = () => {
-    this.setState((state) => {
-      if (state.show !== 'all') {
-        return {
-          show: 'all',
-          currentListGoods: getAll(),
-        };
-      }
-
-      return true;
-    });
+    this.recordListFromServer(getAll);
   };
 
   render() {

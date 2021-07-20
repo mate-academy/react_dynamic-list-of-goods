@@ -1,26 +1,18 @@
-// import { render } from 'node-sass';
 import React from 'react';
+import PropTypes from 'prop-types'; 
 import './GoodList.scss';
 
 export class GoodList extends React.Component {
   state = {
-    list: null,
-  }
-
-  componentDidMount() {
-    this.recordListFromServer();
+    list: [],
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.show !== this.props.show) {
-      this.recordListFromServer();
+      this.setState({
+        list: this.props.goods,
+      });
     }
-  }
-
-  recordListFromServer = () => {
-    this.props.goods.then(res => {
-      this.setState({list: [...res]});
-    });
   }
 
   render() {
@@ -28,19 +20,27 @@ export class GoodList extends React.Component {
 
     return (
       <>
-      {list && (
-        <>
-          <ul className="list">
-          {list.map((elem, index) => (
-            <li key={elem.id} className={elem.color}>
-              {index === list.length - 1 && <span>last good---</span>}
-              {elem.name}
-            </li>
-          ))}
-        </ul>
-      </>
-      )}
+        {list && (
+          <>
+            <ul className="list">
+              {list.map(elem => (
+                <li key={elem.id} className={elem.color}>
+                  {elem.name}
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </>
     );
   }
 }
+
+GoodList.propTypes = {
+  show: PropTypes.string.isRequired,
+  goods: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    color: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+  })).isRequired,
+};
