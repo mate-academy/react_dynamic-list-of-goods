@@ -1,0 +1,33 @@
+.list {
+  display: inline-block;
+  list-style: none;
+  border: 2px solid gray;
+  border-radius: 20px;
+  background-color:rgb(199, 199, 199);
+  width: max-content;
+  padding: 25px;
+  box-shadow: 4px 4px 4px black;
+  margin: 10px;
+  font-size: 21px;
+  color: rgb(211, 211, 211);
+}
+
+.list li {
+  border: 2px solid gray;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  padding: 5px;
+  box-shadow: 2px 2px 2px black;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}
+
+.blue {
+  background-color: blue;
+}
