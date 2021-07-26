@@ -10,10 +10,8 @@ class App extends React.Component {
     isGoodsLoaded: false,
   }
 
-  fetchData = (event, getFunc) => {
-    event.preventDefault();
-
-    getFunc()
+  fetchData = (action) => {
+    action()
       .then(goods => this.setState({
         goods,
         isGoodsLoaded: true,
@@ -29,19 +27,19 @@ class App extends React.Component {
 
         <button
           type="button"
-          onClick={(event => this.fetchData(event, getAll))}
+          onClick={() => this.fetchData(getAll)}
         >
           Get all goods
         </button>
         <button
           type="button"
-          onClick={(event => this.fetchData(event, get5First))}
+          onClick={() => this.fetchData(get5First)}
         >
           Get 5 goods
         </button>
         <button
           type="button"
-          onClick={(event => this.fetchData(event, getRedGoods))}
+          onClick={() => this.fetchData(getRedGoods)}
         >
           Get red goods
         </button>
