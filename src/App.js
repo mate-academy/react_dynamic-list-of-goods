@@ -1,13 +1,76 @@
 import React from 'react';
+import { GoodsList } from './components/GoodsList';
 
 import './App.scss';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+class App extends React.Component {
+  state = {
+    goods: [],
+  }
+
+  showGoods = async(name) => {
+    let goods;
+
+    switch (name) {
+      case 'showAll':
+        goods = await getAll();
+        break;
+      case 'showFiveFirst':
+        goods = await get5First();
+        break;
+      case 'showRed':
+        goods = await getRedGoods();
+        break;
+      default:
+        break;
+    }
+
+    this.setState({
+      goods,
+    });
+  }
+
+  render() {
+    return (
+      <>
+        <h1>Dynamic list of Goods</h1>
+        <GoodsList
+          goods={
+            this.state.goods
+          }
+        />
+        <button
+          type="button"
+          name="showAll"
+          onClick={
+            event => this.showGoods(event.target.name)
+          }
+        >
+          Show all
+        </button>
+        <button
+          type="button"
+          name="showFiveFirst"
+          onClick={
+            event => this.showGoods(event.target.name)
+          }
+        >
+          Show 5 first goods
+        </button>
+        <button
+          type="button"
+          name="showRed"
+          onClick={
+            event => this.showGoods(event.target.name)
+          }
+        >
+          Show red goods
+        </button>
+      </>
+    );
+  }
+}
 
 export default App;
