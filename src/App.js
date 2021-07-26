@@ -45,7 +45,7 @@ class App extends React.Component {
           type="button"
           name="showAll"
           onClick={
-            event => this.showGoods(event.target.name)
+            ({ target }) => this.showGoods(target.name)
           }
         >
           Show all
@@ -54,7 +54,7 @@ class App extends React.Component {
           type="button"
           name="showFiveFirst"
           onClick={
-            event => this.showGoods(event.target.name)
+            ({ target }) => this.showGoods(target.name)
           }
         >
           Show 5 first goods
@@ -63,7 +63,7 @@ class App extends React.Component {
           type="button"
           name="showRed"
           onClick={
-            event => this.showGoods(event.target.name)
+            ({ target }) => this.showGoods(target.name)
           }
         >
           Show red goods
