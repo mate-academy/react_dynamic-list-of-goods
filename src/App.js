@@ -11,6 +11,14 @@ class App extends React.Component {
   }
 
   showGoods = async(name) => {
+    if (await getAll() === 'something wrong...') {
+      this.setState({
+        goods: null,
+      });
+
+      return;
+    }
+
     let goods;
 
     switch (name) {
@@ -36,16 +44,15 @@ class App extends React.Component {
     return (
       <>
         <h1>Dynamic list of Goods</h1>
-        <GoodsList
-          goods={
-            this.state.goods
-          }
-        />
+        { this.state.goods
+          ? <GoodsList goods={this.state.goods} />
+          : <div>Something wrong...</div>
+        }
         <button
           type="button"
           name="showAll"
           onClick={
-            ({ target }) => this.showGoods(target.name)
+            () => this.showGoods('showAll')
           }
         >
           Show all
@@ -54,7 +61,7 @@ class App extends React.Component {
           type="button"
           name="showFiveFirst"
           onClick={
-            ({ target }) => this.showGoods(target.name)
+            () => this.showGoods('showFiveFirst')
           }
         >
           Show 5 first goods
@@ -63,7 +70,7 @@ class App extends React.Component {
           type="button"
           name="showRed"
           onClick={
-            ({ target }) => this.showGoods(target.name)
+            () => this.showGoods('showRed')
           }
         >
           Show red goods
