@@ -9,41 +9,31 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 class App extends React.Component {
   state = {
     goods: [],
-    classesWhenLoaded: 'control button is-primary',
-    classesWhenLoading: 'control button is-primary is-loading',
+    classes: 'control button is-primary',
   }
 
-  async getAllGoods(target) {
+  getAllGoods = async() => {
     const goods = await getAll();
 
     this.setState({
       goods,
     });
-
-    // eslint-disable-next-line
-    target.className = this.state.classesWhenLoaded;
   }
 
-  async get5FirstGoods(target) {
+  get5FirstGoods = async() => {
     const goods = await get5First();
 
     this.setState({
       goods,
     });
-
-    // eslint-disable-next-line
-    target.className = this.state.classesWhenLoaded;
   }
 
-  async getRedGoods(target) {
+  getRedGoods = async() => {
     const goods = await getRedGoods();
 
     this.setState({
       goods,
     });
-
-    // eslint-disable-next-line
-    target.className = this.state.classesWhenLoaded;
   }
 
   render() {
@@ -54,17 +44,10 @@ class App extends React.Component {
           goods={this.state.goods}
         />
         <GoodsForm
-          getAll={(target) => {
-            this.getAllGoods(target);
-          }}
-          get5First={(target) => {
-            this.get5FirstGoods(target);
-          }}
-          getRedGoods={(target) => {
-            this.getRedGoods(target);
-          }}
-          classesWhenLoaded={this.state.classesWhenLoaded}
-          classesWhenLoading={this.state.classesWhenLoading}
+          getAllGoods={this.getAllGoods}
+          get5FirstGoods={this.get5FirstGoods}
+          getRedGoods={this.getRedGoods}
+          classes={this.state.classes}
         />
       </>
     );

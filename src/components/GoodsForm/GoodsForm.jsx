@@ -1,40 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormButton } from '../FormButton';
 
 export const GoodsForm = ({
-  getAll,
-  get5First,
+  getAllGoods,
+  get5FirstGoods,
   getRedGoods,
-  classesWhenLoaded,
-  classesWhenLoading,
+  classes,
 }) => (
   <form className="field is-grouped is-grouped-centered">
-    <FormButton
-      text="Load all goods"
-      action={getAll}
-      classesWhenLoaded={classesWhenLoaded}
-      classesWhenLoading={classesWhenLoading}
-    />
-    <FormButton
-      text="Load 5 first goods"
-      action={get5First}
-      classesWhenLoaded={classesWhenLoaded}
-      classesWhenLoading={classesWhenLoading}
-    />
-    <FormButton
-      text="Load red goods"
-      action={getRedGoods}
-      classesWhenLoaded={classesWhenLoaded}
-      classesWhenLoading={classesWhenLoading}
-    />
+    <button
+      type="button"
+      className={classes}
+      onClick={getAllGoods}
+    >
+      Load all goods
+    </button>
+    <button
+      type="button"
+      className={classes}
+      onClick={get5FirstGoods}
+    >
+      Load 5 first goods
+    </button>
+    <button
+      type="button"
+      className={classes}
+      onClick={getRedGoods}
+    >
+      Load red goods
+    </button>
   </form>
 );
 
 GoodsForm.propTypes = {
-  getAll: PropTypes.func.isRequired,
-  get5First: PropTypes.func.isRequired,
+  getAllGoods: PropTypes.func.isRequired,
+  get5FirstGoods: PropTypes.func.isRequired,
   getRedGoods: PropTypes.func.isRequired,
-  classesWhenLoaded: PropTypes.string.isRequired,
-  classesWhenLoading: PropTypes.string.isRequired,
+  classes: PropTypes.string.isRequired,
 };
