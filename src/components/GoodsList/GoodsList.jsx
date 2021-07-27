@@ -6,9 +6,16 @@ import { Good } from '../Good';
 export const GoodsList = ({ goods }) => (
   <ul className="list-group">
     {goods.map(good => (
-      <Good
-        good={good}
-      />
+      <li
+        style={{
+          color: 'white',
+          backgroundColor: `${good.color}`,
+        }}
+        key={good.id}
+        className="list-group-item"
+      >
+        <Good name={good.name} />
+      </li>
     ))}
   </ul>
 );

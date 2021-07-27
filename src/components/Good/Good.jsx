@@ -1,17 +1,10 @@
 import React from 'react';
-import { GoodsShape } from '../../types';
+import PropTypes from 'prop-types';
 
-export const Good = ({ good }) => (
-  <li
-    style={{
-      color: 'white',
-      backgroundColor: `${good.color}`,
-    }}
-    key={good.id}
-    className="list-group-item"
-  >
-    {good.name}
-  </li>
+export const Good = ({ name }) => (
+  <span>{name}</span>
 );
 
-Good.propTypes = GoodsShape;
+Good.propTypes = {
+  name: PropTypes.string.isRequired,
+};
