@@ -10,7 +10,7 @@ class App extends React.Component {
     goods: [],
   }
 
-  showGoods = async(name) => {
+  showGoods = async(action) => {
     if (await getAll() === 'something wrong...') {
       this.setState({
         goods: null,
@@ -19,24 +19,8 @@ class App extends React.Component {
       return;
     }
 
-    let goods;
-
-    switch (name) {
-      case 'showAll':
-        goods = await getAll();
-        break;
-      case 'showFiveFirst':
-        goods = await get5First();
-        break;
-      case 'showRed':
-        goods = await getRedGoods();
-        break;
-      default:
-        break;
-    }
-
     this.setState({
-      goods,
+      goods: await action(),
     });
   }
 
@@ -52,7 +36,7 @@ class App extends React.Component {
           type="button"
           name="showAll"
           onClick={
-            () => this.showGoods('showAll')
+            () => this.showGoods(getAll)
           }
         >
           Show all
@@ -61,7 +45,7 @@ class App extends React.Component {
           type="button"
           name="showFiveFirst"
           onClick={
-            () => this.showGoods('showFiveFirst')
+            () => this.showGoods(get5First)
           }
         >
           Show 5 first goods
@@ -70,7 +54,7 @@ class App extends React.Component {
           type="button"
           name="showRed"
           onClick={
-            () => this.showGoods('showRed')
+            () => this.showGoods(getRedGoods)
           }
         >
           Show red goods
