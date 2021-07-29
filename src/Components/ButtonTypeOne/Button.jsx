@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 
 export const ButtonTypeOne = ({ onClick, buttonName }) => (
   <Button
-    onClick={() => onClick()}
+    onClick={onClick}
   >
     {buttonName}
   </Button>

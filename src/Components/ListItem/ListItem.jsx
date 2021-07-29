@@ -5,12 +5,12 @@ import PropTypes from 'prop-types';
 
 export const ListItem = ({ list }) => (
   <>
-    {list.map(x => (
+    {list.map(goods => (
       <ListGroup.Item
-        key={x.id}
-        style={{ color: x.color }}
+        key={goods.id}
+        style={{ color: goods.color }}
       >
-        {x.name}
+        {goods.name}
       </ListGroup.Item>
     ))}
   </>

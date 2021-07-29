@@ -7,9 +7,9 @@ export function getAll() {
 }
 
 export const get5First = () => (
-  getAll().then(item => (
-    item.sort((a, b) => a.name.localeCompare(b.name)).splice(0, 5))));
+  getAll().then(good => (
+    good.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5))));
 
 export const getRedGoods = () => (
-  getAll().then(item => (
-    item.filter(value => value.color === 'red'))));
+  getAll().then(good => (
+    good.filter(item => item.color === 'red'))));
