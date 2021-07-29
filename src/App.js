@@ -11,7 +11,7 @@ class App extends React.Component {
   }
 
   showGoods = async(action) => {
-    if (await getAll() === 'something wrong...') {
+    if (await getAll() === null) {
       this.setState({
         goods: null,
       });
