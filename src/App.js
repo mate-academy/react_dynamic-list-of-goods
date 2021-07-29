@@ -16,16 +16,10 @@ class App extends React.PureComponent {
     goods: [],
   }
 
-  setAll = () => {
-    getAll().then(goods => this.setState({ goods }));
-  }
+  setGoods = async(func) => {
+    const goods = await func();
 
-  set5First = () => {
-    get5First().then(goods => this.setState({ goods }));
-  }
-
-  setRedGoods = () => {
-    getRedGoods().then(goods => this.setState({ goods }));
+    this.setState({ goods });
   }
 
   render() {
@@ -37,15 +31,15 @@ class App extends React.PureComponent {
         <div className="App__container-button">
           <ButtonTypeOne
             buttonName="Load All goods"
-            onClick={this.setAll}
+            onClick={() => this.setGoods(getAll)}
           />
           <ButtonTypeOne
             buttonName="Load 5 first goods"
-            onClick={this.set5First}
+            onClick={() => this.setGoods(get5First)}
           />
           <ButtonTypeOne
             buttonName="Load red goods"
-            onClick={this.setRedGoods}
+            onClick={() => this.setGoods(getRedGoods)}
           />
         </div>
         <ListGroup className="App__list">
