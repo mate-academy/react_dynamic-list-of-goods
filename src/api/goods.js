@@ -6,6 +6,12 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export const get5First = async() => {
+  const goods = await getAll();
+  const sortedGoods = [...goods].sort((a, b) => a.name.localeCompare(b.name));
 
-export const getRedGoods = () => {};
+  return sortedGoods.slice(0, 5);
+};
+
+export const getRedGoods = async() => getAll()
+  .then(goods => goods.filter(good => good.color === 'red'));
