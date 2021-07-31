@@ -6,6 +6,8 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export const get5First = () => getAll()
+  .then(result => result.slice(0, 5));
 
-export const getRedGoods = () => {};
+export const getRedGoods = () => getAll()
+  .then(result => result.filter(good => good.color === 'red'));
