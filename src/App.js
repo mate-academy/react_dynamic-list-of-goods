@@ -11,24 +11,6 @@ class App extends Component {
     goods: [],
   }
 
-  // getAllAwait = async() => {
-  //   const goods = await getAll();
-
-  //   this.setState({ goods });
-  // }
-
-  // getRedAwait = async() => {
-  //   const goods = await getRedGoods();
-
-  //   this.setState({ goods });
-  // }
-
-  // get5FirstAwait = async() => {
-  //   const goods = await get5First();
-
-  //   this.setState({ goods });
-  // }
-
   getAwait = (func) => {
     func().then((goods) => {
       this.setState({ goods });
