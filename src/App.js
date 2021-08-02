@@ -30,6 +30,8 @@ export class App extends React.PureComponent {
   }
 
   render() {
+    const { goods } = this.state;
+
     return (
       <>
         <h1>Dynamic list of Goods</h1>
@@ -38,9 +40,9 @@ export class App extends React.PureComponent {
           get5First={this.setFirst5}
           getRed={this.setRed}
         />
-        {this.state.goods.length > 0 ? (
+        {goods.length > 0 ? (
           <GoodsList
-            goods={this.state.goods}
+            goods={goods}
           />
         ) : (
           <p>NOT LOAD</p>
