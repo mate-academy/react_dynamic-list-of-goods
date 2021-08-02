@@ -6,6 +6,19 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export function get5First() {
+  return fetch(API_URL)
+    .then(response => response.json())
+    .then(goods => goods
+      .sort((good1, good2) => good1.name.localeCompare(good2.name)))
+    .then(sortedGoods => sortedGoods.slice(0, 5));
+}
 
-export const getRedGoods = () => {};
+export function getRed() {
+  return fetch(API_URL)
+    .then(response => response.json())
+    .then(goods => goods
+      .sort((good1, good2) => good1.name.localeCompare(good2.name)))
+    .then(goods => goods
+      .filter(good => good.color === 'red'));
+}
