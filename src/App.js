@@ -11,15 +11,15 @@ class App extends Component {
     goods: [],
   }
 
-  getAwait = (func) => {
-    func().then((goods) => {
+  setGoods = (getGoods) => {
+    getGoods().then((goods) => {
       this.setState({ goods });
     });
   }
 
   render() {
     const { goods } = this.state;
-    const { getAwait } = this;
+    const { setGoods } = this;
 
     return (
       <div className="App">
@@ -27,15 +27,15 @@ class App extends Component {
         <div className="buttons">
           <Button
             text="All"
-            onClick={() => getAwait(getAll)}
+            onClick={() => setGoods(getAll)}
           />
           <Button
             text="First 5"
-            onClick={() => getAwait(get5First)}
+            onClick={() => setGoods(get5First)}
           />
           <Button
             text="Red"
-            onClick={() => getAwait(getRedGoods)}
+            onClick={() => setGoods(getRedGoods)}
           />
         </div>
         <GoodsList goods={goods} />
