@@ -6,6 +6,17 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export function get5First() {
+  return fetch(API_URL)
+    .then(response => response.json())
+    .then(todos => todos.filter(todo => todo.id < 6))
+    .then(firstTodos => firstTodos
+      .sort((firstTodo, secondTodo) => firstTodo.name
+        .localeCompare(secondTodo.name)));
+}
 
-export const getRedGoods = () => {};
+export function getRed() {
+  return fetch(API_URL)
+    .then(response => response.json())
+    .then(todos => todos.filter(todo => todo.color === 'red'));
+}
