@@ -1,1 +1,36 @@
-// styles go here
+.card {
+  margin: auto;
+  padding-bottom: 10px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+
+}
+
+.card-title {
+  width: 100%;
+  padding: 6px;
+  text-align: center;
+
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+
+  background-color: black;
+  color: aliceblue;
+
+}
+
+.list {
+  padding: 6px;
+  border-radius: 20px;
+}
+
+.list__item {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+
+}
