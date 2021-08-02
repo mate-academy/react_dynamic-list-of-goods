@@ -1,1 +1,18 @@
 // styles go here
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__title {
+    margin-top: 32px;
+  }
+}
+
+.btn-container {
+  margin: 32px;
+  display: flex;
+  justify-content: space-around;
+  width: 500px;
+}
