@@ -2,9 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const GoodsList = ({ goods }) => (
-  <ul>
+  <ul className="list-group">
     {goods.map(good => (
-      <li style={{ color: good.color }}>
+      <li
+        className="list-group-item"
+        key={good.id}
+        style={{ color: good.color }}
+      >
         {good.name}
       </li>
     ))}
