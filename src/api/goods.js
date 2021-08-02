@@ -16,13 +16,7 @@ export function get5First() {
         return prevGoodName.localeCompare(currentGoodName);
       });
 
-      return sortedGoods.filter((good, index) => {
-        if (index >= 5) {
-          return false;
-        }
-
-        return true;
-      });
+      return sortedGoods.slice(0, 5);
     });
 }
 
