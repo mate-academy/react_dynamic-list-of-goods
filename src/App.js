@@ -6,7 +6,7 @@ import './App.scss';
 import { Button } from './components/Button/Button';
 
 class App extends React.Component {
-  state= {
+  state = {
     goods: [],
   }
 
@@ -30,17 +30,17 @@ class App extends React.Component {
         <div className="buttons">
           <Button
             text="All goods"
-            handleClick={() => handleClick(getAll)}
+            onClick={() => handleClick(getAll)}
             className="is-warning"
           />
           <Button
             text="Five goods"
-            handleClick={() => handleClick(get5First)}
+            onClick={() => handleClick(get5First)}
             className="is-warning"
           />
           <Button
             text="Red goods"
-            handleClick={() => handleClick(getRedGoods)}
+            onClick={() => handleClick(getRedGoods)}
             className="is-warning"
           />
         </div>
