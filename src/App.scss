@@ -1,1 +1,13 @@
-// styles go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  font-size: 1.5em;
+
+  &__button {
+    display: flex;
+    gap: 8px;
+  }
+}
