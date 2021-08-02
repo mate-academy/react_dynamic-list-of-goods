@@ -3,18 +3,17 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 
 export function getAll() {
   return fetch(API_URL)
-    .then(response => response.json())
-    .then(goods => goods);
+    .then(response => response.json());
 }
 
 export const get5First = async() => {
-  const result = await getAll();
+  const goods = await getAll();
 
-  return result.filter(good => good.id < 6);
+  return goods.filter(good => good.id < 6);
 };
 
 export const getRedGoods = async() => {
-  const result = await getAll();
+  const goods = await getAll();
 
-  return result.filter(good => good.color === 'red');
+  return goods.filter(good => good.color === 'red');
 };
