@@ -10,20 +10,15 @@ class App extends React.Component {
     goods: [],
   }
 
-  getAllGoods = async() => {
-    this.setState({ goods: await getAll() });
-  }
+  handleClick = async(getGoods) => {
+    const goods = await getGoods();
 
-  getFirstFiveGoods = async() => {
-    this.setState({ goods: await get5First() });
-  }
-
-  getRedGoods = async() => {
-    this.setState({ goods: await getRedGoods() });
+    this.setState({ goods });
   }
 
   render() {
     const { goods } = this.state;
+    const { handleClick } = this;
 
     return (
       <div className="box">
@@ -35,17 +30,17 @@ class App extends React.Component {
         <div className="buttons">
           <Button
             text="All goods"
-            handleClick={this.getAllGoods}
+            handleClick={() => handleClick(getAll)}
             className="is-warning"
           />
           <Button
             text="Five goods"
-            handleClick={this.getFirstFiveGoods}
+            handleClick={() => handleClick(get5First)}
             className="is-warning"
           />
           <Button
             text="Red goods"
-            handleClick={this.getRedGoods}
+            handleClick={() => handleClick(getRedGoods)}
             className="is-warning"
           />
         </div>
