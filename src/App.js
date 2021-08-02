@@ -11,27 +11,33 @@ class App extends Component {
     goods: [],
   }
 
-  getAllAwait = async() => {
-    const goods = await getAll();
+  // getAllAwait = async() => {
+  //   const goods = await getAll();
 
-    this.setState({ goods });
-  }
+  //   this.setState({ goods });
+  // }
 
-  getRedAwait = async() => {
-    const goods = await getRedGoods();
+  // getRedAwait = async() => {
+  //   const goods = await getRedGoods();
 
-    this.setState({ goods });
-  }
+  //   this.setState({ goods });
+  // }
 
-  get5FirstAwait = async() => {
-    const goods = await get5First();
+  // get5FirstAwait = async() => {
+  //   const goods = await get5First();
 
-    this.setState({ goods });
+  //   this.setState({ goods });
+  // }
+
+  getAwait = (func) => {
+    func().then((goods) => {
+      this.setState({ goods });
+    });
   }
 
   render() {
     const { goods } = this.state;
-    const { get5FirstAwait, getAllAwait, getRedAwait } = this;
+    const { getAwait } = this;
 
     return (
       <div className="App">
@@ -39,15 +45,15 @@ class App extends Component {
         <div className="buttons">
           <Button
             text="All"
-            action={getAllAwait}
+            onClick={() => getAwait(getAll)}
           />
           <Button
             text="First 5"
-            action={get5FirstAwait}
+            onClick={() => getAwait(get5First)}
           />
           <Button
             text="Red"
-            action={getRedAwait}
+            onClick={() => getAwait(getRedGoods)}
           />
         </div>
         <GoodsList goods={goods} />

@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Button = ({ text, action }) => (
+export const Button = ({ text, onClick }) => (
   <button
     type="button"
-    onClick={action}
+    onClick={onClick}
   >
     {text}
   </button>
@@ -12,5 +12,5 @@ export const Button = ({ text, action }) => (
 
 Button.propTypes = {
   text: PropTypes.string.isRequired,
-  action: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
