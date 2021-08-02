@@ -1,1 +1,71 @@
-// styles go here
+body,
+ul,
+li,
+button,
+h1,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)),
+    rgb(16, 16, 54) url(./img/bg.jpg) no-repeat center;
+  height: 100vh;
+  background-size: 200% 200%;
+  color: whitesmoke;
+  animation: bg 300s ease infinite;
+}
+
+h1 {
+  margin-bottom: 40px;
+  text-align: center;
+  font-size: 3em;
+}
+
+.list-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-block {
+  display: flex;
+  column-gap: 20px;
+  margin-bottom: 20px;
+}
+
+.btn {
+  width: 150px;
+  height: 36px;
+  border: none;
+  background-color: rgb(8, 60, 139);
+  border-radius: 8px;
+  text-transform: uppercase;
+  color: whitesmoke;
+  cursor: pointer;
+  box-shadow: none;
+  transition: background-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    background-color: rgb(7, 78, 185);
+    box-shadow: 0 0 15px rgb(7, 78, 185),
+      0 0 30px rgb(7, 78, 185);
+  }
+}
+
+@keyframes bg {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}

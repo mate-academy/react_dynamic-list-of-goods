@@ -1,0 +1,20 @@
+.goods {
+  list-style: none;
+  font-size: 1.3em;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(6px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  background-color: rgba(209, 221, 231, 0.7);
+  border-radius: 12px;
+
+  &__item {
+    padding: 8px 16px;
+    text-transform: uppercase;
+    font-family: "Gill Sans", "Gill Sans MT", "Trebuchet MS", sans-serif;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid white;
+    }
+  }
+}
