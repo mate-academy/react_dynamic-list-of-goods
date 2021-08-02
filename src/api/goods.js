@@ -8,7 +8,8 @@ const request = () => fetch(API_URL)
     }
 
     return res.json();
-  });
+  })
+  .catch(() => []);
 
 export const getAll = () => request();
 

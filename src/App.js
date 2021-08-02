@@ -7,19 +7,17 @@ import { getRed, getAll, get5First } from './api/goods';
 class App extends React.Component {
   state = {
     goods: [],
-    listIsLoaded: false,
   }
 
-  renderGoodsList = (method) => {
-    method()
+  renderGoodsList = (getGoods) => {
+    getGoods()
       .then(goods => this.setState({
-        listIsLoaded: true,
         goods,
       }));
   }
 
   render() {
-    const { goods, listIsLoaded } = this.state;
+    const { goods } = this.state;
 
     return (
       <>
@@ -51,7 +49,7 @@ class App extends React.Component {
             Load red goods
           </button>
         </div>
-        {listIsLoaded
+        {goods.length > 0
           ? <GoodsList goods={goods} />
           : null}
       </>
