@@ -10,8 +10,8 @@ class App extends React.Component {
     goods: [],
   }
 
-  goodsList = (func) => {
-    func().then((goods) => {
+  setGoods = (getGoods) => {
+    getGoods().then((goods) => {
       this.setState({ goods });
     });
   }
@@ -26,21 +26,21 @@ class App extends React.Component {
           <button
             type="button"
             className="button is-primary"
-            onClick={() => this.goodsList(getAll)}
+            onClick={() => this.setGoods(getAll)}
           >
             Load ALL goods
           </button>
           <button
             type="button"
             className="button is-link"
-            onClick={() => this.goodsList(get5First)}
+            onClick={() => this.setGoods(get5First)}
           >
             Load 5 first goods
           </button>
           <button
             type="button"
             className="button is-danger"
-            onClick={() => this.goodsList(getRedGoods)}
+            onClick={() => this.setGoods(getRedGoods)}
           >
             Load red goods
           </button>
