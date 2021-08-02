@@ -7,8 +7,8 @@ export function getAll() {
 }
 
 export const get5First = () => getAll()
-  .then(goods => goods.slice(0, 5)
-    .sort((a, b) => a.name.localeCompare(b.name)));
+  .then(goods => goods
+    .sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5));
 
 export const getRedGoods = () => getAll()
   .then(goods => goods.filter(good => good.color === 'red'));
