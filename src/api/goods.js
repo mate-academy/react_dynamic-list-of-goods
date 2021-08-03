@@ -6,6 +6,21 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export function get5First() {
+  return getAll()
+    .then((goods) => {
+      const sortedGoods = goods.sort((prev, current) => {
+        const prevGoodName = prev.name;
+        const currentGoodName = current.name;
 
-export const getRedGoods = () => {};
+        return prevGoodName.localeCompare(currentGoodName);
+      });
+
+      return sortedGoods.slice(0, 5);
+    });
+}
+
+export function getRed() {
+  return getAll()
+    .then(goods => goods.filter(good => good.color === 'red'));
+}

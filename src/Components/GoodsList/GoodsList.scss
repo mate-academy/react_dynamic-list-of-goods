@@ -1,0 +1,18 @@
+.list-group {
+  margin: 32px;
+  width: 500px;
+}
+
+.list-group-item {
+  &--red {
+    background-color: rgba(255, 0, 0, 0.2);
+  }
+
+  &--green {
+    background-color: rgba(0, 255, 0, 0.2);
+  }
+
+  &--blue {
+    background-color: rgba(0, 0, 255, 0.2);
+  }
+}
