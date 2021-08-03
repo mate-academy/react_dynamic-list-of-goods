@@ -10,20 +10,8 @@ export class App extends React.Component {
     goods: [],
   };
 
-  showAllGoods = async() => {
-    const goods = await getAll();
-
-    this.setState({ goods });
-  };
-
-  showFirstGoods = async() => {
-    const goods = await get5First();
-
-    this.setState({ goods });
-  };
-
-  showRedGoods = async() => {
-    const goods = await getRed();
+  showGoods = async(callback) => {
+    const goods = await callback();
 
     this.setState({ goods });
   };
@@ -35,19 +23,19 @@ export class App extends React.Component {
         <div>
           <button
             type="button"
-            onClick={this.showAllGoods}
+            onClick={() => this.showGoods(getAll)}
           >
             Load All goods
           </button>
           <button
             type="button"
-            onClick={this.showFirstGoods}
+            onClick={() => this.showGoods(get5First)}
           >
             Load 5 first goods
           </button>
           <button
             type="button"
-            onClick={this.showRedGoods}
+            onClick={() => this.showGoods(getRed)}
           >
             Load red goods
           </button>
