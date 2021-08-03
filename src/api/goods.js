@@ -10,7 +10,7 @@ export const get5First = () => fetch(API_URL)
   .then(response => response.json())
   .then((goods) => {
     const sortedGoods = [...goods].sort(
-      (a, b) => a.name.localeCompare(b.name),
+      (currGood, nextGood) => currGood.name.localeCompare(nextGood.name),
     );
 
     return sortedGoods.slice(0, 5);
