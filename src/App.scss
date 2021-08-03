@@ -1,1 +1,11 @@
-// styles go here
+.App {
+  margin: 30px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
