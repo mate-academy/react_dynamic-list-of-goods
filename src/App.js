@@ -10,22 +10,8 @@ class App extends React.Component {
     goods: [],
   }
 
-  loadAllGoods = () => {
-    getAll()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  load5First = () => {
-    get5First()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  loadRedGoods = () => {
-    getRedGoods()
+  loadGoods = (method) => {
+    method()
       .then((goods) => {
         this.setState({ goods });
       });
@@ -35,13 +21,13 @@ class App extends React.Component {
     return (
       <>
         <h1>Dynamic list of Goods</h1>
-        <button type="button" onClick={this.loadAllGoods}>
+        <button type="button" onClick={() => this.loadGoods(getAll)}>
           Load All goods
         </button>
-        <button type="button" onClick={this.load5First}>
+        <button type="button" onClick={() => this.loadGoods(get5First)}>
           Load 5 first goods
         </button>
-        <button type="button" onClick={this.loadRedGoods}>
+        <button type="button" onClick={() => this.loadGoods(getRedGoods)}>
           Load red goods
         </button>
         <GoodsList goods={this.state.goods} />
