@@ -6,16 +6,14 @@ export function getAll() {
     .then(response => response.json());
 }
 
-export const get5First = () => fetch(API_URL)
-  .then(response => response.json())
+export const get5First = () => getAll()
   .then((goods) => {
     const sortedGoods = [...goods].sort(
-      (currGood, nextGood) => currGood.name.localeCompare(nextGood.name),
+      (currentGood, nextGood) => currentGood.name.localeCompare(nextGood.name),
     );
 
     return sortedGoods.slice(0, 5);
   });
 
-export const getRedGoods = () => fetch(API_URL)
-  .then(response => response.json())
+export const getRedGoods = () => getAll()
   .then(goods => goods.filter(good => good.color === 'red'));
