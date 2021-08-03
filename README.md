@@ -1,6 +1,6 @@
 # React dynamic list of goods
 - Replace `<your_account>` with your Github username in the
- п
+  [DEMO LINK](https://gponomarenko.github.io/react_dynamic-list-of-goods/)
 - Follow the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline)
 
 ## Task
