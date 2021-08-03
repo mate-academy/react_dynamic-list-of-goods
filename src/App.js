@@ -1,13 +1,37 @@
 import React from 'react';
 
 import './App.scss';
+import { ControlBox } from './components/ControlBox/ControlBox';
+import { GoodsList } from './components/GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export class App extends React.PureComponent {
+  state = {
+    goods: [],
+  }
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+  getGoods = async(method) => {
+    const goods = await method();
 
-export default App;
+    this.setState({ goods });
+  }
+
+  render() {
+    const { goods } = this.state;
+
+    return (
+      <>
+        <h1>Dynamic list of Goods</h1>
+        <ControlBox
+          getGoods={this.getGoods}
+        />
+        {goods.length > 0 ? (
+          <GoodsList
+            goods={goods}
+          />
+        ) : (
+          <p>NOT LOAD</p>
+        )}
+      </>
+    );
+  }
+}
