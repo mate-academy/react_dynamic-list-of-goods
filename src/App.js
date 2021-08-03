@@ -9,29 +9,12 @@ class App extends React.Component {
     goods: [],
   }
 
-  getAllGoods = () => {
-    getAll()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  get5Goods = () => {
-    get5First()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
-
-  getRedGoods = () => {
-    getRed()
-      .then((goods) => {
-        this.setState({ goods });
-      });
-  }
+  getGoods = (method) => {
+    method.then(goods => this.setState({ goods }));
+  };
 
   render() {
-    const { state, getAllGoods, get5Goods, getRedGoods } = this;
+    const { state, getGoods } = this;
     const { goods } = state;
 
     return (
@@ -42,21 +25,33 @@ class App extends React.Component {
             <button
               className="btn"
               type="button"
-              onClick={getAllGoods}
+              onClick={
+                () => {
+                  getGoods(getAll());
+                }
+              }
             >
               All goods
             </button>
             <button
               className="btn"
               type="button"
-              onClick={get5Goods}
+              onClick={
+                () => {
+                  getGoods(get5First());
+                }
+              }
             >
               First 5 goods
             </button>
             <button
               className="btn"
               type="button"
-              onClick={getRedGoods}
+              onClick={
+                () => {
+                  getGoods(getRed());
+                }
+              }
             >
               Red goods
             </button>
