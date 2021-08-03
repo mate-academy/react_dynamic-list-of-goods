@@ -2,7 +2,7 @@ import React from 'react';
 import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
-import GoodsList from './components/GoodList';
+import { GoodsList } from './components/GoodList';
 
 class App extends React.Component {
   state = {
