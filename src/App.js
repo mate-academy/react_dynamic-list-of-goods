@@ -9,20 +9,8 @@ class App extends React.PureComponent {
     goods: [],
   }
 
-  loadAllGoods = async() => {
-    const goods = await getAll();
-
-    this.setState({ goods });
-  }
-
-  loadFiveGoods = async() => {
-    const goods = await get5First();
-
-    this.setState({ goods });
-  }
-
-  loadRedGoods = async() => {
-    const goods = await getRedGoods();
+  loadGoods = async(func) => {
+    const goods = await func();
 
     this.setState({ goods });
   }
@@ -37,15 +25,15 @@ class App extends React.PureComponent {
         </h1>
         <div className="buttons">
           <Button
-            onClick={this.loadAllGoods}
+            onClick={() => this.loadGoods(getAll)}
             text="Load all goods"
           />
           <Button
-            onClick={this.loadFiveGoods}
+            onClick={() => this.loadGoods(get5First)}
             text="Load 5 first goods"
           />
           <Button
-            onClick={this.loadRedGoods}
+            onClick={() => this.loadGoods(getRedGoods)}
             text="Load red goods"
           />
         </div>
