@@ -11,29 +11,29 @@ class App extends React.Component {
     goods: [],
   }
 
- getGoods = async(method) => {
-   const actualGoods = await method();
+ setGoods = async(getGoods) => {
+   const actualGoods = await getGoods();
 
    this.setState({ goods: actualGoods });
  }
 
  render() {
    const { goods } = this.state;
-   const { getGoods } = this;
+   const { setGoods } = this;
 
    return (
      <>
        <h1>Dynamic list of Goods</h1>
        <Button
-         onClick={() => getGoods(getAll)}
+         onClick={() => setGoods(getAll)}
          text="Show all"
        />
        <Button
-         onClick={() => getGoods(get5First)}
+         onClick={() => setGoods(get5First)}
          text="Show First Five"
        />
        <Button
-         onClick={() => getGoods(getRedGoods)}
+         onClick={() => setGoods(getRedGoods)}
          text="Show all Red"
        />
        <GoodList goods={goods} />
