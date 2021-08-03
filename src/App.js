@@ -6,16 +6,14 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 class App extends Component {
   state = {
     goods: [],
-    goodsListIsDisplaying: false,
   }
 
-  setGoodsFromServer = promise => promise.then(goods => this.setState({
+  setGoodsFromServer = goodLoader => goodLoader.then(goods => this.setState({
     goods,
-    goodsListIsDisplaying: true,
   }));
 
   render() {
-    const { goodsListIsDisplaying, goods } = this.state;
+    const { goods } = this.state;
     const btnClasses = 'btn btn-outline-info';
 
     return (
@@ -46,7 +44,7 @@ class App extends Component {
           Load red goods
         </button>
 
-        {goodsListIsDisplaying && <GoodsList goods={goods} />}
+        <GoodsList goods={goods} />
       </>
     );
   }
