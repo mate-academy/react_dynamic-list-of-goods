@@ -1,5 +1,6 @@
 import React from 'react';
-import { get5First } from './api/goods';
+import { get5First, getAllGoods, getRedGoods } from './api/goods';
+import { ButtonsList } from './components/ButtonsList';
 
 import './App.scss';
 
@@ -9,14 +10,12 @@ import './App.scss';
 
 class App extends React.Component {
   state = {
-    goods: ['l'],
+    goods: [],
   }
 
-  renderGoods = async(getGoods) => {
-    const goods = await getGoods();
-
-    this.setState({ goods });
-  };
+  renderGoods = getGoods => (
+    getGoods().then(goods => this.setState({ goods }))
+  )
 
   render() {
     return (
@@ -24,16 +23,32 @@ class App extends React.Component {
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
-          innerText="Load All goods"
+          onClick={() => this.renderGoods(getAllGoods)}
+        >
+          Get all goods
+        </button>
+
+        <button
+          type="button"
+          name="Load 5 first goods"
+          innerText="Load 5 first goods"
           onClick={() => this.renderGoods(get5First)}
         >
-          lol
+          Load 5 first goods
         </button>
-        {this.state.goods.map(d => (
-          <div style={{ color: `${d.color}` }}>
-            {d.name}
-          </div>
-        ))}
+
+        <button
+          type="button"
+          name="Load red goods"
+          innerText="Load red goods"
+          onClick={() => this.renderGoods(getRedGoods)}
+        >
+          Load red goods
+        </button>
+        <ButtonsList
+          goods={this.state.goods}
+          renderGoods={this.renderGoods}
+        />
       </>
     );
   }

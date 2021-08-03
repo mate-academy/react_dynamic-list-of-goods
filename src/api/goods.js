@@ -8,6 +8,14 @@ export function getAll() {
     .then(response => response.json());
 }
 
+export const request = () => (
+  fetch(`${API_URL}`)
+    .then(response => (
+      response.json()
+    ))
+    .then(serverResponse => serverResponse.data || serverResponse)
+);
+
 export const get5First = () => (
   fetch(API_URL)
     .then(response => response.json())
@@ -17,4 +25,15 @@ export const get5First = () => (
     .then(goods => goods.slice(0, 5))
 );
 
-export const getRedGoods = () => {};
+export const getAllGoods = () => (
+  fetch(API_URL)
+    .then(response => response.json())
+);
+
+export const getRedGoods = () => (
+  fetch(API_URL)
+    .then(response => response.json())
+    .then(response => (
+      response.filter(good => good.color === 'red')
+    ))
+);
