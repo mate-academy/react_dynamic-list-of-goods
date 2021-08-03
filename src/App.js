@@ -11,47 +11,35 @@ class App extends React.Component {
     goods: [],
   }
 
-  getAllGoods = async() => {
-    const goods = await getAll();
+ getGoods = async(method) => {
+   const actualGoods = await method();
 
-    this.setState({ goods });
-  }
+   this.setState({ goods: actualGoods });
+ }
 
-  get5FirstGoods = async() => {
-    const goods = await get5First();
+ render() {
+   const { goods } = this.state;
+   const { getGoods } = this;
 
-    this.setState({ goods });
-  }
-
-  getAllRed = async() => {
-    const goods = await getRedGoods();
-
-    this.setState({ goods });
-  }
-
-  render() {
-    const { goods } = this.state;
-    const { getAllGoods, get5FirstGoods, getAllRed } = this;
-
-    return (
-      <>
-        <h1>Dynamic list of Goods</h1>
-        <Button
-          onClick={getAllGoods}
-          text="Show all"
-        />
-        <Button
-          onClick={get5FirstGoods}
-          text="Show First Five"
-        />
-        <Button
-          onClick={getAllRed}
-          text="Show all Red"
-        />
-        <GoodList goods={goods} />
-      </>
-    );
-  }
+   return (
+     <>
+       <h1>Dynamic list of Goods</h1>
+       <Button
+         onClick={() => getGoods(getAll)}
+         text="Show all"
+       />
+       <Button
+         onClick={() => getGoods(get5First)}
+         text="Show First Five"
+       />
+       <Button
+         onClick={() => getGoods(getRedGoods)}
+         text="Show all Red"
+       />
+       <GoodList goods={goods} />
+     </>
+   );
+ }
 }
 
 export default App;
