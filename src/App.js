@@ -1,13 +1,52 @@
 import React from 'react';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { GoodsList } from './components/GoodsList';
 
-import './App.scss';
+export class App extends React.PureComponent {
+  state = {
+    goods: [],
+  }
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+  filterGoods = (currentGoods) => {
+    currentGoods()
+      .then(goods => this.setState({ goods }));
+  }
 
-const App = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+  render() {
+    const { goods } = this.state;
+    const { filterGoods } = this;
 
-export default App;
+    return (
+      <div>
+        <h1>
+          List of goods
+        </h1>
+        <GoodsList goods={goods} />
+        <button
+          type="button"
+          onClick={() => {
+            filterGoods(getAll);
+          }}
+        >
+          Load all goods
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            filterGoods(getRedGoods);
+          }}
+        >
+          Load red goods
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            filterGoods(get5First);
+          }}
+        >
+          Load 5 first goods
+        </button>
+      </div>
+    );
+  }
+}
