@@ -9,8 +9,8 @@ class App extends React.PureComponent {
     goods: [],
   }
 
-  loadGoods = async(func) => {
-    const goods = await func();
+  setGoods = async(getGoods) => {
+    const goods = await getGoods();
 
     this.setState({ goods });
   }
@@ -25,15 +25,15 @@ class App extends React.PureComponent {
         </h1>
         <div className="buttons">
           <Button
-            onClick={() => this.loadGoods(getAll)}
+            onClick={() => this.setGoods(getAll)}
             text="Load all goods"
           />
           <Button
-            onClick={() => this.loadGoods(get5First)}
+            onClick={() => this.setGoods(get5First)}
             text="Load 5 first goods"
           />
           <Button
-            onClick={() => this.loadGoods(getRedGoods)}
+            onClick={() => this.setGoods(getRedGoods)}
             text="Load red goods"
           />
         </div>
