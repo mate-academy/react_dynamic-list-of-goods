@@ -13,15 +13,10 @@ export default class App extends PureComponent {
     goods: [],
   }
 
-  setGoods = async(getButtonName) => {
+  setGoods = async(getGoods) => {
     let goods = [];
 
-    switch (getButtonName) {
-      case 'allGoods': goods = await getAll(); break;
-      case 'firstGoods': goods = await get5First(); break;
-      case 'redGoods': goods = await getRedGoods(); break;
-      default: return 'Something wrong';
-    }
+    goods = await getGoods();
 
     this.setState({
       goods,
@@ -35,7 +30,12 @@ export default class App extends PureComponent {
       <Card className="card">
         <Card.Body>
           <Card.Title>
-            <Buttons getGoods={this.setGoods} />
+            <Buttons
+              getGoods={this.setGoods}
+              getAll={getAll}
+              get5First={get5First}
+              getRedGoods={getRedGoods}
+            />
           </Card.Title>
           <Card.Text>
             <List goods={this.state.goods} />
