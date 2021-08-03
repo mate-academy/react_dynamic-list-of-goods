@@ -8,7 +8,7 @@ import { GoodsList } from './Components/GoodsList';
 
 class App extends React.Component {
   state = {
-    goods: null,
+    goods: [],
     goodsConfiguration: '',
   }
 
@@ -19,23 +19,13 @@ class App extends React.Component {
     });
   }
 
-  getAllGoods = () => {
-    getAll()
-      .then(goodsFromServer => this.setGoods(goodsFromServer, 'all'));
-  }
-
-  get5FirstGoods = () => {
-    get5First()
-      .then(goodsFromServer => this.setGoods(goodsFromServer, 'first5'));
-  }
-
-  getRedGoods = () => {
-    getRed()
-      .then(goodsFromServer => this.setGoods(goodsFromServer, 'red'));
+  getGoods = (callback, configuration) => {
+    callback()
+      .then(goodsFromServer => this.setGoods(goodsFromServer, configuration));
   }
 
   render() {
-    const { getAllGoods, get5FirstGoods, getRedGoods } = this;
+    const { getGoods } = this;
     const { goods, goodsConfiguration } = this.state;
 
     return (
@@ -47,7 +37,7 @@ class App extends React.Component {
               active: goodsConfiguration === 'all',
             })}
             type="button"
-            onClick={getAllGoods}
+            onClick={() => getGoods(getAll, 'all')}
           >
             Get all goods
           </button>
@@ -56,7 +46,7 @@ class App extends React.Component {
               active: goodsConfiguration === 'first5',
             })}
             type="button"
-            onClick={get5FirstGoods}
+            onClick={() => getGoods(get5First, 'first5')}
           >
             Get 5 first goods
           </button>
@@ -65,7 +55,7 @@ class App extends React.Component {
               active: goodsConfiguration === 'red',
             })}
             type="button"
-            onClick={getRedGoods}
+            onClick={() => getGoods(getRed, 'red')}
           >
             Get &quot;red&quot; goods
           </button>
