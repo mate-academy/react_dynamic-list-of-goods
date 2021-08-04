@@ -10,35 +10,14 @@ class App extends React.Component {
     goods: [],
   };
 
-  setGoods = () => {
-    getAll()
-      .then((result) => {
-        this.setState({
-          goods: result,
-        });
-      });
-  }
+  setGoods = async(selectedMethod) => {
+    const goods = await selectedMethod();
 
-  set5firsGoods = () => {
-    get5First()
-      .then((result) => {
-        this.setState({
-          goods: result,
-        });
-      });
-  }
-
-  setRedGoods = () => {
-    getRedGoods()
-      .then((result) => {
-        this.setState({
-          goods: result,
-        });
-      });
+    this.setState({ goods });
   }
 
   render() {
-    const { setGoods, set5firsGoods, setRedGoods } = this;
+    const { setGoods } = this;
     const { goods } = this.state;
 
     return (
@@ -46,19 +25,19 @@ class App extends React.Component {
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
-          onClick={setGoods}
+          onClick={() => setGoods(getAll)}
         >
           Load All goods
         </button>
         <button
           type="button"
-          onClick={set5firsGoods}
+          onClick={() => setGoods(get5First)}
         >
           Load 5 first goods
         </button>
         <button
           type="button"
-          onClick={setRedGoods}
+          onClick={() => setGoods(getRedGoods)}
         >
           Load red goods
         </button>
