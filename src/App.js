@@ -10,28 +10,10 @@ class App extends React.Component {
     goods: [],
   }
 
-  allGoods = async() => {
-    const goodFromServer = await getAll();
+  setGoods = async(getGoods) => {
+    const currentGoogs = await getGoods();
 
-    this.setState({
-      goods: goodFromServer,
-    });
-  };
-
-  fiveFirstGoods = async() => {
-    const first5 = await get5First();
-
-    this.setState({
-      goods: first5,
-    });
-  };
-
-  redGoods = async() => {
-    getRedGoods().then((red) => {
-      this.setState({
-        goods: red,
-      });
-    });
+    this.setState({ goods: currentGoogs });
   }
 
   render() {
@@ -42,21 +24,21 @@ class App extends React.Component {
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
-          onClick={this.allGoods}
+          onClick={() => this.setGoods(getAll)}
         >
           Load All goods
         </button>
 
         <button
           type="button"
-          onClick={this.fiveFirstGoods}
+          onClick={() => this.setGoods(get5First)}
         >
           Load 5 first goods
         </button>
 
         <button
           type="button"
-          onClick={this.redGoods}
+          onClick={() => this.setGoods(getRedGoods)}
         >
           Load red goods
         </button>
