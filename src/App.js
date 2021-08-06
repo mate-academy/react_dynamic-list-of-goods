@@ -14,15 +14,6 @@ class App extends React.Component {
     this.setState({ goods });
   }
 
-  get5First = () => {
-    getAll()
-      .then((result) => {
-        this.setState({
-          goods: result,
-        });
-      });
-  };
-
   render() {
     const { setGoods } = this;
     const { goods } = this.state;
