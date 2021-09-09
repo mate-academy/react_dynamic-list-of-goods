@@ -4,10 +4,6 @@ import { GoodsList } from './components/GoodsList/GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
-
 interface State {
   goods: Good[],
 }
@@ -26,20 +22,14 @@ class App extends React.Component<{}, State> {
 
   select5FirstGood = () => {
     get5First()
-      .then(goods => {
-        const sortGoods = [...goods]
-          .sort((goodA, goodB) => goodA.name.localeCompare(goodB.name))
-          .slice(0, 5);
-
+      .then(sortGoods => {
         this.setState({ goods: sortGoods });
       });
   };
 
   selectRedGood = () => {
     getRedGoods()
-      .then(goods => {
-        const redGoods = goods.filter(({ color }) => color === 'red');
-
+      .then(redGoods => {
         this.setState({ goods: redGoods });
       });
   };
