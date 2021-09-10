@@ -1,1 +1,41 @@
-// styles go here
+body {
+  margin: 0;
+}
+
+button {
+  border: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.App {
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #e1c2ff;
+  background-color: #f0e1ff;
+
+  &__buttons {
+    display: flex;
+    height: min-content;
+    gap: 20px;
+  }
+
+  &__button {
+    padding: 10px;
+    border-radius: 5px;
+    color: #875ab4;
+    background-color: #fff;
+    transition: 0.3s;
+
+    &:hover {
+      color: #fff;
+      background-color: #875ab4;
+    }
+  }
+}
