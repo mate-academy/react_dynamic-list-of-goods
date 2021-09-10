@@ -6,22 +6,13 @@ export function getAll(): Promise<Good[]> {
     .then(response => response.json());
 }
 
-export const get5First = () => {
-  return fetch(API_URL)
-    .then(response => response.json()
-      .then(result => {
-        const firstFive = [];
-
-        for (let i = 0; i < 5; i += 1) {
-          firstFive.push(result[i]);
-        }
-
-        return firstFive;
-      }));
-};
+export const get5First = () => (
+  getAll().then(goods => goods.sort((good1, good2) => (
+    good1.name.localeCompare(good2.name)
+  )).slice(0, 5))
+);
 
 export const getRedGoods = () => {
-  return fetch(API_URL)
-    .then(response => response.json()
-      .then(result => result.filter((good: { color: string; }) => good.color === 'red')));
+  return getAll()
+    .then(result => result.filter((good: { color: string; }) => good.color === 'red'));
 };
