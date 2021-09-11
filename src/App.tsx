@@ -17,7 +17,7 @@ enum RequestType {
 }
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     goodsFromServer: [],
     hasRequestError: false,
   };
