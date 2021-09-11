@@ -6,7 +6,8 @@ import { GoodsList } from './components/GoodsList';
 import { Button } from './components/Button';
 
 interface State {
-  goodsFromServer: Good[],
+  goodsFromServer: Good[];
+  hasRequestError: boolean;
 }
 
 enum RequestType {
@@ -18,6 +19,7 @@ enum RequestType {
 class App extends React.Component<{}, State> {
   state = {
     goodsFromServer: [],
+    hasRequestError: false,
   };
 
   request = async (type: RequestType) => {
@@ -25,33 +27,68 @@ class App extends React.Component<{}, State> {
 
     switch (type) {
       case 'all':
-        goods = await getAll()
-          .then(goodsFromServer => this.setState({ goodsFromServer }));
+        try {
+          goods = await getAll()
+            .then(goodsFromServer => this.setState({ goodsFromServer }));
 
-        return goods;
+          return goods;
+        } catch (error) {
+          this.setState({
+            hasRequestError: true,
+          });
+
+          return null;
+        }
+
       case 'fiveFirst':
-        goods = await get5First()
-          .then(goodsFromServer => this.setState({ goodsFromServer }));
+        try {
+          goods = await get5First()
+            .then(goodsFromServer => this.setState({ goodsFromServer }));
 
-        return goods;
+          return goods;
+        } catch (error) {
+          this.setState({
+            hasRequestError: true,
+          });
+
+          return null;
+        }
+
       case 'red':
-        goods = await getRedGoods()
-          .then(goodsFromServer => this.setState({ goodsFromServer }));
+        try {
+          goods = await getRedGoods()
+            .then(goodsFromServer => this.setState({ goodsFromServer }));
 
-        return goods;
+          return goods;
+        } catch (error) {
+          this.setState({
+            hasRequestError: true,
+          });
+
+          return null;
+        }
+
       default:
         return null;
     }
   };
 
   render() {
-    const { goodsFromServer } = this.state;
+    const { goodsFromServer, hasRequestError } = this.state;
 
     return (
       <div className="container">
         <div className="App">
           {goodsFromServer.length > 0 && (
             <GoodsList goods={goodsFromServer} />
+          )}
+
+          {hasRequestError && (
+            <p
+              className="App__error-message"
+            >
+              Seems like we have an error here
+            </p>
           )}
 
           <div className="App__buttons">
