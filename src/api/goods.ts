@@ -9,7 +9,7 @@ export async function getAll(): Promise<Good[]> {
 }
 
 export const get5First = async (): Promise<Good[]> => {
-  return (await getAll()).slice(0, 6);
+  return (await getAll()).slice(0, 5);
 };
 
 export const getRedGoods = async (): Promise<Good[]> => {
