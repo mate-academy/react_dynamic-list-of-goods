@@ -7,15 +7,13 @@ export function getAll(): Promise<Good[]> {
 }
 
 export const get5First = () => {
-  return fetch(API_URL)
-    .then(response => response.json())
+  return getAll()
     .then(goods => goods
       .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
       .slice(0, 5));
 };
 
 export const getRedGoods = () => {
-  return fetch(API_URL)
-    .then(response => response.json())
+  return getAll()
     .then(goods => goods.filter((good: Good) => good.color === 'red'));
 };

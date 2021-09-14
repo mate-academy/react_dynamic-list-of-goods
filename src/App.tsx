@@ -1,73 +1,86 @@
 import React from 'react';
-import './App.scss';
 import { GoodsList } from './Components/GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
+import { Button } from './Components/Button';
 
 type State = {
   visibleGoods: Good[];
+  loadingError: string;
 };
+
+enum Colors {
+  blue = 'is-link',
+  red = 'is-danger',
+  green = 'is-primary',
+}
 
 class App extends React.Component<{}, State> {
   state: State = {
     visibleGoods: [],
+    loadingError: '',
+  };
+
+  loadGoods = (callback: LoadFunction) => {
+    try {
+      callback()
+        .then((goods: Good[]) => {
+          this.setState({ visibleGoods: goods });
+        });
+    } catch (error) {
+      this.setState({ loadingError: 'Ooops, something went wrong' });
+    }
   };
 
   showAll = () => {
-    getAll()
-      .then(goods => {
-        this.setState({ visibleGoods: goods });
-      });
+    this.loadGoods(getAll);
   };
 
   showFirstFive = () => {
-    get5First()
-      .then(goods => {
-        this.setState({ visibleGoods: goods });
-      });
+    this.loadGoods(get5First);
   };
 
   showRedGoods = () => {
-    getRedGoods()
-      .then(goods => {
-        this.setState({ visibleGoods: goods });
-      });
+    this.loadGoods(getRedGoods);
   };
 
   render() {
     return (
       <div className="container section is-medium">
         <div className="columns">
-          <div className="column">
+          <div className="column is-half">
             <h1 className="title is-1">Dynamic list of Goods</h1>
 
-            <button
-              type="button"
-              onClick={this.showAll}
-              className="button is-primary is-light"
-            >
-              Load All goods
-            </button>
+            <Button
+              buttonType="all"
+              callback={this.showAll}
+              color={Colors.green}
+            />
 
-            <button
-              className="button is-link is-light mx-2"
-              type="button"
-              onClick={this.showFirstFive}
-            >
-              Load 5 goods
-            </button>
+            <Button
+              buttonType="5"
+              callback={this.showFirstFive}
+              color={Colors.blue}
+            />
 
-            <button
-              className="button is-danger is-light"
-              type="button"
-              onClick={this.showRedGoods}
-            >
-              Load red goods
-            </button>
+            <Button
+              buttonType="red"
+              callback={this.showRedGoods}
+              color={Colors.red}
+            />
           </div>
+          {this.state.loadingError || (
+            <p>
+              {this.state.loadingError}
+            </p>
+          )}
 
-          <div className="column">
-            <GoodsList goodsToShow={this.state.visibleGoods} />
-          </div>
+          {this.state.visibleGoods.length > 0 && (
+            <>
+              <div className="column is-one-quarter">
+                <GoodsList goodsToShow={this.state.visibleGoods} />
+              </div>
+            </>
+          )}
         </div>
       </div>
     );
