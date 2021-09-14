@@ -1,1 +1,32 @@
-// styles go here
+* {
+  box-sizing: border-box;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  font-size: 20px;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+
+  &__title {
+    color: dimgray;
+  }
+
+  &__btn {
+    background: #094742;
+    width: 150px;
+  }
+}
+
+.btn-group {
+  margin: 0 auto;
+}
