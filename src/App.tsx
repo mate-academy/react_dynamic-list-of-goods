@@ -1,95 +1,71 @@
 import React from 'react';
 import './App.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import classNames from 'classnames';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList';
 
-enum SortType {
-  default = '',
-  all = 'all',
-  five = 'five',
-  red = 'red',
-}
-
 interface State {
   goods: Good[];
-  sortBy: SortType;
+  errorMessage: string;
 }
 
 class App extends React.Component<{}, State> {
   state: State = {
     goods: [],
-    sortBy: SortType.default,
+    errorMessage: '',
   };
 
-  showAll = () => {
-    getAll()
-      .then(goods => {
-        this.setState({
-          goods,
-          sortBy: SortType.all,
-        });
-      });
-  };
+  getGoods = async (getRelevantGoods: () => Promise<Good[]>) => {
+    try {
+      const goods = await getRelevantGoods();
 
-  showFive = () => {
-    get5First()
-      .then(goods => {
-        this.setState({
-          goods,
-          sortBy: SortType.five,
-        });
-      });
-  };
-
-  showRed = () => {
-    getRedGoods()
-      .then(goods => {
-        this.setState({
-          goods,
-          sortBy: SortType.red,
-        });
-      });
+      this.setState({ goods, errorMessage: '' });
+    } catch (error) {
+      this.setState({ errorMessage: 'Please wait' });
+    }
   };
 
   render() {
-    const { goods, sortBy } = this.state;
+    const { goods, errorMessage } = this.state;
 
     return (
       <>
         <h1 className="text-center py-2">Dynamic list of Goods</h1>
-        { goods.length > 0 && (
-          <GoodsList
-            goods={goods}
-          />
-        )}
         <div className="d-flex justify-content-center align-items-center">
           <button
-            className={classNames('border bg-primary rounded text-light py-2 m-2', { 'bg-success': sortBy === SortType.all })}
+            className="border bg-primary rounded text-light py-2 m-2"
             type="submit"
-            onClick={this.showAll}
+            onClick={() => this.getGoods(getAll)}
           >
             Load All goods
           </button>
 
           <button
-            className={classNames('border bg-primary rounded text-light py-2 m-2', { 'bg-success': sortBy === SortType.five })}
+            className="border bg-primary rounded text-light py-2 m-2"
             type="submit"
-            onClick={this.showFive}
+            onClick={() => this.getGoods(get5First)}
           >
             Load 5 first goods
           </button>
 
           <button
-            className={classNames('border bg-primary rounded text-light py-2 m-2', { 'bg-success': sortBy === SortType.red })}
+            className="border bg-primary rounded text-light py-2 m-2"
             type="submit"
-            onClick={this.showRed}
+            onClick={() => this.getGoods(getRedGoods)}
           >
             Load red goods
           </button>
         </div>
+
+        { !errorMessage ? (
+          <GoodsList
+            goods={goods}
+          />
+        )
+          : (
+            { errorMessage }
+          )}
       </>
     );
   }
