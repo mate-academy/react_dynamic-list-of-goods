@@ -7,13 +7,13 @@ export function getAll(): Promise<Good[]> {
 }
 
 export const get5First = async (): Promise<Good[]> => {
-  const firstFive = (await getAll()).slice(0, 5);
+  const firstFive = await getAll();
 
-  return firstFive;
+  return firstFive.slice(0, 5);
 };
 
 export const getRedGoods = async (): Promise<Good[]> => {
-  const redGoods = (await getAll()).filter(good => good.color === 'red');
+  const redGoods = await getAll();
 
-  return redGoods;
+  return redGoods.filter(good => good.color === 'red');
 };
