@@ -6,6 +6,14 @@ export function getAll(): Promise<Good[]> {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export const get5First = async (): Promise<Good[]> => {
+  const firstFive = (await getAll()).slice(0, 5);
 
-export const getRedGoods = () => {};
+  return firstFive;
+};
+
+export const getRedGoods = async (): Promise<Good[]> => {
+  const redGoods = (await getAll()).filter(good => good.color === 'red');
+
+  return redGoods;
+};
