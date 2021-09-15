@@ -1,12 +1,103 @@
 import React from 'react';
+import 'bulma';
+import '@fortawesome/fontawesome-free/css/all.css';
 import './App.scss';
 
 // import { getAll, get5First, getRed } from './api/goods';
 // or
 // import * as goodsAPI from './api/goods';
 
-const App: React.FC = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+import { getAll } from './api/goods';
+import { GoodsList } from './components/GoodsList';
+
+type Props = {};
+type State = {
+  goods: Good[] | [];
+};
+
+class App extends React.Component<Props, State> {
+  state: State = {
+    goods: [],
+  };
+
+  handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    if (event.currentTarget.name === 'allGoods') {
+      getAll()
+        .then((goods: Good[]) => {
+          this.setState({ goods });
+        });
+    }
+
+    if (event.currentTarget.name === 'allGoods') {
+      getAll()
+        .then((goods: Good[]) => {
+          this.setState({ goods });
+        });
+    }
+
+    if (event.currentTarget.name === 'firstFive') {
+      getAll()
+        .then((goods: Good[]) => (
+          goods.filter((_, i) => i < 5)
+        ))
+        .then((x: Good[]) => {
+          this.setState({ goods: x });
+        });
+    }
+
+    if (event.currentTarget.name === 'redGoods') {
+      getAll()
+        .then((goods: Good[]) => (
+          goods.filter((good) => good.color === 'red')
+        ))
+        .then((x: Good[]) => {
+          this.setState({ goods: x });
+        });
+    }
+  };
+
+  render() {
+    const { goods } = this.state;
+
+    return (
+      <main
+        className="main container"
+      >
+        <h1 className="main__title">
+          Dynamic list of Goods
+        </h1>
+        <div className="main__buttons">
+          <button
+            className="button is-success"
+            name="allGoods"
+            type="button"
+            onClick={this.handleClick}
+          >
+            Load All goods
+          </button>
+          <button
+            className="button is-warning"
+            type="button"
+            name="firstFive"
+            onClick={this.handleClick}
+          >
+            Load 5 first goods
+          </button>
+          <button
+            className="button is-danger"
+            type="button"
+            name="redGoods"
+            onClick={this.handleClick}
+          >
+            Load red goods
+          </button>
+        </div>
+        <GoodsList goods={goods} />
+      </main>
+    );
+  }
+}
 
 export default App;

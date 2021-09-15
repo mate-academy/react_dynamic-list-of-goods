@@ -6,6 +6,6 @@ export function getAll(): Promise<Good[]> {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+// export const get5First = () => {};
 
-export const getRedGoods = () => {};
+// export const getRedGoods = () => {};
