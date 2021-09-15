@@ -7,21 +7,27 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 type State = {
   users: Good[],
+  errorMessage: string,
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
     users: [],
+    errorMessage: '',
   };
 
   getUsers = async (getLoadingUsers: () => Promise<Good[]>) => {
-    const users = await getLoadingUsers();
+    try {
+      const users = await getLoadingUsers();
 
-    this.setState({ users });
+      this.setState({ users, errorMessage: '' });
+    } catch (error) {
+      this.setState({ errorMessage: 'Loading goods' });
+    }
   };
 
   render() {
-    const { users } = this.state;
+    const { users, errorMessage } = this.state;
 
     return (
       <div className="App">
@@ -34,6 +40,7 @@ class App extends React.Component<{}, State> {
           >
             All goods
           </button>
+
           <button
             type="button"
             className="App__btn btn btn-secondary"
@@ -41,6 +48,7 @@ class App extends React.Component<{}, State> {
           >
             5 first goods
           </button>
+
           <button
             type="button"
             className="App__btn btn btn-secondary"
@@ -50,7 +58,9 @@ class App extends React.Component<{}, State> {
           </button>
         </div>
 
-        <GoodsList users={users} />
+        {!errorMessage ? (
+          <GoodsList users={users} />
+        ) : errorMessage}
       </div>
     );
   }

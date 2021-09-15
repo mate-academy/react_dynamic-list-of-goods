@@ -3,7 +3,11 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
-    .then(response => response.json());
+    .then(response => {
+      return response.ok
+        ? response.json()
+        : Promise.reject(new Error('Failed to load data'));
+    });
 }
 
 export const get5First = () => {
