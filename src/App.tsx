@@ -14,25 +14,10 @@ class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  showAllGoods = () => {
-    getAll()
-      .then(goods => {
-        this.setState({ goods });
-      });
-  };
+  loadGoods = async (getGoods: () => Promise<Good[]>) => {
+    const goods = await getGoods();
 
-  show5FirstGoods = () => {
-    get5First()
-      .then(goods => {
-        this.setState({ goods });
-      });
-  };
-
-  showAllRedGoods = () => {
-    getRedGoods()
-      .then(goods => {
-        this.setState({ goods });
-      });
+    this.setState({ goods });
   };
 
   render() {
@@ -44,19 +29,19 @@ class App extends React.Component<{}, State> {
         <GoodsList goods={goods} />
         <button
           type="submit"
-          onClick={this.showAllGoods}
+          onClick={() => (this.loadGoods(getAll))}
         >
           Load All goods
         </button>
         <button
           type="submit"
-          onClick={this.show5FirstGoods}
+          onClick={() => (this.loadGoods(get5First))}
         >
           Load 5 first goods
         </button>
         <button
           type="submit"
-          onClick={this.showAllRedGoods}
+          onClick={() => (this.loadGoods(getRedGoods))}
         >
           Load red goods
         </button>
