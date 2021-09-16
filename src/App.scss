@@ -1,1 +1,14 @@
 // styles go here
+.App {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__button {
+    width: 90px;
+    height: 60px;
+    margin-left: 10px;
+  }
+}
