@@ -1,1 +1,32 @@
 // styles go here
+
+body {
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  font-size: 25px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.content {
+  margin: 10px;
+  border: 2px solid rgb(196, 253, 122);
+  border-radius: 20px;
+  height: 500px;
+}
