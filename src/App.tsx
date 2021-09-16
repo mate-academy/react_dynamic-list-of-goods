@@ -7,7 +7,7 @@ import './App.scss';
 // or
 // import * as goodsAPI from './api/goods';
 
-import { getAll } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList';
 
 type Props = {};
@@ -31,22 +31,16 @@ class App extends React.Component<Props, State> {
     }
 
     if (event.currentTarget.name === 'firstFive') {
-      getAll()
-        .then((goods: Good[]) => (
-          goods.filter((_, i) => i < 5)
-        ))
-        .then((x: Good[]) => {
-          this.setState({ goods: x });
+      get5First()
+        .then((goods: Good[]) => {
+          this.setState({ goods });
         });
     }
 
     if (event.currentTarget.name === 'redGoods') {
-      getAll()
-        .then((goods: Good[]) => (
-          goods.filter((good) => good.color === 'red')
-        ))
-        .then((x: Good[]) => {
-          this.setState({ goods: x });
+      getRedGoods()
+        .then((goods: Good[]) => {
+          this.setState({ goods });
         });
     }
   };
