@@ -30,13 +30,6 @@ class App extends React.Component<Props, State> {
         });
     }
 
-    if (event.currentTarget.name === 'allGoods') {
-      getAll()
-        .then((goods: Good[]) => {
-          this.setState({ goods });
-        });
-    }
-
     if (event.currentTarget.name === 'firstFive') {
       getAll()
         .then((goods: Good[]) => (
