@@ -1,1 +1,14 @@
-// styles go here
+@import 'bulma/css/bulma.css';
+
+.App {
+  margin: 30px;
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+}
+
+.button {
+  margin-bottom: 15px;
+}
