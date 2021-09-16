@@ -3,36 +3,30 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.scss';
 import './GoodsList.scss';
 
-type Props = {
+interface Props {
   goods: Good[];
-};
-type State = {};
-
-export class GoodsList extends React.Component<Props, State> {
-  state: State = {};
-
-  render() {
-    const { goods } = this.props;
-
-    return (
-      <div className="display-goods">
-        {goods.length === 0
-          ? <span className="display-goods__preload">Press the button to start</span>
-          : (
-            <ul className="list-group">
-              {goods.map(good => (
-                <li
-                  className="list-group-item"
-                  key={good.id}
-                  style={{ color: good.color }}
-                >
-                  {good.name}
-                </li>
-              ))}
-            </ul>
-          )}
-      </div>
-
-    );
-  }
 }
+
+export const GoodsList: React.FC<Props> = (props) => {
+  const { goods } = props;
+
+  return (
+    <div className="display-goods">
+      {goods.length === 0
+        ? <span className="display-goods__preload">Press the button to start</span>
+        : (
+          <ul className="list-group">
+            {goods.map(good => (
+              <li
+                className="list-group-item"
+                key={good.id}
+                style={{ color: good.color }}
+              >
+                {good.name}
+              </li>
+            ))}
+          </ul>
+        )}
+    </div>
+  );
+};
