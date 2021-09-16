@@ -6,6 +6,14 @@ export function getAll(): Promise<Good[]> {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export const get5First = () => {
+  return fetch(API_URL)
+    .then(response => response.json())
+    .then(result => result.filter((good: Good) => good.id <= 5));
+};
 
-export const getRedGoods = () => {};
+export const getRedGoods = () => {
+  return fetch(API_URL)
+    .then(response => response.json())
+    .then(result => result.filter((good: Good) => good.color === 'red'));
+};
