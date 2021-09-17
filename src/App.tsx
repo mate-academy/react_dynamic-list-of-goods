@@ -6,6 +6,7 @@ import { GoodsList } from './GoodsList/GoodsList';
 type State = {
   goods: Good[],
   showGoods: boolean,
+  showError: boolean,
 };
 
 export class App extends React.PureComponent<{}, State> {
@@ -16,15 +17,24 @@ export class App extends React.PureComponent<{}, State> {
       color: '',
     }],
     showGoods: false,
+    showError: false,
   };
 
   handleButton = async (goodsFilter: Promise<Good[]>) => {
-    const goods = await goodsFilter;
-
     this.setState({
-      goods,
-      showGoods: true,
+      showError: false,
     });
+
+    try {
+      const goods = await goodsFilter;
+
+      this.setState({
+        goods,
+        showGoods: true,
+      });
+    } catch (error) {
+      this.setState({ showError: true });
+    }
   };
 
   render() {
@@ -54,6 +64,11 @@ export class App extends React.PureComponent<{}, State> {
           </button>
         </div>
         {this.state.showGoods && <GoodsList goods={this.state.goods} />}
+        {this.state.showError && (
+          <div style={{ color: 'red' }}>
+            Something went wrong
+          </div>
+        )}
       </>
     );
   }

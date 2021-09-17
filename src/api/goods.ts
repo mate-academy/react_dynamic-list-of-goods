@@ -1,8 +1,12 @@
 // eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
+const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods3/goods.json`;
 
 export const getAll = async (): Promise<Good[]> => {
   const response = await fetch(API_URL);
+
+  if (!response.ok) {
+    throw new Error('Error: Invalid data');
+  }
 
   return response.json();
 };
