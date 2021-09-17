@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import './App.scss';
 import { getRedGoods, get5First, getAll } from './api/goods';
