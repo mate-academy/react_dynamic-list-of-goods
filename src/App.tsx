@@ -5,7 +5,7 @@ import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList';
-import { Button } from './components/Button/Button';
+import { Button } from './components/Buttons/Buttons';
 
 interface State {
   goods: Good[];
