@@ -1,0 +1,13 @@
+.display-goods {
+  width: 300px;
+  min-height: 400px;
+  border: 1px solid black;
+
+  &__preload {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    color: green;
+  }
+}
