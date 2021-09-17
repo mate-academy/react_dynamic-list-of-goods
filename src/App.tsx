@@ -12,8 +12,8 @@ export class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  loadGoods = async (typeLoad: () => Promise<Good[]>) => {
-    const goods = await typeLoad();
+  loadGoods = async (getGoods: () => Promise<Good[]>) => {
+    const goods = await getGoods();
 
     this.setState({ goods });
   };

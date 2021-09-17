@@ -9,7 +9,7 @@ export const getAll = (): Promise<Good[]> => {
 export const get5First = () => {
   return getAll()
     .then(goods => goods
-      .sort((g1, g2) => g1.name.localeCompare(g2.name))
+      .sort((firstGood, secondGood) => firstGood.name.localeCompare(secondGood.name))
       .slice(0, 5));
 };
 
