@@ -3,31 +3,33 @@ import { GoodsList } from './component/GoodsList';
 
 import './App.scss';
 
-import { getAll, get5First, getRedGoods } from './api/goods';
+import { loadAllGoods, load5First, loadRedGoods } from './api/goods';
 
 type State = {
-  users: Good[],
+  goods: Good[],
   errorMessage: string,
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
-    users: [],
+    goods: [],
     errorMessage: '',
   };
 
-  getUsers = async (getLoadingUsers: () => Promise<Good[]>) => {
+  getGoods = async (getLoadingGoods: () => Promise<Good[]>) => {
     try {
-      const users = await getLoadingUsers();
+      const goods = await getLoadingGoods();
 
-      this.setState({ users, errorMessage: '' });
+      this.setState({ goods, errorMessage: '' });
     } catch (error) {
-      this.setState({ errorMessage: 'Loading goods' });
+      const e = error as Error;
+
+      this.setState({ errorMessage: e.message });
     }
   };
 
   render() {
-    const { users, errorMessage } = this.state;
+    const { goods, errorMessage } = this.state;
 
     return (
       <div className="App">
@@ -36,7 +38,7 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             className="App__btn btn btn-secondary"
-            onClick={() => this.getUsers(getAll)}
+            onClick={() => this.getGoods(loadAllGoods)}
           >
             All goods
           </button>
@@ -44,7 +46,7 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             className="App__btn btn btn-secondary"
-            onClick={() => this.getUsers(get5First)}
+            onClick={() => this.getGoods(load5First)}
           >
             5 first goods
           </button>
@@ -52,14 +54,14 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             className="App__btn btn btn-secondary"
-            onClick={() => this.getUsers(getRedGoods)}
+            onClick={() => this.getGoods(loadRedGoods)}
           >
             Red goods
           </button>
         </div>
 
         {!errorMessage ? (
-          <GoodsList users={users} />
+          <GoodsList goods={goods} />
         ) : errorMessage}
       </div>
     );
