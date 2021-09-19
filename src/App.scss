@@ -1,1 +1,33 @@
-// styles go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+  height: 600px;
+  margin: 0 auto;
+  border: 1px solid dodgerblue;
+  border-radius: 25px;
+  font-family: "Roboto", sans-serif;
+}
+
+.App__Button-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding-bottom: 25px;
+  border-bottom: 2px solid dodgerblue;
+}
+
+.button {
+  border: 1px solid lightgreen;
+  font-weight: bold;
+  padding: 10px 25px;
+  border-radius: 15px;
+
+  &:hover {
+    background-color: lightgray;
+  }
+  &:active {
+    background-color: darkgray;
+  }
+}
