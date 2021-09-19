@@ -13,29 +13,12 @@ class App extends React.Component <{}, State> {
     goodsList: null,
   };
 
-  handleEvent = async (event:React.MouseEvent<HTMLButtonElement, MouseEvent>, eventType:string) => {
-    event.preventDefault();
+  handleEvent = async (eventType:() => Promise<Good[]>) => {
+    const list = await eventType();
 
-    switch (eventType) {
-      case ('showAll'):
-        this.setState({
-          goodsList: await getAll(),
-        });
-        break;
-      case ('showFiveFirst'):
-        this.setState({
-          goodsList: await get5First(),
-        });
-        break;
-      case ('showOnlyRed'):
-        this.setState({
-          goodsList: await getRedGoods(),
-        });
-        break;
-
-      default:
-        throw new Error('Wrong type of event');
-    }
+    this.setState({
+      goodsList: list,
+    });
   };
 
   render() {
@@ -45,33 +28,27 @@ class App extends React.Component <{}, State> {
         <div className="App__Button-wrapper">
           <button
             type="button"
-            onClick={
-              event => {
-                this.handleEvent(event, 'showAll');
-              }
-            }
+            onClick={() => {
+              this.handleEvent(getAll);
+            }}
             className="button LoadAllButton"
           >
             Load all goods
           </button>
           <button
             type="button"
-            onClick={
-              event => {
-                this.handleEvent(event, 'showFiveFirst');
-              }
-            }
+            onClick={() => {
+              this.handleEvent(get5First);
+            }}
             className="button LoadFiveButton"
           >
             Load 5 first goods
           </button>
           <button
             type="button"
-            onClick={
-              event => {
-                this.handleEvent(event, 'showOnlyRed');
-              }
-            }
+            onClick={() => {
+              this.handleEvent(getRedGoods);
+            }}
             className="button LoadFiveButton"
           >
             Load only red goods
