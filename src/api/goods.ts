@@ -11,7 +11,7 @@ export const get5First = async (): Promise<Good[]> => {
   const limit = 5;
   const allGoods: Good[] = await getAll();
 
-  return allGoods.slice(0, limit);
+  return allGoods.sort((x, y) => (x.name).localeCompare(y.name)).slice(0, limit);
 };
 
 export const getRedGoods = async (): Promise<Good[]> => {
