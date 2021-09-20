@@ -7,8 +7,10 @@ interface Props {
 export const GoodsList: React.FC<Props> = ({ goods }) => {
   return (
     <ul>
-      {goods.length && goods.map(good => (
-        <li key={good.id} style={{ color: good.color }}>{good.name}</li>
+      {goods && goods.map(good => (
+        <li key={good.id} style={{ color: good.color }}>
+          {good.name}
+        </li>
       ))}
     </ul>
   );

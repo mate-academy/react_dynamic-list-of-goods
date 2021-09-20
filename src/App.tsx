@@ -8,33 +8,16 @@ interface State {
 }
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     goods: [],
   };
 
-  componentDidMount() {
-    this.getGoods();
-  }
+  getGoods = (sortBy: Promise<Good[]>) => {
+    (async () => {
+      const goods = await sortBy;
 
-  getGoods = () => {
-    getAll()
-      .then(goods => {
-        this.setState({ goods });
-      });
-  };
-
-  getFive = () => {
-    get5First()
-      .then(goods => {
-        this.setState({ goods });
-      });
-  };
-
-  getRed = () => {
-    getRedGoods()
-      .then(goods => {
-        this.setState({ goods });
-      });
+      this.setState({ goods });
+    })();
   };
 
   render() {
@@ -45,13 +28,31 @@ class App extends React.Component<{}, State> {
           <div>
             <div className="col">
               <div className="col-sm p-1">
-                <button type="button" onClick={this.getFive} className="btn btn-primary">Only first 5</button>
+                <button
+                  type="button"
+                  onClick={() => this.getGoods(get5First())}
+                  className="btn btn-primary"
+                >
+                  Only first 5
+                </button>
               </div>
               <div className="col-sm p-1">
-                <button type="button" onClick={this.getRed} className="btn btn-primary">Only Red</button>
+                <button
+                  type="button"
+                  onClick={() => this.getGoods(getRedGoods())}
+                  className="btn btn-primary"
+                >
+                  Only Red
+                </button>
               </div>
               <div className="col-sm p-1">
-                <button type="button" onClick={this.getGoods} className="btn btn-primary">All</button>
+                <button
+                  type="button"
+                  onClick={() => this.getGoods(getAll())}
+                  className="btn btn-primary"
+                >
+                  All
+                </button>
               </div>
             </div>
             <GoodsList goods={this.state.goods} />
