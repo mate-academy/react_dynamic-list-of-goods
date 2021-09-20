@@ -12,8 +12,11 @@ export function loadAllGoods(): Promise<Good[]> {
 
 export const load5First = () => {
   const first5goods = loadAllGoods()
-    .then(goods => goods.sort((a, b) => a.name.localeCompare(b.name))
-      .slice(0, 5));
+    .then(goods => (
+      goods
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .slice(0, 5)
+    ));
 
   return first5goods;
 };

@@ -10,7 +10,9 @@ export const GoodsList: React.FC<Props> = (props) => {
   return (
     <ul className="App__list">
       {goods && goods.map(user => (
-        <li key={user.id} style={{ color: user.color }}>{user.name}</li>
+        <li key={user.id} style={{ color: user.color }}>
+          {user.name}
+        </li>
       ))}
     </ul>
   );
