@@ -12,25 +12,22 @@ export class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  showAllGood = () => {
-    getAll()
-      .then(goods => {
-        this.setState({ goods });
-      });
+  showAllGood = async () => {
+    const goods = await getAll();
+
+    this.setState({ goods });
   };
 
-  show5First = () => {
-    get5First()
-      .then(goods => {
-        this.setState({ goods });
-      });
+  show5First = async () => {
+    const goods = await get5First();
+
+    this.setState({ goods });
   };
 
-  showRedGoods = () => {
-    getRedGoods()
-      .then(goods => {
-        this.setState({ goods });
-      });
+  showRedGoods = async () => {
+    const goods = await getRedGoods();
+
+    this.setState({ goods });
   };
 
   render() {

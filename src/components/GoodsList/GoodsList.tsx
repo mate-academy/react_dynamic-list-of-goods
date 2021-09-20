@@ -7,20 +7,16 @@ interface Props {
 export const GoodsList: React.FC<Props> = ({ goods }) => (
   <ul className="app__list">
     {goods.map((good) => {
-      if (good) {
-        const { id, name, color } = good;
+      const { id, name, color } = good;
 
-        return (
-          <li
-            key={id}
-            style={{ color }}
-          >
-            {name}
-          </li>
-        );
-      }
-
-      return null;
+      return (
+        <li
+          key={id}
+          style={{ color }}
+        >
+          {name}
+        </li>
+      );
     })}
 
   </ul>
