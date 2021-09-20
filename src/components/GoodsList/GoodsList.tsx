@@ -2,7 +2,7 @@ import React from 'react';
 import './GoodsList.css';
 
 type Props = {
-  goodsList:Good[];
+  goodsList: Good[];
 };
 
 export const GoodsList:React.FC<Props> = (props) => {

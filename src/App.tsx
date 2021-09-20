@@ -23,9 +23,9 @@ class App extends React.Component <{}, State> {
 
   render() {
     return (
-      <div className="App">
-        <h1 className="App__Tittle">Dynamic list of Goods</h1>
-        <div className="App__Button-wrapper">
+      <div className="app">
+        <h1 className="app__Tittle">Dynamic list of Goods</h1>
+        <div className="app__Button-wrapper">
           <button
             type="button"
             onClick={() => {
@@ -55,7 +55,7 @@ class App extends React.Component <{}, State> {
           </button>
         </div>
 
-        {this.state.goodsList && <GoodsList goodsList={this.state.goodsList} />}
+        {this.state.goodsList && <GoodsList goodsList={[...this.state.goodsList]} />}
       </div>
     );
   }
