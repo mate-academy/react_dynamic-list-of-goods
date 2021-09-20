@@ -8,14 +8,15 @@ type Props = {
 };
 
 export const Button: React.FC<Props> = (props) => {
+  const { callback, buttonType, color } = props;
   return (
     <button
-      className={classNames('button', 'is-light', 'mx-2', props.color)}
+      className={classNames('button', 'is-light', 'mx-2', color)}
       type="button"
-      onClick={props.callback}
+      onClick={callback}
     >
       {'Load '}
-      {props.buttonType}
+      {buttonType}
       {' goods'}
     </button>
   );

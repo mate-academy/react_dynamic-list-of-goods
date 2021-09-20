@@ -44,6 +44,7 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
+    const { loadingError, visibleGoods } = this.state;
     return (
       <div className="container section is-medium">
         <div className="columns">
@@ -68,16 +69,16 @@ class App extends React.Component<{}, State> {
               color={Colors.red}
             />
           </div>
-          {this.state.loadingError || (
+          {loadingError || (
             <p>
-              {this.state.loadingError}
+              {loadingError}
             </p>
           )}
 
-          {this.state.visibleGoods.length > 0 && (
+          {visibleGoods.length > 0 && (
             <>
               <div className="column is-one-quarter">
-                <GoodsList goodsToShow={this.state.visibleGoods} />
+                <GoodsList goodsToShow={visibleGoods} />
               </div>
             </>
           )}
