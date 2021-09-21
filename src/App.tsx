@@ -6,7 +6,6 @@ import { GoodsList } from './GoodsList/GoodsList';
 type State = {
   goods: Good[],
   showGoods: boolean,
-  showError: boolean,
 };
 
 export class App extends React.PureComponent<{}, State> {
@@ -16,15 +15,10 @@ export class App extends React.PureComponent<{}, State> {
       name: '',
       color: '',
     }],
-    showGoods: false,
-    showError: false,
+    showGoods: true,
   };
 
   handleButton = async (goodsFilter: Promise<Good[]>) => {
-    this.setState({
-      showError: false,
-    });
-
     try {
       const goods = await goodsFilter;
 
@@ -33,11 +27,13 @@ export class App extends React.PureComponent<{}, State> {
         showGoods: true,
       });
     } catch (error) {
-      this.setState({ showError: true });
+      this.setState({ showGoods: false });
     }
   };
 
   render() {
+    const { showGoods, goods } = this.state;
+
     return (
       <>
         <h1>Dynamic list of Goods</h1>
@@ -63,12 +59,17 @@ export class App extends React.PureComponent<{}, State> {
             Load red goods
           </button>
         </div>
-        {this.state.showGoods && <GoodsList goods={this.state.goods} />}
-        {this.state.showError && (
-          <div style={{ color: 'red' }}>
-            Something went wrong
-          </div>
-        )}
+        {showGoods
+          ? (
+            <GoodsList
+              goods={goods}
+            />
+          )
+          : (
+            <div style={{ color: 'red' }}>
+              Something went wrong
+            </div>
+          )}
       </>
     );
   }
