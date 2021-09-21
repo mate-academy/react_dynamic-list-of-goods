@@ -2,31 +2,10 @@ import React from 'react';
 
 type Props = {
   goods: Good[];
-  goodsRed: Good[];
-  goods5: Good[];
-  getAllGoods: boolean;
-  getAllRed: boolean;
-  get5: boolean;
 };
 
 export const GoodsList: React.FC<Props> = (props) => {
-  const {
-    goods, goodsRed, goods5, getAllGoods, getAllRed, get5,
-  } = props;
-
-  let goodsPack: Good[] = [];
-
-  if (getAllGoods) {
-    goodsPack = goods;
-  }
-
-  if (getAllRed) {
-    goodsPack = goodsRed;
-  }
-
-  if (get5) {
-    goodsPack = goods5;
-  }
+  const { goods } = props;
 
   return (
     <table className="table">
@@ -40,7 +19,7 @@ export const GoodsList: React.FC<Props> = (props) => {
       </thead>
 
       <tbody>
-        {goodsPack.map(good => (
+        {goods.map(good => (
           <tr key={good.id}>
             <td>{good.id}</td>
             <td style={{ color: good.color }}>{good.name}</td>

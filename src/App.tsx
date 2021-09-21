@@ -6,58 +6,22 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 type State = {
   goods: Good[];
-  goodsRed: Good[];
-  goods5: Good[];
-  getAllGoods: boolean;
-  getAllRed: boolean;
-  get5: boolean;
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
     goods: [],
-    goodsRed: [],
-    goods5: [],
-    getAllGoods: false,
-    getAllRed: false,
-    get5: false,
   };
 
-  async componentDidMount() {
-    const goods = await getAll();
-    const goodsRed = await getRedGoods();
-    const goods5 = await get5First();
+  loadGoods = async (loader: () => Promise<Good[]>) => {
+    const goods = await loader();
 
-    this.setState({ goods, goodsRed, goods5 });
-  }
-
-  handleAllGoods = () => {
-    this.setState({
-      getAllGoods: true,
-      getAllRed: false,
-      get5: false,
-    });
-  };
-
-  handle5Goods = () => {
-    this.setState({
-      getAllGoods: false,
-      getAllRed: false,
-      get5: true,
-    });
-  };
-
-  handleRedGoods = () => {
-    this.setState({
-      getAllGoods: false,
-      getAllRed: true,
-      get5: false,
-    });
+    this.setState({ goods });
   };
 
   render() {
     const {
-      goods, get5, getAllGoods, getAllRed,
+      goods,
     } = this.state;
 
     return (
@@ -66,18 +30,13 @@ export class App extends React.Component<{}, State> {
 
         <GoodsList
           goods={goods}
-          goodsRed={this.state.goodsRed}
-          goods5={this.state.goods5}
-          getAllGoods={getAllGoods}
-          getAllRed={getAllRed}
-          get5={get5}
         />
 
         <div className="button-container">
           <button
             type="button"
             className="btn btn-primary"
-            onClick={this.handleAllGoods}
+            onClick={() => this.loadGoods(getAll)}
           >
             Load All goods
           </button>
@@ -85,7 +44,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={this.handle5Goods}
+            onClick={() => this.loadGoods(get5First)}
           >
             Load 5 first goods
           </button>
@@ -93,7 +52,7 @@ export class App extends React.Component<{}, State> {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={this.handleRedGoods}
+            onClick={() => this.loadGoods(getRedGoods)}
           >
             Load red goods
           </button>
