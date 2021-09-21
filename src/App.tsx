@@ -14,31 +14,32 @@ class App extends React.Component<{}, State> {
     goods: null,
   };
 
-  getAllGoods = () => {
-    getAll()
-      .then(goods => {
-        this.setState({
-          goods,
-        });
-      });
+  getGoods = (goods: Good[]) => {
+    this.setState({
+      goods,
+    });
   };
 
-  loadFirst5Goods = () => {
-    get5First()
-      .then(goods => {
-        this.setState({
-          goods,
-        });
-      });
-  };
+  handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const { id } = event.currentTarget;
 
-  loadRedGoods = () => {
-    getRedGoods()
-      .then(goods => {
-        this.setState({
-          goods,
-        });
-      });
+    switch (id) {
+      case 'allGoods':
+        getAll()
+          .then(this.getGoods);
+        break;
+      case 'firstFiveGoods':
+        get5First()
+          .then(this.getGoods);
+        break;
+      case 'redGoods':
+        getRedGoods()
+          .then(this.getGoods);
+        break;
+      default:
+        break;
+    }
   };
 
   render() {
@@ -49,11 +50,23 @@ class App extends React.Component<{}, State> {
         <h1>Dynamic list of Goods</h1>
 
         <div className="d-flex justify-content-between">
-          <GoodsButton getGoods={this.getAllGoods} buttonTitle="All goods" />
+          <GoodsButton
+            getGoods={this.handleClick}
+            thisId="allGoods"
+            buttonTitle="All goods"
+          />
 
-          <GoodsButton getGoods={this.loadFirst5Goods} buttonTitle="First Five goods" />
+          <GoodsButton
+            getGoods={this.handleClick}
+            thisId="firstFiveGoods"
+            buttonTitle="First Five goods"
+          />
 
-          <GoodsButton getGoods={this.loadRedGoods} buttonTitle="Red goods" />
+          <GoodsButton
+            getGoods={this.handleClick}
+            thisId="redGoods"
+            buttonTitle="Red goods"
+          />
         </div>
 
         {goods && (
