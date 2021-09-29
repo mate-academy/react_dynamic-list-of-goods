@@ -1,1 +1,12 @@
-// styles go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttons {
+  width: 400px;
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+}
