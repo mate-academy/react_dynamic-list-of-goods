@@ -1,1 +1,15 @@
-// styles go here
+.goods {
+  &__list{
+    margin-top: 20px;
+    list-style: none;
+    padding: 0;
+  }
+
+  &__item {
+    margin-bottom: 10px;
+  }
+}
+
+.buttons {
+  margin-top: 30px;
+}
