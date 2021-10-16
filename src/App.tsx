@@ -1,10 +1,8 @@
-/* eslint-disable react/no-unused-state */
 import React from 'react';
 
-import * as goodsAPI from './api/goods';
-
-import './App.scss';
 import { GoodsList } from './components/GoodsList';
+
+import * as goodsAPI from './api/goods';
 
 interface State {
   goods: Good[] | null;
@@ -34,14 +32,14 @@ class App extends React.Component<{}, State> {
         <div style={{ textAlign: 'center' }} className="container">
           <div className="box">
 
-            <h1 className="title">Todos</h1>
+            <h1 className="title">Goods</h1>
 
             <button
               className="button is-primary mr-3"
               type="button"
               onClick={() => this.getGoods(getAll)}
             >
-              Load all todos
+              Load all goods
             </button>
 
             <button
