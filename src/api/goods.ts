@@ -12,21 +12,12 @@ export const getAll = async (): Promise<Good[]> => {
 };
 
 export const get5First = async () => {
-  const res = await fetch(API_URL);
-
-  return res.json()
-    .then(goods => (
-      goods
-        .sort((good1: Good, good2: Good) => good1.name.localeCompare(good2.name))
-        .splice(0, 5)
-    ));
+  return (await getAll())
+    .sort((good1, good2) => good1.name.localeCompare(good2.name))
+    .splice(0, 5);
 };
 
 export const getRed = async () => {
-  const res = await fetch(API_URL);
-
-  return res.json()
-    .then(goods => (
-      goods.filter((good: Good) => good.color === 'red')
-    ));
+  return (await getAll())
+    .filter(good => good.color === 'red');
 };
