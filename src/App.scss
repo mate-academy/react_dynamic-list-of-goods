@@ -1,1 +1,28 @@
-// styles go here
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    margin: 20px 0;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 420px;
+    margin-bottom: 30px;
+
+    &-button {
+      width: 130px;
+      height: 22px;
+
+      cursor: pointer;
+    }
+  }
+}

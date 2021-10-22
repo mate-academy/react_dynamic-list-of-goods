@@ -1,0 +1,10 @@
+.Goods {
+  &__item {
+    font-size: 22px;
+    list-style: none;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+}
