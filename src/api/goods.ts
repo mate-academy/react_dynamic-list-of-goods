@@ -12,12 +12,16 @@ export const getAll = async (): Promise<Good[]> => {
 };
 
 export const get5First = async () => {
-  return (await getAll())
+  const goods = await getAll();
+
+  return goods
     .sort((good1, good2) => good1.name.localeCompare(good2.name))
     .splice(0, 5);
 };
 
 export const getRed = async () => {
-  return (await getAll())
+  const goods = await getAll();
+
+  return goods
     .filter(good => good.color === 'red');
 };
