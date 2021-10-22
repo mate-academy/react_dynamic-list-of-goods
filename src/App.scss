@@ -1,1 +1,17 @@
-// styles go here
+@import "../node_modules/bootstrap/";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn {
+  margin: 0 10px 10px;
+  width: 155px;
+}
+
+.list-group-item {
+  text-align: center;
+  width: 505px;
+}
