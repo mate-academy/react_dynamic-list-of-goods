@@ -9,53 +9,42 @@ export class App extends React.Component<{}, {}> {
     goods: [],
   };
 
-  onLoadAllGoods = () => {
-    getAll().then(result => {
-      this.setState({ goods: result });
-    });
-  };
+  getGoods = async (callback : () => Promise<Good[]>) => {
+    const goods = await callback();
 
-  onLoadFirstFive = () => {
-    get5First().then(result => {
-      this.setState({ goods: result });
-    });
-  };
-
-  onLoadRedGoods = () => {
-    getRedGoods().then(result => {
-      this.setState({ goods: result });
-    });
+    this.setState({ goods });
   };
 
   render() {
     const { goods } = this.state;
+    const { getGoods } = this;
 
     return (
       <>
         <h1>Push on Button</h1>
         <button
           type="button"
-          onClick={
-            this.onLoadAllGoods
-          }
+          onClick={() => {
+            getGoods(getAll);
+          }}
         >
           Load All goods
 
         </button>
         <button
           type="button"
-          onClick={
-            this.onLoadFirstFive
-          }
+          onClick={() => {
+            getGoods(get5First);
+          }}
         >
           Load 5 first goods
 
         </button>
         <button
           type="button"
-          onClick={
-            this.onLoadRedGoods
-          }
+          onClick={() => {
+            getGoods(getRedGoods);
+          }}
         >
           Load red goods
 
