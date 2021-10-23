@@ -4,8 +4,18 @@ export interface Good {
   color: string,
 }
 
-export type State = {
+export type StateApp = {
   goods: Good[],
   onDisplay: boolean,
-  selectedColor: string,
+};
+
+export type PropsForm = {
+  goods: Good[],
+  printGoods: (event: React.MouseEvent<HTMLButtonElement>) => void,
+  selectedColor: (color: string) => void,
+};
+
+export type StateForm = {
+  selectColor: string,
+  isColorSelect: boolean,
 };

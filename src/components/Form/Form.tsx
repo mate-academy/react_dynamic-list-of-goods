@@ -1,21 +1,10 @@
 import React from 'react';
 import './Form.scss';
 
-import { Good } from '../../Types';
+import { PropsForm, StateForm } from '../../Types';
 
-type Props = {
-  goods: Good[],
-  printGoods: (event: React.MouseEvent<HTMLButtonElement>) => void,
-  selectedColor: (color: string) => void,
-};
-
-type State = {
-  selectColor: string,
-  isColorSelect: boolean,
-};
-
-export class Form extends React.Component<Props, State> {
-  state: State = {
+export class Form extends React.Component<PropsForm, StateForm> {
+  state: StateForm = {
     selectColor: '0',
     isColorSelect: false,
   };
@@ -37,16 +26,37 @@ export class Form extends React.Component<Props, State> {
     this.props.selectedColor(event.currentTarget.value);
   };
 
+  clickOnButton = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+
+    this.props.printGoods(event);
+
+    if (event.currentTarget.id === 'byColor') {
+      this.setState((state) => (
+        {
+          selectColor: state.selectColor,
+          isColorSelect: state.selectColor === '0' && true,
+        }
+      ));
+    } else {
+      this.setState(
+        {
+          selectColor: '0',
+          isColorSelect: false,
+        },
+      );
+    }
+  };
+
   render() {
     const { selectColor, isColorSelect } = this.state;
-    const { printGoods } = this.props;
 
     return (
       <form
         className="goods__form"
       >
         <button
-          onClick={printGoods}
+          onClick={this.clickOnButton}
           className="goods__form--button"
           type="button"
           id="all"
@@ -55,7 +65,7 @@ export class Form extends React.Component<Props, State> {
         </button>
 
         <button
-          onClick={printGoods}
+          onClick={this.clickOnButton}
           name="top_5_goods"
           className="goods__form--button"
           type="button"
@@ -65,7 +75,7 @@ export class Form extends React.Component<Props, State> {
         </button>
 
         <button
-          onClick={printGoods}
+          onClick={this.clickOnButton}
           name="colored_goods"
           className="goods__form--button"
           type="submit"
