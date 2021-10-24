@@ -13,20 +13,8 @@ class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  ShowAllGoods = () => {
-    getAll().then(goods => {
-      this.setState({ goods });
-    });
-  };
-
-  load5FirstGoods = () => {
-    get5First().then(goods => {
-      this.setState({ goods });
-    });
-  };
-
-  loadRedGoods = () => {
-    getRedGoods().then(goods => {
+  buttonHandler = (callback: { (): Promise<Good[]>; (): Promise<Good[]>; }) => {
+    return callback().then((goods: Good[]) => {
       this.setState({ goods });
     });
   };
@@ -39,19 +27,19 @@ class App extends React.Component<{}, State> {
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
-          onClick={this.ShowAllGoods}
+          onClick={() => this.buttonHandler(getAll)}
         >
           Load All goods
         </button>
         <button
           type="button"
-          onClick={this.load5FirstGoods}
+          onClick={() => this.buttonHandler(get5First)}
         >
           Load 5 first goods
         </button>
         <button
           type="button"
-          onClick={this.loadRedGoods}
+          onClick={() => this.buttonHandler(getRedGoods)}
         >
           Load red goods
         </button>
