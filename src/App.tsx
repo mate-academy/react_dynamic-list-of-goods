@@ -25,10 +25,7 @@ export class App extends React.Component<{}, State> {
 
     return (
       <div className="App">
-
-        <div className="App-title">
         <h1>Goods</h1>
-        </div>
 
         <button
           className="goods-button"
