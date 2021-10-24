@@ -13,20 +13,8 @@ class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  showAll = async () => {
-    const goodsFromServer = await getAll();
-
-    this.setState({ goods: goodsFromServer });
-  };
-
-  show5First = async () => {
-    const goodsFromServer = await get5First();
-
-    this.setState({ goods: goodsFromServer });
-  };
-
-  showRed = async () => {
-    const goodsFromServer = await getRedGoods();
+  show = async (getFromServer: () => Promise<Good[]>) => {
+    const goodsFromServer = await getFromServer();
 
     this.setState({ goods: goodsFromServer });
   };
@@ -39,7 +27,7 @@ class App extends React.Component<{}, State> {
           <div className="flex justify-center gap-x-3 mb-4 gap-0">
             <button
               type="button"
-              onClick={this.showAll}
+              onClick={() => this.show(getAll)}
               className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 shadow-md rounded-full"
             >
               Get All
@@ -47,14 +35,14 @@ class App extends React.Component<{}, State> {
             <button
               type="button"
               className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 shadow-md rounded-full"
-              onClick={this.show5First}
+              onClick={() => this.show(get5First)}
             >
               Get 5 First
             </button>
             <button
               type="button"
               className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 shadow-md rounded-full"
-              onClick={this.showRed}
+              onClick={() => this.show(getRedGoods)}
             >
               Get red
             </button>
