@@ -1,1 +1,29 @@
-// styles go here
+.app {
+  width: 50%;
+  margin: 0 auto;
+
+  &__buttons {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__btn {
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:active {
+      background-color: rgb(207, 105, 57);
+    }
+
+  }
+
+   &__list {
+    width: 40%;
+    list-style: none;
+    margin: 10px auto;
+   }
+
+}
