@@ -5,12 +5,12 @@ import { GoodsList } from './components/GoodsList';
 import { Button } from './components/Button';
 
 interface State {
-  goods: Good[] | null,
+  goods: Good[],
 }
 
 class App extends React.PureComponent<{}, State> {
   state = {
-    goods: null,
+    goods: [],
   };
 
   render() {
@@ -44,7 +44,7 @@ class App extends React.PureComponent<{}, State> {
               });
           }}
         />
-        {this.state.goods === null || (<GoodsList goods={this.state.goods} />)}
+        {this.state.goods && (<GoodsList goods={this.state.goods} />)}
       </div>
     );
   }
