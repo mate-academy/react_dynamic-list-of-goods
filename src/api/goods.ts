@@ -12,8 +12,18 @@ export const getAll = async () => {
   return goods;
 };
 
-export const get5First = () => (
-  'Top 5'
-);
+export const get5First = async () => {
+  const goods = await getFromServer();
 
-export const getRedGoods = () => ('red goods');
+  return (
+    goods
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .slice(0, 5)
+  );
+};
+
+export const getGoodsByColor = async (selectedColor: string) => {
+  const goods = await getFromServer();
+
+  return goods.filter(good => good.color === selectedColor);
+};

@@ -11,8 +11,7 @@ export type StateApp = {
 
 export type PropsForm = {
   goods: Good[],
-  printGoods: (event: React.MouseEvent<HTMLButtonElement>) => void,
-  selectedColor: (color: string) => void,
+  getGoods: (callback: Promise<Good[]>) => void,
 };
 
 export type StateForm = {

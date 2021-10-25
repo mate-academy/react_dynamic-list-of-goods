@@ -2,6 +2,7 @@ import React from 'react';
 import './Form.scss';
 
 import { PropsForm, StateForm } from '../../Types';
+import { get5First, getAll, getGoodsByColor } from '../../api/goods';
 
 export class Form extends React.Component<PropsForm, StateForm> {
   state: StateForm = {
@@ -9,42 +10,60 @@ export class Form extends React.Component<PropsForm, StateForm> {
     isColorSelect: false,
   };
 
-  getColorsFromGoods = () => (
-    this.props.goods
-      .map(good => good.color)
-      .filter((color, index, array) => (
-        array.indexOf(color) === index
-      ))
-  );
+  colors: string[] = [];
+
+  componentDidMount() {
+    getAll().then(goods => {
+      this.colors
+      = goods
+          .map(good => good.color)
+          .filter((color, index, array) => (
+            array.indexOf(color) === index
+          ));
+    });
+  }
 
   selectColor = (event: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
       selectColor: event.currentTarget.value,
       isColorSelect: false,
     });
-
-    this.props.selectedColor(event.currentTarget.value);
   };
 
   clickOnButton = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
-    this.props.printGoods(event);
+    switch (event.currentTarget.id) {
+      case ('byColor'):
+        this.setState((state) => (
+          {
+            selectColor: state.selectColor,
+            isColorSelect: state.selectColor === '0' && true,
+          }
+        ));
+        this.props.getGoods(getGoodsByColor(this.state.selectColor));
 
-    if (event.currentTarget.id === 'byColor') {
-      this.setState((state) => (
-        {
-          selectColor: state.selectColor,
-          isColorSelect: state.selectColor === '0' && true,
-        }
-      ));
-    } else {
-      this.setState(
-        {
-          selectColor: '0',
-          isColorSelect: false,
-        },
-      );
+        break;
+
+      case ('top5'):
+        this.setState(
+          {
+            selectColor: '0',
+            isColorSelect: false,
+          },
+        );
+        this.props.getGoods(get5First());
+
+        break;
+
+      default:
+        this.setState(
+          {
+            selectColor: '0',
+            isColorSelect: false,
+          },
+        );
+        this.props.getGoods(getAll());
     }
   };
 
@@ -93,7 +112,7 @@ export class Form extends React.Component<PropsForm, StateForm> {
         >
           <option value="0" disabled selected>Select color</option>
           {selectColor && (
-            this.getColorsFromGoods().map(color => (
+            this.colors.map(color => (
               <option
                 key={color}
                 value={color}
