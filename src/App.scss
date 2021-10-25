@@ -1,1 +1,62 @@
-// styles go here
+$font: 'VT323', monospace;
+$dark-blue: #223caa;
+$light-blue: #00baed;
+
+.App {
+  position: relative;
+
+  width: max-content;
+  padding: 20px;
+
+  font-family: $font;
+  color: $light-blue;
+
+  background-color: $dark-blue;
+  box-shadow: 5px 5px 0 #000;
+
+  &::before {
+    content: '';
+    position: absolute;
+    
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    
+    border: 4px double $light-blue;
+
+    pointer-events: none;
+  }
+
+  &__heading {
+    margin: 0 0 10px;
+
+    font-size: 42px;
+    font-weight: normal;
+    text-align: center;
+  }
+
+  &__button {
+    margin: 0 5px 0 0;
+
+    font-family: $font;
+    font-size: 22px;
+    text-transform: lowercase;
+    color: $light-blue;
+
+    border: none;
+    background-color: $dark-blue;
+
+    cursor: pointer;
+
+    &:hover {
+      color: $dark-blue;
+
+      background-color: $light-blue;
+    }
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
