@@ -3,7 +3,7 @@ type Props = {
 };
 
 export const GoodsList: React.FC<Props> = ({ goods }) => (
-  <ul>
+  <ul className="GoodsList">
     {goods.map(good => (
       <li
         key={good.id}

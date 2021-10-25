@@ -15,10 +15,13 @@ class App extends React.Component<{}, State> {
 
   render() {
     return (
-      <div>
-        <h1>Dynamic list of Goods</h1>
+      <div className="App">
+        <h1 className="App__heading">
+          Dynamic list of Goods
+        </h1>
         <button
           type="button"
+          className="App__button"
           onClick={() => (
             getAll()
               .then(goods => {
@@ -30,6 +33,7 @@ class App extends React.Component<{}, State> {
         </button>
         <button
           type="button"
+          className="App__button"
           onClick={() => (
             get5First()
               .then(goods => {
@@ -41,6 +45,7 @@ class App extends React.Component<{}, State> {
         </button>
         <button
           type="button"
+          className="App__button"
           onClick={() => (
             getRedGoods()
               .then(goods => {
@@ -50,9 +55,14 @@ class App extends React.Component<{}, State> {
         >
           Load red goods
         </button>
-        <GoodsList
-          goods={this.state.goods}
-        />
+        {
+          (this.state.goods.length > 0)
+          && (
+            <GoodsList
+              goods={this.state.goods}
+            />
+          )
+        }
       </div>
     );
   }
