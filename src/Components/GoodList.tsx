@@ -7,7 +7,8 @@ const Goodlist: React.FC<{ goods: Good[] }> = ({ goods }) => (
         {goods.map((good) => (
           <li
             key={good.name + good.id}
-            style={{color: good.color}}>
+            style={{ color: good.color }}
+          >
             {good.name}
           </li>
         ))}

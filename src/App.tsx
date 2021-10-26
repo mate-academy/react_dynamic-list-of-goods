@@ -15,16 +15,20 @@ class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  loadAll = () => {
-    getAll().then((data) => this.setState({ goods: data }));
+  setGoods = (goods: Good[]) => {
+    this.setState({ goods });
   };
 
-  load_5_First = () => {
-    get5First().then((data) => this.setState({ goods: data }));
+  loadAll = () => {
+    getAll().then(this.setGoods);
+  };
+
+  load5First = () => {
+    get5First().then(this.setGoods);
   };
 
   loadRed = () => {
-    getRedGoods().then((data) => this.setState({ goods: data }));
+    getRedGoods().then(this.setGoods);
   };
 
   render() {
@@ -33,7 +37,7 @@ class App extends React.Component<{}, State> {
         <h1>Dynamic list of Goods</h1>
         <Buttons
           loadAll={this.loadAll}
-          load_5_First={this.load_5_First}
+          load5First={this.load5First}
           loadRed={this.loadRed}
         />
         <GoodList goods={this.state.goods} />
