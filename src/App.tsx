@@ -52,7 +52,7 @@ class App extends React.Component<{}, State> {
                 })
             )}
           >
-            LLoad 5 first goods
+            Load 5 first goods
           </button>
 
           <button
