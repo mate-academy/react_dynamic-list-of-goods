@@ -46,9 +46,9 @@ class App extends React.Component<{}, State> {
             className="button is-info is-rounded"
             type="button"
             onClick={() => (
-              getAll()
-                .then(allGoods => {
-                  this.setState({ goods: get5First(allGoods) });
+              getRedGoods()
+                .then(filteredGoods => {
+                  this.setState({ goods: filteredGoods });
                 })
             )}
           >
@@ -59,11 +59,9 @@ class App extends React.Component<{}, State> {
             className="button is-info is-rounded"
             type="button"
             onClick={() => (
-              getAll()
-                .then(allGoods => {
-                  const redGoods = getRedGoods(allGoods);
-
-                  this.setState({ goods: redGoods });
+              get5First()
+                .then(filteredGoods => {
+                  this.setState({ goods: filteredGoods });
                 })
             )}
           >
