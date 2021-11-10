@@ -34,9 +34,9 @@ class App extends React.Component<{}, State> {
 
   render() {
     const { goods } = this.state;
-  
-  return (
-    <div className="App">
+
+    return (
+      <div className="App">
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
