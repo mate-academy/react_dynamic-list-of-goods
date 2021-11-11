@@ -1,1 +1,23 @@
-// styles go here
+.App {
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons__container {
+  flex-direction: row;
+}
+
+.button {
+  height: 100px;
+  width: 200px;
+  margin: 10px;
+  border-radius: 10px;
+  background-color: rgb(47, 204, 204);
+}
