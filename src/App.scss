@@ -1,1 +1,20 @@
-// styles go here
+.app {
+  margin: 0 auto;
+  width: 500px;
+}
+
+.app__title {
+  text-align: center;
+  color: rgb(5, 136, 136);
+}
+
+.app__list {
+  margin: 20px 0 0 200px;
+  width: 100px;
+  list-style-type: none;
+}
+
+.app__buttons {
+  display: flex;
+  justify-content: space-around;
+}
