@@ -18,37 +18,17 @@ export async function getAll(): Promise<Good[]> {
 }
 
 export const get5First = async (): Promise<Good[]> => {
-  try {
-    const response = await fetch(API_URL);
+  const data = await getAll();
+  const goods = [...data].sort((product1, product2) => {
+    return product1.name.localeCompare(product2.name);
+  }).filter((_, i) => i < 5);
 
-    if (!response.ok) {
-      throw new Error(`${response.status} - ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    const goods = [...data].sort((product1, product2) => {
-      return product1.name.localeCompare(product2.name);
-    }).filter((_, i) => i < 5);
-
-    return goods;
-  } catch (error) {
-    throw new Error(`The problem is here ${error}`);
-  }
+  return goods;
 };
 
 export const getRedGoods = async (): Promise<Good[]> => {
-  try {
-    const response = await fetch(API_URL);
+  const data = await getAll();
+  const goods = data.filter((good: Good) => good.color === 'red');
 
-    if (!response.ok) {
-      throw new Error(`${response.status} - ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    const goods = data.filter((good: Good) => good.color === 'red');
-
-    return goods;
-  } catch (error) {
-    throw new Error(`The problem is here ${error}`);
-  }
+  return goods;
 };
