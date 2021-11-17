@@ -14,7 +14,7 @@ class App extends React.Component<{}, State> {
   state = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     goods: [] as any[],
-  };;
+  };
 
   handlerGoods = async (callback: Callback) => {
     const goods = await callback();
