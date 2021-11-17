@@ -9,8 +9,8 @@ export class App extends React.Component {
     goods: [],
   };
 
-  loadGoods = async (typeOfGoods: () => Promise<Good[]>) => {
-    const goods = await typeOfGoods();
+  loadGoods = async (callback: () => Promise<Good[]>) => {
+    const goods = await callback();
 
     this.setState({ goods });
   };
