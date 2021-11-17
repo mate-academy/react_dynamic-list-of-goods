@@ -14,20 +14,8 @@ export class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  handleLoadAllGoodsButton = async () => {
-    const goods = await getAll();
-
-    this.setState({ goods });
-  };
-
-  handleLoadFiveFirstGoodButton = async () => {
-    const goods = await getFiveFirstGood();
-
-    this.setState({ goods });
-  };
-
-  handleLoadRedGoodsButton = async () => {
-    const goods = await getRedGoods();
+  handleClick = async (callback: () => Promise<Good[]>) => {
+    const goods = await callback();
 
     this.setState({ goods });
   };
@@ -42,7 +30,7 @@ export class App extends React.Component<{}, State> {
         <div className="container">
           <button
             className="btn btn-outline-primary"
-            onClick={this.handleLoadAllGoodsButton}
+            onClick={() => this.handleClick(getAll)}
             type="button"
           >
             Load All goods
@@ -50,7 +38,7 @@ export class App extends React.Component<{}, State> {
 
           <button
             className="btn btn-outline-primary"
-            onClick={this.handleLoadFiveFirstGoodButton}
+            onClick={() => this.handleClick(getFiveFirstGood)}
             type="button"
           >
             Load 5 first goods
@@ -58,7 +46,7 @@ export class App extends React.Component<{}, State> {
 
           <button
             className="btn btn-outline-primary"
-            onClick={this.handleLoadRedGoodsButton}
+            onClick={() => this.handleClick(getRedGoods)}
             type="button"
           >
             Load red goods
