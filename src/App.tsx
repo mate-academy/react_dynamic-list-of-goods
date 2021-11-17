@@ -8,26 +8,16 @@ type State = {
   goods: Good[];
 };
 
+type Callback = () => Promise<Good[]>;
+
 class App extends React.Component<{}, State> {
   state = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     goods: [] as any[],
-  };
+  };;
 
-  loadAllGoods = async () => {
-    const goods = await getAll();
-
-    this.setState({ goods });
-  };
-
-  load5FirstGoods = async () => {
-    const goods = await get5First();
-
-    this.setState({ goods });
-  };
-
-  loadRedGoods = async () => {
-    const goods = await getRedGoods();
+  handlerGoods = async (callback: Callback) => {
+    const goods = await callback();
 
     this.setState({ goods });
   };
@@ -42,21 +32,21 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             className="goods__button"
-            onClick={this.loadAllGoods}
+            onClick={() => this.handlerGoods(getAll)}
           >
             Load all goods
           </button>
           <button
             type="button"
             className="goods__button"
-            onClick={this.load5FirstGoods}
+            onClick={() => this.handlerGoods(get5First)}
           >
             Load 5 first goods
           </button>
           <button
             type="button"
             className="goods__button"
-            onClick={this.loadRedGoods}
+            onClick={() => this.handlerGoods(getRedGoods)}
           >
             Load red goods
           </button>
