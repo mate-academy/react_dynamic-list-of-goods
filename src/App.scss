@@ -31,5 +31,10 @@ body {
     border: none;
     color: #fff;
     cursor: pointer;
+    transition: color 0.3 ease-in-out;
+
+    &:hover {
+      background-color: #7562cb;
+    }
   }
 }
