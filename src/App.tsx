@@ -49,7 +49,7 @@ export class App extends React.Component {
             Load red goods
           </button>
         </div>
-        <GoodsList goodsFromServer={goods} />
+        {!!goods.length && <GoodsList goodsFromServer={goods} />}
       </div>
     );
   }
