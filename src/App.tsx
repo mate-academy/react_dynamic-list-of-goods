@@ -62,7 +62,14 @@ class App extends React.Component<{}, State> {
         >
           Load red goods
         </button>
-        <GoodsList goods={goods} />
+
+        {goods.length
+          ? <GoodsList goods={goods} />
+          : (
+            <p>
+              No goods
+            </p>
+          )}
       </div>
     );
   }
