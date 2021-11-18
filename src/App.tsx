@@ -3,7 +3,6 @@ import './App.scss';
 import { GoodList } from './components/GoodList';
 
 import { getAll, get5First, getRed } from './api/goods';
-import { Good } from './types';
 
 interface State {
   goods: Good[],

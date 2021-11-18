@@ -1,5 +1,3 @@
-import { Good } from '../types';
-
 interface Props {
   goods: Good[],
 }
