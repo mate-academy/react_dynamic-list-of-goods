@@ -9,24 +9,8 @@ class App extends React.Component {
     goods: [],
   };
 
-  handleLoadAllGoodsButton = async () => {
-    const goods = await getAll();
-
-    this.setState(
-      { goods },
-    );
-  };
-
-  handleGet5FirstButton = async () => {
-    const goods = await get5First();
-
-    this.setState(
-      { goods },
-    );
-  };
-
-  handleGetRedButton = async () => {
-    const goods = await getRed();
+  handleClick = async (callback: () => Promise<Good[]>) => {
+    const goods = await callback();
 
     this.setState(
       { goods },
@@ -41,7 +25,7 @@ class App extends React.Component {
         <button
           type="button"
           className="App__button"
-          onClick={this.handleLoadAllGoodsButton}
+          onClick={() => this.handleClick(getAll)}
         >
           Load all goods
         </button>
@@ -49,7 +33,7 @@ class App extends React.Component {
         <button
           type="button"
           className="App__button"
-          onClick={this.handleGet5FirstButton}
+          onClick={() => this.handleClick(get5First)}
         >
           Get 5 First
         </button>
@@ -57,7 +41,7 @@ class App extends React.Component {
         <button
           type="button"
           className="App__button"
-          onClick={this.handleGetRedButton}
+          onClick={() => this.handleClick(getRed)}
         >
           Get Red
         </button>
