@@ -19,16 +19,16 @@ export async function getAll(): Promise<Good[]> {
 
 export const get5First = async (): Promise<Good[]> => {
   const data = await getAll();
-  const goods = [...data].sort((product1, product2) => {
+   return [...data].sort((product1, product2) => {
     return product1.name.localeCompare(product2.name);
-  }).filter((_, i) => i < 5);
+  }).slice(0, 5);
 
-  return goods;
+  
 };
 
 export const getRedGoods = async (): Promise<Good[]> => {
   const data = await getAll();
-  const goods = data.filter((good: Good) => good.color === 'red');
+  return data.filter((good: Good) => good.color === 'red');
 
-  return goods;
+  
 };
