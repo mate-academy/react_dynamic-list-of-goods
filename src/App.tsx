@@ -16,9 +16,7 @@ class App extends React.Component<{}, State> {
 
   getGoods = async (callback: () => Promise<Good[]>) => {
     callback()
-      .then((goods) => {
-        this.setState({ goods });
-      });
+      .then((goods) => this.setState({ goods }));
   };
 
   render() {
