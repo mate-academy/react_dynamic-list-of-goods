@@ -22,17 +22,15 @@ export async function getAll(): Promise<Good[]> {
 }
 
 export const get5First = async (): Promise<Good[]> => {
-  const data = await request(API_URL);
-  const goods = data
-    .sort((good1: Good, good2: Good) => good1.name.localeCompare(good2.name))
-    .filter((_: Good, index: number) => index < 5);
+  const goods = await request(API_URL);
 
-  return goods;
+  return goods
+    .sort((good1: Good, good2: Good) => good1.name.localeCompare(good2.name))
+    .slice(0, 5);
 };
 
 export const getRed = async (): Promise<Good[]> => {
-  const data = await request(API_URL);
-  const goods = data.filter((good: Good) => good.color === 'red');
+  const goods = await request(API_URL);
 
-  return goods;
+  return goods.filter((good: Good) => good.color === 'red');
 };

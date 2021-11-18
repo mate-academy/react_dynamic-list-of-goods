@@ -12,9 +12,7 @@ class App extends React.Component {
   handleClick = async (callback: () => Promise<Good[]>) => {
     const goods = await callback();
 
-    this.setState(
-      { goods },
-    );
+    this.setState({ goods });
   };
 
   render() {
