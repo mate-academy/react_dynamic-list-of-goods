@@ -4,7 +4,11 @@ import './App.scss';
 
 import * as goodsAPI from './api/goods';
 
-export class App extends React.Component {
+interface State {
+  goods: Good[];
+}
+
+export class App extends React.Component<{}, State> {
   state = {
     goods: [],
   };
