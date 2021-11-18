@@ -1,1 +1,40 @@
-// styles go here
+body {
+  background-color: #cf6e86;
+  font-family: "Lora", serif;
+}
+
+.App {
+  width: 500px;
+  height: 500px;
+  margin: 32px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.App__title {
+  text-align: center;
+  color: #221745;
+}
+
+.buttons-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f1f1;
+  height: 40px;
+  padding: 10px;
+
+  &__button {
+    height: 40px;
+    border-radius: 8px;
+    background-color: #5b7dc8;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: color 0.3 ease-in-out;
+
+    &:hover {
+      background-color: #7562cb;
+    }
+  }
+}
