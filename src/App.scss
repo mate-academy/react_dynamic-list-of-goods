@@ -1,1 +1,17 @@
-// styles go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max-content;
+  margin: 0 auto;
+
+  &__title {
+    text-align: center;
+  }
+}
+
+.container {
+  display: flex;
+  margin: 15px 0 10px;
+  gap: 10px;
+}
