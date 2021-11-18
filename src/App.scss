@@ -1,1 +1,36 @@
-// styles go here
+body {
+  background: lighten(#000, 70%);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.goods {
+  width: 600px;
+  background: lighten(#000, 30%);
+  border-radius: 10px;
+  &__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    background-color: darken(aqua, 10%);
+    list-style-type: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+}
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  width: 150px;
+  padding: 10px;
+  background: darken(#00acdc, 15%);
+  color: whitesmoke;
+  cursor: pointer;
+
+  &--red {
+    background: darkred;
+  }
+}
