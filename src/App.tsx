@@ -1,12 +1,37 @@
 import React from 'react';
 import './App.scss';
+import { Good, CallbackType } from './types/Types';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { GoodsList } from './components/GoodsList';
 
-const App: React.FC = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+interface State {
+  goods: Good[],
+}
+
+class App extends React.Component<{}, State> {
+  state: State = {
+    goods: [],
+  };
+
+  renderHandler = async (callback: CallbackType) => {
+    const newGoods = await callback();
+
+    this.setState({
+      goods: newGoods,
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <h1>Dynamic list of Goods</h1>
+        <GoodsList
+          goodsToRender={this.state.goods}
+          onRender={this.renderHandler}
+        />
+      </div>
+    );
+  }
+}
 
 export default App;
