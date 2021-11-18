@@ -20,16 +20,13 @@ export async function getAll(): Promise<Good[]> {
 export async function getFiveFirstGood(): Promise<Good[]> {
   const allGoods = await request(API_URL);
 
-  const goods = [...allGoods]
+  return [...allGoods]
     .sort((a: Good, b: Good): number => a.name.localeCompare(b.name))
     .slice(0, 5);
-
-  return goods;
 }
 
 export async function getRedGoods(): Promise<Good[]> {
   const allGoods = await request(API_URL);
-  const redGoods = allGoods.filter(good => good.color === 'red');
 
-  return redGoods;
+  return allGoods.filter(good => good.color === 'red');
 }
