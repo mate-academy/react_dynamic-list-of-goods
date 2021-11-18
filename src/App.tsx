@@ -12,49 +12,52 @@ export interface State {
 export class App extends React.Component {
   state = {
     goods: [],
-  }
+  };
 
   render() {
     return (
-      <div className="container" >
+      <div className="container">
         Dynamic list of goods
         <div>
-        <button
-        className="button"
-          type="button"
-          onClick={async () => {
-            const goods = await getAll();
-            this.setState({ goods: goods });
-          }}
-        >
-          show all
-        </button>
+          <button
+            className="button"
+            type="button"
+            onClick={async () => {
+              const goods = await getAll();
 
-        <button
-        className="button"
-          type="button"
-          onClick={async () => {
-            const goods = await get5First();
-            this.setState({ goods: goods });
-          }}
-        >
-          show first 5
-        </button>
+              this.setState({ goods });
+            }}
+          >
+            show all
+          </button>
 
-        <button
-        className="button"
-          type="button"
-          onClick={async () => {
-            const goods = await getRed();
-            this.setState({ goods: goods });
-          }}
-        >
-          show red ones
-        </button>
+          <button
+            className="button"
+            type="button"
+            onClick={async () => {
+              const goods = await get5First();
+
+              this.setState({ goods });
+            }}
+          >
+            show first 5
+          </button>
+
+          <button
+            className="button"
+            type="button"
+            onClick={async () => {
+              const goods = await getRed();
+
+              this.setState({ goods });
+            }}
+          >
+            show red ones
+          </button>
         </div>
-        <GoodsList goods={this.state.goods}/>
+        <GoodsList goods={this.state.goods} />
       </div>
-    )
+    );
   }
 }
 
