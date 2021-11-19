@@ -12,8 +12,7 @@ type Callback = () => Promise<Good[]>;
 
 class App extends React.Component<{}, State> {
   state = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    goods: [] as any[],
+    goods: [],
   };
 
   handlerGoods = async (callback: Callback) => {
