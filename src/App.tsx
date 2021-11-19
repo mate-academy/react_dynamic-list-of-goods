@@ -14,6 +14,12 @@ export class App extends React.Component {
     goods: [],
   };
 
+  handleClick = async (callback: () => Promise<Good[]>) => {
+    const goods = await callback();
+
+    this.setState({ goods })
+  }
+
   render() {
     return (
       <div className="container">
@@ -22,11 +28,7 @@ export class App extends React.Component {
           <button
             className="button"
             type="button"
-            onClick={async () => {
-              const goods = await getAll();
-
-              this.setState({ goods });
-            }}
+            onClick={() => this.handleClick(getAll)}
           >
             show all
           </button>
@@ -34,11 +36,7 @@ export class App extends React.Component {
           <button
             className="button"
             type="button"
-            onClick={async () => {
-              const goods = await get5First();
-
-              this.setState({ goods });
-            }}
+            onClick={() => this.handleClick(get5First)}
           >
             show first 5
           </button>
@@ -46,11 +44,7 @@ export class App extends React.Component {
           <button
             className="button"
             type="button"
-            onClick={async () => {
-              const goods = await getRed();
-
-              this.setState({ goods });
-            }}
+            onClick={() => this.handleClick(getRed)}
           >
             show red ones
           </button>
