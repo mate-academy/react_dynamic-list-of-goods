@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { getAll, get5First, getRedGoods } from './api/goods';
+import GoodsList from './components/GoodsList';
 
 const App: React.FC = () => {
-  const [data, setData] = useState<Good[]>();
+  const [data, setData] = useState<Good[] | undefined>();
   const getGoods = async (type: () => Promise<Good[]>) => {
     const goods = await type();
 
@@ -39,9 +40,7 @@ const App: React.FC = () => {
       >
         Get red only
       </button>
-      {data?.map(({ name, color, id }) => (
-        <h2 style={{ color }} key={id}>{name}</h2>
-      ))}
+      <GoodsList data={data} />
     </div>
   );
 };
