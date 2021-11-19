@@ -1,5 +1,4 @@
 import React from 'react';
-import cn from 'classnames';
 
 type Props = {
   goods: Good[];
@@ -7,11 +6,11 @@ type Props = {
 
 export const GoodsList: React.FC<Props> = ({ goods }) => {
   return (
-    <ul className={cn('goods__list')}>
+    <ul className="goods__list">
       {goods.map((good: Good) => (
         <li
           key={good.id}
-          className={cn('goods__list-item')}
+          className="goods__list-item"
           style={{ color: good.color }}
         >
           {good.name}

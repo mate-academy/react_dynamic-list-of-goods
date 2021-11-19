@@ -5,21 +5,14 @@ export function getAll(): Promise<Good[]> {
   return fetch(API_URL).then((response) => response.json());
 }
 
-export const get5First = (): Promise<Good[]> => {
-  return fetch(API_URL)
-    .then((response) => response.json())
-    .then((goods) => {
-      const sortedGoods = goods.sort((fGood: Good, sGood: Good) => (
-        fGood.name.localeCompare(sGood.name)));
-
-      return sortedGoods.slice(0, 5);
-    });
-};
+export const get5First = (): Promise<Good[]> => getAll().then((goods) => {
+  return goods
+    .sort((fGood: Good, sGood: Good) => fGood.name.localeCompare(sGood.name))
+    .slice(0, 5);
+});
 
 export const getRedGoods = (): Promise<Good[]> => {
-  return fetch(API_URL)
-    .then((response) => response.json())
-    .then((goods) => {
-      return goods.filter((good:Good) => good.color === 'red');
-    });
+  return getAll().then((goods) => {
+    return goods.filter((good: Good) => good.color === 'red');
+  });
 };
