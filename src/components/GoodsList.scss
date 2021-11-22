@@ -1,0 +1,14 @@
+.list {
+  list-style: none;
+
+  &__item {
+    padding: 10px;
+    border-bottom: 1px solid lightblue;
+  }
+
+  &__text {
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+}
