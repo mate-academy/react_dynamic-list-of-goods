@@ -13,8 +13,8 @@ export class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  loadGoods = async (callback: Promise<Good[]>) => {
-    const goods = await callback;
+  loadGoods = async (loadedGoods: Promise<Good[]>) => {
+    const goods = await loadedGoods;
 
     this.setState({ goods });
   };
