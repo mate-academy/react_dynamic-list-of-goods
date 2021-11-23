@@ -9,7 +9,9 @@ export function getAll(): Promise<Good[]> {
 export const get5First = async () => {
   const firstFiveGoods = await fetch(API_URL).then(response => response.json());
 
-  return firstFiveGoods.slice(0, 5);
+  return firstFiveGoods
+    .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
+    .slice(0, 5);
 };
 
 export const getRedGoods = async () => {
