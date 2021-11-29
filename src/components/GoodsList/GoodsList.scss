@@ -1,0 +1,8 @@
+.GoodsList {
+  &__item {
+    &::before {
+      content: '📦';
+      margin-right: 4px;
+    }
+  }
+}

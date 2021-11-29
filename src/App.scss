@@ -1,1 +1,54 @@
-// styles go here
+.App {
+  background-color: #efefef;
+
+  font-family: Arial, Helvetica, sans-serif;
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    overflow: hidden;
+  }
+
+  &__button {
+    height: 80px;
+    width: 80px;
+    border: 0;
+
+    background-color: rgb(36, 59, 122);
+    color: rgb(207, 207, 207);
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(56, 88, 175);
+    }
+  }
+
+  &__goods {
+    position: relative;
+
+    width: 400px;
+    min-height: 400px;
+    padding: 40px;
+    border-radius: 12px;
+
+    background-color: #ff6b22;
+  }
+
+  &__loading-error {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+  }
+}
