@@ -7,7 +7,6 @@ type Props = {
 
 export class GoodsList extends React.Component<Props> {
   state = {
-
   };
 
   render() {

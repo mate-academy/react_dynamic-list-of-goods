@@ -7,8 +7,7 @@ export function getAll(): Promise<Good[]> {
 }
 
 export const get5First = () => {
-  return fetch(API_URL)
-    .then(response => response.json())
+  return getAll()
     .then(result => (
       result.sort((a: Good, b: Good) => a.name.localeCompare(b.name))
         .slice(0, 5)));
