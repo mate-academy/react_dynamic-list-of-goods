@@ -1,1 +1,39 @@
-// styles go here
+body {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  background-color: antiquewhite;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(25%);
+  padding-bottom: 30px;
+  width: 800px;
+  border: 1px dotted black;
+  border-radius: 20px;
+}
+
+button {
+  height: 30px;
+  width: 150px;
+  padding: 5px;
+  border-radius: 20px;
+  background-color: darkorange;
+
+  &:hover {
+    cursor: pointer;
+    background-color: salmon;
+    font-weight: bold;
+  }
+}
+
+h1 {
+  border-bottom: 2px solid black;
+}
+
+.Goods__List {
+  display: flex;
+  padding-top: 20px;
+}
