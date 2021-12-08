@@ -14,7 +14,6 @@ export const get5First = () => {
 };
 
 export const getRedGoods = () => {
-  return fetch(API_URL)
-    .then(response => response.json())
+  return getAll()
     .then(result => result.filter((item: Good) => item.color === 'red'));
 };
