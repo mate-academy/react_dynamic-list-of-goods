@@ -31,7 +31,7 @@ class App extends React.Component<{}, State> {
 
       this.setState({ goods: [...goods], isLoading: false });
     } catch (error) {
-      this.setState({ errorMessage: 'Goods were not fount', isLoading: false });
+      this.setState({ errorMessage: 'Goods were not found', isLoading: false });
     }
   };
 
