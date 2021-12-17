@@ -36,6 +36,7 @@ class App extends React.Component<{}, State> {
     } catch {
       this.setState({
         hasLoadingError: true,
+        isLoading: false,
       });
     }
   };
