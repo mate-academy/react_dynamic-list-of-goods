@@ -114,14 +114,18 @@ export class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          className="button is-primary"
+          className={classNames('button', 'is-primary', {
+            'is-loading': isLoading,
+          })}
           onClick={this.load5FirstGoods}
         >
           Load 5 first goods
         </button>
         <button
           type="button"
-          className="button is-danger"
+          className={classNames('button', 'is-danger', {
+            'is-loading': isLoading,
+          })}
           onClick={this.loadRedGoods}
         >
           Load red goods
