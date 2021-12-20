@@ -1,5 +1,5 @@
 import React from 'react';
-import './LoadingError.css';
+import './LoadingError.scss';
 
 export const LoadingError: React.FC = () => (
   <div className="notification">
