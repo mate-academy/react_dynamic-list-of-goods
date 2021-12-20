@@ -22,21 +22,16 @@ class App extends Component<{}, State> {
     error: false,
   };
 
-  // async componentDidMount() {
-  //   await this.loadGoods(getAll);
-  // }
-
   displayList = async () => {
     this.setState(state => ({
       isStarted: !state.isStarted,
-      loading: true,
     }));
 
     await this.loadGoods(getAll);
   };
 
   loadGoods = async (goodsFromServer: () => Promise<Good[]>) => {
-    this.setState({ error: false });
+    this.setState({ error: false, loading: true });
     try {
       const goods = await goodsFromServer();
 
