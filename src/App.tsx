@@ -54,13 +54,12 @@ class App extends React.Component<{}, State> {
           <button type="button" onClick={() => this.loadGoods(getRedGoods)}>
             Load red goods
           </button>
-          {console.log(this.state.goods)}
         </div>
         <div className="App__content">
           {isLoading && (
             <div className="App__content-loading">Loading... Please, wait</div>
           )}
-          {goods.length !== 0 && (
+          {!!goods.length && (
             <GoodsList goods={this.state.goods} />
           )}
           {loadingErr && (
