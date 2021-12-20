@@ -9,13 +9,13 @@ import { Loader } from './components/Loader/Loader';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 type State = {
-  goods: Good[] | [];
+  goods: Good[];
   isLoading: boolean;
   hasLoadingError: boolean;
 };
 
 class App extends React.Component<{}, State> {
-  state:State = {
+  state: State = {
     goods: [],
     isLoading: false,
     hasLoadingError: false,
@@ -70,8 +70,8 @@ class App extends React.Component<{}, State> {
         >
           Load red goods
         </button>
-        {hasLoadingError && <LoadingError /> }
-        {isLoading ? <Loader /> : <GoodsList goods={goods} />}
+        {hasLoadingError && <LoadingError />}
+        {!hasLoadingError && (isLoading ? <Loader /> : <GoodsList goods={goods} />)}
       </div>
     );
   }
