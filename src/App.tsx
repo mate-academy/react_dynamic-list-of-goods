@@ -7,22 +7,34 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 type State = {
   goods: Good[],
   listIsVisible: boolean,
+  isLoading: boolean,
+  errorMessage: string,
 };
 
 class App extends React.Component<{}, State> {
   state = {
     goods: [],
     listIsVisible: false,
+    isLoading: false,
+    errorMessage: '',
   };
 
   loadGoodsFromServer = async (getServerData: () => Promise<Good[]>) => {
-    const goods = await getServerData();
+    this.setState({ goods: [], listIsVisible: true, isLoading: true });
 
-    this.setState({ goods, listIsVisible: true });
+    try {
+      const goods = await getServerData();
+
+      this.setState({ goods: [...goods], isLoading: false });
+    } catch (error) {
+      this.setState({ errorMessage: 'No goods were found...', isLoading: false });
+    }
   };
 
   render() {
-    const { goods, listIsVisible } = this.state;
+    const {
+      goods, listIsVisible, isLoading, errorMessage,
+    } = this.state;
 
     return (
       <>
@@ -36,7 +48,8 @@ class App extends React.Component<{}, State> {
         <button type="submit" onClick={() => this.loadGoodsFromServer(getRedGoods)}>
           Load red goods
         </button>
-        {listIsVisible && <GoodsList goods={goods} />}
+        {listIsVisible && <GoodsList goods={goods} isLoading={isLoading} />}
+        {errorMessage && <p>{errorMessage}</p>}
       </>
     );
   }

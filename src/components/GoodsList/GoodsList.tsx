@@ -2,18 +2,22 @@ import React from 'react';
 
 type Props = {
   goods: Good[],
+  isLoading: boolean,
 };
 
-export const GoodsList: React.FC<Props> = ({ goods }) => {
+export const GoodsList: React.FC<Props> = ({ goods, isLoading }) => {
   return (
-    <ul>
-      {goods.map(good => {
-        return (
-          <li key={good.id} style={{ color: `${good.color}` }}>
-            {good.name}
-          </li>
-        );
-      })}
-    </ul>
+    <>
+      {isLoading && <p>Loading in progres...</p>}
+      <ul>
+        {goods.map(good => {
+          return (
+            <li key={good.id} style={{ color: `${good.color}` }}>
+              {good.name}
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 };
