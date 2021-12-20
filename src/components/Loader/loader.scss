@@ -1,0 +1,33 @@
+.bar {
+  width: 10px;
+  height: 70px;
+  background: #fff;
+  display: inline-block;
+  transform-origin: bottom center;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  animation: loader 1.2s linear infinite;
+}
+
+
+@for $i from 1 through 8 {
+  .bar#{$i} {
+    animation-delay: $i * 0.1s; 
+  }
+}
+
+@keyframes loader {
+  0% {
+    transform: scaleY(0.1);
+  }
+
+  50% {
+    transform: scaleY(1);
+    background: yellowgreen;
+  }
+  
+  100% {
+    transform: scaleY(0.1);
+    background: transparent;
+  }
+}
