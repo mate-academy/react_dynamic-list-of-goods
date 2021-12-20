@@ -3,14 +3,13 @@ import './App.scss';
 import 'bulma';
 import classNames from 'classnames';
 
-import * as goodsAPI from './api/goods';
+import { getData } from './api/goods';
 import { GoodsList } from './components/GoodsList';
 import { LoadingError } from './components/LoadingError';
 
 interface State {
   goods: Good[];
   isLoading: boolean;
-  isInitialized: boolean;
   hasLoadingError: boolean;
 }
 
@@ -18,7 +17,6 @@ export class App extends React.Component<{}, State> {
   state = {
     goods: [],
     isLoading: false,
-    isInitialized: false,
     hasLoadingError: false,
   };
 
@@ -29,12 +27,11 @@ export class App extends React.Component<{}, State> {
     });
 
     try {
-      const goods = await goodsAPI.getAll();
+      const goods = await getData();
 
       this.setState({
         goods,
         isLoading: false,
-        isInitialized: true,
       });
     } catch (error) {
       this.setState({
@@ -51,14 +48,15 @@ export class App extends React.Component<{}, State> {
     });
 
     try {
-      const allGoods: Good[] = await goodsAPI.get5First();
+      let allGoods: Good[] = await getData();
 
-      allGoods.sort((a, b) => a.name.localeCompare(b.name));
+      allGoods = allGoods
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .slice(0, 5);
 
       this.setState({
-        goods: allGoods.slice(0, 5),
+        goods: allGoods,
         isLoading: false,
-        isInitialized: true,
       });
     } catch (error) {
       this.setState({
@@ -75,14 +73,13 @@ export class App extends React.Component<{}, State> {
     });
 
     try {
-      const allGoods: Good[] = await goodsAPI.getRedGoods();
+      const allGoods: Good[] = await getData();
 
       this.setState({
         goods: allGoods.filter(
           good => good.color === 'red',
         ),
         isLoading: false,
-        isInitialized: true,
       });
     } catch (error) {
       this.setState({
@@ -96,7 +93,6 @@ export class App extends React.Component<{}, State> {
     const {
       goods,
       isLoading,
-      isInitialized,
       hasLoadingError,
     } = this.state;
 
@@ -133,7 +129,7 @@ export class App extends React.Component<{}, State> {
           Load red goods
         </button>
 
-        {isInitialized && (
+        {!isLoading && !hasLoadingError && (
           <GoodsList goods={goods} />
         )}
 
