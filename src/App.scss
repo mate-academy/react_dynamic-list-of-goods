@@ -1,1 +1,31 @@
-// styles go here
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.list {
+  &__button {
+    margin-right: 20px;
+    width: 140px;
+    height: 40px;
+
+    border-style: none;
+    border-radius: 2px;
+    transition: transform 0.5ms;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  &__button--all {
+    background-color: rgb(169, 221, 185);
+  }
+
+  &__button--5first {
+    background-color: rgb(200, 196, 247);
+  }
+
+  &__button--red {
+    background-color: rgb(250, 182, 182);
+  }
+}
