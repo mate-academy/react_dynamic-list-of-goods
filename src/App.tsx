@@ -16,23 +16,11 @@ class App extends React.Component<{}, State> {
     isLoading: false,
   };
 
-  loadData = async (getGoods: () => Promise<Good[]>) => {
-    this.setState({
-      isLoading: true,
-    });
-
-    try {
-      const goods = await getGoods();
-
-      this.setState({
-        goods,
-        isLoading: false,
+  loadData = (method: { (): Promise<Good[]>; }) => {
+    method()
+      .then(goods => {
+        this.setState({ goods });
       });
-    } catch {
-      this.setState({
-        isLoading: false,
-      });
-    }
   };
 
   render() {
