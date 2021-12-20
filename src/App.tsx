@@ -53,6 +53,8 @@ export class App extends React.Component<{}, State> {
     try {
       const allGoods: Good[] = await goodsAPI.get5First();
 
+      allGoods.sort((a, b) => a.name.localeCompare(b.name));
+
       this.setState({
         goods: allGoods.slice(0, 5),
         isLoading: false,
