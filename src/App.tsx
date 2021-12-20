@@ -18,13 +18,13 @@ class App extends React.PureComponent<{}, State> {
     loadingError: false,
   };
 
-  displayGoods = async (selected: () => Promise<Good[]>) => {
+  getGoods = async (fetchCallback: () => Promise<Good[]>) => {
     this.setState({
       loading: true,
     });
 
     try {
-      const goods = await selected();
+      const goods = await fetchCallback();
 
       this.setState({ goods });
     } catch (error) {
@@ -45,7 +45,7 @@ class App extends React.PureComponent<{}, State> {
             type="button"
             className="app__button"
             onClick={() => (
-              this.displayGoods(goodsAPI.getAll)
+              this.getGoods(goodsAPI.getAll)
             )}
           >
             Load All goods
@@ -54,7 +54,7 @@ class App extends React.PureComponent<{}, State> {
             type="button"
             className="app__button"
             onClick={() => (
-              this.displayGoods(goodsAPI.get5First)
+              this.getGoods(goodsAPI.get5First)
             )}
           >
             Load 5 first goods
@@ -63,7 +63,7 @@ class App extends React.PureComponent<{}, State> {
             type="button"
             className="app__button"
             onClick={() => (
-              this.displayGoods(goodsAPI.getRedGoods)
+              this.getGoods(goodsAPI.getRedGoods)
             )}
           >
             Load red goods
