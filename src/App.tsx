@@ -15,9 +15,13 @@ export class App extends React.Component<{}, State> {
   };
 
   getData = async (func: () => Promise<Good[]>) => {
-    const goods = await func();
+    try {
+      const goods = await func();
 
-    this.setState({ products: goods });
+      this.setState({ products: goods });
+    } catch (error) {
+      throw new Error(`Error - ${error}`);
+    }
   };
 
   render() {
