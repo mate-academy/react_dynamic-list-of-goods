@@ -12,6 +12,37 @@ export class App extends React.Component<{}, State> {
     goods: [],
   };
 
+  getGoodsHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const { name } = event.target as HTMLButtonElement;
+
+    switch (name) {
+      case 'getAll':
+        getAll()
+          .then(goods => (
+            this.setState({ goods })
+          ));
+        break;
+
+      case 'get5First':
+        get5First()
+          .then(goods => (
+            this.setState({ goods })
+          ));
+        break;
+
+      case 'getRedGoods':
+        getRedGoods()
+          .then(goods => (
+            this.setState({ goods })
+          ));
+        break;
+
+      default: this.setState({ goods: [] });
+    }
+  };
+
+  clearHandler = () => this.setState({ goods: [] });
+
   render() {
     return (
       <>
@@ -21,30 +52,24 @@ export class App extends React.Component<{}, State> {
             <button
               className="container__button"
               type="button"
-              onClick={() => getAll()
-                .then(goods => (
-                  this.setState({ goods })
-                ))}
+              name="getAll"
+              onClick={this.getGoodsHandler}
             >
               Load All Goods
             </button>
             <button
               className="container__button"
               type="button"
-              onClick={() => get5First()
-                .then(goods => (
-                  this.setState({ goods })
-                ))}
+              name="get5First"
+              onClick={this.getGoodsHandler}
             >
               Load 5 First Goods
             </button>
             <button
               className="container__button"
               type="button"
-              onClick={() => getRedGoods()
-                .then(goods => (
-                  this.setState({ goods })
-                ))}
+              name="getRedGoods"
+              onClick={this.getGoodsHandler}
             >
               Load Red Goods
             </button>
@@ -57,7 +82,7 @@ export class App extends React.Component<{}, State> {
           <button
             className="container__button"
             type="button"
-            onClick={() => window.location.reload()}
+            onClick={this.clearHandler}
           >
             Refresh
           </button>
