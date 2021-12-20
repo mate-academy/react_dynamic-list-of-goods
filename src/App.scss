@@ -10,15 +10,29 @@ body {
 }
 
 .App {
-  width: 400px;
+  width: 310px;
+
+  &__head {
+    padding: auto;
+  }
+
+  &__start {
+    display: inline-block;
+    margin-bottom: 20px;
+  }
 
   &__title {
-    text-align: center;
+    display: inline-block;
     color: $color-border;
+    margin: 20px 40px;
   }
 
   &__hiden {
     opacity: 0;
+  }
+
+  &__cont {
+    padding-left: 36px;
   }
 
   &__list {
@@ -28,7 +42,7 @@ body {
   &__item {
     border: 1px solid $color-border;
     margin-top: -1px;
-    padding: 12px;
+    padding: 8px;
     font-size: 18px;
   }
 
