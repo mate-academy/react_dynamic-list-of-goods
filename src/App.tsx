@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-state */
 import React from 'react';
 import './App.scss';
 
@@ -6,21 +7,35 @@ import * as goodsAPI from './api/goods';
 
 type State = {
   goods: Good[];
+  loading: boolean;
+  loadingError: boolean;
 };
 
 class App extends React.PureComponent<{}, State> {
   state: State = {
     goods: [],
+    loading: false,
+    loadingError: false,
   };
 
-  displayGoods = async (selected : () => Promise<Good[]>) => {
-    const goods = await selected();
+  displayGoods = async (selected: () => Promise<Good[]>) => {
+    this.setState({
+      loading: true,
+    });
 
-    this.setState({ goods });
+    try {
+      const goods = await selected();
+
+      this.setState({ goods });
+    } catch (error) {
+      this.setState({ loadingError: true });
+    } finally {
+      this.setState({ loading: false });
+    }
   };
 
   render() {
-    const { goods } = this.state;
+    const { goods, loading, loadingError } = this.state;
 
     return (
       <div className="app">
@@ -54,7 +69,17 @@ class App extends React.PureComponent<{}, State> {
             Load red goods
           </button>
         </div>
-        <Goodslist goods={goods} />
+        <div className="app__content">
+          {loading && (
+            <div>Loading...</div>
+          )}
+          {goods && (
+            <Goodslist goods={goods} />
+          )}
+          {loadingError && (
+            <div>Error: 501 (Cant download files from server)</div>
+          )}
+        </div>
       </div>
     );
   }

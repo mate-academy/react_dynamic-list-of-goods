@@ -1,9 +1,23 @@
 // eslint-disable-next-line
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
-export function getAll(): Promise<Good[]> {
+function wait(delay: number): Promise<typeof delay> {
+  return new Promise(resolve => {
+    setTimeout(resolve, delay);
+  });
+}
+
+export async function getAll(): Promise<Good[]> {
+  await wait(500);
+
   return fetch(API_URL)
-    .then(response => response.json());
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`${response.status} - ${response.statusText}`);
+      }
+
+      return response.json();
+    });
 }
 
 export const get5First = (): Promise<Good[]> => {
