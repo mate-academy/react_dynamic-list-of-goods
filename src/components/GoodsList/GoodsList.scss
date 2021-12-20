@@ -1,0 +1,10 @@
+.goodsList {
+  list-style: none;
+  padding: 5px;
+
+  &__good {
+    font-size: 30px;
+    text-shadow: #555 2px 2px 5px;
+    margin: 5px;
+  }
+}
