@@ -1,1 +1,31 @@
-// styles go here
+.App {
+  font-family: Roboto, sans-serif;
+  width: 600px;
+  margin: 80px auto 0;
+  text-align: center;
+
+  &__title {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  &__button {
+    border: none;
+    outline: none;
+    border-radius: 16px;
+    width: 160px;
+    height: 40px;
+    background-color: #d9d9d9;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #f19292;
+    }
+  }
+}
