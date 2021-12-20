@@ -8,7 +8,7 @@ type Props = {
 export const GoodsList: React.FC<Props> = ({ goods, isLoading }) => {
   return (
     <>
-      {isLoading && <p>Loading in progres...</p>}
+      {isLoading && <p>Loading in progress...</p>}
       <ul>
         {goods.map(good => {
           return (
