@@ -1,1 +1,30 @@
-// styles go here
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: azure;
+}
+
+.app {
+  width: 800px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.button {
+  margin: 10px;
+  height: 30px;
+
+  border-radius: 10px;
+  border: none;
+  background-color: rgb(236, 182, 119);
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(243, 154, 52);
+    color: white;
+    box-shadow: 5px 5px 10px rgb(145, 144, 144);
+  }
+}
