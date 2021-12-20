@@ -1,1 +1,29 @@
-// styles go here
+body {
+  background-color: rgb(250, 250, 250);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    text-transform: uppercase;
+  }
+
+  &__button {
+    height: 35px;
+    width: 150px;
+    padding: 5px;
+    margin: 10px 20px;
+    background-color: rgb(113, 134, 99);
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scale(1.2);
+      font-weight: bold;
+      background-color: rgb(100, 151, 96);
+      cursor: pointer;
+    }
+  }
+}
