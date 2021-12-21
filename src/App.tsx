@@ -66,8 +66,8 @@ class App extends React.Component<{}, State> {
           </button>
         </div>
         {isLoading && <span>Loading...</span>}
-        {hasLoadingError && (!isLoading && <span>Loading Error</span>)}
-        {goods.length > 0 && (!isLoading && <GoodsList goods={goods} />)}
+        {(hasLoadingError && !isLoading) && <span>Loading Error</span>}
+        {(goods.length > 0 && !isLoading) && <GoodsList goods={goods} />}
       </div>
     );
   }
