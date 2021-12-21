@@ -1,1 +1,18 @@
-// styles go here
+body {
+  background: #cddc39;
+  font-family: "Arimo", sans-serif;
+}
+
+.title {
+  font-size: 60px;
+}
+
+.button {
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 20px 15px;
+  background: #000;
+  color: #fff;
+  border-radius: 3px 3px 0px 0px;
+  box-shadow: 0 0.5rem 0.8rem #00000080;
+}
