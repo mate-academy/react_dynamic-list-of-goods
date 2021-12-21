@@ -6,38 +6,34 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 type State = {
   goods: Good[],
-  listIsVisible: boolean,
   isLoading: boolean,
   errorMessage: string,
-  hasError: boolean,
   loadingMessage: string,
 };
 
 class App extends React.Component<{}, State> {
   state = {
     goods: [],
-    listIsVisible: false,
     isLoading: false,
     errorMessage: '',
-    hasError: false,
     loadingMessage: 'Loading in progress',
   };
 
   loadGoodsFromServer = async (getServerData: () => Promise<Good[]>) => {
-    this.setState({ goods: [], isLoading: true });
+    this.setState({ goods: [], isLoading: true, errorMessage: '' });
 
     try {
       const goods = await getServerData();
 
-      this.setState({ goods: [...goods], isLoading: false, listIsVisible: true });
+      this.setState({ goods: [...goods], isLoading: false });
     } catch (error) {
-      this.setState({ errorMessage: 'No goods were found...', isLoading: false, hasError: true });
+      this.setState({ errorMessage: 'No goods were found...', isLoading: false });
     }
   };
 
   render() {
     const {
-      goods, listIsVisible, isLoading, errorMessage, hasError, loadingMessage,
+      goods, isLoading, errorMessage, loadingMessage,
     } = this.state;
 
     return (
@@ -53,10 +49,10 @@ class App extends React.Component<{}, State> {
           Load red goods
         </button>
         <br />
-        {!hasError && (isLoading
+        {!errorMessage && (isLoading
           ? loadingMessage
-          : listIsVisible && <GoodsList goods={goods} />)}
-        {hasError && (errorMessage && <p>{errorMessage}</p>)}
+          : <GoodsList goods={goods} />)}
+        {errorMessage && <p>{errorMessage}</p>}
       </>
     );
   }
