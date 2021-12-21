@@ -8,9 +8,9 @@ interface Props {
 export const GoodsList: React.FC<Props> = ({ goods }) => {
   return (
     <ul className="GoodsList">
-      {goods.map(item => (
-        <li key={item.id} style={{ color: `${item.color}` }}>
-          {item.name}
+      {goods.map(({ id, color, name }) => (
+        <li key={id} style={{ color: `${color}` }}>
+          {name}
         </li>
       ))}
     </ul>
