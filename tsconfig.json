@@ -1,13 +1,6 @@
 {
-  "compilerOptions": {
-    "jsx": "react-jsx"
-  },
   "extends": "@mate-academy/students-ts-config",
   "include": [
     "src"
-  ],
-  "lib": [
-    "ES6",
-    "DOM"
   ]
 }
