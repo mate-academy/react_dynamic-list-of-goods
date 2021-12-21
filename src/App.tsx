@@ -18,12 +18,19 @@ class App extends React.Component<{}, State> {
   };
 
   setGoods = async (method: () => Promise<Good[]>) => {
-    this.setState({ loading: true });
+    this.setState({
+      loading: true,
+      hasLoadingError: false,
+    });
 
     try {
       const goods = await method();
 
-      this.setState({ goods });
+      this.setState({
+        goods,
+        loading: false,
+        hasLoadingError: false,
+      });
     } catch (error) {
       this.setState({
         hasLoadingError: true,
@@ -33,7 +40,11 @@ class App extends React.Component<{}, State> {
   };
 
   render() {
-    const { goods, loading, hasLoadingError } = this.state;
+    const {
+      goods,
+      loading,
+      hasLoadingError,
+    } = this.state;
 
     return (
       <div className="goods">
@@ -65,22 +76,22 @@ class App extends React.Component<{}, State> {
           </button>
         </div>
 
-        {goods.length > 0 && (
-          <GoodsList goods={goods} />
-        )}
-
-        <p>
-          {!goods.length && !loading && (
-            'Click to start! 🛒'
+        <>
+          {!hasLoadingError && (
+            loading
+              ? 'Loading... ⏳'
+              : <GoodsList goods={goods} />
           )}
-
-          {!goods.length && loading && (
-            'Loading... ⏳'
-          )}
-        </p>
+        </>
 
         {hasLoadingError && (
           'Sorry! Failed to load goods 😔'
+        )}
+
+        {!goods.length && !loading && (
+          <p>
+            Click to start! 🛒
+          </p>
         )}
       </div>
     );

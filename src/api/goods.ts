@@ -6,7 +6,7 @@ function wait(delay: number) {
 }
 
 export async function getAll(): Promise<Good[]> {
-  await wait(1000);
+  await wait(500);
 
   return fetch(API_URL)
     .then(response => response.json());
