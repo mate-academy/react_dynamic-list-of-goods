@@ -6,7 +6,7 @@ import { GoodsList } from './components/GoodsList/GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 type State = {
-  goods: Good[] | [];
+  goods: Good[];
   isLoading: boolean;
 };
 
@@ -16,11 +16,23 @@ class App extends React.Component<{}, State> {
     isLoading: false,
   };
 
-  loadData = (method: { (): Promise<Good[]>; }) => {
-    method()
-      .then(goods => {
-        this.setState({ goods });
+  loadData = async (getData: () => Promise<Good[]>) => {
+    this.setState({
+      isLoading: true,
+    });
+
+    try {
+      const goods = await getData();
+
+      this.setState({
+        goods,
+        isLoading: false,
       });
+    } catch {
+      this.setState({
+        isLoading: false,
+      });
+    }
   };
 
   render() {
