@@ -3,7 +3,7 @@ import './App.scss';
 import 'bulma';
 import classNames from 'classnames';
 
-import { getData } from './api/goods';
+import { getAllGoods, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList';
 import { LoadingError } from './components/LoadingError';
 
@@ -20,65 +20,17 @@ export class App extends React.Component<{}, State> {
     hasLoadingError: false,
   };
 
-  loadAllGoods = async () => {
+  loadData = async (getGoods: () => Promise<Good[]>) => {
     this.setState({
       isLoading: true,
       hasLoadingError: false,
     });
 
     try {
-      const goods = await getData();
+      const goods = await getGoods();
 
       this.setState({
         goods,
-        isLoading: false,
-      });
-    } catch (error) {
-      this.setState({
-        isLoading: false,
-        hasLoadingError: true,
-      });
-    }
-  };
-
-  load5FirstGoods = async () => {
-    this.setState({
-      isLoading: true,
-      hasLoadingError: false,
-    });
-
-    try {
-      let allGoods: Good[] = await getData();
-
-      allGoods = allGoods
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .slice(0, 5);
-
-      this.setState({
-        goods: allGoods,
-        isLoading: false,
-      });
-    } catch (error) {
-      this.setState({
-        isLoading: false,
-        hasLoadingError: true,
-      });
-    }
-  };
-
-  loadRedGoods = async () => {
-    this.setState({
-      isLoading: true,
-      hasLoadingError: false,
-    });
-
-    try {
-      const allGoods: Good[] = await getData();
-
-      this.setState({
-        goods: allGoods.filter(
-          good => good.color === 'red',
-        ),
         isLoading: false,
       });
     } catch (error) {
@@ -105,7 +57,7 @@ export class App extends React.Component<{}, State> {
           className={classNames('button', 'is-info', {
             'is-loading': isLoading,
           })}
-          onClick={this.loadAllGoods}
+          onClick={() => this.loadData(getAllGoods)}
         >
           Load all goods
         </button>
@@ -115,7 +67,7 @@ export class App extends React.Component<{}, State> {
           className={classNames('button', 'is-primary', {
             'is-loading': isLoading,
           })}
-          onClick={this.load5FirstGoods}
+          onClick={() => this.loadData(get5First)}
         >
           Load 5 first goods
         </button>
@@ -124,7 +76,7 @@ export class App extends React.Component<{}, State> {
           className={classNames('button', 'is-danger', {
             'is-loading': isLoading,
           })}
-          onClick={this.loadRedGoods}
+          onClick={() => this.loadData(getRedGoods)}
         >
           Load red goods
         </button>
