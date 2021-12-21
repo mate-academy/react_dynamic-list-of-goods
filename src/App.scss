@@ -1,1 +1,54 @@
-// styles go here
+$mainColor: #2d5ceb;
+$mainDarker: #1a49c1;
+$whiteColor: #fff;
+
+body,
+h1,
+p,
+ul,
+h2 {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+.app {
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 50px;
+  min-height: 100vh;
+  background-color: $whiteColor;
+
+  &__title {
+    margin-bottom: 30px;
+  }
+
+  &__buttons {
+    margin: 30px 0;
+  }
+
+  &__button {
+    margin-right: 20px;
+    padding: 16px 24px;
+    border: none;
+    background-color: $mainColor;
+
+    color: $whiteColor;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    transition: background-color 0.3s;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: $mainDarker;
+    }
+  }
+}
