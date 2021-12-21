@@ -1,1 +1,30 @@
 // styles go here
+.buttons {
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+
+  &__btn {
+    font-size: 26px;
+    background-color: rgb(126, 211, 100);
+    padding: 8px;
+    border-radius: 8px;
+  }
+}
+
+.loader {
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
+
+.goodsList {
+  &__list {
+
+    &--link {
+      font-size: 22px;
+      font-family: Arial, Helvetica, sans-serif;
+      list-style-type: none;
+    }
+  }
+}
