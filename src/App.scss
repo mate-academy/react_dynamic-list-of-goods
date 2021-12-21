@@ -1,1 +1,46 @@
-// styles go here
+$color-border: rgb(14, 136, 130);
+$color-bgd: rgb(218, 245, 240);
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+.App {
+  width: 310px;
+
+  &__head {
+    padding: auto;
+  }
+
+  &__title {
+    color: $color-border;
+    margin: 20px 40px 10px;
+  }
+  &__cont {
+    padding-left: 36px;
+  }
+
+  &__list {
+    list-style: none;
+  }
+
+  &__item {
+    border: 1px solid $color-border;
+    margin-top: -1px;
+    padding: 8px;
+    font-size: 18px;
+  }
+
+  &__btn {
+    padding: 4px;
+    border: 1px solid $color-border;
+    background-color: $color-bgd;
+    margin-left: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+}
