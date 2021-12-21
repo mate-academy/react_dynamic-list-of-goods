@@ -1,1 +1,79 @@
-// styles go here
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+}
+
+body {
+  margin: 0;
+}
+
+.App {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: rgb(255, 253, 253);
+
+  &__title {
+    padding: 20px;
+    font-size: 28px;
+    text-align: center;
+  }
+
+  &__wrapper {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__button {
+    width: 200px;
+    padding: 16px;
+    font-size: 18px;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+
+    &:hover {
+      box-shadow: 5px 5px 5px  rgb(112, 114, 114);
+    }
+
+    &--all {
+      background-color: rgb(164, 209, 178);
+      border: 1px solid rgb(213, 238, 214);
+    }
+
+    &--5first {
+      background-color: rgb(154, 231, 227);
+      border: 1px solid rgb(196, 240, 238);
+    }
+
+    &--red {
+      background-color: rgb(231, 156, 156);
+      border: 1px solid rgb(233, 196, 196);
+    }
+  }
+
+  &__goodsList {
+    padding: 20px 0;
+
+    &--loading {
+      width: 100px;
+      padding: 8px 16px;
+      color: rgb(255, 255, 255);
+      background-color: rgb(137, 137, 231);
+      border-radius: 8px;
+      border: 1px solid rgb(118, 118, 238);
+    }
+
+    &--error {
+      width: 160px;
+      padding: 8px 16px;
+      color: rgb(255, 255, 255);
+      background-color: rgb(241, 119, 89);
+      border-radius: 8px;
+      border: 1px solid rgb(241, 164, 145);
+    }
+  }
+}
