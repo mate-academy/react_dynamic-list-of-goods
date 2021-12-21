@@ -1,1 +1,42 @@
-// styles go here
+* {
+  box-sizing: border-box;
+}
+
+html,
+button {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+  margin: 0;
+  background-color: #ecedfd;
+}
+
+.goods {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    color: #271f55;
+  }
+
+  &__buttons {
+    display: flex;
+    margin: 20px 0;
+    gap: 40px;
+  }
+
+  &__button {
+    display: inline-block;
+    padding: 10px 30px;
+    background-color: #4b4ddb;
+    border: none;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #4345c5;
+    }
+  }
+}
