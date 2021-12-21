@@ -73,7 +73,7 @@ class App extends React.PureComponent<{}, State> {
           {loading && (
             <div>Loading...</div>
           )}
-          {goods && (
+          {goods.length !== 0 && (
             <Goodslist goods={goods} />
           )}
           {loadingError && (
