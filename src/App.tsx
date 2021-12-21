@@ -5,8 +5,7 @@ import { GoodsList } from './components/GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 type State = {
-  goods: Good[] | [],
-  isVisible: boolean,
+  goods: Good[],
   errorMessage: string,
   isLoading: boolean,
 };
@@ -14,7 +13,6 @@ type State = {
 class App extends React.Component<{}, State> {
   state = {
     goods: [],
-    isVisible: false,
     errorMessage: '',
     isLoading: false,
   };
@@ -23,7 +21,6 @@ class App extends React.Component<{}, State> {
     this.setState({
       goods: [],
       isLoading: true,
-      isVisible: true,
     });
 
     try {
@@ -40,7 +37,6 @@ class App extends React.Component<{}, State> {
       goods,
       errorMessage,
       isLoading,
-      isVisible,
     } = this.state;
 
     return (
@@ -49,7 +45,7 @@ class App extends React.Component<{}, State> {
           Dynamic list of Goods
         </h1>
 
-        {isVisible && <GoodsList goods={goods} isLoading={isLoading} />}
+        <GoodsList goods={goods} isLoading={isLoading} />
 
         <div className="app__buttons">
           <button
