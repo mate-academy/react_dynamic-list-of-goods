@@ -9,7 +9,6 @@ import { Loader } from './components/Loader';
 
 interface State {
   goodsList: Good[];
-  isStarted: boolean;
   loading: boolean;
   error: boolean;
 }
@@ -17,17 +16,8 @@ interface State {
 class App extends Component<{}, State> {
   state: State = {
     goodsList: [],
-    isStarted: false,
     loading: false,
     error: false,
-  };
-
-  displayList = async () => {
-    this.setState(state => ({
-      isStarted: !state.isStarted,
-    }));
-
-    await this.loadGoods(getAll);
   };
 
   loadGoods = async (goodsFromServer: () => Promise<Good[]>) => {
@@ -37,48 +27,39 @@ class App extends Component<{}, State> {
 
       this.setState({ goodsList: goods, error: false, loading: false });
     } catch {
-      this.setState({ error: true });
+      this.setState({ error: true, loading: false });
     }
   };
 
   render() {
     const {
-      isStarted, goodsList, error, loading,
+      goodsList, error, loading,
     } = this.state;
 
     return (
       <div className="App">
-        <div className="App__head">
-          <h1 className="App__title">Goods</h1>
-          <button
-            type="button"
-            className={`App__btn App__start ${isStarted && !error && 'App__hiden'}`}
-            onClick={this.displayList}
-          >
-            Start
-          </button>
-        </div>
+        <h1 className="App__title">Goods</h1>
         <div className="App__cont">
           <button
             type="button"
-            className={`App__btn ${!isStarted && 'App__hiden'}`}
+            className="App__btn"
+            onClick={() => this.loadGoods(getAll)}
+          >
+            Get all Goods
+          </button>
+          <button
+            type="button"
+            className="App__btn"
             onClick={() => this.loadGoods(get5First)}
           >
             Get First 5
           </button>
           <button
             type="button"
-            className={`App__btn ${!isStarted && 'App__hiden'}`}
+            className="App__btn"
             onClick={() => this.loadGoods(getRedGoods)}
           >
             Get only Red
-          </button>
-          <button
-            type="button"
-            className={`App__btn ${!isStarted && 'App__hiden'}`}
-            onClick={() => this.loadGoods(getAll)}
-          >
-            Get all Goods
           </button>
         </div>
         <ul className="App__list">

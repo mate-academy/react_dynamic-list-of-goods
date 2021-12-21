@@ -1,5 +1,5 @@
 $color-border: rgb(14, 136, 130);
-$color-bgd: rgb(233, 245, 243);
+$color-bgd: rgb(218, 245, 240);
 
 * {
   box-sizing: border-box;
@@ -16,21 +16,10 @@ body {
     padding: auto;
   }
 
-  &__start {
-    display: inline-block;
-    margin-bottom: 20px;
-  }
-
   &__title {
-    display: inline-block;
     color: $color-border;
-    margin: 20px 40px;
+    margin: 20px 40px 10px;
   }
-
-  &__hiden {
-    opacity: 0;
-  }
-
   &__cont {
     padding-left: 36px;
   }

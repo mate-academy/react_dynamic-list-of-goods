@@ -6,7 +6,7 @@ function wait(delay: number) {
 }
 
 export const getAll = async (): Promise<Good[]> => {
-  await wait(2000);
+  await wait(500);
 
   return fetch(API_URL)
     .then(response => {
@@ -20,7 +20,11 @@ export const getAll = async (): Promise<Good[]> => {
 
 export const get5First = () => {
   return getAll()
-    .then(goods => goods.slice(0, 5));
+    .then(goods => {
+      goods.sort((a, b) => a.name.localeCompare(b.name));
+
+      return goods.slice(0, 5);
+    });
 };
 
 export const getRedGoods = () => {
