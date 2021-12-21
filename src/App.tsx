@@ -45,7 +45,7 @@ class App extends React.Component<{}, State> {
           Dynamic list of Goods
         </h1>
 
-        <GoodsList goods={goods} isLoading={isLoading} />
+        {this.state.goods.length > 0 && <GoodsList goods={goods} isLoading={isLoading} />}
 
         <div className="app__buttons">
           <button
