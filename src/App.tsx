@@ -7,12 +7,18 @@ import { Good } from './type/Good';
 import { GoodsList } from './component/GoodsList';
 
 type State = {
-  goods: Good[] | [];
+  goods: Good[];
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
     goods: [],
+  };
+
+  handler = (promise: Promise<Good[]>) => {
+    promise.then((goods: Good[]) => {
+      this.setState({ goods });
+    });
   };
 
   render() {
@@ -25,9 +31,7 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={() => {
-            getAll().then(goods => {
-              this.setState({ goods });
-            });
+            this.handler(getAll());
           }}
         >
           Load All goods
@@ -36,9 +40,7 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={() => {
-            get5First().then(goods => {
-              this.setState({ goods });
-            });
+            this.handler(get5First());
           }}
         >
           Load 5 first goods
@@ -47,9 +49,7 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={() => {
-            getRedGoods().then(goods => {
-              this.setState({ goods });
-            });
+            this.handler(getRedGoods());
           }}
         >
           Load red goods
