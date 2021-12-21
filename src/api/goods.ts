@@ -5,11 +5,13 @@ export const getAll: () => Promise<Good[]> = () => {
     .then(response => response.json());
 };
 
-export const get5First = () => {
-  return getAll()
-    .then(goods => (
-      goods.filter(good => good.id <= 5)
-    ));
+export const get5First = (): Promise<Good[]> => {
+  return fetch(API_URL)
+    .then(response => response.json())
+    .then(goods => goods.sort((firstGood: Good, secondGood: Good) => (
+      firstGood.name.localeCompare(secondGood.name)
+    )))
+    .then(sortedByAlphabet => [...sortedByAlphabet].slice(0, 5));
 };
 
 export const getRedGoods = () => {

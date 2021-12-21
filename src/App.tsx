@@ -30,13 +30,25 @@ class App extends Component<{}, State> {
     return (
       <>
         <h1 className="title">Dynamic list of Goods</h1>
-        <button className="button" type="button" onClick={() => goodsLoader(getAll)}>
+        <button
+          className="button"
+          type="button"
+          onClick={() => goodsLoader(getAll)}
+        >
           Load All goods
         </button>
-        <button className="button" type="button" onClick={() => goodsLoader(get5First)}>
+        <button
+          className="button"
+          type="button"
+          onClick={() => goodsLoader(get5First)}
+        >
           Load five first goods
         </button>
-        <button className="button" type="button" onClick={() => goodsLoader(getRedGoods)}>
+        <button
+          className="button"
+          type="button"
+          onClick={() => goodsLoader(getRedGoods)}
+        >
           Load red goods
         </button>
         {goods && (
