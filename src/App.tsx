@@ -5,21 +5,28 @@ import { GoodsList } from './components/GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 type State = {
-  goods: Good[] | [],
+  goods: Good[],
   loadingGoods: boolean,
+  errorMessage: string,
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
     goods: [],
     loadingGoods: false,
+    errorMessage: '',
   };
 
-  loadingData = (method: { (): Promise<Good[]>; }) => {
-    method()
-      .then(goods => {
-        this.setState({ goods });
+  loadingData = async (func: () => Promise<Good[]>) => {
+    try {
+      const goods = await func();
+
+      this.setState({ goods, errorMessage: '' });
+    } catch (error) {
+      this.setState({
+        errorMessage: 'Nah... Doesn\'t work',
       });
+    }
   };
 
   render() {
@@ -57,6 +64,9 @@ export class App extends React.Component<{}, State> {
 
           <div className="App__goods">
             {!loadingGoods && <GoodsList goods={goods} />}
+          </div>
+          <div className="App__error">
+            {this.state.errorMessage}
           </div>
         </div>
       </div>
