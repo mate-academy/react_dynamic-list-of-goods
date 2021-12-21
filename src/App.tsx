@@ -6,12 +6,14 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { Product } from './types/Product';
 
 type State = {
-  products: Product[] | null
+  products: Product[] | null,
+  errorMessage: string,
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
     products: null,
+    errorMessage: '',
   };
 
   getData = async (func: () => Promise<Good[]>) => {
@@ -20,6 +22,9 @@ export class App extends React.Component<{}, State> {
 
       this.setState({ products: goods });
     } catch (error) {
+      this.setState(
+        { errorMessage: 'Ooops! Something went wrong' },
+      );
       throw new Error(`Error - ${error}`);
     }
   };
@@ -59,6 +64,9 @@ export class App extends React.Component<{}, State> {
         {this.state.products && (
           <GoodsList goods={this.state.products} />
         )}
+        <p>
+          {this.state.errorMessage}
+        </p>
 
       </>
     );
