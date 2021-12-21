@@ -20,12 +20,11 @@ export class App extends React.Component<{}, State> {
     try {
       const goods = await func();
 
-      this.setState({ products: goods });
+      this.setState({ products: goods, errorMessage: '' });
     } catch (error) {
       this.setState(
         { errorMessage: 'Ooops! Something went wrong' },
       );
-      throw new Error(`Error - ${error}`);
     }
   };
 
