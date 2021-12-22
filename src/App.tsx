@@ -6,7 +6,7 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList';
 
 type State = {
-  goods: Good[] | [];
+  goods: Good[];
   isLoading: boolean;
   loadingError: boolean;
 };
@@ -21,6 +21,7 @@ class App extends React.Component<{}, State> {
   loadData = async (getGoods: () => Promise<Good[]>) => {
     this.setState({
       isLoading: true,
+      loadingError: false,
     });
 
     try {
@@ -45,7 +46,7 @@ class App extends React.Component<{}, State> {
       <div className="goods">
         <div className="goods__container">
           {loadingError && 'Sorry, problem is here'}
-          {isLoading ? 'Sorry, brother lagi(9' : <GoodsList goods={goods} />}
+          {!loadingError && (isLoading ? 'Sorry, brother lagi(9' : <GoodsList goods={goods} />)}
           <div className="goods__buttons">
             <button
               className="goods__button"
