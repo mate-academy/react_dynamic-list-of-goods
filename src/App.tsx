@@ -18,19 +18,26 @@ export class App extends React.Component<{}, State> {
   };
 
   loadingData = async (func: () => Promise<Good[]>) => {
+    this.setState({
+      goods: [],
+      loadingGoods: true,
+      errorMessage: '',
+    });
+
     try {
       const goods = await func();
 
-      this.setState({ goods, errorMessage: '' });
+      this.setState({ goods, loadingGoods: false, errorMessage: '' });
     } catch (error) {
       this.setState({
+        loadingGoods: false,
         errorMessage: 'Nah... Doesn\'t work',
       });
     }
   };
 
   render() {
-    const { goods, loadingGoods } = this.state;
+    const { goods, loadingGoods, errorMessage } = this.state;
 
     return (
       <div className="App">
@@ -66,7 +73,7 @@ export class App extends React.Component<{}, State> {
             {!loadingGoods && <GoodsList goods={goods} />}
           </div>
           <div className="App__error">
-            {this.state.errorMessage}
+            {errorMessage && <div>{errorMessage}</div>}
           </div>
         </div>
       </div>
