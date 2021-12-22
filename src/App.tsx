@@ -14,6 +14,12 @@ class App extends React.Component<{}, State> {
     goods: [],
   };
 
+  getGoods = async (getSpecificGoods: () => Promise<Good[]>) => {
+    const goods = await getSpecificGoods();
+
+    this.setState({ goods });
+  };
+
   render() {
     const { goods } = this.state;
 
@@ -23,9 +29,9 @@ class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          onClick={() => getAllGoods().then((allGoods) => {
-            this.setState({ goods: allGoods });
-          })}
+          onClick={() => {
+            this.getGoods(getAllGoods);
+          }}
           className="App__button"
         >
           Get all the goods
@@ -33,9 +39,9 @@ class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          onClick={() => get5First().then((fiveGoods) => {
-            this.setState({ goods: fiveGoods });
-          })}
+          onClick={() => {
+            this.getGoods(get5First);
+          }}
           className="App__button"
         >
           Get 5 first products
@@ -43,9 +49,9 @@ class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          onClick={() => getRedGoods().then((redGoods) => {
-            this.setState({ goods: redGoods });
-          })}
+          onClick={() => {
+            this.getGoods(getRedGoods);
+          }}
           className="App__button"
         >
           Get red goods
