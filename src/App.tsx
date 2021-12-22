@@ -8,12 +8,14 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 type State = {
   goods: Good[];
   isLoading: boolean;
+  errorMessage: string;
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
     goods: [],
     isLoading: false,
+    errorMessage: '',
   };
 
   loadData = async (getData: () => Promise<Good[]>) => {
@@ -31,12 +33,13 @@ class App extends React.Component<{}, State> {
     } catch {
       this.setState({
         isLoading: false,
+        errorMessage: 'Cannot find goods',
       });
     }
   };
 
   render() {
-    const { goods, isLoading } = this.state;
+    const { goods, isLoading, errorMessage } = this.state;
 
     return (
       <div className="App">
@@ -70,7 +73,8 @@ class App extends React.Component<{}, State> {
           </div>
 
           <div className="App__goodsList">
-            {!isLoading && <GoodsList goods={goods} />}
+            {!isLoading && (<GoodsList goods={goods} />)}
+            {errorMessage && <p>{errorMessage}</p>}
           </div>
         </div>
       </div>
