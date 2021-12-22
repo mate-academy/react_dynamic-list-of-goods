@@ -1,1 +1,29 @@
-// styles go here
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&family=Barlow+Condensed:ital,wght@0,400;0,600;1,500&family=Barlow:wght@400;700&family=Fredoka+One&family=Oooh+Baby&display=swap");
+
+html {
+  font-family: "Barlow", sans-serif;
+}
+
+ul {
+  list-style: none;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__button {
+    margin-bottom: 8px;
+    width: 100px;
+    border-radius: 4px;
+    background-color: rgb(181, 247, 247);
+    border: rgb(115, 189, 189) 2px solid;
+    color: rgb(99, 112, 126);
+
+    &:hover {
+      box-shadow: 2px 4px #f7eb80;
+      border: rgb(190, 241, 241) 2px solid;
+    }
+  }
+}
