@@ -1,59 +1,62 @@
 import React from 'react';
 import './App.scss';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
-import { GoodsList } from './GoodsList';
-import { getAll } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import Loader from 'react-loader-spinner';
 
-class App extends React.Component {
+import { GoodsList } from './components/GoodsList';
+import { LoadingError } from './components/LoadingError';
+import { getAll, get5First, getRedGoods } from './api/goods';
+
+interface State {
+  goods: Good[],
+  isLoading: boolean,
+  hasLoadingError: boolean,
+}
+
+class App extends React.Component<{}, State> {
   state = {
     goods: [],
+    isLoading: false,
+    hasLoadingError: false,
   };
 
-  getGoods = async () => {
+  loadData = async (getData: () => Promise<Good[]>) => {
+    this.setState({
+      isLoading: true,
+    });
+
     try {
-      const allGoods = await getAll();
+      const goods = await getData();
 
-      this.setState({ goods: allGoods });
-    } catch (error) {
-      throw new Error(`Error - ${error}`);
-    }
-  };
-
-  get5First = async () => {
-    try {
-      const allGoods = await getAll();
-
-      const fiveGoods = allGoods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5);
-
-      this.setState({ goods: fiveGoods });
-    } catch (error) {
-      throw new Error(`Error - ${error}`);
-    }
-  };
-
-  getRedGoods = async () => {
-    try {
-      const allGoods = await getAll();
-      const redGood = allGoods.filter(good => good.color === 'red');
-
-      this.setState({ goods: redGood });
-    } catch (error) {
-      throw new Error(`Error - ${error}`);
+      this.setState({
+        goods,
+      });
+    } catch {
+      this.setState({
+        hasLoadingError: true,
+      });
+    } finally {
+      this.setState({
+        isLoading: false,
+      });
     }
   };
 
   render() {
+    const { goods, hasLoadingError, isLoading } = this.state;
+
     return (
       <>
         <h1>Dynamic list of Goods</h1>
-        <button type="button" onClick={this.getGoods}>Load All goods</button>
-        <button type="button" onClick={this.get5First}>Load 5 first goods</button>
-        <button type="button" onClick={this.getRedGoods}>Load red goods</button>
+        <button type="button" onClick={() => this.loadData(getAll)}>Load All goods</button>
+        <button type="button" onClick={() => this.loadData(get5First)}>Load 5 first goods</button>
+        <button type="button" onClick={() => this.loadData(getRedGoods)}>Load red goods</button>
         <div>
-          {this.state.goods
-          && <GoodsList goods={this.state.goods} />}
+          {hasLoadingError && <LoadingError /> }
+          {!hasLoadingError && (isLoading
+            ? <Loader type="Puff" color="#00BFFF" height={80} width={80} />
+            : <GoodsList goods={goods} />)}
         </div>
       </>
     );
