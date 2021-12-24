@@ -7,21 +7,40 @@ import { GoodsList } from './components/GoodsList';
 
 type State = {
   goods: Good[];
+  isLoading: boolean;
+  loadingError: boolean;
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
     goods: [],
+    isLoading: false,
+    loadingError: false,
   };
 
-  getGoods = async (loadGoods: () => Promise<Good[]>) => {
-    const goods = await loadGoods();
+  loadData = async (getGoods: () => Promise<Good[]>) => {
+    this.setState({
+      isLoading: true,
+      loadingError: false,
+    });
 
-    this.setState({ goods });
+    try {
+      const goods = await getGoods();
+
+      this.setState({
+        goods,
+        isLoading: false,
+      });
+    } catch {
+      this.setState({
+        loadingError: true,
+        isLoading: false,
+      });
+    }
   };
 
   render() {
-    const { goods } = this.state;
+    const { goods, isLoading, loadingError } = this.state;
 
     return (
       <div className="App">
@@ -30,7 +49,7 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={() => {
-            this.getGoods(getAll);
+            this.loadData(getAll);
           }}
         >
           Load All goods
@@ -39,7 +58,7 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={() => {
-            this.getGoods(get5First);
+            this.loadData(get5First);
           }}
         >
           Load 5 first goods
@@ -48,13 +67,15 @@ class App extends React.Component<{}, State> {
         <button
           type="button"
           onClick={() => {
-            this.getGoods(getRedGoods);
+            this.loadData(getRedGoods);
           }}
         >
           Load red goods
         </button>
 
-        <GoodsList goods={goods} />
+        {loadingError && <p>Loading error</p>}
+
+        {isLoading ? <p>Loading...</p> : <GoodsList goods={goods} />}
       </div>
     );
   }
