@@ -21,6 +21,7 @@ class App extends React.Component<{}, State> {
   loadData = async (getData: () => Promise<Good[]>) => {
     this.setState({
       isLoading: true,
+      errorMessage: '',
     });
 
     try {
