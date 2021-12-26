@@ -1,1 +1,39 @@
-// styles go here
+.buttons {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.button {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 5px 15px;
+  background: #222;
+  border: 1px solid #222;
+  color: #fff;
+  transition: background-color 0.3s, color 0.3s;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #222;
+    z-index: -1;
+    transition: transform 0.4s, opacity 0.4s;
+  }
+
+  &:hover {
+    background: #fff;
+    color: #222;
+  }
+
+  &:hover::before {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
