@@ -24,6 +24,7 @@ class App extends React.Component<{}, State> {
   loadData = async (getData: () => Promise<Good[]>) => {
     this.setState({
       isLoading: true,
+      hasLoadingError: false,
     });
 
     try {
@@ -31,6 +32,8 @@ class App extends React.Component<{}, State> {
 
       this.setState({
         goods,
+        isLoading: false,
+        hasLoadingError: false,
       });
     } catch {
       this.setState({
