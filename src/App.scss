@@ -30,18 +30,20 @@
   display: block;
   width: 80px;
   height: 80px;
+
+  &::after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid #a7a7a7;
+    border-color: #a7a7a7 transparent #a7a7a7 transparent;
+    animation: spinner 1.2s linear infinite;
+  }
 }
-.spinner:after {
-  content: " ";
-  display: block;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border-radius: 50%;
-  border: 6px solid #a7a7a7;
-  border-color: #a7a7a7 transparent #a7a7a7 transparent;
-  animation: spinner 1.2s linear infinite;
-}
+
 @keyframes spinner {
   0% {
     transform: rotate(0deg);
