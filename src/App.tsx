@@ -18,7 +18,7 @@ class App extends React.Component {
   Load5 = () => {
     getAll()
       .then(goodsFromServer => {
-        this.setState({ goods: goodsFromServer.slice(0, 4) });
+        this.setState({ goods: goodsFromServer.slice(0, 5) });
       });
   };
 
