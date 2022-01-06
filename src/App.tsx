@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.scss';
 import { ListOfGoods } from './ListOfGoods';
-import { getAll } from './api/goods';
+import { getAll, getFive, getRed } from './api/goods';
 
 class App extends React.Component {
   state = {
@@ -16,16 +16,16 @@ class App extends React.Component {
   };
 
   Load5 = () => {
-    getAll()
+    getFive()
       .then(goodsFromServer => {
-        this.setState({ goods: goodsFromServer.slice(0, 5) });
+        this.setState({ goods: goodsFromServer });
       });
   };
 
   LoadRed = () => {
-    getAll()
+    getRed()
       .then(goodsFromServer => {
-        this.setState({ goods: goodsFromServer.filter(good => good.color === 'red') });
+        this.setState({ goods: goodsFromServer });
       });
   };
 
