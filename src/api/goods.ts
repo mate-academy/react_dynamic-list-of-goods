@@ -5,7 +5,3 @@ export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
     .then(response => response.json());
 }
-
-export const get5First = () => {};
-
-export const getRedGoods = () => {};
