@@ -1,1 +1,23 @@
-// styles go here
+.app {
+  width: 70%;
+  margin: 0 auto;
+  padding: 15px;
+  background-color: rgb(224, 243, 245);
+  border-radius: 6px;
+
+  &-title {
+    margin: 0 0 30px;
+    text-align: center;
+  }
+
+  &-buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &-btn {
+    width: 20%;
+    padding: 5px 0;
+    cursor: pointer;
+  }
+}
