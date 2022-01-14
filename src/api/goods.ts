@@ -6,6 +6,10 @@ export function getAll(): Promise<Good[]> {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export const get5First = (respons: Good[]) => {
+  return respons.filter(good => good.id <= 5);
+};
 
-export const getRedGoods = () => {};
+export const getRedGoods = (respons: Good[]) => {
+  return respons.filter(good => good.color === 'red');
+};
