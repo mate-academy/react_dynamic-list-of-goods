@@ -7,6 +7,9 @@ import { LoadingError } from './components/LoadingError/LoadingError';
 interface State {
   goods: Good[],
   goodsErrorLoading: boolean,
+  allGoodsLoader: boolean,
+  fiveGoodsLoader: boolean,
+  redGoodsLoader: boolean,
 }
 
 type Good = {
@@ -19,27 +22,64 @@ export class App extends React.Component<{}, State> {
   state = {
     goods: [],
     goodsErrorLoading: false,
+    allGoodsLoader: false,
+    fiveGoodsLoader: false,
+    redGoodsLoader: false,
   };
 
   loadFromServer = async (loadFun: () => Promise<Good[]>) => {
-    this.setState({ goodsErrorLoading: false });
+    this.setState({
+      goods: [],
+      goodsErrorLoading: false,
+    });
     try {
       const goodsFromServer = await loadFun();
 
-      this.setState({ goods: goodsFromServer });
+      this.setState({
+        goods: goodsFromServer,
+        allGoodsLoader: false,
+        fiveGoodsLoader: false,
+        redGoodsLoader: false,
+      });
     } catch (error) {
-      this.setState({ goodsErrorLoading: true });
+      this.setState({
+        goodsErrorLoading: true,
+        allGoodsLoader: false,
+        fiveGoodsLoader: false,
+        redGoodsLoader: false,
+      });
     }
   };
 
-  allGoods = () => this.loadFromServer(getAll);
+  allGoods = () => {
+    this.setState({
+      allGoodsLoader: true,
+    });
+    this.loadFromServer(getAll);
+  };
 
-  fiveAscAlphabeticSortGoods = () => this.loadFromServer(get5First);
+  fiveAscAlphabeticSortGoods = () => {
+    this.setState({
+      fiveGoodsLoader: true,
+    });
+    this.loadFromServer(get5First);
+  };
 
-  redGoods = () => this.loadFromServer(getRed);
+  redGoods = () => {
+    this.setState({
+      redGoodsLoader: true,
+    });
+    this.loadFromServer(getRed);
+  };
 
   render() {
-    const { goods, goodsErrorLoading } = this.state;
+    const {
+      goods,
+      goodsErrorLoading,
+      allGoodsLoader,
+      fiveGoodsLoader,
+      redGoodsLoader,
+    } = this.state;
 
     return (
       <div className="App">
@@ -49,21 +89,29 @@ export class App extends React.Component<{}, State> {
             type="button"
             onClick={this.allGoods}
           >
-            Load all goods
+            {allGoodsLoader && goods.length === 0 ? (
+              <div className="loader">
+                {}
+              </div>
+            ) : ('Load all goods')}
           </button>
           <button
             className="button"
             type="button"
             onClick={this.fiveAscAlphabeticSortGoods}
           >
-            Load 5 goods
+            {fiveGoodsLoader && goods.length === 0 ? (
+              <div className="loader">{}</div>
+            ) : ('Load 5 goods')}
           </button>
           <button
             className="button"
             type="button"
             onClick={this.redGoods}
           >
-            Load red goods
+            {redGoodsLoader && goods.length === 0 ? (
+              <div className="loader">{}</div>
+            ) : ('Load red goods')}
           </button>
         </div>
         {goodsErrorLoading && <LoadingError />}
