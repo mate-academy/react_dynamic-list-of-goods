@@ -8,14 +8,15 @@ export default class App extends React.Component {
     goods: [],
   };
 
-  loader = async (promise: Promise<Good[]>) => {
+  loader = async (
+    promise: Promise<Good[]>,
+    lengthGoods = 0,
+  ) => {
     const goods = await promise
       .then(result => result);
 
     this.setState({
-      goods: goods.length !== 5 ? goods : (
-        goods.sort((a: Good, b: Good) => a.name.localeCompare(b.name))
-      ),
+      goods: lengthGoods !== 5 ? goods : goods.slice(0, 5),
     });
   };
 
@@ -34,7 +35,7 @@ export default class App extends React.Component {
         </button>
         <button
           type="button"
-          onClick={() => loader(get5First())}
+          onClick={() => loader(get5First(), 5)}
         >
           Load 5 first goods
         </button>
