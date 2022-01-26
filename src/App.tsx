@@ -8,16 +8,8 @@ export default class App extends React.Component {
     goods: [],
   };
 
-  loader = async (
-    promise: Promise<Good[]>,
-    lengthGoods = 0,
-  ) => {
-    const goods = await promise
-      .then(result => result);
-
-    this.setState({
-      goods: lengthGoods !== 5 ? goods : goods.slice(0, 5),
-    });
+  loader = async (promise: () => {}) => {
+    this.setState({ goods: await promise() });
   };
 
   render() {
@@ -29,19 +21,19 @@ export default class App extends React.Component {
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
-          onClick={() => loader(getAll())}
+          onClick={() => loader(getAll)}
         >
           Load All goods
         </button>
         <button
           type="button"
-          onClick={() => loader(get5First(), 5)}
+          onClick={() => loader(get5First)}
         >
           Load 5 first goods
         </button>
         <button
           type="button"
-          onClick={() => loader(getRedGoods())}
+          onClick={() => loader(getRedGoods)}
         >
           Load red goods
         </button>
