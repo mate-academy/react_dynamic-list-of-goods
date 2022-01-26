@@ -8,8 +8,10 @@ export default class App extends React.Component {
     goods: [],
   };
 
-  loader = async (promise: () => {}) => {
-    this.setState({ goods: await promise() });
+  loader = async (callback: () => {}) => {
+    const goods = await callback();
+
+    this.setState({ goods });
   };
 
   render() {
