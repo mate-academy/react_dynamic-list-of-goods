@@ -1,1 +1,39 @@
-// styles go here
+body {
+  background-color: rgb(180, 180, 180);
+}
+
+.App {
+  margin: auto;
+  max-width: 400px;
+}
+
+.App__title {
+  text-align: center;
+}
+
+.App__list {
+  min-height: 300px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.background {
+  padding: 20px;
+  background-color: rgb(214, 214, 214);
+  border: 1px solid rgb(151, 151, 151);
+  border-radius: 5px;
+}
+
+.button__container {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+}
+
+.button {
+  padding: 10px;
+  background-color: coral;
+  color: white;
+  border-radius: 5px;
+}
