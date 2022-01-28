@@ -43,12 +43,13 @@ class App extends React.Component<{}, State> {
     const { goods } = this.state;
 
     return (
-      <>
-        <h1>Dynamic list of Goods</h1>
+      <div className="app box">
+        <h1 className="app__title title is-4">Dynamic list of Goods</h1>
 
-        <section>
+        <section className="buttonsPanel">
           <button
             type="button"
+            className="button is-small"
             onClick={() => this.showAll()}
           >
             Load all
@@ -56,6 +57,7 @@ class App extends React.Component<{}, State> {
 
           <button
             type="button"
+            className="button is-small"
             onClick={() => this.showFiveFirst()}
           >
             Load first 5
@@ -63,14 +65,17 @@ class App extends React.Component<{}, State> {
 
           <button
             type="button"
+            className="button is-small"
             onClick={() => this.showRed()}
           >
             Load red
           </button>
         </section>
 
-        <GoodsList goods={goods} />
-      </>
+        {goods.length > 0 && (
+          <GoodsList goods={goods} />
+        )}
+      </div>
     );
   }
 }

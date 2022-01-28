@@ -1,1 +1,21 @@
-// styles go here
+@import '~bulma/bulma.sass';
+
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+.app {
+  width: 300px;
+  height: 100vh;
+
+  &__title {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.buttonsPanel {
+  display: flex;
+  justify-content: space-between;
+}
