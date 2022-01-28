@@ -1,1 +1,21 @@
-// styles go here
+.App {
+  display: flex;
+  padding: 16px 24px;
+
+  &__goods-block {
+    margin: auto;
+  }
+}
+
+.goods-block {
+  display: flex;
+  flex-direction: column;
+  width: 600px;
+
+  &__button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+}
