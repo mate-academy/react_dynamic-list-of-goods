@@ -15,25 +15,11 @@ class App extends React.Component<{}, State> {
   };
 
   componentDidMount() {
-    this.loadAll();
+    this.loadData(getAll());
   }
 
-  loadAll = () => {
-    getAll()
-      .then(goods => {
-        this.setState({ goods });
-      });
-  };
-
-  load5First = () => {
-    get5First()
-      .then(goods => {
-        this.setState({ goods });
-      });
-  };
-
-  loadRedGoods = () => {
-    getRedGoods()
+  loadData = (callback: Promise<Good[]>) => {
+    callback
       .then(goods => {
         this.setState({ goods });
       });
@@ -42,9 +28,29 @@ class App extends React.Component<{}, State> {
   render() {
     return (
       <div>
-        <button type="button" className="button" onClick={this.loadAll}>Load All goods</button>
-        <button type="button" className="button" onClick={this.load5First}>Load 5 first goods</button>
-        <button type="button" className="button" onClick={this.loadRedGoods}>Load red goods</button>
+        <button
+          type="button"
+          className="button"
+          onClick={() => this.loadData(getAll())}
+        >
+          Load All goods
+        </button>
+        <button
+          type="button"
+          className="button"
+          onClick={() => this.loadData(get5First())}
+        >
+          Load 5 first goods
+
+        </button>
+        <button
+          type="button"
+          className="button"
+          onClick={() => this.loadData(getRedGoods())}
+        >
+          Load red goods
+
+        </button>
         <Table goods={this.state.goods} />
       </div>
     );
