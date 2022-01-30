@@ -11,38 +11,18 @@ type State = {
   btnInLoading: number,
 };
 
+type GetGoodsCallback = () => Promise<Good[]>;
+
 class App extends React.Component<{}, State> {
   state = {
     goods: [],
     btnInLoading: 0,
   };
 
-  handleShowAllGoods = async () => {
-    this.setState({ btnInLoading: 1 });
+  handleShowGoods = async (getGoods: GetGoodsCallback, btnId: number) => {
+    this.setState({ btnInLoading: btnId });
 
-    const goods = await getAll();
-
-    this.setState({
-      goods,
-      btnInLoading: 0,
-    });
-  };
-
-  handleShow5Goods = async () => {
-    this.setState({ btnInLoading: 2 });
-
-    const goods = await get5First();
-
-    this.setState({
-      goods,
-      btnInLoading: 0,
-    });
-  };
-
-  handleShowRedGoods = async () => {
-    this.setState({ btnInLoading: 3 });
-
-    const goods = await getRedGoods();
+    const goods = await getGoods();
 
     this.setState({
       goods,
@@ -63,7 +43,7 @@ class App extends React.Component<{}, State> {
               'is-info',
               { 'is-loading': btnInLoading === 1 },
             )}
-            onClick={this.handleShowAllGoods}
+            onClick={() => this.handleShowGoods(getAll, 1)}
           >
             Load All goods
           </button>
@@ -74,7 +54,7 @@ class App extends React.Component<{}, State> {
               'is-link',
               { 'is-loading': btnInLoading === 2 },
             )}
-            onClick={this.handleShow5Goods}
+            onClick={() => this.handleShowGoods(get5First, 2)}
           >
             Load 5 first goods
           </button>
@@ -85,7 +65,7 @@ class App extends React.Component<{}, State> {
               'is-danger',
               { 'is-loading': btnInLoading === 3 },
             )}
-            onClick={this.handleShowRedGoods}
+            onClick={() => this.handleShowGoods(getRedGoods, 3)}
           >
             Load red goods
           </button>
