@@ -1,0 +1,24 @@
+.loadContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 250px;
+  height: auto;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 31px 10px rgba(34, 60, 80, 0.3);
+
+  &__img {
+    margin-top: 20px;
+  }
+
+  &__text {
+    margin: 20px;
+    font-size: 20px;
+    font-style: italic;
+  }
+}
