@@ -1,1 +1,24 @@
-// styles go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: monospace;
+  background-color: wheat;
+  border: 5px solid black;
+  border-radius: 32px;
+
+  &__button {
+    margin-bottom: 15px;
+    background-color: burlywood;
+    border: 2px solid black;
+    border-radius: 16px;
+    min-width: 200px;
+  }
+
+  &__list {
+    padding: 25px;
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 16px;
+  }
+}
