@@ -3,9 +3,6 @@ import './App.scss';
 import { get5First, getAll, getRedGoods } from './api/goods';
 import { GoodList } from './component/GoodsList';
 
-// import * as goodsAPI from './api/goods';
-// or
-
 type State = {
   goods: Good[];
 };
