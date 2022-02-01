@@ -16,14 +16,14 @@ export class App extends React.Component<Props, State> {
     goods: [],
   };
 
-  loadGoods = async (callback: () => Promise<Good[]>) => {
-    const goods = await callback();
+  loadGoods = async (getGoods: () => Promise<Good[]>) => {
+    const goods = await getGoods();
 
     this.setState({ goods });
   };
 
   render() {
-    const { getAll, get5First, getRedGoods } = goodsAPI;
+    const { goods } = this.state;
 
     return (
       <div className="App">
@@ -32,26 +32,26 @@ export class App extends React.Component<Props, State> {
           <button
             type="button"
             className="buttons__button"
-            onClick={() => this.loadGoods(getAll)}
+            onClick={() => this.loadGoods(goodsAPI.getAll)}
           >
             Load All goods
           </button>
           <button
             type="button"
             className="buttons__button"
-            onClick={() => this.loadGoods(get5First)}
+            onClick={() => this.loadGoods(goodsAPI.get5First)}
           >
             Load 5 first goods
           </button>
           <button
             type="button"
             className="buttons__button"
-            onClick={() => this.loadGoods(getRedGoods)}
+            onClick={() => this.loadGoods(goodsAPI.getRedGoods)}
           >
             Load red goods
           </button>
         </div>
-        {!!this.state.goods.length && <GoodList goods={this.state.goods} />}
+        {!!goods.length && <GoodList goods={goods} />}
       </div>
     );
   }
