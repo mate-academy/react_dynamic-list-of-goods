@@ -1,0 +1,10 @@
+.goods {
+  &__list {
+    width: 460px;
+  }
+  &__item {
+    list-style: none;
+    text-align: center;
+    font-size: 20px;
+  }
+}
