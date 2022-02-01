@@ -13,28 +13,10 @@ class App extends React.Component<Props, State> {
     goods: [],
   };
 
-  showAllGoods = async () => {
-    const goods = await getAll();
+  handleButton = async (getGoods: () => Promise<Good[]>) => {
+    const goods = await getGoods();
 
-    this.setState({
-      goods,
-    });
-  };
-
-  showFirstFive = async () => {
-    const goods = await get5First();
-
-    this.setState({
-      goods,
-    });
-  };
-
-  showRed = async () => {
-    const goods = await getRedGoods();
-
-    this.setState({
-      goods,
-    });
+    this.setState({ goods });
   };
 
   render() {
@@ -46,7 +28,7 @@ class App extends React.Component<Props, State> {
         <button
           className="ui brown basic button"
           type="button"
-          onClick={this.showAllGoods}
+          onClick={() => this.handleButton(getAll)}
         >
           Load All goods
         </button>
@@ -54,7 +36,7 @@ class App extends React.Component<Props, State> {
         <button
           className="ui brown basic button"
           type="button"
-          onClick={this.showFirstFive}
+          onClick={() => this.handleButton(get5First)}
         >
           Load 5 first goods
         </button>
@@ -62,7 +44,7 @@ class App extends React.Component<Props, State> {
         <button
           className="ui brown basic button"
           type="button"
-          onClick={this.showRed}
+          onClick={() => this.handleButton(getRedGoods)}
         >
           Load red goods
         </button>
