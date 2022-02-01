@@ -1,1 +1,48 @@
-// styles go here
+.App {
+  width: 320px;
+
+  &__title {
+    color: rgb(255, 102, 0);
+    margin: 20px 40px 10px;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  &__item {
+    border: 1px solid rgb(255, 102, 0);
+    padding: 10px;
+    font-size: 20px;
+  }
+
+  &__buttons {
+    margin-left: 36px;
+    display: flex;
+    gap: 10px;
+  }
+
+  &__button {
+    padding: 5px;
+    border: 1px solid rgb(255, 102, 0);
+    background-color: rgb(255, 221, 194);
+    border-radius: 20px;
+    outline: none;
+
+    &:hover {
+      border-color: rgb(172, 69, 0);
+      background-color: rgb(253, 195, 147);
+    }
+  }
+}
+
+.notification {
+  height: 50px;
+  width: fit-content;
+  padding: 20px;
+  background-color: rgb(221, 136, 136);
+  border-radius: 20px;
+}
