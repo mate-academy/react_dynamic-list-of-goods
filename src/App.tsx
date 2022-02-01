@@ -3,8 +3,6 @@ import './App.scss';
 import { GoodsList } from './components/GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
 
 type State = {
   goods: Good[],
@@ -15,29 +13,13 @@ class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  async showAll() {
-    const goods = await getAll();
+  handleGoods = async (getGoods: () => Promise<Good[]>) => {
+    const goods = await getGoods();
 
     this.setState({
       goods,
     });
-  }
-
-  async showFiveFirst() {
-    const goods = await get5First();
-
-    this.setState({
-      goods,
-    });
-  }
-
-  async showRed() {
-    const goods = await getRedGoods();
-
-    this.setState({
-      goods,
-    });
-  }
+  };
 
   render(): React.ReactNode {
     const { goods } = this.state;
@@ -50,7 +32,7 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button is-small"
-            onClick={() => this.showAll()}
+            onClick={() => this.handleGoods(getAll)}
           >
             Load all
           </button>
@@ -58,7 +40,7 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button is-small"
-            onClick={() => this.showFiveFirst()}
+            onClick={() => this.handleGoods(get5First)}
           >
             Load first 5
           </button>
@@ -66,7 +48,7 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button is-small"
-            onClick={() => this.showRed()}
+            onClick={() => this.handleGoods(getRedGoods)}
           >
             Load red
           </button>
