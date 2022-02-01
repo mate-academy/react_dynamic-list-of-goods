@@ -8,7 +8,7 @@ export function getAll(): Promise<Good[]> {
 
 export function get5First(): Promise<Good[]> {
   return getAll()
-    .then(response => response.sort((a, b) => a.name.localeCompare(b.name)));
+    .then(goods => (goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5)));
 }
 
 export function getRedGoods(): Promise<Good[]> {

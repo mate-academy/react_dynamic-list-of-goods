@@ -22,9 +22,7 @@ class App extends React.Component<{}, State> {
   get5First = async () => {
     const goods = await get5First();
 
-    const newGoods = goods.slice(0, 5);
-
-    this.setState({ goods: newGoods });
+    this.setState({ goods });
   };
 
   getRedGoods = async () => {
