@@ -25,8 +25,7 @@ class App extends React.Component<{}, State> {
     this.setState({ loadingAll: true });
     getAll()
       .then(goods => {
-        this.setState({ goods });
-        this.setState({ loadingAll: false });
+        this.setState({ goods, loadingAll: false });
       });
   };
 
@@ -34,8 +33,7 @@ class App extends React.Component<{}, State> {
     this.setState({ loadingFive: true });
     get5First()
       .then(goods => {
-        this.setState({ goods });
-        this.setState({ loadingFive: false });
+        this.setState({ goods, loadingFive: false });
       });
   };
 
@@ -43,8 +41,7 @@ class App extends React.Component<{}, State> {
     this.setState({ loadingRed: true });
     getRedGoods()
       .then(goods => {
-        this.setState({ goods });
-        this.setState({ loadingRed: false });
+        this.setState({ goods, loadingRed: false });
       });
   };
 
@@ -92,10 +89,10 @@ class App extends React.Component<{}, State> {
             </button>
           </div>
           {goods.length > 0
-          && !loadingAll
-          && !loadingFive
-          && !loadingRed
-          && <GoodsList goods={goods} />}
+            && !loadingAll
+            && !loadingFive
+            && !loadingRed
+            && <GoodsList goods={goods} />}
         </section>
       </div>
 
