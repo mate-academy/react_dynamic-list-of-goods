@@ -20,19 +20,25 @@ class App extends React.Component<Props, State> {
   handleAllGoodsRequest = async () => {
     const goods = await goodsAPI.getAll();
 
-    this.setState({ goods });
+    this.setState({
+      goods: [...goods],
+    });
   };
 
   handleFiveGoodsRequest = async () => {
     const goods = await goodsAPI.get5First();
 
-    this.setState({ goods });
+    this.setState({
+      goods: [...goods],
+    });
   };
 
   handleRedGoodsRequest = async () => {
     const goods = await goodsAPI.getRedGoods();
 
-    this.setState({ goods });
+    this.setState({
+      goods: [...goods],
+    });
   };
 
   render() {
