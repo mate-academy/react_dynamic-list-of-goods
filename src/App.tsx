@@ -8,7 +8,7 @@ type State = {
   goods: Good[]
 };
 
-class App extends React.Component<Props, State> {
+export class App extends React.Component<Props, State> {
   state: State = {
     goods: [],
   };
@@ -54,5 +54,3 @@ class App extends React.Component<Props, State> {
     );
   }
 }
-
-export default App;
