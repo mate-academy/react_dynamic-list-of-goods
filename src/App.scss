@@ -1,1 +1,17 @@
 // styles go here
+body {
+  background-color:rgb(223, 231, 231)
+}
+
+.title {
+  text-align: center;
+}
+
+.ui.segment {
+  margin: auto;
+  max-width: 500px;
+}
+
+.ui.segment:first-child {
+  margin-top: 50px;
+}
