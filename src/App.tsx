@@ -5,29 +5,22 @@ import { GoodList } from './component/GoodsList';
 
 type State = {
   goods: Good[];
+  initialize: boolean,
 };
 
 export class App extends React.Component<{}, State> {
   state: State = {
     goods: [],
+    initialize: false,
   };
 
-  handleGetGoods = async () => {
-    const goodsAll = await getAll();
+  handleGetGoods = async (getGoods: Promise<Good[]>) => {
+    const goodsAll = await getGoods;
 
-    this.setState({ goods: goodsAll });
-  };
-
-  handleGet5FirstGoods = async () => {
-    const goods5First = await get5First();
-
-    this.setState({ goods: goods5First });
-  };
-
-  handleGetRedGoods = async () => {
-    const goodsRed = await getRedGoods();
-
-    this.setState({ goods: goodsRed });
+    this.setState({
+      goods: goodsAll,
+      initialize: true,
+    });
   };
 
   render() {
@@ -35,7 +28,7 @@ export class App extends React.Component<{}, State> {
       <div className="box p-10">
         <button
           type="button"
-          onClick={this.handleGetGoods}
+          onClick={() => this.handleGetGoods(getAll())}
           className="button is-info mr-5"
         >
           Load All goods
@@ -43,7 +36,7 @@ export class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          onClick={this.handleGet5FirstGoods}
+          onClick={() => this.handleGetGoods(get5First())}
           className="button is-info mr-5"
         >
           Load 5 first goods
@@ -51,12 +44,12 @@ export class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          onClick={this.handleGetRedGoods}
+          onClick={() => this.handleGetGoods(getRedGoods())}
           className="button is-info"
         >
           Load red goods
         </button>
-        <GoodList goods={this.state.goods} />
+        {this.state.initialize && <GoodList goods={this.state.goods} />}
       </div>
     );
   }
