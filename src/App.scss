@@ -1,1 +1,59 @@
-// styles go here
+.app {
+  width: max-content;
+  margin: 0 auto;
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  &__button {
+    padding: 10px 0;
+    width: 150px;
+    border-radius: 10px;
+    border-color: rgb(20, 231, 161);
+    background-color: transparent;
+    transition: background-color 0.2s;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(0, 199, 156);
+
+    &:hover {
+      background-color: rgb(222, 252, 245);
+    }
+
+    &:focus {
+      background-color: rgb(128, 255, 225);
+      color: white;
+    }
+
+    &--five {
+      border-color: rgb(44, 65, 252);
+      color: rgb(0, 4, 219);
+
+      &:hover {
+        background-color: rgb(209, 210, 255);
+      }
+
+      &:focus {
+        background-color: rgb(120, 122, 253);
+        color: white;
+      }
+    }
+
+    &--red {
+      border-color: rgb(252, 44, 89);
+      color: rgb(252, 44, 89);
+
+      &:hover {
+        background-color: rgb(253, 213, 221);
+      }
+
+      &:focus {
+        background-color: rgb(255, 158, 179);
+        color: white;
+      }
+    }
+  }
+}
