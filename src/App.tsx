@@ -13,8 +13,8 @@ class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  handleClick = (getGoods: Promise<Good[]>) => {
-    getGoods
+  handleClick = (getGoods: () => Promise<Good[]>) => {
+    getGoods()
       .then(goods => (
         this.setState({
           goods,
@@ -32,7 +32,7 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button"
-            onClick={() => this.handleClick(getAll())}
+            onClick={() => this.handleClick(getAll)}
           >
             Load All goods
           </button>
@@ -40,7 +40,7 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button"
-            onClick={() => this.handleClick(get5First())}
+            onClick={() => this.handleClick(get5First)}
           >
             Load 5 first goods
           </button>
@@ -48,7 +48,7 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button"
-            onClick={() => this.handleClick(getRedGoods())}
+            onClick={() => this.handleClick(getRedGoods)}
           >
             Load red goods
           </button>
