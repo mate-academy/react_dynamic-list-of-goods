@@ -5,3 +5,8 @@ interface Good {
   name: string;
   color: string;
 }
+
+interface NewGood {
+  name: string;
+  color: string;
+}
