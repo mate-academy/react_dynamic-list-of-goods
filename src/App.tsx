@@ -14,8 +14,8 @@ export class App extends React.Component<Props, State> {
     goods: [],
   };
 
-  showGoods = async (loadedGoods: Promise<Good[]>) => {
-    const goods = await loadedGoods;
+  showGoods = async (loadGoods: () => Promise<Good[]>) => {
+    const goods = await loadGoods();
 
     this.setState({ goods });
   };
@@ -29,21 +29,21 @@ export class App extends React.Component<Props, State> {
           <button
             type="button"
             className="app__button app__button--all"
-            onClick={() => this.showGoods(getAll())}
+            onClick={() => this.showGoods(getAll)}
           >
             Load All
           </button>
           <button
             type="button"
             className="app__button app__button--five"
-            onClick={() => this.showGoods(get5First())}
+            onClick={() => this.showGoods(get5First)}
           >
             Load Five First
           </button>
           <button
             type="button"
             className="app__button app__button--red"
-            onClick={() => this.showGoods(getRedGoods())}
+            onClick={() => this.showGoods(getRedGoods)}
           >
             Load Red
           </button>
