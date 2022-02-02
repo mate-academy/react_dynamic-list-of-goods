@@ -9,6 +9,8 @@ export function getAll(): Promise<Good[]> {
 export const get5First = async () => {
   const goods = await getAll();
 
+  goods.sort((a, b) => a.name.localeCompare(b.name));
+
   return goods.filter(good => (good.id <= 5));
 };
 
