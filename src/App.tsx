@@ -17,7 +17,7 @@ class App extends React.Component<Props, State> {
 
   handlerClick = (fetch: Promise<Good[]>) => {
     fetch.then(goods => this.setState({
-      visibleGoods: goods,
+      visibleGoods: [...goods],
     }));
   };
 
