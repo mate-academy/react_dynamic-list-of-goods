@@ -3,38 +3,22 @@ import React from 'react';
 import { GoodList } from './components/GoodsList';
 import './App.scss';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
 import * as goodsAPI from './api/goods';
+// import { getAll, get5First, getRedGoods } from './api/goods';
 
 type Props = {};
 type State = {
   goods: Good[];
 };
+type CallbackFunction = () => Promise<Good[]>;
 
 class App extends React.Component<Props, State> {
   state: State = {
     goods: [],
   };
 
-  handleAllGoodsRequest = async () => {
-    const goods = await goodsAPI.getAll();
-
-    this.setState({
-      goods: [...goods],
-    });
-  };
-
-  handleFiveGoodsRequest = async () => {
-    const goods = await goodsAPI.get5First();
-
-    this.setState({
-      goods: [...goods],
-    });
-  };
-
-  handleRedGoodsRequest = async () => {
-    const goods = await goodsAPI.getRedGoods();
+  load = async (callback: CallbackFunction) => {
+    const goods = await callback();
 
     this.setState({
       goods: [...goods],
@@ -53,21 +37,21 @@ class App extends React.Component<Props, State> {
           <button
             className="button is-primary is-small"
             type="button"
-            onClick={this.handleAllGoodsRequest}
+            onClick={() => this.load(goodsAPI.getAll)}
           >
             Load All goods
           </button>
           <button
             className="button is-info is-small"
             type="button"
-            onClick={this.handleFiveGoodsRequest}
+            onClick={() => this.load(goodsAPI.get5First)}
           >
             Load 5 first goods
           </button>
           <button
             className="button is-success is-small is-small"
             type="button"
-            onClick={this.handleRedGoodsRequest}
+            onClick={() => this.load(goodsAPI.getRedGoods)}
           >
             Load red goods
           </button>
