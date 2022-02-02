@@ -15,20 +15,8 @@ class App extends React.Component<Props, State> {
     goods: [],
   };
 
-  loadAll = async () => {
-    const goods = await getAll();
-
-    this.setState({ goods });
-  };
-
-  loadFive = async () => {
-    const goods = await get5First();
-
-    this.setState({ goods });
-  };
-
-  loadRed = async () => {
-    const goods = await getRedGoods();
+  load = async (getGoods: () => Promise<Good[]>) => {
+    const goods = await getGoods();
 
     this.setState({ goods });
   };
@@ -44,7 +32,7 @@ class App extends React.Component<Props, State> {
           <button
             type="button"
             className="button is-primary"
-            onClick={this.loadAll}
+            onClick={() => this.load(getAll)}
           >
             Load All goods
           </button>
@@ -52,7 +40,7 @@ class App extends React.Component<Props, State> {
           <button
             type="button"
             className="button is-link"
-            onClick={this.loadFive}
+            onClick={() => this.load(get5First)}
           >
             Load 5 first goods
           </button>
@@ -60,7 +48,7 @@ class App extends React.Component<Props, State> {
           <button
             type="button"
             className="button is-danger"
-            onClick={this.loadRed}
+            onClick={() => this.load(getRedGoods)}
           >
             Load red goods
           </button>
