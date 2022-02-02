@@ -21,7 +21,7 @@ export class App extends React.Component<{}, State> {
   };
 
   loadFiveItem = async () => {
-    const goods = await get5First();
+    const goods = (await get5First()).sort((a, b) => a.name.localeCompare(b.name));
 
     goods.length = 5;
 
