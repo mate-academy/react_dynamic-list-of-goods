@@ -4,8 +4,6 @@ import 'bulma';
 
 import { getAll, get5First, getRed } from './api/goods';
 import { GoodsList } from './components/GoodsList';
-// or
-// import * as goodsAPI from './api/goods';
 
 type State = {
   goods: Good[],
@@ -16,23 +14,9 @@ class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  getAllGoods() {
-    getAll()
-      .then(goods => {
-        this.setState({ goods });
-      });
-  }
-
-  get5FirstGoods() {
-    get5First()
-      .then(goods => {
-        this.setState({ goods });
-      });
-  }
-
-  getRedGoods() {
-    getRed()
-      .then(goods => {
+  getGoods(callback: () => Promise<Good[]>) {
+    callback()
+      .then((goods: Good[]) => {
         this.setState({ goods });
       });
   }
@@ -43,7 +27,7 @@ class App extends React.Component<{}, State> {
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
-          onClick={() => this.getAllGoods()}
+          onClick={() => this.getGoods(getAll)}
           className="button"
         >
           Load All goods
@@ -51,7 +35,7 @@ class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          onClick={() => this.get5FirstGoods()}
+          onClick={() => this.getGoods(get5First)}
           className="button"
         >
           Load 5 first goods
@@ -59,7 +43,7 @@ class App extends React.Component<{}, State> {
 
         <button
           type="button"
-          onClick={() => this.getRedGoods()}
+          onClick={() => this.getGoods(getRed)}
           className="button"
         >
           Load red goods
