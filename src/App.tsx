@@ -5,40 +5,24 @@ import './App.scss';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 type State = {
-  goods: Good[];
+  visibleGoods: Good[];
 };
 
 class App extends React.Component<{}, State> {
   state = {
-    goods: [],
+    visibleGoods: [],
   };
 
-  showAllGoods = async () => {
-    const goods = await getAll();
-
-    this.setState({
-      goods: [...goods],
-    });
-  };
-
-  show5FirstGoods = async () => {
-    const first5Goods = await get5First();
-
-    this.setState({
-      goods: [...first5Goods],
-    });
-  };
-
-  showRedGoods = async () => {
-    const redGoods = await getRedGoods();
-
-    this.setState({
-      goods: [...redGoods],
+  handlerClick = (fetch: Promise<Good[]>) => {
+    fetch.then(goods => {
+      this.setState({
+        visibleGoods: [...goods],
+      });
     });
   };
 
   render() {
-    const { goods } = this.state;
+    const { visibleGoods } = this.state;
 
     return (
       <body className="body m-4">
@@ -46,26 +30,26 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button"
-            onClick={this.showAllGoods}
+            onClick={() => this.handlerClick(getAll())}
           >
             Load all goods
           </button>
           <button
             type="button"
             className="button"
-            onClick={this.show5FirstGoods}
+            onClick={() => this.handlerClick(get5First())}
           >
             Load 5 first goods
           </button>
           <button
             type="button"
             className="button"
-            onClick={this.showRedGoods}
+            onClick={() => this.handlerClick(getRedGoods())}
           >
             Load red goods
           </button>
         </div>
-        <GoodsList goods={goods} />
+        <GoodsList goods={visibleGoods} />
       </body>
     );
   }
