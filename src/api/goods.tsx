@@ -12,18 +12,16 @@ export async function getFirstFive() {
   const response = await fetch(API_URL);
   const goods = await response.json();
 
-  [...goods].sort((goodA: Good, goodB: Good) => (
+  return [...goods].sort((goodA: Good, goodB: Good) => (
     goodA.name.localeCompare(goodB.name)
-  ));
-
-  return goods.slice(0, 5);
+  )).slice(0, 5);
 }
 
 export async function getRedGoods() {
   const response = await fetch(API_URL);
   const goods = await response.json();
 
-  return goods.filter((good: Good) => (
+  return [...goods].filter((good: Good) => (
     good.color === 'red'
   ));
 }

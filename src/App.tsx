@@ -15,34 +15,15 @@ export class App extends React.PureComponent<Props, State> {
   };
 
   componentDidMount() {
-    this.getAllGoods();
+    this.getGoodsHandler(goodsAPI.getAll());
   }
 
-  getAllGoods = () => {
-    goodsAPI.getAll()
-      .then(goodsFromServer => {
-        this.setState({
-          goods: [...goodsFromServer],
-        });
+  getGoodsHandler = (fetch: Promise<Good[]>) => {
+    fetch.then(goods => {
+      this.setState({
+        goods: [...goods],
       });
-  };
-
-  getFirstFive = () => {
-    goodsAPI.getFirstFive()
-      .then(goodsFromServer => {
-        this.setState({
-          goods: [...goodsFromServer],
-        });
-      });
-  };
-
-  getRedGoods = () => {
-    goodsAPI.getRedGoods()
-      .then((goodsFromServer) => {
-        this.setState({
-          goods: goodsFromServer,
-        });
-      });
+    });
   };
 
   render() {
@@ -54,7 +35,7 @@ export class App extends React.PureComponent<Props, State> {
         <button
           type="button"
           onClick={() => (
-            this.getAllGoods()
+            this.getGoodsHandler(goodsAPI.getAll())
           )}
         >
           Get all
@@ -62,7 +43,7 @@ export class App extends React.PureComponent<Props, State> {
         <button
           type="button"
           onClick={() => (
-            this.getFirstFive()
+            this.getGoodsHandler(goodsAPI.getFirstFive())
           )}
         >
           Get 5
@@ -70,7 +51,7 @@ export class App extends React.PureComponent<Props, State> {
         <button
           type="button"
           onClick={() => (
-            this.getRedGoods()
+            this.getGoodsHandler(goodsAPI.getRedGoods())
           )}
         >
           Get red goods
