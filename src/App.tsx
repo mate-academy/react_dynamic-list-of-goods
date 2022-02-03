@@ -1,12 +1,34 @@
 import React from 'react';
 import './App.scss';
+import { GoodsButtons } from './components/GoodsButtons';
+import { GoodsList } from './components/GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+type State = {
+  goods: Good[],
+};
 
-const App: React.FC = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+class App extends React.PureComponent<{}, State> {
+  state: State = {
+    goods: [],
+  };
+
+  loadGoods = async (callback: () => Promise<Good[]>) => {
+    const goods = await callback();
+
+    this.setState({ goods });
+  };
+
+  render() {
+    const { goods } = this.state;
+
+    return (
+      <div className="App">
+        <h1 className="App_title title">Dynamic list of Goods</h1>
+        <GoodsButtons loadGoods={this.loadGoods} />
+        <GoodsList goods={goods} />
+      </div>
+    );
+  }
+}
 
 export default App;
