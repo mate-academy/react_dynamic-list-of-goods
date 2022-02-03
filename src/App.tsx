@@ -18,11 +18,11 @@ export class App extends React.PureComponent<Props, State> {
     this.getGoodsHandler(goodsAPI.getAll());
   }
 
-  getGoodsHandler = (fetch: Promise<Good[]>) => {
-    fetch.then(goods => {
-      this.setState({
-        goods: [...goods],
-      });
+  getGoodsHandler = async (getGoods: Promise<Good[]>) => {
+    const goods = await getGoods;
+
+    this.setState({
+      goods: [...goods],
     });
   };
 
