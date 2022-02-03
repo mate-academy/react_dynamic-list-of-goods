@@ -9,7 +9,7 @@ export function getAll(): Promise<Good[]> {
 export const get5First = async () => {
   const goods = await getAll();
 
-  goods.length = 5;
+  goods.sort((good1, good2) => good1.name.localeCompare(good2.name)).length = 5;
 
   return goods;
 };
