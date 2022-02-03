@@ -1,9 +1,8 @@
 import React from 'react';
+import { GoodsListButtons } from './components/GoodsListButtons';
 import { GoodsList } from './GoodsList';
 
 import './App.scss';
-
-import { getAll, get5First, getRedGoods } from './api/goods';
 
 type State = {
   goods: Good[];
@@ -14,22 +13,8 @@ export class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  loadData = async () => {
-    const goods = await getAll();
-
-    this.setState({ goods });
-  };
-
-  loadFiveItem = async () => {
-    const goods = (await get5First()).sort((a, b) => a.name.localeCompare(b.name));
-
-    goods.length = 5;
-
-    this.setState({ goods });
-  };
-
-  loadRedItem = async () => {
-    const goods = (await getRedGoods()).filter(good => good.color === 'red');
+  loadData = async (getGoods: () => Promise<Good[]>) => {
+    const goods = await getGoods();
 
     this.setState({ goods });
   };
@@ -40,27 +25,9 @@ export class App extends React.Component<{}, State> {
     return (
       <div className="App">
         <h1 className="App__title">Dynamic list of Goods</h1>
-        <button
-          className="App__button"
-          type="button"
-          onClick={this.loadData}
-        >
-          Load All goods
-        </button>
-        <button
-          className="App__button"
-          type="button"
-          onClick={this.loadFiveItem}
-        >
-          Load 5 first goods
-        </button>
-        <button
-          className="App__button"
-          type="button"
-          onClick={this.loadRedItem}
-        >
-          Load red goods
-        </button>
+
+        <GoodsListButtons loadData={this.loadData} />
+
         <GoodsList goods={goods} />
       </div>
     );
