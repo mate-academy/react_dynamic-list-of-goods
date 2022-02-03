@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import 'bulma';
 import './App.scss';
 
-import { getAll, get5First, getRedGoods } from './api/goods';
+import { getAllGoods, getFiveFirst, getRedGoods } from './api/goods';
 import { GoodsList } from './GoodsList';
 
 type State = {
@@ -21,29 +21,20 @@ class App extends React.Component<{}, State> {
     loadingRed: false,
   };
 
-  getAllGoods = () => {
-    this.setState({ loadingAll: true });
-    getAll()
-      .then(goods => {
-        this.setState({ goods, loadingAll: false });
-      });
-  };
 
-  getFiveFirst = () => {
-    this.setState({ loadingFive: true });
-    get5First()
-      .then(goods => {
-        this.setState({ goods, loadingFive: false });
-      });
-  };
+  loadGoods = async (event: React.MouseEvent<HTMLButtonElement>, callback: Callback) => {
+    const { name } = event.currentTarget;
 
-  getRedGoods = () => {
-    this.setState({ loadingRed: true });
-    getRedGoods()
-      .then(goods => {
-        this.setState({ goods, loadingRed: false });
-      });
-  };
+    this.setState({ [name]: true } as unknown as { [K in keyof State]: State[K] });
+
+    const goods = await callback();
+
+    this.setState({
+      goods: [...goods],
+      [name]: false
+    } as unknown as { [K in keyof State]: State[K]
+      })
+  }
 
   render() {
     const {
@@ -58,32 +49,41 @@ class App extends React.Component<{}, State> {
         <section className="goods-block App__goods-block">
           <div className="goods-block__button-container">
             <button
+              name="loadingAll"
               type="button"
               className={
                 classNames('button is-info is-outlined',
                   { 'is-loading': loadingAll })
               }
-              onClick={this.getAllGoods}
+              onClick={(event) => {
+                this.loadGoods(event, getAllGoods)
+              }}
             >
               Load all goods
             </button>
             <button
+              name="loadingFive"
               type="button"
               className={
                 classNames('button is-info is-outlined',
                   { 'is-loading': loadingFive })
               }
-              onClick={this.getFiveFirst}
+              onClick={(event) => {
+                this.loadGoods(event, getFiveFirst)
+              }}
             >
               Load 5 first goods
             </button>
             <button
+              name="loadingRed"
               type="button"
               className={
                 classNames('button is-info is-outlined',
                   { 'is-loading': loadingRed })
               }
-              onClick={this.getRedGoods}
+              onClick={(event) => {
+                this.loadGoods(event, getRedGoods)
+              }}
             >
               Load red goods
             </button>
@@ -95,7 +95,6 @@ class App extends React.Component<{}, State> {
             && <GoodsList goods={goods} />}
         </section>
       </div>
-
     );
   }
 }

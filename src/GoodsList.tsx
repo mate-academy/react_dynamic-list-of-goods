@@ -22,6 +22,5 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
         </tr>
       ))}
     </tbody>
-
   </table>
 );

@@ -5,3 +5,5 @@ interface Good {
   name: string;
   color: string;
 }
+
+type Callback = () => Promise<Good[]>;
