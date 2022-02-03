@@ -15,8 +15,8 @@ class App extends React.Component<Props, State> {
     visibleGoods: [],
   };
 
-  handlerClick = (getGoods: Promise<Good[]>) => {
-    getGoods.then(goods => this.setState({
+  handlerClick = (getGoods: () => Promise<Good[]>) => {
+    getGoods().then(goods => this.setState({
       visibleGoods: [...goods],
     }));
   };
@@ -30,7 +30,7 @@ class App extends React.Component<Props, State> {
         <button
           className="button"
           type="button"
-          onClick={() => this.handlerClick(getAll())}
+          onClick={() => this.handlerClick(getAll)}
         >
           Load All goods
         </button>
@@ -38,7 +38,7 @@ class App extends React.Component<Props, State> {
         <button
           className="button"
           type="button"
-          onClick={() => this.handlerClick(get5First())}
+          onClick={() => this.handlerClick(get5First)}
         >
           Load 5 first goods
         </button>
@@ -46,7 +46,7 @@ class App extends React.Component<Props, State> {
         <button
           className="button"
           type="button"
-          onClick={() => this.handlerClick(getRedGoods())}
+          onClick={() => this.handlerClick(getRedGoods)}
         >
           Load red goods
         </button>
