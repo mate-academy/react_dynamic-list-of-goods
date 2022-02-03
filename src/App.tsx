@@ -18,30 +18,38 @@ class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  displayAllGoods = async () => {
-    const goods = await getAll();
+  getGoodsHandler = async (getGoods: Promise<Good[]>) => {
+    const goods = await getGoods;
 
-    this.setState({ goods });
-  };
-
-  displayFiveFirstGoods = async () => {
-    const goods = await get5First();
-
-    this.setState({ goods });
-  };
-
-  displayRedGoods = async () => {
-    const goods = await getRedGoods();
-
-    this.setState({ goods });
+    this.setState({
+      goods: [...goods],
+    });
   };
 
   render() {
     return (
       <div className="container">
-        <button type="button" className="button" onClick={this.displayAllGoods}>All Goods</button>
-        <button type="button" className="button" onClick={this.displayFiveFirstGoods}>Get 5 first</button>
-        <button type="button" className="button" onClick={this.displayRedGoods}>get Red goods</button>
+        <button
+          type="button"
+          className="button"
+          onClick={() => this.getGoodsHandler(getAll())}
+        >
+          All Goods
+        </button>
+        <button
+          type="button"
+          className="button"
+          onClick={() => this.getGoodsHandler(get5First())}
+        >
+          Get 5 first
+        </button>
+        <button
+          type="button"
+          className="button"
+          onClick={() => this.getGoodsHandler(getRedGoods())}
+        >
+          get Red goods
+        </button>
         <GoodsList goods={this.state.goods} />
       </div>
     );
