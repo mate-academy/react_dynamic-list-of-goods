@@ -9,10 +9,11 @@ export function getAll(): Promise<Good[]> {
 export const get5First = async () => {
   const goods = await getAll();
 
-  return goods.slice(0, 5).sort((a, b) => a.name.localeCompare(b.name));
+  return goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5);
 };
 
-export const getRed = () => {
-  return getAll()
-    .then(goods => goods.filter(good => good.color === 'red'));
-};
+export async function getRed() {
+  const response = await fetch(`${API_URL}?color=red`);
+
+  return response.json();
+}
