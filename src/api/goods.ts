@@ -13,7 +13,7 @@ export const get5First = async () => {
 };
 
 export async function getRed() {
-  const response = await fetch(`${API_URL}?color=red`);
+  const goods = await getAll();
 
-  return response.json();
+  return goods.filter(good => good.color === 'red');
 }
