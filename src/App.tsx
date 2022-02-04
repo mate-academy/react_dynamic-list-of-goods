@@ -16,7 +16,7 @@ export class App extends React.Component<{}, State> {
   loadGoods = async (func: () => Promise<Good[]>) => {
     const goods = await func();
 
-    return this.setState({ goods });
+    this.setState({ goods });
   };
 
   render() {
