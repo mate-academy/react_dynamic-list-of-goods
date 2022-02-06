@@ -17,9 +17,6 @@ class App extends React.Component<{}, State> {
   LoadHandler = async (getFunction: Promise<Good[]>) => {
     const goods = await getFunction;
 
-    // eslint-disable-next-line no-console
-    console.log(goods);
-
     this.setState({
       goods: [...goods],
     });
