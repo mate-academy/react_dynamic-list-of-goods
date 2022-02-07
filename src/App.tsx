@@ -14,20 +14,8 @@ export class App extends React.Component<Props, State> {
     goods: [],
   };
 
-  showAllGoods = async () => {
-    const goods = await getAll();
-
-    this.setState({ goods });
-  };
-
-  showFiveFirstGoods = async () => {
-    const goods = await get5First();
-
-    this.setState({ goods });
-  };
-
-  showRedGoods = async () => {
-    const goods = await getRedGoods();
+  showGoods = async (callback: () => Promise<Good[]>) => {
+    const goods = await callback();
 
     this.setState({ goods });
   };
@@ -41,21 +29,21 @@ export class App extends React.Component<Props, State> {
         <div className="btn-group">
           <button
             type="button"
-            onClick={this.showAllGoods}
+            onClick={() => this.showGoods(getAll)}
             className="btn btn-outline-primary"
           >
             Load All goods
           </button>
           <button
             type="button"
-            onClick={this.showFiveFirstGoods}
+            onClick={() => this.showGoods(get5First)}
             className="btn btn-outline-primary"
           >
             Load 5 first goods
           </button>
           <button
             type="button"
-            onClick={this.showRedGoods}
+            onClick={() => this.showGoods(getRedGoods)}
             className="btn btn-outline-primary"
           >
             Load red goods
