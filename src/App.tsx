@@ -12,28 +12,10 @@ class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  showAllGoods = async () => {
-    const goods = await getAll();
+  showGoods = async (callback: () => Promise<Good[]>) => {
+    const goods = await callback();
 
-    this.setState({
-      goods,
-    });
-  };
-
-  showFirstFiveGoods = async () => {
-    const goods = await get5First();
-
-    this.setState({
-      goods,
-    });
-  };
-
-  showRedGoods = async () => {
-    const goods = await getRedGoods();
-
-    this.setState({
-      goods,
-    });
+    this.setState({ goods });
   };
 
   render() {
@@ -45,7 +27,7 @@ class App extends React.Component<{}, State> {
         <button
           className="btn btn-info"
           type="button"
-          onClick={this.showAllGoods}
+          onClick={() => this.showGoods(getAll)}
         >
           Load All goods
         </button>
@@ -53,7 +35,7 @@ class App extends React.Component<{}, State> {
         <button
           className="btn btn-success"
           type="button"
-          onClick={this.showFirstFiveGoods}
+          onClick={() => this.showGoods(get5First)}
         >
           Load 5 first goods
         </button>
@@ -61,7 +43,7 @@ class App extends React.Component<{}, State> {
         <button
           className="btn btn-danger"
           type="button"
-          onClick={this.showRedGoods}
+          onClick={() => this.showGoods(getRedGoods)}
         >
           Load red goods
         </button>
