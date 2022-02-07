@@ -1,11 +1,23 @@
-// eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
+const API_URL = 'https://mate.academy/students-api/goods';
 
-export function getAll(): Promise<Good[]> {
-  return fetch(API_URL)
-    .then(response => response.json());
+export async function getAllGoods(): Promise<Good[]> {
+  const response = await fetch(API_URL);
+
+  return response.json();
 }
 
-export const get5First = () => {};
+export const getFiveFirst = async () => {
+  const goods = await getAllGoods();
 
-export const getRedGoods = () => {};
+  return [...goods]
+    .sort((first: Good, second: Good) => (
+      first.name.localeCompare(second.name)
+    ))
+    .slice(0, 5);
+};
+
+export const getRedGoods = async () => {
+  const goods = await fetch(`${API_URL}?color=red`);
+
+  return goods.json();
+};
