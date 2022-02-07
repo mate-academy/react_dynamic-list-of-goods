@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unused-state */
 import React from 'react';
 import './App.scss';
 
@@ -14,17 +13,19 @@ class App extends React.Component<{}, State> {
     goodsFromServer: null,
   };
 
+  handleLoadGoods = async () => {
+    this.setState({
+      goodsFromServer: await getAll(),
+    });
+  };
+
   render() {
     return (
       <div className="App">
         <h1>Dynamic list of Goods</h1>
         <button
           type="button"
-          onClick={async () => {
-            this.setState({
-              goodsFromServer: await getAll(),
-            });
-          }}
+          onClick={this.handleLoadGoods}
           className="App__button"
         >
           Load All goods
