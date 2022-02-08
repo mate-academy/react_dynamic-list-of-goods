@@ -4,8 +4,6 @@ import 'bulma';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList';
-// or
-// import * as goodsAPI from './api/goods';
 
 type State = {
   goods: Good[],
@@ -16,25 +14,11 @@ export class App extends React.PureComponent<{}, State> {
     goods: [],
   };
 
-  loadAllGoodsHandler = async () => {
-    getAll()
-      .then(goodsFromServer => {
-        this.setState({
-          goods: [...goodsFromServer],
-        });
+  loadGoodsHandler = (callback: () => Promise<Good[]>) => {
+    callback()
+      .then((goods: Good[]) => {
+        this.setState({ goods });
       });
-  };
-
-  load5FirstGoodsHandler = async () => {
-    this.setState({
-      goods: await get5First(),
-    });
-  };
-
-  loadRedGoodsHandler = async () => {
-    this.setState({
-      goods: await getRedGoods(),
-    });
   };
 
   render() {
@@ -44,21 +28,21 @@ export class App extends React.PureComponent<{}, State> {
           <button
             className="button is-link"
             type="button"
-            onClick={this.loadAllGoodsHandler}
+            onClick={() => this.loadGoodsHandler(getAll)}
           >
             Load All goods
           </button>
           <button
             className="button is-warning"
             type="button"
-            onClick={this.load5FirstGoodsHandler}
+            onClick={() => this.loadGoodsHandler(get5First)}
           >
             Load 5 first goods
           </button>
           <button
             className="button is-danger"
             type="button"
-            onClick={this.loadRedGoodsHandler}
+            onClick={() => this.loadGoodsHandler(getRedGoods)}
           >
             Load red goods
           </button>
