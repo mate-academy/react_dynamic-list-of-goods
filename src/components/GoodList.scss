@@ -1,6 +1,6 @@
 .App__list {
   display: grid;
-  grid-template-columns: 200px 200px 200px 200px 200px;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   gap: 20px;
   margin-top: 50px;
   list-style: none;
