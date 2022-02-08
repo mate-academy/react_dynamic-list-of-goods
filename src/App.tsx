@@ -14,8 +14,8 @@ class App extends React.Component<{}, State> {
     goods: [],
   };
 
-  LoadHandler = async (getFunction: Promise<Good[]>) => {
-    const goods = await getFunction;
+  loadHandler = async (getFunction: () => Promise<Good[]>) => {
+    const goods = await getFunction();
 
     this.setState({
       goods: [...goods],
@@ -33,21 +33,21 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button is-link"
-            onClick={() => this.LoadHandler(getAll())}
+            onClick={() => this.loadHandler(getAll)}
           >
             Load All goods
           </button>
           <button
             type="button"
             className="button is-link"
-            onClick={() => this.LoadHandler(get5First())}
+            onClick={() => this.loadHandler(get5First)}
           >
             Load 5 first goods
           </button>
           <button
             type="button"
             className="button is-link"
-            onClick={() => this.LoadHandler(getRedGoods())}
+            onClick={() => this.loadHandler(getRedGoods)}
           >
             Load red goods
           </button>
