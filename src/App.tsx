@@ -26,7 +26,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="App">
       <h1>Dynamic list of Goods</h1>
       <Button
         text="Load All goods"
@@ -41,7 +41,7 @@ const App: React.FC = () => {
         funcName={getRedGoods}
       />
       <GoodsList goods={goods} />
-    </>
+    </div>
   );
 };
 
