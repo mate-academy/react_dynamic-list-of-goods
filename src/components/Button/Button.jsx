@@ -6,7 +6,7 @@ export const Button = ({ text, funcName }) => (
   <button
     className="Button"
     type="button"
-    onClick={funcName}
+    onClick={() => funcName()}
   >
     {text}
   </button>
