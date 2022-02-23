@@ -1,13 +1,13 @@
 import React from 'react';
 
 type Props = {
-  goods: Good[] | undefined
+  goods: Good[]
 };
 
 const GoodsList: React.FC<Props> = ({ goods }) => {
   return (
     <ul>
-      {goods?.map(good => (
+      {goods.map(good => (
         <li style={{ color: good.color }}>{good.name}</li>
       ))}
     </ul>
