@@ -1,1 +1,15 @@
-// styles go here
+.list {
+  box-sizing: border-box;
+  margin: 30px;
+  padding: 12px;
+  width: max-content;
+  height: max-content;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  border: 2px solid black;
+
+  &__button {
+    font-size: 1.2em;
+    margin-right: 4px;
+  }
+}
