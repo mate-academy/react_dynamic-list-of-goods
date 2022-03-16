@@ -18,11 +18,9 @@ const App: React.FC = () => {
     <>
       <h1>Dynamic list of Goods</h1>
 
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        goods.length > 0 && <GoodsList {...{ goods }} />
-      )}
+      {isLoading
+        ? <p>Loading...</p>
+        : goods.length > 0 && <GoodsList {...{ goods }} />}
 
       <button
         type="button"

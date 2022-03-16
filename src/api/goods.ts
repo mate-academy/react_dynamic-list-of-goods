@@ -18,5 +18,5 @@ export const get5First = async (): Promise<Good[]> => {
 export const getRedGoods = async (): Promise<Good[]> => {
   const goods = await getAll();
 
-  return goods.filter(g => g.color === 'red');
+  return goods.filter(good => good.color === 'red');
 };
