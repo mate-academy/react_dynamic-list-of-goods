@@ -14,6 +14,9 @@ const App: React.FC = () => {
       });
   };
 
+  // eslint-disable-next-line no-console
+  console.log(goods);
+
   return (
     <div>
       <h1>Dynamic list of Goods</h1>
