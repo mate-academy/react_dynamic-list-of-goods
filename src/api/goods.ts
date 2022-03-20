@@ -9,8 +9,10 @@ export async function getAll(): Promise<Good[]> {
   return response.json();
 }
 
-export const get5First = () => {
-  return getAll().then(goods => goods.filter((_, i) => i < 5));
+export const get5First = async () => {
+  const goods = await getAll();
+
+  return goods.filter((_, i) => i < 5);
 };
 
 export const getRedGoods = async () => {

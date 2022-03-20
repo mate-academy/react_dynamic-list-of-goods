@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 
 import { Good } from './react-app-env';
@@ -10,28 +10,22 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  useEffect(() => {
-    getAll().then((result: Good[]) => {
-      return setGoods(result);
-    });
-  }, []);
+  const getAllGoods = async () => {
+    const preparedGoods = await getAll();
 
-  const getAllGoods = () => {
-    getAll().then((result: Good[]) => {
-      return setGoods(result);
-    });
+    return setGoods(preparedGoods);
   };
 
-  const getFive = () => {
-    get5First().then((result: Good[]) => {
-      return setGoods(result);
-    });
+  const getFive = async () => {
+    const preparedGoods = await get5First();
+
+    return setGoods(preparedGoods);
   };
 
-  const getRed = () => {
-    getRedGoods().then((result: Good[]) => {
-      return setGoods(result);
-    });
+  const getRed = async () => {
+    const preparedGoods = await getRedGoods();
+
+    return setGoods(preparedGoods);
   };
 
   return (
@@ -50,7 +44,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-
-/*
-<button type="button" onClick={get5First(setGoods)}>Load 5 first goods</button> *
-/* <button type="button" onClick={getRedGoods(setGoods)}>Load red goods</button> */
