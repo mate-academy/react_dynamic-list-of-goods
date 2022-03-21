@@ -7,13 +7,17 @@ import { GoodsList } from './Components/GoodsList';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const toState = (callback: () => Promise<Good[]>) => {
+    callback()
+      .then(goodsList => setGoods(goodsList));
+  };
 
   return (
     <>
       <div>
         <button
           type="button"
-          onClick={() => getAll().then(goodsList => setGoods(goodsList))}
+          onClick={() => toState(getAll)}
         >
           Load All goods
         </button>
@@ -22,7 +26,7 @@ const App: React.FC = () => {
       <div>
         <button
           type="button"
-          onClick={() => get5First().then(goodsList => setGoods(goodsList))}
+          onClick={() => toState(get5First)}
         >
           Load 5 first goods
         </button>
@@ -31,7 +35,7 @@ const App: React.FC = () => {
       <div>
         <button
           type="button"
-          onClick={() => getRedGoods().then(goodsList => setGoods(goodsList))}
+          onClick={() => toState(getRedGoods)}
         >
           Load red goods
         </button>
