@@ -16,7 +16,7 @@ export const get5First = () => {
         return prevGoodName.localeCompare(nextGoodName);
       });
 
-      return sortByName.slice(0, 4);
+      return sortByName.slice(0, 5);
     });
 };
 
