@@ -7,38 +7,32 @@ import { GoodsList } from './components/GoodsList';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
+  const onButtonClick = async (getGoods: () => Promise<Good[]>) => {
+    const selectedGoods = await getGoods();
+
+    setGoods(selectedGoods);
+  };
+
   return (
     <>
       <h1>Dynamic list of Goods</h1>
 
       <button
-        onClick={async () => {
-          const allGoods = await getAll();
-
-          setGoods(allGoods);
-        }}
+        onClick={() => onButtonClick(getAll)}
         type="button"
       >
         Load All goods
       </button>
 
       <button
-        onClick={async () => {
-          const first5Goods = await get5First();
-
-          setGoods(first5Goods);
-        }}
+        onClick={() => onButtonClick(get5First)}
         type="button"
       >
         Load 5 first goods
       </button>
 
       <button
-        onClick={async () => {
-          const redGoods = await getRedGoods();
-
-          setGoods(redGoods);
-        }}
+        onClick={() => onButtonClick(getRedGoods)}
         type="button"
       >
         Load red goods
