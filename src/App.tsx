@@ -7,36 +7,32 @@ import { GoodList } from './GoodList';
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
+  const getGoodsFromServer = (getGoods: () => Promise<Good[]>) => {
+    getGoods()
+      .then(goodsFromServer => {
+        setGoods(goodsFromServer);
+      });
+  };
+
   return (
     <>
       <button
         type="button"
-        onClick={() => {
-          getAll()
-            .then(goodsFromServer => {
-              setGoods(goodsFromServer);
-            });
-        }}
+        onClick={() => getGoodsFromServer(getAll)}
       >
         Load All goods
       </button>
 
       <button
         type="button"
-        onClick={() => {
-          get5First()
-            .then(sortedGoods => setGoods(sortedGoods));
-        }}
+        onClick={() => getGoodsFromServer(get5First)}
       >
         Load first 5
       </button>
 
       <button
         type="button"
-        onClick={() => {
-          getRedGoods()
-            .then(x => setGoods(x));
-        }}
+        onClick={() => getGoodsFromServer(getRedGoods)}
       >
         Load red goods
       </button>
