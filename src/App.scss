@@ -1,1 +1,25 @@
-// styles go here
+.App {
+  &__title {
+    text-align: center;
+  }
+
+  &__button-box {
+    width: max-content;
+    margin: auto;
+  }
+
+  &__button {
+    margin: 0 10px;
+    width: 100px;
+    background-color: white;
+    border: 2px solid blue;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
