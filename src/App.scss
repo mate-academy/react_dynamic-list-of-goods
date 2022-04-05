@@ -1,1 +1,14 @@
-// styles go here
+@import "bulma/bulma";
+
+iframe {
+  display: none;
+}
+
+body {
+  padding: 1.5rem;
+}
+
+button {
+  margin-bottom: 1.5rem;
+  margin-right: 0.5rem;
+}
