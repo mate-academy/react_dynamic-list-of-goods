@@ -1,1 +1,23 @@
 // styles go here
+* {
+  box-sizing: border-box;
+}
+
+.button-block {
+  display: flex;
+  gap: 3px;
+}
+
+.button {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: rgb(232, 235, 62);
+  color: rgb(26, 214, 152);
+}
+
+.button:active {
+  color: black;
+}
