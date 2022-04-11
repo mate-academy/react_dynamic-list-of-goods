@@ -1,7 +1,9 @@
-/// <reference types="react-scripts" />
+type Color = 'red' | 'green' | 'blue';
 
-interface Good {
+type GoodsPromise = () => Promise<GoodsItem[]>;
+
+interface GoodsItem {
   id: number;
   name: string;
-  color: string;
+  color: Color;
 }

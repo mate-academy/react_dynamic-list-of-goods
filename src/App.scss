@@ -1,1 +1,12 @@
-// styles go here
+.App {
+  &__container {
+    display: flex;
+    width: 25vw;
+    gap: 10px;
+  }
+
+  &__button {
+    flex-grow: 1;
+    padding: 10px 15px;
+  }
+}
