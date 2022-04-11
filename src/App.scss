@@ -1,1 +1,7 @@
-// styles go here
+@import 'bulma/css/bulma.css';
+
+.App {
+  &_title {
+    text-align: center;
+  }
+}

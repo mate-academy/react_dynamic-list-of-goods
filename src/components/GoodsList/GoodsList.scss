@@ -1,0 +1,9 @@
+.goodsList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &_good {
+    font-size: 28px;
+  }
+}
