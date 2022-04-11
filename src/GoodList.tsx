@@ -15,7 +15,7 @@ export const GoodList: FC<Props> = memo(({ goods }) => (
     </thead>
 
     <tbody>
-      {goods.length > 0 && goods.map(good => (
+      {goods.length > 0 ? goods.map(good => (
         <tr>
           <td>{good.id}</td>
           <td>{good.name}</td>
@@ -23,7 +23,15 @@ export const GoodList: FC<Props> = memo(({ goods }) => (
             <span style={{ color: good.color }}>{good.color}</span>
           </td>
         </tr>
-      ))}
+      )) : (
+        <tr>
+          <td>
+            <span className="subtitle" style={{ color: 'red' }}>
+              No goods found
+            </span>
+          </td>
+        </tr>
+      )}
     </tbody>
   </table>
 ));
