@@ -1,11 +1,11 @@
-import React, { useState, memo } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './components';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsToLoad } from './enums/GoodsToLoad';
 
-const App: React.FC = memo(() => {
+const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const loadGoods = (toLoad: GoodsToLoad) => {
@@ -52,6 +52,6 @@ const App: React.FC = memo(() => {
       <GoodsList goods={goods} />
     </>
   );
-});
+};
 
 export default App;
