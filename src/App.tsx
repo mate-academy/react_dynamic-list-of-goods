@@ -5,28 +5,12 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState((): Good[] => []);
+  const [goods, setGoods] = useState<Good[]>([]);
 
-  const getAllUsers = () => {
-    getAll()
+  const loadUser = (callback:() => Promise<Good[]>) => {
+    callback()
       .then(user => {
         setGoods(user);
-      });
-  };
-
-  const get5FirstUsers = () => {
-    get5First()
-      .then(user => {
-        setGoods(user.sort(
-          (userA, userB) => userA.name.localeCompare(userB.name),
-        ).slice(0, 5));
-      });
-  };
-
-  const getRedGoodsUsers = () => {
-    getRedGoods()
-      .then(user => {
-        setGoods(user.filter(good => good.color === 'red'));
       });
   };
 
@@ -35,19 +19,25 @@ export const App: React.FC = () => {
       <h1>Dynamic list of Goods</h1>
       <button
         type="button"
-        onClick={getAllUsers}
+        onClick={() => {
+          loadUser(getAll);
+        }}
       >
         Load All
       </button>
       <button
         type="button"
-        onClick={get5FirstUsers}
+        onClick={() => {
+          loadUser(get5First);
+        }}
       >
         Load 5
       </button>
       <button
         type="button"
-        onClick={getRedGoodsUsers}
+        onClick={() => {
+          loadUser(getRedGoods);
+        }}
       >
         Load red
       </button>
