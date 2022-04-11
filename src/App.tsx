@@ -3,25 +3,12 @@ import './App.scss';
 import { GoodsList } from './components';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
-import { GoodsToLoad } from './enums/GoodsToLoad';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadGoods = (toLoad: GoodsToLoad) => {
-    switch (toLoad) {
-      case GoodsToLoad.AllGoods:
-        getAll().then(items => setGoods(items));
-        break;
-      case GoodsToLoad.firstFiveGoods:
-        get5First().then(items => setGoods(items));
-        break;
-      case GoodsToLoad.RedGoods:
-        getRedGoods().then(item => setGoods(item));
-        break;
-      default:
-        break;
-    }
+  const loadGoods = (toLoadCallback:() => Promise<Good[]>) => {
+    toLoadCallback().then(items => setGoods(items));
   };
 
   return (
@@ -30,21 +17,21 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        onClick={() => loadGoods(GoodsToLoad.AllGoods)}
+        onClick={() => loadGoods(getAll)}
       >
         Load All goods
       </button>
 
       <button
         type="button"
-        onClick={() => loadGoods(GoodsToLoad.firstFiveGoods)}
+        onClick={() => loadGoods(get5First)}
       >
         Load 5 first goods
       </button>
 
       <button
         type="button"
-        onClick={() => loadGoods(GoodsToLoad.RedGoods)}
+        onClick={() => loadGoods(getRedGoods)}
       >
         Load red goods
       </button>
