@@ -16,7 +16,7 @@ export const GoodList: FC<Props> = memo(({ goods }) => (
 
     <tbody>
       {goods.length > 0 ? goods.map(good => (
-        <tr>
+        <tr key={good.id}>
           <td>{good.id}</td>
           <td>{good.name}</td>
           <td>
