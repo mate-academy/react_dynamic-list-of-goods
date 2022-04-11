@@ -1,12 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { GoodsList } from './components/GoodsList';
 
-const App: React.FC = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState((): Good[] => []);
 
-export default App;
+  const getAllUsers = () => {
+    getAll()
+      .then(user => {
+        setGoods(user);
+      });
+  };
+
+  const get5FirstUsers = () => {
+    get5First()
+      .then(user => {
+        setGoods(user.sort(
+          (userA, userB) => userA.name.localeCompare(userB.name),
+        ).slice(0, 5));
+      });
+  };
+
+  const getRedGoodsUsers = () => {
+    getRedGoods()
+      .then(user => {
+        setGoods(user.filter(good => good.color === 'red'));
+      });
+  };
+
+  return (
+    <>
+      <h1>Dynamic list of Goods</h1>
+      <button
+        type="button"
+        onClick={getAllUsers}
+      >
+        Load All
+      </button>
+      <button
+        type="button"
+        onClick={get5FirstUsers}
+      >
+        Load 5
+      </button>
+      <button
+        type="button"
+        onClick={getRedGoodsUsers}
+      >
+        Load red
+      </button>
+
+      <GoodsList goods={goods} />
+    </>
+  );
+};
