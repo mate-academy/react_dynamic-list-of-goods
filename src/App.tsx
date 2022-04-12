@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useState } from 'react';
 
 import './App.scss';
+import './notmalize.scss';
 
 import { GoodsList } from './components/GoodsList';
 import { LoadButton } from './components/LoadButton';
@@ -19,7 +20,7 @@ const App: React.FC = memo(() => {
     <div className="App">
       <h1 className="App__title">Dynamic list of Goods</h1>
 
-      <div className="actions">
+      <div className="load-buttons">
         <LoadButton
           title="Load All goods"
           action={() => {

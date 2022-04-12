@@ -8,12 +8,12 @@ interface Props {
 
 export const GoodsList: FC<Props> = memo(({ goods }) => {
   return (
-    <ul className="goods">
+    <ul className="goods-list">
       {
         goods.map(good => (
           <li
             key={good.id}
-            className="goods__item"
+            className="goods-list__item"
             style={{ color: good.color }}
           >
             {good.name}

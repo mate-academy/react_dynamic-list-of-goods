@@ -11,8 +11,8 @@ export const LoadButton: FC<Props> = memo(({ title, action }) => {
   return (
     <button
       type="button"
-      className="actions__button"
-      onClick={() => action()}
+      className="load-buttons__button"
+      onClick={action}
     >
       {title}
     </button>

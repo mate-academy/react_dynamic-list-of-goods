@@ -1,4 +1,4 @@
-.actions {
+.load-buttons {
   display: flex;
   gap: 5px;
 
@@ -13,9 +13,5 @@
     font-family: "Comic Sans MS", sans-serif;
     font-size: 12px;
     font-weight: bold;
-
-    &--reset {
-      background-color: #f4872d;
-    }
   }
 }
