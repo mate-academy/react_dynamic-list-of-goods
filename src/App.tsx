@@ -1,6 +1,6 @@
 import './App.scss';
 import {
-  FC, memo, useState,
+  FC, memo, useCallback, useState,
 } from 'react';
 import {
   getAllGoods, getFirstFive, getRedGoods,
@@ -12,7 +12,7 @@ export const App: FC = memo(() => {
   const [goods, setGoods] = useState<GoodsItem[]>([]);
   const [currentLoadType, setCurrentLoadType] = useState(LoadType.Default);
 
-  const getGoods = async (loadType: LoadType) => {
+  const getGoods = useCallback(async (loadType: LoadType) => {
     let loadCallback: GoodsPromise;
 
     switch (loadType) {
@@ -33,7 +33,7 @@ export const App: FC = memo(() => {
 
     setGoods(goodsFromServer);
     setCurrentLoadType(loadType);
-  };
+  }, []);
 
   return (
     <div className="App">
