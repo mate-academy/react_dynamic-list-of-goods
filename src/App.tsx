@@ -2,43 +2,18 @@ import React, { useState } from 'react';
 import './App.scss';
 import 'bulma';
 
-import { getAll } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodList } from './GoodList';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isInitialized, setInitialized] = useState(false);
 
-  const getAllGoods = () => {
-    getAll()
-      .then(goodsFromServer => {
-        setGoods(goodsFromServer);
-        setInitialized(true);
-      });
-  };
-
-  const get5First = () => {
-    getAll()
-      .then(goodsFromServer => {
-        goodsFromServer.sort((good1, good2) => {
-          return good1.name.localeCompare(good2.name);
-        });
-
-        setGoods(goodsFromServer.slice(0, 5));
-        setInitialized(true);
-      });
-  };
-
-  const getRedGoods = () => {
-    getAll()
-      .then(goodsFromServer => {
-        const filteredGoods = goodsFromServer.filter(
-          good => good.color === 'red',
-        );
-
-        setGoods(filteredGoods);
-        setInitialized(true);
-      });
+  const fetchGoods = (callback:() => Promise<Good[]>) => {
+    callback().then(goodsFromServer => {
+      setGoods(goodsFromServer);
+      setInitialized(true);
+    });
   };
 
   return (
@@ -59,7 +34,7 @@ const App: React.FC = () => {
         <button
           className="button is-primary button--gap"
           type="button"
-          onClick={getAllGoods}
+          onClick={() => fetchGoods(getAll)}
         >
           Load All goods
         </button>
@@ -67,7 +42,7 @@ const App: React.FC = () => {
         <button
           className="button is-primary button--gap"
           type="button"
-          onClick={get5First}
+          onClick={() => fetchGoods(get5First)}
         >
           Load 5 first goods
         </button>
@@ -75,7 +50,7 @@ const App: React.FC = () => {
         <button
           className="button is-primary"
           type="button"
-          onClick={getRedGoods}
+          onClick={() => fetchGoods(getRedGoods)}
         >
           Load red goods
         </button>
