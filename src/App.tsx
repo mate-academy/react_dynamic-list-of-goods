@@ -5,10 +5,8 @@ import './App.scss';
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const onVisibleGoods = async () => {
-    const data = await getAll();
-
-    setGoods(data);
+  const onVisibleGoods = () => {
+    getAll().then(data => setGoods(data));
   };
 
   const onVisible5Goods = async () => setGoods(await get5First());
@@ -17,13 +15,32 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <button type="button" onClick={onVisibleGoods}>All goods</button>
-      <button type="button" onClick={onVisible5Goods}>First 5 goods</button>
-      <button type="button" onClick={onVisibleRedGoods}>Red goods</button>
+      <button
+        type="button"
+        onClick={onVisibleGoods}
+      >
+        All goods
+      </button>
+
+      <button
+        type="button"
+        onClick={onVisible5Goods}
+      >
+        First 5 goods
+      </button>
+
+      <button
+        type="button"
+        onClick={onVisibleRedGoods}
+      >
+        Red goods
+      </button>
 
       <ul>
         {goods.map(good => (
-          <li key={good.id}>{good.name}</li>
+          <li key={good.id}>
+            <p style={{ color: good.color }}>{good.name}</p>
+          </li>
         ))}
       </ul>
     </div>
