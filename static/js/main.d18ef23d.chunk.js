@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[0],{3:function(n,e,t){n.exports=t(9)},8:function(n,e,t){},9:function(n,e,t){"use strict";t.r(e);var o=t(0),c=t.n(o),r=t(2),u=t.n(r),a=(t(8),function(){return c.a.createElement("h1",null,"Dynamic list of Goods")});u.a.render(c.a.createElement(a,null),document.getElementById("root"))}},[[3,1,2]]]);
-//# sourceMappingURL=main.d18ef23d.chunk.js.map
