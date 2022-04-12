@@ -5,8 +5,10 @@ import './App.scss';
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const onVisibleGoods = () => {
-    getAll().then(data => setGoods(data));
+  const onVisibleGoods = async () => {
+    const data = await getAll();
+
+    setGoods(data);
   };
 
   const onVisible5Goods = async () => setGoods(await get5First());
