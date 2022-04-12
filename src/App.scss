@@ -1,1 +1,57 @@
-// styles go here
+.app {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 30px 60px;
+  min-height: 100vh;
+  background-color: #181a1e;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #fff;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+
+    margin-bottom: 24px;
+  }
+
+  &__button {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    padding: 15px 25px;
+    margin-left: 15px;
+    top: 0;
+    width: 150px;
+    color: #fff5f5;
+    text-transform: uppercase;
+
+    background-color: #181a1e;
+    border: 1px #ffffff26 solid;
+    box-shadow: 0 3px 10px #ffffff1a;
+
+    transition: box-shadow 0.3s ease 0s,
+      top 0.3s ease 0s,
+      border 0.3s ease 0s,
+      color 0.3s ease 0s;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    &:hover {
+      border-bottom: 5px #ff2121 solid;
+      box-shadow: 0 6px 15px #ff1e1e80;
+      border: 1px #ff1e1e66 solid;
+      top: -4px;
+      color: #ff3232;
+
+      cursor: pointer;
+    }
+  }
+}
