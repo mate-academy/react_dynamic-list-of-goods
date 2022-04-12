@@ -10,7 +10,7 @@ export const getFirst5Goods = (): Promise<Good[]> => {
   return getAll()
     .then((goods: Good[]) => (
       goods
-        .sort((curr: Good, next: Good) => curr.name.localeCompare(next.name))
+        .sort((curr, next) => curr.name.localeCompare(next.name))
         .slice(0, 5)
     ));
 };
@@ -19,6 +19,6 @@ export const getRedGoods = (): Promise<Good[]> => {
   return getAll()
     .then((goods: Good[]) => (
       goods
-        .filter((good: Good) => good.color === 'red')
+        .filter((good) => good.color === 'red')
     ));
 };

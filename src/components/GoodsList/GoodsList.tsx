@@ -9,12 +9,12 @@ export const GoodsList: React.FC<Props> = React.memo(
   ({ goods }) => {
     return (
       <ul className="goods">
-        {goods.map(good => (
+        {goods.map(({ id, name, color }) => (
           <li
-            key={good.id}
-            style={{ color: good.color }}
+            key={id}
+            style={{ color }}
           >
-            {good.name}
+            {name}
           </li>
         ))}
       </ul>
