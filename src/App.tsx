@@ -9,8 +9,8 @@ export const App: React.FC = () => {
 
   const loadUser = (callback:() => Promise<Good[]>) => {
     callback()
-      .then(user => {
-        setGoods(user);
+      .then(goodsFromServer => {
+        setGoods(goodsFromServer);
       });
   };
 
