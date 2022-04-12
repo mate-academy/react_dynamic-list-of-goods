@@ -8,7 +8,7 @@ export const GoodsList: FC<Props> = ({ goods }) => {
   return (
     <ul>
       {goods.map(good => (
-        <li key={good.id}>
+        <li key={good.id} style={{ color: good.color }}>
           {good.name}
         </li>
       ))}
