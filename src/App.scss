@@ -1,1 +1,25 @@
-// styles go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 600px;
+  margin: 20px;
+  padding: 20px;
+  background: aliceblue;
+  border-radius: 16px;
+  box-shadow: 0 9px 18px rgba(37, 41, 49, 0.1);
+
+  &__title {
+    display: block;
+
+    padding: 5px 80px;
+    margin-bottom: 10px;
+    border-radius: 23px;
+    background-color: rgba(46, 32, 246, 0.1);
+
+    font-family: Algerian, sans-serif;
+    text-transform: uppercase;
+    color: midnightblue;
+  }
+}

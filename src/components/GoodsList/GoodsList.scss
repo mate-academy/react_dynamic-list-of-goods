@@ -1,0 +1,13 @@
+.goods-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  &__item {
+    font-family: "Tempus Sans ITC", sans-serif;
+    font-size: 20px;
+  }
+}
