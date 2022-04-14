@@ -10,7 +10,8 @@ export async function getAll(): Promise<Good[]> {
 export const get5First = async () => {
   const goods = await getAll();
 
-  return goods.slice(0, 5);
+  // eslint-disable-next-line max-len
+  return [...goods].sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5);
 };
 
 export const getRed = async () => {
