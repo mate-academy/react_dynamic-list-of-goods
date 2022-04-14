@@ -5,19 +5,15 @@ import './App.scss';
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const onVisibleGoods = () => {
-    getAll().then(data => setGoods(data));
+   const onVisibleData = async (getData: ()=>Promise<Good[]>) => {
+    setGoods(await getData());
   };
-
-  const onVisibleData = async (getData: () => Promise<Good[]>) => {
-    setGoods(await getData())
-  }
 
   return (
     <div>
       <button
         type="button"
-        onClick={onVisibleGoods}
+        onClick={() => onVisibleData(getAll)}
       >
         All goods
       </button>
