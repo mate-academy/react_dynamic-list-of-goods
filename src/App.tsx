@@ -9,9 +9,9 @@ const App: React.FC = () => {
     getAll().then(data => setGoods(data));
   };
 
-  const onVisible5Goods = async () => setGoods(await get5First());
-
-  const onVisibleRedGoods = async () => setGoods(await getRed());
+  const onVisibleData = async (getData: () => Promise<Good[]>) => {
+    setGoods(await getData())
+  }
 
   return (
     <div>
@@ -24,14 +24,14 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        onClick={onVisible5Goods}
+        onClick={() => onVisibleData(get5First)}
       >
         First 5 goods
       </button>
 
       <button
         type="button"
-        onClick={onVisibleRedGoods}
+        onClick={() => onVisibleData(getRed)}
       >
         Red goods
       </button>
