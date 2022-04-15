@@ -10,29 +10,15 @@ type State = {
   goods: Good[]
 };
 
+type GetGoodsCallback = () => Promise<Good[]>;
+
 class App extends React.Component<{}, State> {
   state: State = {
     goods: [],
   };
 
-  getAllGoods = async () => {
-    const res = await getAll();
-
-    this.setState({
-      goods: res,
-    });
-  };
-
-  getFiveGoods = async () => {
-    const res = await get5First();
-
-    this.setState({
-      goods: res,
-    });
-  };
-
-  getRedGoods = async () => {
-    const res = await getRedGoods();
+  loadGoods = async (func: GetGoodsCallback) => {
+    const res = await func();
 
     this.setState({
       goods: res,
@@ -47,21 +33,27 @@ class App extends React.Component<{}, State> {
           <button
             type="button"
             className="button is-link"
-            onClick={this.getAllGoods}
+            onClick={() => {
+              this.loadGoods(getAll);
+            }}
           >
             Load All goods
           </button>
           <button
             type="button"
             className="button is-link"
-            onClick={this.getFiveGoods}
+            onClick={() => {
+              this.loadGoods(get5First);
+            }}
           >
             Load 5 first goods
           </button>
           <button
             type="button"
             className="button is-link"
-            onClick={this.getRedGoods}
+            onClick={() => {
+              this.loadGoods(getRedGoods);
+            }}
           >
             Load red goods
           </button>
