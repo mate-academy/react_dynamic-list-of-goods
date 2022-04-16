@@ -7,7 +7,7 @@ import { GoodsList } from './components/GoodsList';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadUser = (callback:() => Promise<Good[]>) => {
+  const loadGoods = (callback:() => Promise<Good[]>) => {
     callback()
       .then(goodsFromServer => {
         setGoods(goodsFromServer);
@@ -20,7 +20,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         onClick={() => {
-          loadUser(getAll);
+          loadGoods(getAll);
         }}
       >
         Load All
@@ -28,7 +28,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         onClick={() => {
-          loadUser(get5First);
+          loadGoods(get5First);
         }}
       >
         Load 5
@@ -36,7 +36,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         onClick={() => {
-          loadUser(getRedGoods);
+          loadGoods(getRedGoods);
         }}
       >
         Load red
