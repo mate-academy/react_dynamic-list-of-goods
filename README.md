@@ -16,3 +16,9 @@
 1. Print a `name` of each `good` using `good.color`(for example `style={{ color: 'red' }}`)
 1. There should be a new request to the server on each button click.
 1. `GoodsList` should show the last loaded goods.
+
+REQUIREMENTS:
+1. The button for choosing all goods should have inside text `all`
+2. The button for choosing 5 goods should have inside text `5`
+3. The button for choosing red goods should have inside text `red`
+
