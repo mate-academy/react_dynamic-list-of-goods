@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import GoodsList from './GoodsList';
@@ -12,6 +12,19 @@ type Props = {
 const App: React.FC<Props> = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
+  const clickHandler = useCallback(
+    (func) => {
+      return () => {
+        func().then(
+          (result:Good[]) => {
+            setGoods(result);
+          },
+        );
+      };
+    },
+    [],
+  );
+
   return (
     <>
       <h1>
@@ -19,26 +32,20 @@ const App: React.FC<Props> = () => {
       </h1>
       <button
         type="button"
-        onClick={async () => {
-          setGoods(await getAll());
-        }}
+        onClick={clickHandler(getAll)}
       >
         Load all goods
       </button>
       <button
         type="button"
-        onClick={async () => {
-          setGoods(await get5First());
-        }}
+        onClick={clickHandler(get5First)}
       >
         Load 5 first goods
       </button>
 
       <button
         type="button"
-        onClick={async () => {
-          setGoods(await getRedGoods());
-        }}
+        onClick={clickHandler(getRedGoods)}
       >
         Load red goods
       </button>
