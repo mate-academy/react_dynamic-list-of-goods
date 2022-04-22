@@ -1,5 +1,5 @@
 .error-message {
-  width: 350px;
+  width: 400px;
   margin: 20px 0;
   padding: 10px;
   color: darkred;
@@ -12,4 +12,9 @@
   &:hover {
     cursor: pointer;
   }
+}
+
+.no-list {
+  margin: 20px 0;
+  color: blue;
 }

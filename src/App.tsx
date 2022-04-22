@@ -8,34 +8,12 @@ const App: React.FC = () => {
   const [loadError, setLoadError] = useState(false);
   const [choosed, setChoosed] = useState('');
 
-  const loadGoods = async () => {
+  const load = async (callback: Promise<Good[]>, message: string) => {
     try {
-      const loadedGoods = await getAll();
+      const loadGoods = await callback;
 
-      setGoods(loadedGoods);
-      setChoosed('You load All Goods');
-    } catch (error) {
-      setLoadError(true);
-    }
-  };
-
-  const loadFiveGoods = async () => {
-    try {
-      const loadedFiveGoods = await get5First();
-
-      setGoods(loadedFiveGoods);
-      setChoosed('You load First 5 Goods');
-    } catch (error) {
-      setLoadError(true);
-    }
-  };
-
-  const loadRedGoods = async () => {
-    try {
-      const loadedRedGoods = await getRedGoods();
-
-      setGoods(loadedRedGoods);
-      setChoosed('You load All Red Goods');
+      setGoods(loadGoods);
+      setChoosed(message);
     } catch (error) {
       setLoadError(true);
     }
@@ -53,7 +31,7 @@ const App: React.FC = () => {
       <button
         type="button"
         className="button"
-        onClick={loadGoods}
+        onClick={() => load(getAll(), 'You load All Goods')}
       >
         Load All goods
       </button>
@@ -61,7 +39,7 @@ const App: React.FC = () => {
       <button
         type="button"
         className="button"
-        onClick={loadFiveGoods}
+        onClick={() => load(get5First(), 'You load First 5 Goods')}
       >
         Load 5 first goods
       </button>
@@ -69,7 +47,7 @@ const App: React.FC = () => {
       <button
         type="button"
         className="button"
-        onClick={loadRedGoods}
+        onClick={() => load(getRedGoods(), 'You load All Red Goods')}
       >
         Load red goods
       </button>
@@ -88,10 +66,17 @@ const App: React.FC = () => {
         </h3>
       )}
 
-      <GoodsList
-        goods={goods}
-        errors={loadError}
-      />
+      {goods.length > 0 && (
+        <GoodsList
+          goods={goods}
+        />
+      )}
+
+      {(!loadError && goods.length === 0) && (
+        <div className="no-list">
+          No goods in list, click load button to see the list
+        </div>
+      )}
 
       {loadError && (
         <div className="error-message">
