@@ -1,1 +1,15 @@
-// styles go here
+.error-message {
+  width: 350px;
+  margin: 20px 0;
+  padding: 10px;
+  color: darkred;
+  background-color: rgb(244, 143, 177);
+}
+
+.button {
+  margin-right: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
