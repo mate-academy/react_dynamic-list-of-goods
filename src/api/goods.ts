@@ -6,6 +6,18 @@ export function getAll(): Promise<Good[]> {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export const get5First = (): Promise<Good[]> => {
+  return getAll()
+    .then(products => {
+      return products.sort((prev, next) => {
+        return prev.name.localeCompare(next.name);
+      }).slice(0, 5);
+    });
+};
 
-export const getRedGoods = () => {};
+export const getRedGoods = (): Promise<Good[]> => {
+  return getAll()
+    .then(products => {
+      return products.filter((product) => product.color === 'red');
+    });
+};
