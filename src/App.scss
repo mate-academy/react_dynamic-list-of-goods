@@ -1,1 +1,14 @@
-// styles go here
+@import "bulma/bulma";
+
+body {
+  padding: 2rem;
+}
+
+button {
+  margin-bottom: 1rem;
+  margin-right: 0.5rem;
+}
+
+ol {
+  margin-left: 10rem;
+}

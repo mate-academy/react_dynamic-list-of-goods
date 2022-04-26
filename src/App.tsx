@@ -1,12 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Item } from './components/types';
+import { GoodsList } from './components/GoodsList/GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+enum OutputWay { None, All, FirstQuant, OnlyColor }
+type OutputGoods = () => Promise<Good[]>;
 
-const App: React.FC = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+export const App: React.FC = React.memo(() => {
+  const [goods, setGoods]
+    = useState<Item[]>((): Item[] => []);
+  const [fetchType, setFetchType]
+    = useState<OutputWay>(OutputWay.None);
 
-export default App;
+  const getGoods = (
+    howToGet: OutputGoods,
+    newFetchType: OutputWay = OutputWay.None,
+  ) => () => {
+    if (fetchType !== newFetchType) {
+      howToGet().then((goodsFromServer) => setGoods(goodsFromServer));
+      setFetchType(newFetchType);
+    }
+  };
+
+  return (
+    <>
+      <h1 className="title">Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        className="button"
+        onClick={getGoods(getAll, OutputWay.All)}
+      >
+        load all goods
+      </button>
+      <button
+        type="button"
+        className="button"
+        onClick={getGoods(get5First, OutputWay.FirstQuant)}
+      >
+        load 5 goods
+      </button>
+      <button
+        type="button"
+        className="button"
+        onClick={getGoods(getRedGoods, OutputWay.OnlyColor)}
+      >
+        load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </>
+  );
+});
