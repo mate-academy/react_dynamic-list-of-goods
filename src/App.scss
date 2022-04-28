@@ -1,1 +1,32 @@
-// styles go here
+.App {
+  margin: 0 auto;
+  padding: 50px;
+  width: 600px;
+  border-radius: 10px;
+  background-color: rgb(219, 188, 188);
+
+  &__title {
+    text-align: center;
+  }
+
+  &__buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &__button {
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(229, 255, 0);
+    color: rgb(113, 0, 141);
+    cursor: pointer;
+
+    transition: background-color 300ms;
+
+    &:hover {
+      background-color: rgb(185, 206, 0);
+    }
+  }
+}
