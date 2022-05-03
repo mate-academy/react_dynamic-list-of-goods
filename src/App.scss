@@ -1,1 +1,25 @@
-// styles go here
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10px;
+
+  &__block {
+    display: flex;
+    padding-top: 10px;
+    gap: 10px;
+
+    &-btn {
+      padding: 5px;
+      border-radius: 5px;
+      font-weight: bold;
+      color: blue;
+    }
+  }
+}
