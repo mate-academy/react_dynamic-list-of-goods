@@ -1,0 +1,16 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  background-color: darkgrey;
+  border: 1px solid darkgrey;
+  border-radius: 10px;
+  width: 400px;
+}
+
+.listItem {
+  font-size: 20px;
+  margin: 3px;
+}

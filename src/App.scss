@@ -1,1 +1,23 @@
-// styles go here
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+li {
+  list-style: none;
+}
+
+.buttons {
+  display: flex;
+}
+
+.btn {
+  padding: 5px 10px;
+  margin-right: 20px;
+}
