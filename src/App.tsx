@@ -7,17 +7,10 @@ import { Good } from './react-app-env';
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const getAllGoods = (async () => {
-    setGoods(await getAll());
-  });
-
-  const get5FirstSort = (async () => {
-    setGoods(await get5First());
-  });
-
-  const getRedColor = (async () => {
-    setGoods(await getRedGoods());
-  });
+  const getShowList = (callback:() => Promise<Good[]>) => {
+    callback()
+      .then(res => setGoods(res));
+  };
 
   return (
     <div className="App">
@@ -25,21 +18,27 @@ const App: React.FC = () => {
       <div className="App__block">
         <button
           type="button"
-          onClick={getAllGoods}
+          onClick={() => {
+            getShowList(getAll);
+          }}
           className="App__block-btn"
         >
           Load All goods
         </button>
         <button
           type="button"
-          onClick={get5FirstSort}
+          onClick={() => {
+            getShowList(get5First);
+          }}
           className="App__block-btn"
         >
           Load 5 first good
         </button>
         <button
           type="button"
-          onClick={getRedColor}
+          onClick={() => {
+            getShowList(getRedGoods);
+          }}
           className="App__block-btn"
         >
           Load red goods

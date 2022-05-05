@@ -15,8 +15,8 @@ const GoodsList:React.FC<Props> = ({ goods }) => {
           className="list__item"
         >
           <p>{good.id}</p>
-          <p>{good.name}</p>
-          <p style={{ color: good.color }}>{good.color}</p>
+          <p style={{ color: good.color }}>{good.name}</p>
+          <p>{good.color}</p>
         </li>
       ))}
     </ul>
