@@ -9,7 +9,7 @@ const App: React.FC = () => {
 
   const getShowList = (callback:() => Promise<Good[]>) => {
     callback()
-      .then(res => setGoods(res));
+      .then(response => setGoods(response));
   };
 
   return (
