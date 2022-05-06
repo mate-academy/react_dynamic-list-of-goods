@@ -1,1 +1,40 @@
-// styles go here
+body {
+  font-family: "Avenir", Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-style: normal;
+  font-weight: 400;
+  color: #333;
+  background-color: #344f10;
+}
+
+.App {
+  width: 80%;
+  margin: 50px auto;
+  background-color: #e5e5e5;
+  border-radius: 10px;
+
+  &__title {
+    line-height: 150px;
+    text-align: center;
+    color: #344f10;
+    text-decoration: underline;
+  }
+  &__buttons {
+    display: flex;
+    justify-content: center;
+  }
+  &__button {
+    margin: 15px;
+    margin-bottom: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    color: #344f10;
+    border: 2px transparent solid;
+    &:hover {
+      transform: scale(1.1);
+      background-color: #344f10;
+      color: #e5e5e5;
+    }
+  }
+}
