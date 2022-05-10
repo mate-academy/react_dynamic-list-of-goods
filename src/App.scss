@@ -1,1 +1,32 @@
-// styles go here
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  background-color: #ccc;
+  padding: 10px;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__item {
+    padding: 5px;
+    width: 200px;
+    border-radius: 10px;
+    opacity: 0.8;
+    transition: padding-left 0.3s;
+
+    &:hover {
+      padding-left: 30px;
+    }
+  }
+}
