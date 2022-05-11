@@ -11,43 +11,73 @@ const App: React.FC = () => {
     color: '',
   }]);
 
+  const [isErrorOccurred, setIsErrorOccured] = useState(false);
+
+  const handleShowAllButtonClick = () => {
+    try {
+      getAll().then(goods => {
+        setGoodsList(goods);
+        setIsErrorOccured(false);
+      });
+    } catch (error) {
+      setIsErrorOccured(true);
+    }
+  };
+
+  const handleShowFiveFirstButtonClick = async () => {
+    try {
+      const goods = await get5First();
+
+      setGoodsList(goods);
+      setIsErrorOccured(false);
+    } catch (error) {
+      setIsErrorOccured(true);
+    }
+  };
+
+  const handleShowRedGoodsButtonClick = async () => {
+    try {
+      const goods = await getRedGoods();
+
+      setGoodsList(goods);
+      setIsErrorOccured(false);
+    } catch (error) {
+      setIsErrorOccured(true);
+    }
+  };
+
   return (
     <>
       <h1>Dynamic list of Goods</h1>
 
       <button
         type="button"
-        onClick={() => {
-          getAll().then(goods => {
-            setGoodsList(goods);
-          });
-        }}
+        onClick={handleShowAllButtonClick}
       >
         Show all goods
       </button>
 
       <button
         type="button"
-        onClick={async () => {
-          const goods = await get5First();
-
-          setGoodsList(goods);
-        }}
+        onClick={handleShowFiveFirstButtonClick}
       >
         Show 5 first goods
       </button>
 
       <button
         type="button"
-        onClick={async () => {
-          const goods = await getRedGoods();
-
-          setGoodsList(goods);
-        }}
+        onClick={handleShowRedGoodsButtonClick}
       >
         Show red goods
       </button>
-      {goodsList[0].id !== 0 && <GoodsList listOfGoods={goodsList} />}
+      {
+        (goodsList.length > 0 && goodsList[0].id !== 0)
+        && <GoodsList listOfGoods={goodsList} />
+      }
+      {
+        isErrorOccurred
+        && <p>Loading was not finished successfully</p>
+      }
     </>
   );
 };
