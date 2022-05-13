@@ -5,11 +5,7 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList/GoodsList';
 
 const App: React.FC = () => {
-  const [goodsList, setGoodsList] = useState([{
-    id: 0,
-    name: '',
-    color: '',
-  }]);
+  const [goodsList, setGoodsList] = useState<Good[]>([]);
 
   const [isErrorOccurred, setIsErrorOccured] = useState(false);
 
@@ -71,7 +67,7 @@ const App: React.FC = () => {
         Show red goods
       </button>
       {
-        (goodsList.length > 0 && goodsList[0].id !== 0)
+        goodsList.length > 0
         && <GoodsList listOfGoods={goodsList} />
       }
       {
