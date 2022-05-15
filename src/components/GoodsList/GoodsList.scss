@@ -1,0 +1,19 @@
+.list {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 5px;
+  padding: 0;
+  margin-bottom: 30px;
+  max-width: 450px;
+
+  list-style: none;
+
+  &__item {
+    padding: 5px;
+
+    font-size: 20px;
+    background-color: #93e1d8;
+    border: 1px solid #462255;
+    border-radius: 10px;
+  }
+}
