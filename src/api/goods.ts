@@ -7,16 +7,18 @@ export const getAll = async (): Promise<Good[]> => {
   return response.json();
 };
 
-export function get5First(): Promise<Good[]> {
-  return fetch(API_URL)
-    .then(response => response.json())
-    .then(response => response.slice(0, 5));
-}
+export const get5First = async (): Promise<Good[]> => {
+  const response = await fetch(API_URL);
+  const respon = await response.json()
 
-export function getRedGoods(): Promise<Good[]> {
-  return fetch(API_URL)
-    .then(response => response.json())
-    .then(response => response.filter((good: Good) => {
-      return good.color === 'red';
-    }));
-}
+  return respon.slice(0, 5);
+};
+
+export const getRedGoods = async (): Promise<Good[]> => {
+  const response = await fetch(API_URL);
+  const respon = await response.json()
+
+  return respon.filter((good: Good) => {
+    return good.color === 'red'
+  });
+};
