@@ -1,1 +1,9 @@
-// styles go here
+.app {
+  display: grid;
+  place-content: center;
+
+  &__button {
+    border: 2px solid blue;
+    border-radius: 10px;
+  }
+}

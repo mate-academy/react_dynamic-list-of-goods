@@ -9,16 +9,16 @@ export const getAll = async (): Promise<Good[]> => {
 
 export const get5First = async (): Promise<Good[]> => {
   const response = await fetch(API_URL);
-  const respon = await response.json()
+  const respon = await response.json();
 
   return respon.slice(0, 5);
 };
 
 export const getRedGoods = async (): Promise<Good[]> => {
   const response = await fetch(API_URL);
-  const respon = await response.json()
+  const respon = await response.json();
 
   return respon.filter((good: Good) => {
-    return good.color === 'red'
+    return good.color === 'red';
   });
 };
