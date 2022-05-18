@@ -8,23 +8,23 @@ import * as goodsAPI from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const all = async() => {
+  const all = async () => {
     const response = await goodsAPI.getAll();
 
     return setGoods(response);
-  }
+  };
 
-  const firstFive = async() => {
+  const firstFive = async () => {
     const response = await goodsAPI.get5First();
 
     return setGoods(response);
-  }
+  };
 
-  const red = async() => {
+  const red = async () => {
     const response = await goodsAPI.getRedGoods();
 
     return setGoods(response);
-  }
+  };
 
   return (
     <div className="app">

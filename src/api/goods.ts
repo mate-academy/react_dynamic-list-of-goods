@@ -11,12 +11,12 @@ export function get5First(): Promise<Good[]> {
   return fetch(API_URL)
     .then(response => response.json())
     .then(response => response.slice(0, 5));
-};
+}
 
 export function getRedGoods(): Promise<Good[]> {
   return fetch(API_URL)
     .then(response => response.json())
     .then(response => response.filter((good: Good) => {
-      return good.color === 'red'
+      return good.color === 'red';
     }));
-};
+}
