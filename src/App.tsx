@@ -18,11 +18,8 @@ const App: React.FC = () => {
       <div className="app__buttons">
         <button
           type="button"
-          onClick={() => {
-            goodsAPI.getAll()
-              .then(newGoods => {
-                setGoods(newGoods);
-              });
+          onClick={async () => {
+            setGoods(await goodsAPI.getAll());
           }}
           className="app__button"
         >
@@ -31,11 +28,8 @@ const App: React.FC = () => {
 
         <button
           type="button"
-          onClick={() => {
-            goodsAPI.get5First()
-              .then(newGoods => {
-                setGoods(newGoods);
-              });
+          onClick={async () => {
+            setGoods(await goodsAPI.get5First());
           }}
           className="app__button"
         >
@@ -44,11 +38,8 @@ const App: React.FC = () => {
 
         <button
           type="button"
-          onClick={() => {
-            goodsAPI.getRedGoods()
-              .then(newGoods => {
-                setGoods(newGoods);
-              });
+          onClick={async () => {
+            setGoods(await goodsAPI.getRedGoods());
           }}
           className="app__button"
         >
