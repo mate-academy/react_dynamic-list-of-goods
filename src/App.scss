@@ -1,1 +1,35 @@
-// styles go here
+body {
+  margin: 0;
+  padding: 0;
+  color: rgb(70, 70, 70);
+  background-color: wheat;
+  font-family: "Open Sans", "Helvetica", sans-serif;
+}
+
+.App {
+  text-align: center;
+  margin: 0 auto;
+
+  &__title {
+    text-align: center;
+    font-size: 40px;
+  }
+
+  &__button {
+    font-size: 20px;
+    color: white;
+    background-color: rgb(214, 70, 94);
+    padding: 10px;
+    margin-right: 10px;
+
+    border-radius: 20px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &:hover {
+      background-color: rgb(69, 66, 66);
+    }
+  }
+}
