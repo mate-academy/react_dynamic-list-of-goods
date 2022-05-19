@@ -31,7 +31,7 @@ html {
   margin: 30px auto 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
 
@@ -41,12 +41,13 @@ html {
   }
 
   &__buttons {
+    width: 100%;
     display: flex;
     gap: 25px;
   }
 
   &__button {
-    width: 150px;
+    width: 100%;
     height: 50px;
     background-color: transparent;
     border: 2px solid black;

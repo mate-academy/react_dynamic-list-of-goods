@@ -24,6 +24,10 @@ const App: React.FC = () => {
     setGoods(redGoodsFromServer);
   };
 
+  const hideGoodsList = () => {
+    setGoods([]);
+  };
+
   return (
     <div className="App">
       <h1 className="App__title">
@@ -57,6 +61,16 @@ const App: React.FC = () => {
       </div>
 
       {goods.length > 0 && <GoodsList goods={goods} />}
+
+      {goods.length > 0 && (
+        <button
+          type="button"
+          className="App__button"
+          onClick={hideGoodsList}
+        >
+          Hide
+        </button>
+      )}
     </div>
   );
 };
