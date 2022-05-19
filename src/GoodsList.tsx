@@ -1,12 +1,6 @@
 import React from 'react';
 import './GoodList.scss';
 
-type Good = {
-  id: number;
-  name: string;
-  color: string;
-};
-
 type Props = {
   goods: Good[];
 };
