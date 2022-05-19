@@ -13,27 +13,18 @@ const App: React.FC = () => {
     const newGood = await getAll();
 
     setGoods([...newGood]);
-
-    // eslint-disable-next-line no-console
-    console.log(newGood);
   };
 
   const showFirsFiveGoods = async () => {
     const newGood = await get5First();
 
     setGoods([...newGood]);
-
-    // eslint-disable-next-line no-console
-    console.log(newGood);
   };
 
   const showRedGoods = async () => {
     const newGood = await getRedGoods();
 
     setGoods([...newGood]);
-
-    // eslint-disable-next-line no-console
-    console.log(newGood);
   };
 
   return (
