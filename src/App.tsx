@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-
-import { getAll, get5First, getRedGoods } from './api/goods';
+import { fetchGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList/GoodsList';
 
 const App: React.FC = () => {
@@ -9,33 +8,44 @@ const App: React.FC = () => {
 
   const [isErrorOccurred, setIsErrorOccured] = useState(false);
 
-  const handleShowAllButtonClick = () => {
-    try {
-      getAll().then(goods => {
-        setGoodsList(goods);
-        setIsErrorOccured(false);
-      });
-    } catch (error) {
-      setIsErrorOccured(true);
-    }
+  const getAllGoods = (goods: Good[]) => {
+    setGoodsList(goods);
   };
 
-  const handleShowFiveFirstButtonClick = async () => {
-    try {
-      const goods = await get5First();
+  const getFiveFirstGoods = (goods: Good[]) => {
+    const fiveFirstGoods = goods.sort((good1, good2) => good1.name
+      .localeCompare(good2.name)).slice(0, 5);
 
-      setGoodsList(goods);
+    setGoodsList(fiveFirstGoods);
+  };
+
+  const getRedGoods = (goods: Good[]) => {
+    const redGoods = goods.filter(good => good.color === 'red');
+
+    setGoodsList(redGoods);
+  };
+
+  const handleShowAllButtonClick = () => {
+    try {
+      fetchGoods(getAllGoods);
       setIsErrorOccured(false);
     } catch (error) {
       setIsErrorOccured(true);
     }
   };
 
-  const handleShowRedGoodsButtonClick = async () => {
+  const handleShowFiveFirstButtonClick = () => {
     try {
-      const goods = await getRedGoods();
+      fetchGoods(getFiveFirstGoods);
+      setIsErrorOccured(false);
+    } catch (error) {
+      setIsErrorOccured(true);
+    }
+  };
 
-      setGoodsList(goods);
+  const handleShowRedGoodsButtonClick = () => {
+    try {
+      fetchGoods(getRedGoods);
       setIsErrorOccured(false);
     } catch (error) {
       setIsErrorOccured(true);
@@ -66,14 +76,12 @@ const App: React.FC = () => {
       >
         Show red goods
       </button>
-      {
-        goodsList.length > 0
-        && <GoodsList listOfGoods={goodsList} />
-      }
-      {
-        isErrorOccurred
-        && <p>Loading was not finished successfully</p>
-      }
+      {goodsList.length > 0 && (
+        <GoodsList listOfGoods={goodsList} />
+      )}
+      {isErrorOccurred && (
+        <p>Loading was not finished successfully</p>
+      )}
     </>
   );
 };
