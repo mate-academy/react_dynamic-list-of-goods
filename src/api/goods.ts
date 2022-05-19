@@ -9,10 +9,12 @@ export function getAll(): Promise<Good[]> {
 export const get5First = () => {
   return fetch(API_URL)
     .then(response => response.json())
-    .then(goods => goods.sort((goodA: Good, goodB: Good) => (
-      goodA.name.localeCompare(goodB.name)
-    )))
-    .then(sortedGoods => [...sortedGoods].slice(0, 5));
+    .then((first5) => {
+      const good = first5.slice(0, 5);
+
+      return good.sort((goodA: Good, goodB: Good) => (
+        goodA.name.localeCompare(goodB.name)));
+    });
 };
 
 export const getRedGoods = () => {
