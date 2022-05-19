@@ -6,6 +6,18 @@ export function getAll(): Promise<Good[]> {
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export function get5First(): Promise<Good[]> {
+  return fetch(API_URL)
+    .then(response => response.json())
+    .then((data) => {
+      const firstFive = data.slice(0, 5);
 
-export const getRedGoods = () => {};
+      return firstFive.sort((a: Good, b: Good) => a.name.localeCompare(b.name));
+    });
+}
+
+export function getRed(): Promise<Good[]> {
+  return fetch(API_URL)
+    .then(response => response.json())
+    .then((data) => data.filter((product: Good) => product.color === 'red'));
+}
