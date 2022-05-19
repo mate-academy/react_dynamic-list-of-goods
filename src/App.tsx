@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { fetchGoods } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList/GoodsList';
 
 const App: React.FC = () => {
@@ -8,44 +8,11 @@ const App: React.FC = () => {
 
   const [isErrorOccurred, setIsErrorOccured] = useState(false);
 
-  const getAllGoods = (goods: Good[]) => {
-    setGoodsList(goods);
-  };
-
-  const getFiveFirstGoods = (goods: Good[]) => {
-    const fiveFirstGoods = goods.sort((good1, good2) => good1.name
-      .localeCompare(good2.name)).slice(0, 5);
-
-    setGoodsList(fiveFirstGoods);
-  };
-
-  const getRedGoods = (goods: Good[]) => {
-    const redGoods = goods.filter(good => good.color === 'red');
-
-    setGoodsList(redGoods);
-  };
-
-  const handleShowAllButtonClick = () => {
+  const fetchGoods = async (getSomeGoods: () => Promise<Good[]>) => {
     try {
-      fetchGoods(getAllGoods);
-      setIsErrorOccured(false);
-    } catch (error) {
-      setIsErrorOccured(true);
-    }
-  };
+      const goods = await getSomeGoods();
 
-  const handleShowFiveFirstButtonClick = () => {
-    try {
-      fetchGoods(getFiveFirstGoods);
-      setIsErrorOccured(false);
-    } catch (error) {
-      setIsErrorOccured(true);
-    }
-  };
-
-  const handleShowRedGoodsButtonClick = () => {
-    try {
-      fetchGoods(getRedGoods);
+      setGoodsList(goods);
       setIsErrorOccured(false);
     } catch (error) {
       setIsErrorOccured(true);
@@ -58,21 +25,21 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        onClick={handleShowAllButtonClick}
+        onClick={() => fetchGoods(getAll)}
       >
         Show all goods
       </button>
 
       <button
         type="button"
-        onClick={handleShowFiveFirstButtonClick}
+        onClick={() => fetchGoods(get5First)}
       >
         Show 5 first goods
       </button>
 
       <button
         type="button"
-        onClick={handleShowRedGoodsButtonClick}
+        onClick={() => fetchGoods(getRedGoods)}
       >
         Show red goods
       </button>
