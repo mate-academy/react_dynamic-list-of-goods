@@ -1,0 +1,13 @@
+.goodsList {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  &__item {
+    padding: 5px;
+    background-color: lightblue;
+    border-radius: 6px;
+  }
+}
