@@ -6,19 +6,19 @@ import './App.scss';
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const takeAllGoods = async () => {
+  const getAllGoods = async () => {
     const allGoodsFromServer = await getAll();
 
     setGoods(allGoodsFromServer);
   };
 
-  const take5FirstGoods = async () => {
+  const get5FirstGoods = async () => {
     const fiveFirstGoodsFromServer = await get5First();
 
     setGoods(fiveFirstGoodsFromServer);
   };
 
-  const takeRedGoods = async () => {
+  const getRedGoods = async () => {
     const redGoodsFromServer = await getRed();
 
     setGoods(redGoodsFromServer);
@@ -38,7 +38,7 @@ const App: React.FC = () => {
         <button
           type="button"
           className="App__button"
-          onClick={takeAllGoods}
+          onClick={getAllGoods}
         >
           Show all
         </button>
@@ -46,7 +46,7 @@ const App: React.FC = () => {
         <button
           type="button"
           className="App__button"
-          onClick={take5FirstGoods}
+          onClick={get5FirstGoods}
         >
           Show 5 first
         </button>
@@ -54,13 +54,15 @@ const App: React.FC = () => {
         <button
           type="button"
           className="App__button"
-          onClick={takeRedGoods}
+          onClick={getRedGoods}
         >
           Show only red
         </button>
       </div>
 
-      {goods.length > 0 && <GoodsList goods={goods} />}
+      {goods.length > 0 && (
+        <GoodsList goods={goods} />
+      )}
 
       {goods.length > 0 && (
         <button
