@@ -1,0 +1,15 @@
+.Goods {
+  list-style: none;
+
+  &__item {
+    padding: 10px 0 10px 10px;
+    cursor: pointer;
+
+    transition: transform, border-left, 300ms ease;
+
+    &:hover {
+      transform: scale(1.05);
+      border-left: 1px solid #dadada;
+    }
+  }
+}
