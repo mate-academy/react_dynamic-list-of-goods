@@ -18,13 +18,13 @@ const App: React.FC = () => {
   const showFirsFiveGoods = async () => {
     const newGood = await get5First();
 
-    setGoods([...newGood]);
+    setGoods(newGood);
   };
 
   const showRedGoods = async () => {
     const newGood = await getRedGoods();
 
-    setGoods([...newGood]);
+    setGoods(newGood);
   };
 
   return (
