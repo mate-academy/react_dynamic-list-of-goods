@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import './App.scss';
 
 import { GoodsList } from './components/GoodsList';
+
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-  const showGoods = (requirement: () => Promise<Good[]>) => {
-    requirement()
-      .then(goods => setVisibleGoods(goods));
+  const showGoods = async (requirement: () => Promise<Good[]>) => {
+    const newGood = await requirement();
+
+    setVisibleGoods(newGood);
   };
 
   return (
