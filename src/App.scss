@@ -1,1 +1,58 @@
-// styles go here
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  font-family: "Koulen", cursive;
+  background: linear-gradient(
+    270deg, rgba(255, 255, 0, 0.5), rgba(0, 191, 255, 0.5)
+  );
+  background-size: 1000% 1000%;
+  animation: gradient 10s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.App {
+  width: 500px;
+  margin: 30px auto 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+
+  &__title {
+    font-size: 50px;
+    cursor: default;
+  }
+
+  &__buttons {
+    width: 100%;
+    display: flex;
+    gap: 25px;
+  }
+
+  &__button {
+    width: 100%;
+    height: 50px;
+    background-color: transparent;
+    border: 2px solid black;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+}
