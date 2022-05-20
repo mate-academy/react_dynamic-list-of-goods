@@ -3,7 +3,7 @@ import './App.scss';
 import { API_URL } from './api/goods';
 import { GoodsList } from './GoodsList/GoodsList';
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   const [goods, setGoods] = useState([]);
 
   const getAll = async () => {
@@ -64,5 +64,3 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-export default App;
