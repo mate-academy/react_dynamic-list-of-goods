@@ -10,10 +10,10 @@ export const getAll = async (): Promise<Good[]> => {
 
 export const get5First = async (): Promise<Good[]> => {
   const response = await fetch(API_URL);
-  const allGoods = await response.json();
+  const allGoods: Good[] = await response.json();
   const goods5First = allGoods.slice(0, 5);
   const goodsSort = goods5First
-    .sort((a: { name: string; }, b: { name: string; }) => (
+    .sort((a, b) => (
       a.name.localeCompare(b.name)
     ));
 
