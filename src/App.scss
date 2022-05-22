@@ -1,1 +1,54 @@
-// styles go here
+@import "~bootstrap/scss/bootstrap";
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  background-color: #2f4f4f;
+  padding-top: 20px;
+
+  &__title {
+    color: white;
+    text-shadow: 1px 1px 2px black,
+      0 0 60px rgba(10, 36, 25, 0.96),
+      0 0 5px rgba(19, 102, 53, 0.8);
+    margin-bottom: 20px;
+  }
+
+  &__image {
+    box-shadow: rgba(0, 0, 0, 0.3) 0 19px 38px,
+      rgba(0, 0, 0, 0.22) 0 15px 12px;
+    margin-bottom: 20px;
+  }
+
+  &__button-main {
+    margin-bottom: 10px;
+
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+  }
+
+  &__looks {
+    position: fixed;
+    right: 40px;
+    bottom: 20px;
+    color: white;
+    font-size: medium;
+
+    &::after {
+      content: "";
+      display: block;
+      background-image: url("https://emojis.slackmojis.com/emojis/images/1643515137/11531/baby-grogu.png?1643515137");
+      height: 128px;
+      width: 128px;
+      margin-top: 10px;
+    }
+  }
+}
