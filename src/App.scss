@@ -1,1 +1,30 @@
-// styles go here
+.app {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  &__button {
+    width: 100px;
+    padding: 5px;
+
+    border: 1px solid black;
+    background-color: gainsboro;
+
+    transition: box-shadow 0.3s;
+
+    &:hover {
+      cursor: pointer;
+      box-shadow: 1px 1px 6px 0 rgba(50, 50, 50, 1);
+    }
+
+    &:active {
+      box-shadow: inset 1px 1px 6px 0 rgba(50, 50, 50, 1);
+    }
+  }
+}
