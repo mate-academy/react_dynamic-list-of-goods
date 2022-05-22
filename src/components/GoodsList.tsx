@@ -13,7 +13,6 @@ export const GoodsList: FC<Props> = ({ preparedGoods }) => {
           className="goodsList__item"
           key={good.id}
           style={{ color: good.color }}
-
         >
           {good.name}
         </li>
