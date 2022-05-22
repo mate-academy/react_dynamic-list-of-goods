@@ -1,12 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { GoodList } from './Components/GoodList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-const App: React.FC = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+  return (
+    <div className="wrapper">
+      <div className="allButtons">
+        <button
+          className="button"
+          type="button"
+          onClick={async () => {
+            setGoods(await (getAll()));
+          }}
+        >
+          Load All goods
+        </button>
+
+        <button
+          className="button"
+          type="button"
+          onClick={async () => {
+            setGoods(await (get5First()));
+          }}
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          className="button"
+          type="button"
+          onClick={async () => {
+            setGoods(await (getRedGoods()));
+          }}
+        >
+          Load red goods
+        </button>
+      </div>
+
+      <GoodList goods={goods} />
+    </div>
+  );
+};
 
 export default App;
