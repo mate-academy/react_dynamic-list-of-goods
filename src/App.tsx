@@ -7,22 +7,8 @@ import { GoodsList } from './components/GoodsList';
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const getAllGoods = useCallback(() => {
-    getAll()
-      .then(goodsFromServer => {
-        setGoods(goodsFromServer);
-      });
-  }, []);
-
-  const getFirstSortedGoods = useCallback(() => {
-    get5First()
-      .then(goodsFromServer => {
-        setGoods(goodsFromServer);
-      });
-  }, []);
-
-  const getAllRedGoods = useCallback(() => {
-    getRedGoods()
+  const getGoods = useCallback((get: () => Promise<Good[]>) => {
+    get()
       .then(goodsFromServer => {
         setGoods(goodsFromServer);
       });
@@ -37,21 +23,21 @@ const App: React.FC = () => {
           <button
             className="app__buttons__button"
             type="button"
-            onClick={getAllGoods}
+            onClick={() => getGoods(getAll)}
           >
             Load all goods
           </button>
           <button
             className="app__buttons__button"
             type="button"
-            onClick={getFirstSortedGoods}
+            onClick={() => getGoods(get5First)}
           >
             Load 5 first goods
           </button>
           <button
             className="app__buttons__button"
             type="button"
-            onClick={getAllRedGoods}
+            onClick={() => getGoods(getRedGoods)}
           >
             Load red goods
           </button>
