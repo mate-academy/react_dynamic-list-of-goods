@@ -1,0 +1,15 @@
+.goods-list {
+  list-style-type: none;
+  width: 200px;
+
+  &__item {
+    padding: 10px 25px;
+    border-bottom: 1px solid grey;
+    border-radius: 5px;
+    color: #dadada;
+    font-size: 20px;
+    box-shadow: 0 5px 5px 0 rgba(0,0,0, .2);
+    margin-bottom: 5px;
+  }
+}
+
