@@ -11,7 +11,11 @@ export const get5First = () => {
   const allGoods = getAll();
 
   return allGoods
-    .then(goods => goods.slice(0, 5));
+    .then(goods => goods
+      .sort((a:Good, b:Good) => {
+        return a.name.localeCompare(b.name);
+      })
+      .slice(0, 5));
 };
 
 export const getRedGoods = () => {
