@@ -1,1 +1,23 @@
-// styles go here
+html {
+  background-color: #ccc;
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__buttons {
+    display: flex;
+    padding: 30px;
+    gap: 30px;
+  }
+
+  &__button {
+    padding: 20px;
+    border-radius: 30%;
+    border: 0.1px solid;
+    background-color: rgb(255, 240, 200);
+  }
+}
