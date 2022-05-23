@@ -1,1 +1,19 @@
-// styles go here
+.app {
+  background-color: beige;
+  height: 400px;
+
+  &__container {
+    display: flex;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    border: 1px solid red;
+  }
+}
+
+.button {
+  margin-bottom: 25px;
+}
