@@ -1,32 +1,15 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { API_URL } from './api/goods';
+import { get5First, getAll, getRedGoods } from './api/goods';
 import { GoodsList } from './GoodsList/GoodsList';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState([]);
+  const [goods, setGoods] = useState<Good[]>([]);
 
-  const getAll = async () => {
-    const res = await fetch(API_URL);
-    const getGoods = await res.json();
+  const loadGoods = async (request: () => Promise<Good[]>) => {
+    const newItem = await request();
 
-    setGoods(await getGoods);
-  };
-
-  const get5First = async () => {
-    const res = await fetch(API_URL);
-    const getGoods = await res.json();
-    const get5Goods = getGoods.slice(0, 5);
-
-    setGoods(await get5Goods);
-  };
-
-  const getRedGoods = async () => {
-    const res = await fetch(API_URL);
-    const getGoods = await res.json();
-    const getRed5Goods = getGoods.filter((good: Good) => good.color === 'red');
-
-    setGoods(await getRed5Goods);
+    setGoods(newItem);
   };
 
   if (!goods) {
@@ -39,21 +22,21 @@ export const App: React.FC = () => {
       <div className="buttons">
         <button
           type="button"
-          onClick={getAll}
+          onClick={() => loadGoods(getAll)}
           className="button"
         >
           Load All goods
         </button>
         <button
           type="button"
-          onClick={get5First}
+          onClick={() => loadGoods(get5First)}
           className="button"
         >
           Load 5 first goods
         </button>
         <button
           type="button"
-          onClick={getRedGoods}
+          onClick={() => loadGoods(getRedGoods)}
           className="button"
         >
           Load red goods
