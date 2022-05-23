@@ -1,0 +1,16 @@
+.good-list {
+  display: flex;
+  justify-content: center;
+  list-style-type: none;
+  transition: box-shadow 0.5s;
+
+  &:hover {
+    transition: box-shadow 0.5s;
+    box-shadow: 3px 2px 3px 3px rgb(156, 156, 255);
+  }
+
+  &__item {
+    padding: 15px;
+    font-size: 20px;
+  }
+}
