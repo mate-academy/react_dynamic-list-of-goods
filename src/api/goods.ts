@@ -17,8 +17,7 @@ export const getFirstFive = async (): Promise<Good[]> => {
 };
 
 export const getRedGoods = async (): Promise<Good[]> => {
-  const response = await fetch(API_URL);
-  const goods = await response.json();
+  const goods = await getAll();
 
   return goods.filter((good: Good) => (
     good.color === 'red'));
