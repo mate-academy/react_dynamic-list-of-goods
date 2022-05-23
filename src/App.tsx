@@ -5,6 +5,17 @@ import { GoodList } from './Components/GoodList';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const asyncGetAll = async () => {
+    return setGoods(await (getAll()));
+  };
+
+  const asyncGet5First = async () => {
+    return setGoods(await (get5First()));
+  };
+
+  const asyncGetRedGoods = async () => {
+    return setGoods(await (getRedGoods()));
+  };
 
   return (
     <div className="wrapper">
@@ -12,9 +23,7 @@ const App: React.FC = () => {
         <button
           className="button"
           type="button"
-          onClick={async () => {
-            setGoods(await (getAll()));
-          }}
+          onClick={() => asyncGetAll()}
         >
           Load All goods
         </button>
@@ -22,9 +31,7 @@ const App: React.FC = () => {
         <button
           className="button"
           type="button"
-          onClick={async () => {
-            setGoods(await (get5First()));
-          }}
+          onClick={() => asyncGet5First()}
         >
           Load 5 first goods
         </button>
@@ -32,9 +39,7 @@ const App: React.FC = () => {
         <button
           className="button"
           type="button"
-          onClick={async () => {
-            setGoods(await (getRedGoods()));
-          }}
+          onClick={() => asyncGetRedGoods()}
         >
           Load red goods
         </button>
