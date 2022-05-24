@@ -8,7 +8,8 @@ export function getAll(): Promise<Good[]> {
 
 export const get5First = () => {
   return getAll()
-    .then(data => data.slice(0, 5));
+    .then(data => data.slice(0, 5)
+      .sort((a, b) => a.name.localeCompare(b.name)));
 };
 
 export const getRedGoods = () => {
