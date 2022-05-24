@@ -1,1 +1,55 @@
-// styles go here
+body {
+  background-image: url("./img/devushka-shliapa-dom.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.app {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+  gap: 30px;
+  max-height: 170px;
+
+  margin: 100px;
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__button {
+    height: 40px;
+    width: 170px;
+    color: rgb(53, 47, 22);
+    border-radius: 5px;
+    padding: 15px 25px;
+    font-family: "Lato", sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    box-shadow: inset 2px 2px 2px 0 rgba(255, 255, 255, 0.5),
+      7px 7px 20px 0 rgba(0, 0, 0, 0.1),
+      4px 4px 5px 0 rgba(0, 0, 0, 0.1);
+    outline: none;
+    border: none;
+    background: linear-gradient(0deg, #a39652 80%, #0d0d0d 100%);
+    margin: 5px;
+
+    &:before {
+      height: 0%;
+      width: 2px;
+    }
+
+    &:hover {
+      box-shadow: 4px 4px 6px 0 rgba(137, 157, 80, 0.5),
+        -4px -4px 6px 0 rgba(116, 125, 136, 0.5),
+        inset -4px -4px 6px 0 rgba(255, 255, 255, 0.2),
+        inset 4px 4px 6px 0 rgba(0, 0, 0, 0.4);
+    }
+  }
+}
