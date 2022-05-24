@@ -7,16 +7,14 @@ export async function getAll(): Promise<Good[]> {
 }
 
 export async function get5First(): Promise<Good[]> {
-  const response = await fetch(API_URL);
-  const goods = await response.json();
+  const goods = await getAll();
   const res = goods.sort((g: Good, g2: Good) => g.name.localeCompare(g2.name));
 
   return res.slice(0, 5);
 }
 
 export async function getRed(): Promise<Good[]> {
-  const response = await fetch(API_URL);
-  const goods = await response.json();
+  const goods = await getAll();
 
   return goods.filter((good: Good) => good.color === 'red');
 }
