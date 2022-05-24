@@ -1,1 +1,17 @@
-// styles go here
+.title {
+  text-align: center;
+}
+
+.buttons-wrapper {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(3,200px);
+  gap: 20px;
+}
+
+.button {
+  width: 200px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  border-radius: 10px;
+}
