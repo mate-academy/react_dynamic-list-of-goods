@@ -12,7 +12,7 @@ export const GoodsList: React.FC<Props> = ({ goods }) => {
           <li
             key={good.id}
             className="goods__item"
-            style={{ color: `${good.color}` }}
+            style={{ color: good.color }}
           >
             {good.name}
           </li>

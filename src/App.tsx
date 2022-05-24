@@ -35,21 +35,21 @@ export const App: React.FC = () => {
         <button
           className="app__button"
           type="button"
-          onClick={() => getAll()}
+          onClick={getAll}
         >
           Load all goods
         </button>
         <button
           className="app__button"
           type="button"
-          onClick={() => getFirstFive()}
+          onClick={getFirstFive}
         >
           Load first 5 goods
         </button>
         <button
           className="app__button"
           type="button"
-          onClick={() => getRedGoods()}
+          onClick={getRedGoods}
         >
           Load all red goods
         </button>

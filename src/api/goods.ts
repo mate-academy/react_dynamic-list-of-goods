@@ -8,17 +8,17 @@ export const getAll = async (): Promise<Good[]> => {
 };
 
 export const get5First = async (): Promise<Good[]> => {
-  const response = await fetch(API_URL);
-  const respon = await response.json();
+  const response = await getAll();
 
-  return respon.slice(0, 5);
+  return response
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .slice(0, 5);
 };
 
 export const getRedGoods = async (): Promise<Good[]> => {
-  const response = await fetch(API_URL);
-  const respon = await response.json();
+  const response = await getAll();
 
-  return respon.filter((good: Good) => {
+  return response.filter((good: Good) => {
     return good.color === 'red';
   });
 };
