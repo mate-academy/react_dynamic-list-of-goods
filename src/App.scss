@@ -1,1 +1,34 @@
-// styles go here
+html {
+  font-family: Calibri, "Trebuchet MS", sans-serif;
+  background-color: beige;
+}
+
+.App {
+  &__title {
+    text-align: center;
+    color: coral;
+    margin-bottom: 50px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+
+  &__button {
+    width: 100px;
+    height: 60px;
+    font-size: 18px;
+    background-color: #fff;
+    border: 0 solid coral;
+    border-radius: 5px;
+
+    &:hover {
+      color: white;
+      background-color: coral;
+      cursor: pointer;
+    }
+  }
+}
