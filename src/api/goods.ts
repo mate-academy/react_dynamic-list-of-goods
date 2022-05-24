@@ -3,9 +3,8 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 
 export const getAll = async (): Promise<Good[]> => {
   const response = await fetch(API_URL);
-  const goods = await response.json();
 
-  return goods;
+  return response.json();
 };
 
 export const get5First = async (): Promise<Good[]> => {
