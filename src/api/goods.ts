@@ -8,15 +8,15 @@ export const getAll = async (): Promise<Good[]> => {
 };
 
 export const get5First = async (): Promise<Good[]> => {
-  const response = await fetch(API_URL);
-  const data = await response.json();
+  const data = await getAll();
 
-  return data.slice(0, 5);
+  const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
+
+  return sortedData.slice(0, 5);
 };
 
 export const getRed = async (): Promise<Good[]> => {
-  const response = await fetch(API_URL);
-  const data = await response.json();
+  const data = await getAll();
 
   return data.filter((item: Good) => item.color === 'red');
 };
