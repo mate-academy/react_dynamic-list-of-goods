@@ -6,15 +6,25 @@ import { GoodsList } from './GoodsList/GoodsList';
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
+  const handleGetAll = async () => {
+    setGoods(await getAll());
+  };
+
+  const handleGet5First = async () => {
+    setGoods(await get5First());
+  };
+
+  const handleGetRedGoods = async () => {
+    setGoods(await getRedGoods());
+  };
+
   return (
     <div className="App">
       <div className="buttons">
         <button
           type="button"
           className="button i is-success"
-          onClick={async () => {
-            setGoods(await getAll());
-          }}
+          onClick={handleGetAll}
         >
           Get All
         </button>
@@ -22,9 +32,7 @@ const App: React.FC = () => {
         <button
           type="button"
           className="button is-warning"
-          onClick={async () => {
-            setGoods(await get5First());
-          }}
+          onClick={handleGet5First}
         >
           Get first 5
         </button>
@@ -32,9 +40,7 @@ const App: React.FC = () => {
         <button
           type="button"
           className="button is-danger"
-          onClick={async () => {
-            setGoods(await getRedGoods());
-          }}
+          onClick={handleGetRedGoods}
         >
           Get red
         </button>
