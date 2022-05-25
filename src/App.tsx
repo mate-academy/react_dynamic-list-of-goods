@@ -4,41 +4,13 @@ import './App.scss';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodList } from './components';
 
-enum Request {
-  all,
-  first5,
-  red,
-}
-
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleClick = useCallback(async (request: Request) => {
-    switch (request) {
-      case Request.first5: {
-        const data = await get5First();
+  const handleClick = useCallback(async (request: () => Promise<Good[]>) => {
+    const data = await request();
 
-        setGoods(data);
-      }
-
-        break;
-
-      case Request.red: {
-        const data = await getRedGoods();
-
-        setGoods(data);
-      }
-
-        break;
-
-      default: {
-        const data = await getAll();
-
-        setGoods(data);
-      }
-
-        break;
-    }
+    setGoods(data);
   }, []);
 
   return (
@@ -47,7 +19,7 @@ const App: React.FC = () => {
       <div className="app__buttons">
         <button
           type="button"
-          onClick={() => handleClick(Request.all)}
+          onClick={() => handleClick(getAll)}
           className="app__button"
         >
           Load All goods
@@ -55,7 +27,7 @@ const App: React.FC = () => {
 
         <button
           type="button"
-          onClick={() => handleClick(Request.first5)}
+          onClick={() => handleClick(get5First)}
           className="app__button"
         >
           Load 5 first goods
@@ -63,7 +35,7 @@ const App: React.FC = () => {
 
         <button
           type="button"
-          onClick={() => handleClick(Request.red)}
+          onClick={() => handleClick(getRedGoods)}
           className="app__button"
         >
           Load red goods
