@@ -1,1 +1,37 @@
-// styles go here
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  &__block {
+    display: flex;
+    gap: 20px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  &__button {
+    outline: none;
+    background: transparent;
+    border: 2px solid black;
+    border-radius: 20px;
+    width: 100px;
+    height: 100px;
+    transition: all 1.5s;
+
+    &:hover {
+      transform: rotate(360deg);
+    }
+
+    &--image {
+      width: 64px;
+      height: 64px;
+    }
+  }
+}
