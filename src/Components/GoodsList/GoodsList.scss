@@ -1,0 +1,22 @@
+.list {
+  position: fixed;
+  top: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 40px;
+  font-size: 26px;
+
+  &__item {
+    margin-bottom: 10px;
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
