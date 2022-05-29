@@ -1,1 +1,20 @@
-// styles go here
+.button {
+  cursor: pointer;
+  background-color: rgb(102, 82, 82);
+  border: 1px solid rgb(0, 0, 0);
+  color: rgb(223, 187, 187);
+  height: 50px;
+  border-radius: 50%;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.allButtons {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapper {
+  display: grid;
+  place-content: center;
+}
