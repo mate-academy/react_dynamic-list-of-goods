@@ -7,15 +7,16 @@ export const getAll = async (): Promise<Good[]> => {
   return response.json();
 };
 
-export const get5First = () => {
-  return getAll()
-    .then(goods => goods
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .slice(0, 5));
+export const get5First = async (): Promise<Good[]> => {
+  const goods = await getAll();
+  const firstFiveGoods = goods.slice(0, 5);
+
+  return firstFiveGoods
+    .sort((a: Good, b: Good) => a.name.localeCompare(b.name));
 };
 
-export const getRedGoods = () => {
-  return getAll()
-    .then(goods => goods
-      .filter(good => good.color === 'red'));
+export const getRedGoods = async (): Promise<Good[]> => {
+  const goods = await getAll();
+
+  return goods.filter((product: Good) => product.color === 'red');
 };
