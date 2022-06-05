@@ -2,25 +2,16 @@
 import React, { useState } from 'react';
 import './App.scss';
 import 'bulma';
-
-import { getAll, get5First, getRedGoods } from './api/goods';
+import * as goodsAPI from './api/goods';
 import { GoodsList } from './GoodsList';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const showAllGoods = async () => {
-    const items: Good[] = await getAll();
+  const handleClick = async (callbackFunc: () => Promise<Good[]>) => {
+    const items: Good[] = await callbackFunc();
 
     setGoods(items);
-  };
-
-  const showFiveFirstGoods = () => {
-    get5First().then(items => setGoods(items));
-  };
-
-  const showRedGoods = () => {
-    getRedGoods().then(items => setGoods(items));
   };
 
   return (
@@ -29,7 +20,7 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        onClick={showAllGoods}
+        onClick={() => handleClick(goodsAPI.getAll)}
         className="button is-primary"
       >
         all
@@ -37,7 +28,7 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        onClick={showFiveFirstGoods}
+        onClick={() => handleClick(goodsAPI.get5First)}
         className="button is-primary"
       >
         5
@@ -45,7 +36,7 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        onClick={showRedGoods}
+        onClick={() => handleClick(goodsAPI.getRedGoods)}
         className="button is-primary"
       >
         red
