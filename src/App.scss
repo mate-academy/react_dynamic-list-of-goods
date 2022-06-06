@@ -1,1 +1,14 @@
-// styles go here
+.App {
+  font-family: Arial, sans-serif;
+}
+
+.btn {
+  font-size: 15px;
+  font-weight: bold;
+
+  padding: 10px;
+
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
