@@ -18,28 +18,28 @@ class App extends React.Component<{}, State> {
   };
 
   sort = async (name: string) => {
-    const goodsList = await getAll();
-
-    let goods: Good[] = [];
-
     switch (name) {
       case 'all':
-        goods = goodsList;
+        this.setState({
+          goods: await getAll(),
+        });
         break;
 
       case 'five':
-        goods = get5First(goodsList);
+        this.setState({
+          goods: get5First(await getAll()),
+        });
         break;
 
       case 'red':
-        goods = getRedGoods(goodsList);
+        this.setState({
+          goods: getRedGoods(await getAll()),
+        });
         break;
 
       default:
         break;
     }
-
-    this.setState({ goods });
   };
 
   render() {
@@ -53,8 +53,8 @@ class App extends React.Component<{}, State> {
             name="all"
             type="button"
             className="button"
-            onClick={(e) => {
-              this.sort(e.currentTarget.name);
+            onClick={(event) => {
+              this.sort(event.currentTarget.name);
             }}
           >
             All
@@ -64,8 +64,8 @@ class App extends React.Component<{}, State> {
             name="five"
             type="button"
             className="button"
-            onClick={(e) => {
-              this.sort(e.currentTarget.name);
+            onClick={(event) => {
+              this.sort(event.currentTarget.name);
             }}
           >
             5
