@@ -1,1 +1,30 @@
-// styles go here
+.App {
+  display: flex;
+  flex-direction: column;
+  margin: 60px auto;
+  width: max-content;
+  background-color: #93cfd9;
+  padding: 60px;
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__button {
+    width: 180px;
+    height: 40px;
+    margin: 0 auto;
+    color: #fff;
+    background-color: #ff735c;
+    border-radius: 4px;
+    border-color: transparent;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #fff;
+      color: #ff735c;
+    }
+  }
+}
