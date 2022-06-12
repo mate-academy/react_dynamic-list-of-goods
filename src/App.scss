@@ -1,1 +1,67 @@
-// styles go here
+body,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+span,
+ul,
+li,
+ol,
+input {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.goods {
+  padding-top: 20px;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  &__content {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    padding: 0 10px;
+  }
+
+  &__buttons {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.button {
+  padding: 10px 25px;
+  text-align: center;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  background: linear-gradient(to left, #dadada 0%, #747373 100%);
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  transition: hover 0.5s ease-in-out;
+
+  &:not(:last-child) {
+    margin-bottom: 15px;
+  }
+
+  &:hover {
+    box-shadow: 3px 3px 4px 0 #000;
+  }
+}
