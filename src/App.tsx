@@ -3,18 +3,17 @@ import { get5First, getAll, getRedGoods } from './api/goods';
 import './App.scss';
 import { GoodsList } from './components/GoodsList';
 
-
 enum ShowType {
   All = 'all',
   FirstFive = 'firstfive',
-  RedColor = 'redcolor'
+  RedColor = 'redcolor',
 }
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   async function getGoods(showBy: ShowType) {
-    switch(showBy) {
+    switch (showBy) {
       case ShowType.All:
         setGoods(await getAll());
         break;
@@ -35,27 +34,27 @@ const App: React.FC = () => {
 
   return (
     <div>
-      <GoodsList goods={[...goods]}/>
+      <GoodsList goods={[...goods]} />
       <button
-        type='button'
+        type="button"
         onClick={() => getGoods(ShowType.All)}
       >
         All
       </button>
       <button
-        type='button'
+        type="button"
         onClick={() => getGoods(ShowType.FirstFive)}
       >
         First5
       </button>
       <button
-        type='button'
+        type="button"
         onClick={() => getGoods(ShowType.RedColor)}
       >
         Only Red
       </button>
     </div>
   );
-}
+};
 
 export default App;
