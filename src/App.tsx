@@ -23,7 +23,7 @@ class App extends React.Component<{}, State> {
   };
 
   letVisible = () => {
-    this.setState(state => ({ isVisible: !state.isVisible }));
+    this.setState({ isVisible: true });
   };
 
   render() {
