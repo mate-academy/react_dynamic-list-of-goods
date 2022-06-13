@@ -6,16 +6,8 @@ import { GoodsList } from './GoodsList/GoodsList';
 const App: React.FC = () => {
   const [goodsFromServer, setGoodsFromServer] = useState<Good[]>([]);
 
-  const getAllGoods = async () => {
-    setGoodsFromServer(await goodsAPI.getAll());
-  };
-
-  const getAllRedGoods = async () => {
-    setGoodsFromServer(await goodsAPI.getRedGoods());
-  };
-
-  const getFiveGoods = async () => {
-    setGoodsFromServer(await goodsAPI.get5First());
+  const getGoods = async (typeRequest:Promise<Good[]>) => {
+    setGoodsFromServer(await typeRequest);
   };
 
   return (
@@ -28,21 +20,21 @@ const App: React.FC = () => {
       <div>
         <button
           type="button"
-          onClick={() => getAllGoods()}
+          onClick={() => getGoods(goodsAPI.getAll())}
         >
           all
         </button>
 
         <button
           type="button"
-          onClick={() => getFiveGoods()}
+          onClick={() => getGoods(goodsAPI.get5First())}
         >
           5
         </button>
 
         <button
           type="button"
-          onClick={() => getAllRedGoods()}
+          onClick={() => getGoods(goodsAPI.getRedGoods())}
         >
           red
         </button>
