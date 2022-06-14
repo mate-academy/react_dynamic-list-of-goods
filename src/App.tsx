@@ -8,25 +8,16 @@ import { Good } from './react-app-env';
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const showAll = () => {
-    getAll()
-      .then((goodsFromServer) => {
-        setGoods(goodsFromServer);
-      });
+  const showAll = async () => {
+    setGoods(await getAll());
   };
 
-  const showFive = () => {
-    get5First()
-      .then((goodsFromServer) => {
-        setGoods(goodsFromServer);
-      });
+  const showFive = async () => {
+    setGoods(await get5First());
   };
 
-  const showRed = () => {
-    getRed()
-      .then((goodsFromServer) => {
-        setGoods(goodsFromServer);
-      });
+  const showRed = async () => {
+    setGoods(await getRed());
   };
 
   return (
