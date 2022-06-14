@@ -10,6 +10,8 @@ export function getAll(): Promise<Good[]> {
 
 export const get5First = (n:number): Promise<Good[]> => {
   return getAll()
+    // eslint-disable-next-line max-len
+    .then(result => result.sort((firstGood, secondGood) => firstGood.name.localeCompare(secondGood.name)))
     .then(result => result.slice(0, n));
 };
 
