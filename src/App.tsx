@@ -1,42 +1,53 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList/GoodsList';
-// or
-// import * as goodsAPI from './api/goods';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [currentShowing, setCurrentShowing] = useState('none');
 
-  async function finderAll() {
-    const result = await getAll();
+  async function finder() {
+    let result;
 
-    setGoods(result);
+    console.log(currentShowing);
+    switch (currentShowing) {
+      case 'all': {
+        console.log(result);
+        result = await getAll();
+        setGoods(result);
+        break;
+      }
+
+      case 'five': {
+        result = await get5First();
+        setGoods(result);
+        break;
+      }
+
+      case 'red': {
+        result = await getRedGoods();
+        setGoods(result);
+        break;
+      }
+
+      default: {
+        setCurrentShowing('none');
+      }
+    }
   }
 
-  async function finderFive() {
-    const result = await get5First();
-
-    setGoods(
-      result.sort(
-        (a : Good, b: Good) => a.name.localeCompare(b.name),
-      ).splice(0, 5),
-    );
-  }
-
-  async function finderRed() {
-    const result = await getRedGoods();
-
-    setGoods(result.filter((el : Good) => el.color === 'red'));
-  }
+  useEffect(() => {
+    finder();
+  }, [currentShowing]);
 
   return (
     <>
       <button
         type="button"
         onClick={() => {
-          finderAll();
+          setCurrentShowing('all');
         }}
       >
         List Of Goods
@@ -44,7 +55,7 @@ const App: React.FC = () => {
       <button
         type="button"
         onClick={() => {
-          finderFive();
+          setCurrentShowing('five');
         }}
       >
         First 5 Goods
@@ -52,7 +63,7 @@ const App: React.FC = () => {
       <button
         type="button"
         onClick={() => {
-          finderRed();
+          setCurrentShowing('red');
         }}
       >
         Red Goods

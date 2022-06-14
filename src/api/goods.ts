@@ -12,12 +12,14 @@ export const get5First = async () => {
   const response = await fetch(API_URL);
   const res = await response.json();
 
-  return res;
+  return res.sort(
+    (a : Good, b: Good) => a.name.localeCompare(b.name),
+  ).splice(0, 5);
 };
 
 export const getRedGoods = async () => {
   const response = await fetch(API_URL);
   const res = await response.json();
 
-  return res;
+  return res.filter((el : Good) => el.color === 'red');
 };
