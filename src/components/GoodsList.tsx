@@ -5,7 +5,7 @@ interface Props {
 }
 
 export const GoodsList: React.FC<Props> = ({ goods }) => (
-  <ul>
+  <ul className="goods">
     {goods.map(good => (
       <li
         key={good.id}
