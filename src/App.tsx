@@ -15,7 +15,9 @@ const App: React.FC = () => {
   const showFiveGoods = () => {
     get5First()
       .then(currentGoods => {
-        const fiveGoods = currentGoods.filter((_, index) => index < 5);
+        const fiveGoods = currentGoods
+          .sort((a, b) => a.name.localeCompare(b.name))
+          .splice(0, 5);
 
         setGoods(fiveGoods);
       });
