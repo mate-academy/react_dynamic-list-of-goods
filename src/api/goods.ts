@@ -13,7 +13,7 @@ export const get5First = async (): Promise<Good[]> => {
 };
 
 export const getRedGoods = async (): Promise<Good[]> => {
-  const goods = await getAll();
+  const redGoods = await getAll();
 
-  return goods.filter(good => good.color === 'red');
+  return redGoods.filter(good => good.color === 'red');
 };
