@@ -1,12 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
+import * as goodsAPI from './api/goods';
+import { GoodsList } from './components/GoodsList';
 import './App.scss';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+const App: React.FC = () => {
+  const { getAll, get5First, getRedGoods } = goodsAPI;
+  const [goods, setGoods] = useState<Good[]>([]);
 
-const App: React.FC = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+  const loadAllGoods = async () => {
+    return setGoods(await getAll());
+  };
+
+  const loadFirst5Goods = async () => {
+    return setGoods(await get5First());
+  };
+
+  const loadRedGoods = async () => {
+    return setGoods(await getRedGoods());
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <div className="buttons">
+        <button
+          type="button"
+          onClick={loadAllGoods}
+        >
+          all
+        </button>
+        <button
+          type="button"
+          onClick={loadFirst5Goods}
+        >
+          5
+        </button>
+        <button
+          type="button"
+          onClick={loadRedGoods}
+        >
+          red
+        </button>
+      </div>
+
+      {goods.length > 0 ? (
+        <GoodsList goods={goods} />
+      ) : ('No goods loaded yet')}
+    </div>
+  );
+};
 
 export default App;
