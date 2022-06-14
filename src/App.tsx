@@ -25,7 +25,7 @@ export class App extends React.Component {
           className="button.button"
           onClick={() => this.loadingGoods(getAll)}
         >
-          Load All goods
+          Load all goods
         </button>
 
         <button
