@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './App.scss';
 
 import { getAll } from './api/goods';
+import GoodsList from './GoodsList';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState([{ id: 0, name: '', color: '' }]);
@@ -71,15 +72,7 @@ const App: React.FC = () => {
       </button>
 
       {listIsVisible && (
-        <ul>
-          {goods.map(good => (
-            <li
-              style={{ color: good.color }}
-            >
-              {good.name}
-            </li>
-          ))}
-        </ul>
+        <GoodsList goods={goods} />
       )}
     </>
   );
