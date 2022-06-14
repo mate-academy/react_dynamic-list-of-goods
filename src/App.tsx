@@ -1,12 +1,74 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+import { Good } from './react-app-env';
+import { getAll } from './api/goods';
+import { GoodsList } from './components/GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-const App: React.FC = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+  const goodsFromServer = () => {
+    getAll().then(allGoods => {
+      setGoods(allGoods);
+      setVisibleGoods(allGoods);
+    });
+  };
+
+  const cashedGoods = () => {
+    if (goods.length === 0) {
+      goodsFromServer();
+    }
+
+    setVisibleGoods(goods);
+  };
+
+  const firstFiveCashedGoods = () => {
+    if (goods.length === 0) {
+      goodsFromServer();
+    }
+
+    setVisibleGoods([...goods
+      .sort((a, b) => a.name.localeCompare(b.name))].slice(0, 6));
+  };
+
+  const allRedCashedGoods = () => {
+    if (goods.length === 0) {
+      goodsFromServer();
+    }
+
+    setVisibleGoods(goods.filter(good => good.color === 'red'));
+  };
+
+  return (
+    <div className="box">
+      <div className="button-holder">
+        <button
+          className="button is-info"
+          type="button"
+          onClick={cashedGoods}
+        >
+          Load All goods
+        </button>
+        <button
+          className="button is-info"
+          type="button"
+          onClick={firstFiveCashedGoods}
+        >
+          Load 5 first goods
+        </button>
+        <button
+          className="button is-info"
+          type="button"
+          onClick={allRedCashedGoods}
+        >
+          Load red goods
+        </button>
+      </div>
+
+      <GoodsList goods={visibleGoods} />
+    </div>
+  );
+};
 
 export default App;

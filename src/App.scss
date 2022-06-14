@@ -1,1 +1,18 @@
-// styles go here
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.box {
+  width: 600px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.button-holder {
+  display: flex;
+  justify-content: space-between;
+}
