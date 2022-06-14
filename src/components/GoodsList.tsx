@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface Good {
   id: number;
   name: string;
@@ -9,23 +11,14 @@ type Props = {
 };
 
 export const GoodsList: React.FC<Props> = ({ goods }) => (
-  <table className="table is-narrow">
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Color</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      {goods.map(good => (
-        <tr key={good.id} style={{ color: good.color }}>
-          <td>{good.id}</td>
-          <td>{good.name}</td>
-          <td>{good.color}</td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
+  <ul>
+    {goods.map(good => (
+      <li
+        key={good.id}
+        style={{ color: good.color }}
+      >
+        {good.name}
+      </li>
+    ))}
+  </ul>
 );

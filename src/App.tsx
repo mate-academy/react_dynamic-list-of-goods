@@ -44,9 +44,9 @@ export class App extends React.Component {
           Load red goods
         </button>
 
-        {/* {goods.length !== 0 && ( */}
-        <GoodsList goods={goods} />
-        {/* )} */}
+        {goods.length !== 0 && (
+          <GoodsList goods={goods} />
+        )}
       </div>
     );
   }
