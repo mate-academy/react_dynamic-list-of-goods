@@ -1,12 +1,88 @@
-import React from 'react';
+/* eslint-disable no-console */
+import React, { useState } from 'react';
 import './App.scss';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll } from './api/goods';
 
-const App: React.FC = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+const App: React.FC = () => {
+  const [goods, setGoods] = useState([{ id: 0, name: '', color: '' }]);
+  const [listIsVisible, setListIsVisible] = useState(false);
+
+  const showAll = () => {
+    getAll()
+      .then(theGoods => {
+        setGoods(theGoods);
+      });
+  };
+
+  const showFisrtFive = () => {
+    getAll()
+      .then(theGoods => {
+        const fiveGoods = theGoods.filter(good => {
+          return good.id <= 5;
+        });
+
+        setGoods(fiveGoods);
+      });
+  };
+
+  const showRed = () => {
+    getAll()
+      .then(theGoods => {
+        const RedGoods = theGoods.filter(good => {
+          return good.color === 'red';
+        });
+
+        setGoods(RedGoods);
+      });
+  };
+
+  return (
+    <>
+      <h1>Dynamic list of Goods</h1>
+      <button
+        type="button"
+        onClick={() => {
+          setListIsVisible(true);
+          showAll();
+        }}
+      >
+        All
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          setListIsVisible(true);
+          showFisrtFive();
+        }}
+      >
+        5
+      </button>
+
+      <button
+        type="button"
+        onClick={() => {
+          setListIsVisible(true);
+          showRed();
+        }}
+      >
+        Red
+      </button>
+
+      {listIsVisible && (
+        <ul>
+          {goods.map(good => (
+            <li
+              style={{ color: good.color }}
+            >
+              {good.name}
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+};
 
 export default App;
