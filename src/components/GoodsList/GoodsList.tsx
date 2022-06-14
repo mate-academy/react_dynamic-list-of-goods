@@ -1,0 +1,19 @@
+import React from 'react';
+import { Good } from '../../react-app-env';
+
+interface Props {
+  goods: Good[]
+}
+
+export const GoodsList: React.FC<Props> = ({ goods }) => (
+  <ul className="list">
+    {goods.map(good => (
+      <li
+        key={good.id}
+        style={{ color: good.color }}
+      >
+        {good.name}
+      </li>
+    ))}
+  </ul>
+);
