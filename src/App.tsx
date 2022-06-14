@@ -22,7 +22,7 @@ export class App extends React.Component {
       <div>
         <button
           type="button"
-          className="button"
+          className="button.button"
           onClick={() => this.loadingGoods(getAll)}
         >
           Load All goods
@@ -30,7 +30,7 @@ export class App extends React.Component {
 
         <button
           type="button"
-          className="button"
+          className="button.button"
           onClick={() => this.loadingGoods(get5First)}
         >
           Load 5 first goods
@@ -38,7 +38,7 @@ export class App extends React.Component {
 
         <button
           type="button"
-          className="button"
+          className="button.button"
           onClick={() => this.loadingGoods(getRedGoods)}
         >
           Load red goods
