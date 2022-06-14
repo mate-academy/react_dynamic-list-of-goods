@@ -1,20 +1,15 @@
 import React from 'react';
 
-interface Good {
-  id: number;
-  name: string;
-  color: string;
-}
-
-type Props = {
+interface Props {
   goods: Good[],
-};
+}
 
 export const GoodsList: React.FC<Props> = ({ goods }) => (
   <ul>
     {goods.map(good => (
       <li
         key={good.id}
+        className="good__li"
         style={{ color: good.color }}
       >
         {good.name}

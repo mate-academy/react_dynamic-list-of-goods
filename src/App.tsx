@@ -33,7 +33,7 @@ export class App extends React.Component {
           className="button"
           onClick={() => this.loadingGoods(get5First)}
         >
-          Load 5 goods
+          Load 5 first goods
         </button>
 
         <button
