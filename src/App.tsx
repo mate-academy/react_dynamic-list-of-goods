@@ -3,8 +3,6 @@ import './App.scss';
 
 import { getAll, get5First, getRed } from './api/goods';
 import { GoodsList } from './components/GoodsList';
-// or
-// import * as goodsAPI from './api/goods';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
@@ -20,9 +18,6 @@ const App: React.FC = () => {
   const getRedGoods = () => {
     getRed().then(redGoods => setGoods(redGoods));
   };
-
-  // eslint-disable-next-line no-console
-  console.log(goods);
 
   return (
     <>
