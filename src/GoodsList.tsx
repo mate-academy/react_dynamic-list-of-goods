@@ -10,7 +10,7 @@ type Props = {
 
 const GoodsList: React.FC <Props> = ({ goods }) => {
   return (
-    <ul>
+    <ul className="list">
       {goods.map(good => (
         <li
           style={{ color: good.color }}

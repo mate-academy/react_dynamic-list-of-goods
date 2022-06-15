@@ -7,7 +7,6 @@ import GoodsList from './GoodsList';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState([{ id: 0, name: '', color: '' }]);
-  const [listIsVisible, setListIsVisible] = useState(false);
 
   const showAll = () => {
     getAll()
@@ -44,7 +43,6 @@ const App: React.FC = () => {
       <button
         type="button"
         onClick={() => {
-          setListIsVisible(true);
           showAll();
         }}
       >
@@ -54,7 +52,6 @@ const App: React.FC = () => {
       <button
         type="button"
         onClick={() => {
-          setListIsVisible(true);
           showFisrtFive();
         }}
       >
@@ -64,16 +61,13 @@ const App: React.FC = () => {
       <button
         type="button"
         onClick={() => {
-          setListIsVisible(true);
           showRed();
         }}
       >
         Red
       </button>
 
-      {listIsVisible && (
-        <GoodsList goods={goods} />
-      )}
+      <GoodsList goods={goods} />
     </>
   );
 };
