@@ -5,31 +5,29 @@ import classNames from 'classnames';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './Components/GoodsList';
 
+enum Active {
+  ActiveAll = 'activeAll',
+  ActiveFive = 'activeFive',
+  ActiveRed = 'activeRed',
+}
+
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [isActiveAll, setIsActiveAll] = useState(false);
-  const [isActiveFive, setIsActiveFive] = useState(false);
-  const [isActiveRed, setIsActiveRed] = useState(false);
+  const [activState, setActiveState] = useState('');
 
   async function goodsAllHandler() {
     setGoods(await getAll());
-    setIsActiveAll(true);
-    setIsActiveFive(false);
-    setIsActiveRed(false);
+    setActiveState(Active.ActiveAll);
   }
 
   async function goodsFiveHandler() {
     setGoods(await get5First());
-    setIsActiveAll(false);
-    setIsActiveFive(true);
-    setIsActiveRed(false);
+    setActiveState(Active.ActiveFive);
   }
 
   async function goodsRedHandler() {
     setGoods(await getRedGoods());
-    setIsActiveAll(false);
-    setIsActiveFive(false);
-    setIsActiveRed(true);
+    setActiveState(Active.ActiveRed);
   }
 
   return (
@@ -39,7 +37,7 @@ const App: React.FC = () => {
           type="button"
           onClick={goodsAllHandler}
           className={classNames('button', {
-            'is-warning': isActiveAll,
+            'is-warning': activState === 'activeAll',
           })}
         >
           Show All Goods
@@ -48,7 +46,7 @@ const App: React.FC = () => {
           type="button"
           onClick={goodsFiveHandler}
           className={classNames('button', {
-            'is-warning': isActiveFive,
+            'is-warning': activState === 'activeFive',
           })}
         >
           Show 5 Goods
@@ -57,7 +55,7 @@ const App: React.FC = () => {
           type="button"
           onClick={goodsRedHandler}
           className={classNames('button', {
-            'is-warning': isActiveRed,
+            'is-warning': activState === 'activeRed',
           })}
         >
           Show Red Goods
