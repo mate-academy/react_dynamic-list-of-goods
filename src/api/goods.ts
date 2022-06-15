@@ -7,9 +7,13 @@ export const getAll = () => {
 };
 
 export const get5First = () => {
-  return getAll();
+  return getAll()
+    .then(good => good
+      .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
+      .splice(0, 5));
 };
 
 export const getRedGoods = () => {
-  return getAll();
+  return getAll()
+    .then(goods => goods.filter((good: Good) => good.color === 'red'));
 };
