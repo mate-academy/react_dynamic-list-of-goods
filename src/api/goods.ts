@@ -10,9 +10,9 @@ export function getAll() {
 export const get5First = () => {
   return fetch(API_URL)
     .then(response => response.json())
-    .then(json => json.filter((el: { id: number; }) => el.id <= 5)
-      .sort((firstGood: Good, secondGood: Good) => (
-        firstGood.name.localeCompare(secondGood.name))));
+    .then(json => json.sort((firstGood: Good, secondGood: Good) => (
+      firstGood.name.localeCompare(secondGood.name)))
+      .filter((_el: Good, i: number) => i < 5));
 };
 
 export const getRedGoods = () => {
