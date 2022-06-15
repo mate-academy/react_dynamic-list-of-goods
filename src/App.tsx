@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { getAll } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodList } from './components/GoodList';
 
 export const App: React.FC = () => {
@@ -11,15 +11,11 @@ export const App: React.FC = () => {
   }
 
   async function Five() {
-    const result = await getAll();
-
-    setGoods(result.splice(0, 5));
+    setGoods(await get5First());
   }
 
   async function Red() {
-    const result = await getAll();
-
-    setGoods(result.filter((item : Good) => item.color === 'red'));
+    setGoods(await getRedGoods('red'));
   }
 
   return (
