@@ -10,31 +10,42 @@ import {
 
 type State = {
   goods: Good[],
+  showGoods: Good[],
 };
 
 class App extends React.Component<{}, State> {
   state: State = {
     goods: [],
+    showGoods: [],
   };
 
-  sort = async (name: string) => {
+  async componentDidMount() {
+    const showGoods = await getAll();
+
+    this.setState({ showGoods });
+    this.setState({
+      goods: showGoods,
+    });
+  }
+
+  sort = (name: string) => {
     switch (name) {
       case 'all':
-        this.setState({
-          goods: await getAll(),
-        });
+        this.setState(state => ({
+          goods: state.showGoods,
+        }));
         break;
 
       case 'five':
-        this.setState({
-          goods: get5First(await getAll()),
-        });
+        this.setState(state => ({
+          goods: get5First(state.showGoods),
+        }));
         break;
 
       case 'red':
-        this.setState({
-          goods: getRedGoods(await getAll()),
-        });
+        this.setState(state => ({
+          goods: getRedGoods(state.showGoods),
+        }));
         break;
 
       default:
