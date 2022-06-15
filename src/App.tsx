@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.scss';
 import { Good } from './react-app-env';
 import { getAll } from './api/goods';
@@ -8,35 +8,22 @@ const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-  const goodsFromServer = () => {
+  useEffect(() => {
     getAll().then(allGoods => {
       setGoods(allGoods);
-      setVisibleGoods(allGoods);
     });
-  };
+  }, []);
 
   const cashedGoods = () => {
-    if (goods.length === 0) {
-      goodsFromServer();
-    }
-
     setVisibleGoods(goods);
   };
 
   const firstFiveCashedGoods = () => {
-    if (goods.length === 0) {
-      goodsFromServer();
-    }
-
     setVisibleGoods([...goods
-      .sort((a, b) => a.name.localeCompare(b.name))].slice(0, 6));
+      .sort((a, b) => a.name.localeCompare(b.name))].slice(0, 5));
   };
 
   const allRedCashedGoods = () => {
-    if (goods.length === 0) {
-      goodsFromServer();
-    }
-
     setVisibleGoods(goods.filter(good => good.color === 'red'));
   };
 
