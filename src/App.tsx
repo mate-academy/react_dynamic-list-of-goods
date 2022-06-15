@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 
-import { getAll } from './api/goods';
+import { getAll, get5First, getRed } from './api/goods';
 import GoodsList from './GoodsList';
 
 const App: React.FC = () => {
@@ -16,25 +16,15 @@ const App: React.FC = () => {
   };
 
   const showFisrtFive = () => {
-    getAll()
-      .then(theGoods => {
-        const fiveGoods = theGoods.filter(good => {
-          return good.id <= 5;
-        });
-
-        setGoods(fiveGoods);
-      });
+    get5First().then(theGoods => {
+      setGoods(theGoods);
+    });
   };
 
   const showRed = () => {
-    getAll()
-      .then(theGoods => {
-        const RedGoods = theGoods.filter(good => {
-          return good.color === 'red';
-        });
-
-        setGoods(RedGoods);
-      });
+    getRed().then(theGoods => {
+      setGoods(theGoods);
+    });
   };
 
   return (

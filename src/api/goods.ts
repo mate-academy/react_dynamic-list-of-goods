@@ -11,3 +11,25 @@ export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
     .then(response => response.json());
 }
+
+export const get5First = () => {
+  return getAll()
+    .then(theGoods => {
+      const five = theGoods.filter(good => {
+        return good.id <= 5;
+      });
+
+      return five;
+    });
+};
+
+export const getRed = () => {
+  return getAll()
+    .then(theGoods => {
+      const RedGoods = theGoods.filter(good => {
+        return good.color === 'red';
+      });
+
+      return RedGoods;
+    });
+};
