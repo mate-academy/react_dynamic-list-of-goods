@@ -1,1 +1,11 @@
-// styles go here
+.div {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  width: max-content;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid mediumseagreen;
+  border-radius: 12px;
+  margin: 0 auto;
+}
