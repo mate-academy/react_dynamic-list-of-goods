@@ -15,7 +15,10 @@ export function getAll(): Promise<Good[]> {
 export const get5First = () => {
   return getAll()
     .then(theGoods => {
-      const five = theGoods.filter(good => {
+      const sorted = theGoods.sort((goodA: Good, goodB: Good) => {
+        return goodA.name.localeCompare(goodB.name);
+      });
+      const five = sorted.filter(good => {
         return good.id <= 5;
       });
 
