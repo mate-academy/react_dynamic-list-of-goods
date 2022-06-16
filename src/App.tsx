@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './App.scss';
 
 import { get5First, getAll, getRedGoods } from './api/goods';
+import { GoodsList } from './components/GoodsList/GoodsList';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
@@ -48,11 +49,7 @@ const App: React.FC = () => {
         Load red goods
       </button>
 
-      <ul>
-        {goods.map((el: Good) => (
-          <li>{el.name}</li>
-        ))}
-      </ul>
+      <GoodsList goods={goods} />
     </>
 
   );
