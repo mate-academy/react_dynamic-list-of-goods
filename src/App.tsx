@@ -1,30 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { Good } from './react-app-env';
-import { getAll } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-  useEffect(() => {
-    getAll().then(allGoods => {
-      setGoods(allGoods);
-    });
-  }, []);
-
-  const cashedGoods = () => {
-    setVisibleGoods(goods);
+  const allGoods = () => {
+    getAll().then(result => setGoods(result));
   };
 
-  const firstFiveCashedGoods = () => {
-    setVisibleGoods([...goods
-      .sort((a, b) => a.name.localeCompare(b.name))].slice(0, 5));
+  const firstFiveGoods = () => {
+    get5First().then(result => setGoods(result));
   };
 
-  const allRedCashedGoods = () => {
-    setVisibleGoods(goods.filter(good => good.color === 'red'));
+  const allRedGoods = () => {
+    getRedGoods().then(result => setGoods(result));
   };
 
   return (
@@ -33,27 +25,27 @@ const App: React.FC = () => {
         <button
           className="button is-info"
           type="button"
-          onClick={cashedGoods}
+          onClick={allGoods}
         >
           Load All goods
         </button>
         <button
           className="button is-info"
           type="button"
-          onClick={firstFiveCashedGoods}
+          onClick={firstFiveGoods}
         >
           Load 5 first goods
         </button>
         <button
           className="button is-info"
           type="button"
-          onClick={allRedCashedGoods}
+          onClick={allRedGoods}
         >
           Load red goods
         </button>
       </div>
 
-      <GoodsList goods={visibleGoods} />
+      <GoodsList goods={goods} />
     </div>
   );
 };
