@@ -14,7 +14,7 @@ export const get5First = async () => {
   const sorted = goods5.sort((good, good1) => (
     good.name.localeCompare(good1.name)));
 
-  return sorted.slice(0, 4);
+  return sorted.slice(0, 5);
 };
 
 export const getRedGoods = async () => {
