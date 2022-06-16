@@ -1,1 +1,20 @@
-// styles go here
+@import 'bulma/css/bulma.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+.box{
+  margin: auto;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 500px;
+  height: 600px;
+  border-radius: 15px;
+  background-image: url(../src/img/Screenshot_4.png);
+  font-family: 'Pacifico', cursive;
+}
+
+.button {
+  margin-top: 10px;
+
+}
+
