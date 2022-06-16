@@ -1,33 +1,21 @@
 import React, { useState } from 'react';
-import { getAll } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './react-app-env';
 import { GoodsList } from './components/GoodsList';
 
 import './App.scss';
 
+type CallBack = () => Promise<Good[]>;
+
 const App: React.FC = () => {
   const [allGoods, setAllGoods] = useState<Good[]>([]);
 
-  function getAllGoods() {
-    getAll()
-      .then((goods) => setAllGoods(goods));
-  }
-
-  function get5First() {
-    getAll()
-      .then((goods) => (
-        setAllGoods(goods
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .slice(0, 5))
-      ));
-  }
-
-  function getRedGoods() {
-    getAll()
-      .then((goods) => (
-        setAllGoods(goods.filter(el => el.color === 'red'))
-      ));
-  }
+  const getGoods = (callBack: CallBack) => {
+    callBack()
+      .then(goodsFromServer => {
+        setAllGoods(goodsFromServer);
+      });
+  };
 
   return (
     <>
@@ -39,21 +27,21 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        onClick={getAllGoods}
+        onClick={() => getGoods(getAll)}
       >
         Load all goods
       </button>
 
       <button
         type="button"
-        onClick={get5First}
+        onClick={() => getGoods(get5First)}
       >
         Load 5 first goods
       </button>
 
       <button
         type="button"
-        onClick={getRedGoods}
+        onClick={() => getGoods(getRedGoods)}
       >
         Load red goods
       </button>
