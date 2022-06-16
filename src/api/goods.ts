@@ -7,9 +7,15 @@ export function getAll(): Promise<Good[]> {
 }
 
 export function get5First(): Promise<Good[]> {
-  return getAll();
+  return getAll()
+    .then(currentGoods => (
+      currentGoods
+        .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
+        .splice(0, 5)
+    ));
 }
 
 export function getRedGoods(): Promise<Good[]> {
-  return getAll();
+  return getAll()
+    .then(currentGoods => currentGoods.filter(good => good.color === 'red'));
 }

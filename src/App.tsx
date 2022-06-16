@@ -4,32 +4,14 @@ import './App.scss';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList';
 
+type Callback = () => Promise<Good[]>;
+
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const getGoods = () => {
-    getAll()
+  const getGood = (currentFunction: Callback) => {
+    currentFunction()
       .then(currentGoods => setGoods(currentGoods));
-  };
-
-  const showFiveGoods = () => {
-    get5First()
-      .then(currentGoods => {
-        const fiveGoods = currentGoods
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .splice(0, 5);
-
-        setGoods(fiveGoods);
-      });
-  };
-
-  const showRedGoods = () => {
-    getRedGoods()
-      .then(currentGoods => {
-        const redGoods = currentGoods.filter(good => good.color === 'red');
-
-        setGoods(redGoods);
-      });
   };
 
   return (
@@ -38,19 +20,19 @@ const App: React.FC = () => {
       <GoodsList goods={goods} />
       <button
         type="submit"
-        onClick={getGoods}
+        onClick={() => getGood(getAll)}
       >
         All
       </button>
       <button
         type="submit"
-        onClick={showFiveGoods}
+        onClick={() => getGood(get5First)}
       >
         5
       </button>
       <button
         type="submit"
-        onClick={showRedGoods}
+        onClick={() => getGood(getRedGoods)}
       >
         red
       </button>
