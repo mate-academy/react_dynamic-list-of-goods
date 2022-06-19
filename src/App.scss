@@ -1,1 +1,12 @@
-// styles go here
+.app {
+  width: fit-content;
+  margin: 0 auto;
+
+  &__buttons {
+    display: flex;
+    margin: 10px;
+    justify-content: center;
+    text-align: center;
+    gap: 5px;
+  }
+}
