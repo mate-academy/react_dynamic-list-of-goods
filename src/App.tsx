@@ -10,7 +10,11 @@ const App: React.FC = () => {
 
   return (
     <div className="app box">
-      <h1>Dynamic list of Goods</h1>
+      <h1
+        className="title is-3"
+      >
+        Dynamic list of Goods
+      </h1>
 
       {goods && (
         <GoodsList goods={goods} />)}
