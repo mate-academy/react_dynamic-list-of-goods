@@ -1,11 +1,17 @@
+import { Good } from '../react-app-env';
 // eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
+const URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
 export function getAll(): Promise<Good[]> {
-  return fetch(API_URL)
+  return fetch(URL)
     .then(response => response.json());
 }
 
-export const get5First = () => {};
+export const getTheFirstFive = () => {
+  return getAll().then(goods => goods
+    .sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5));
+};
 
-export const getRedGoods = () => {};
+export const getReds = () => {
+  return getAll().then(goods => goods.filter(good => good.color === 'red'));
+};
