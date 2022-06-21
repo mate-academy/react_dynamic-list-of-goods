@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import './App.scss';
-import { Good } from './react-app-env';
 import { getAll, getTheFirstFive, getReds } from './api/goods';
+import { Good } from './react-app-env';
 import { GoodsList } from './components/GoodsList';
 
 const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[]>([]);
+  const [good, setGoods] = useState<Good[]>([]);
 
   const all = () => {
     getAll().then(every => setGoods(every));
@@ -20,24 +19,21 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="box">
-      <div className="button-holder">
+    <div>
+      <div>
         <button
-          className="button is-info"
           type="button"
           onClick={all}
         >
           Load All goods
         </button>
         <button
-          className="button is-info"
           type="button"
           onClick={theFirstFive}
         >
           Load 5 first goods
         </button>
         <button
-          className="button is-info"
           type="button"
           onClick={reds}
         >
@@ -45,7 +41,7 @@ const App: React.FC = () => {
         </button>
       </div>
 
-      <GoodsList goods={goods} />
+      <GoodsList goods={good} />
     </div>
   );
 };

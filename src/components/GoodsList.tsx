@@ -9,9 +9,12 @@ type Props = {
 export const GoodsList: React.FC<Props> = React.memo(
   ({ goods }) => {
     return (
-      <ul className="list">
+      <ul>
         {goods.map(good => (
-          <li key={good.id} style={{ color: good.color }}>
+          <li
+            key={good.id}
+            style={{ color: good.color }}
+          >
             {good.name}
           </li>
         ))}
