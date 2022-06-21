@@ -43,7 +43,7 @@ const App: React.FC<{}> = () => {
       </ButtonGroup>
 
       {visibleGoods.map((good: Good) => (
-        <Box>
+        <Box key={good.id}>
           <span
             style={{ color: good.color }}
           >
