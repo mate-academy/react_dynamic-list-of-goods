@@ -19,7 +19,7 @@ export class App extends React.Component {
     const { goods } = this.state;
 
     return (
-      <div>
+      <div className="goods">
         <button
           type="button"
           className="button.button"
@@ -41,7 +41,7 @@ export class App extends React.Component {
           className="button.button"
           onClick={() => this.loadingGoods(getRedGoods)}
         >
-          Load red goods
+          red
         </button>
 
         {goods.length !== 0 && (
