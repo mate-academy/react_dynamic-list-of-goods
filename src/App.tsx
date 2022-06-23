@@ -9,28 +9,30 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const allGoods = () => {
-    getAll().then(result => setGoods(result));
+  const allGoods = async () => {
+    const result = await getAll();
+
+    return setGoods(result);
   };
 
-  const first5Goods = () => {
-    get5First().then(result => setGoods(result));
+  const first5Goods = async () => {
+    const result = await get5First();
+
+    return setGoods(result);
   };
 
-  const redGoods = () => {
-    getRedGoods('red').then(result => setGoods(result));
+  const redGoods = async () => {
+    const result = await getRedGoods('red');
+
+    return setGoods(result);
   };
 
   return (
     <div>
-      {/* <h1>Dynamic list of Goods</h1> */}
-
       <button
         type="button"
         className="button"
-        onClick={() => {
-          allGoods();
-        }}
+        onClick={allGoods}
       >
         Load All goods
       </button>
@@ -38,9 +40,7 @@ const App: React.FC = () => {
       <button
         type="button"
         className="button"
-        onClick={() => {
-          first5Goods();
-        }}
+        onClick={first5Goods}
       >
         Load 5 first
       </button>
@@ -48,15 +48,12 @@ const App: React.FC = () => {
       <button
         type="button"
         className="button"
-        onClick={() => {
-          redGoods();
-        }}
+        onClick={redGoods}
       >
         Load red goods
       </button>
 
       <GoodsList goods={goods} />
-
     </div>
   );
 };
