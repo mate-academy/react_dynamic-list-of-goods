@@ -9,40 +9,38 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  // const [allGoods, setAllGoods] = useState([]);
 
-  // const [first5Goods, setFirst5Goods] = useState([]);
-  // const [redGoods, setRedGoods] = useState([]);
+  // functions for buttons
+
+  type CallbackGoods = () => Promise<Good[]>;
+
+  const chooseGoods = (callback: CallbackGoods) => {
+    callback()
+      .then(products => {
+        setGoods(products);
+      });
+  };
 
   return (
     <>
       <h1>Dynamic list of Goods</h1>
       <button
         type="button"
-        onClick={() => getAll()
-          .then(products => {
-            setGoods(products);
-          })}
+        onClick={() => chooseGoods(getAll)}
       >
         all
       </button>
 
       <button
         type="button"
-        onClick={() => get5First()
-          .then(products => {
-            setGoods(products);
-          })}
+        onClick={() => chooseGoods(get5First)}
       >
         5
       </button>
 
       <button
         type="button"
-        onClick={() => getRedGoods()
-          .then(products => {
-            setGoods(products);
-          })}
+        onClick={() => chooseGoods(getRedGoods)}
       >
         red
       </button>
