@@ -1,13 +1,11 @@
 // eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
+const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goodssss.json`;
 
 export const getAll = (): Promise<Good[]> => {
   return fetch(API_URL)
     .then((response) => {
       if (!response.ok) {
-        const error = new Error(`${response.status} - ${response.statusText}`);
-
-        throw error;
+        throw new Error(`${response.status} - ${response.statusText}`);
       }
 
       return response.json();

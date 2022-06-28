@@ -4,8 +4,6 @@ import 'bulma';
 
 import { getAll, get5First, getRed } from './api/goods';
 import { GoodsList } from './Components/GoodsList';
-// or
-// import * as goodsAPI from './api/goods';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
