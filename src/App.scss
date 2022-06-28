@@ -1,1 +1,11 @@
 // styles go here
+.container {
+  text-align: center;
+}
+
+.goods {
+  &__list {
+    list-style: none;
+    padding: 0;
+  }
+}
