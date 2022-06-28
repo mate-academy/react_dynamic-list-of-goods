@@ -1,12 +1,38 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.scss';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { GoodsList } from './component/GoodsList';
 
-const App: React.FC = () => (
-  <h1>Dynamic list of Goods</h1>
-);
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-export default App;
+  const getGoods = useCallback((callBack: () => Promise<Good[]>) => {
+    callBack()
+      .then((good) => setGoods(good));
+  }, []);
+
+  return (
+    <>
+      <button
+        type="button"
+        onClick={() => getGoods(getAll)}
+      >
+        Load All goods
+      </button>
+      <button
+        type="button"
+        onClick={() => getGoods(get5First)}
+      >
+        Load 5 first goods
+      </button>
+      <button
+        type="button"
+        onClick={() => getGoods(getRedGoods)}
+      >
+        Load red goods
+      </button>
+      <GoodsList goods={goods} />
+    </>
+  );
+};
