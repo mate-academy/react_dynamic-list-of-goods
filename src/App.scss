@@ -1,1 +1,34 @@
 // styles go here
+html {
+  font-family: Arial, sans-serif;
+}
+
+.App {
+  &__title {
+    text-align: center;
+    color: darkgreen;
+    margin-bottom: 50px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+
+  &__button {
+    width: 200px;
+    height: 30px;
+    font-size: 18px;
+    background-color: #fff;
+    border: 2px solid darkgreen;
+    border-radius: 5px;
+
+    &:hover {
+      color: white;
+      background-color: darkgreen;
+      cursor: pointer;
+    }
+  }
+}
