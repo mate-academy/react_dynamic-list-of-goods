@@ -1,1 +1,11 @@
-// styles go here
+button {
+  margin-left: 10px;
+  width: 150px;
+  height: 30px;
+  border: 2px solid grey;
+  border-radius: 5px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
