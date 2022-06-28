@@ -1,0 +1,15 @@
+.goods-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  padding: 15px;
+  margin: 0;
+
+  &__good {
+    display: flex;
+    justify-content: center;
+
+    font-size: 1.2em;
+  }
+}
