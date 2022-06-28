@@ -1,1 +1,53 @@
-// styles go here
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Trebuchet MS",
+    "Lucida Sans Unicode",
+    "Lucida Grande",
+    "Lucida Sans",
+    Arial,
+    sans-serif;
+}
+
+.App {
+  width: 500px;
+  height: max-content;
+  margin: 100px auto;
+  border-left: 1px solid #dadada;
+  padding-left: 30px;
+
+  &__button {
+    margin-right: 10px;
+    outline: none;
+    font-weight: bold;
+    border: 1px solid #dadada;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #474747;
+
+    transition: background-color, color, 300ms ease;
+
+    &:hover {
+      background-color: rgb(41, 155, 255);
+      color: #fff;
+    }
+
+    &:active {
+      background-color: rgb(5, 138, 255);
+    }
+  }
+
+}
+
+.red:hover {
+  background-color: rgb(255, 77, 77);
+  color: #fff;
+}
+
+.red:active {
+  background-color: rgb(255, 35, 35);
+}
