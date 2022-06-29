@@ -1,5 +1,5 @@
 import React from 'react';
-
+// comment
 type Props = {
   shownGoods: Good[];
 };
