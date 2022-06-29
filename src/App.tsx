@@ -8,21 +8,21 @@ const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const loadAllGoods = async () => {
-    const loadedGoods = await getAll();
+    const loadedAllGoods = await getAll();
 
-    setGoods(loadedGoods);
+    setGoods(loadedAllGoods);
   };
 
   const loadFirst5Goods = async () => {
-    const loadedGoods = await get5First();
+    const loadedFirst5Goods = await get5First();
 
-    setGoods(loadedGoods);
+    setGoods(loadedFirst5Goods);
   };
 
   const loadRedGoods = async () => {
-    const loadedGoods = await getRedGoods();
+    const loadedRedGoods = await getRedGoods();
 
-    setGoods(loadedGoods);
+    setGoods(loadedRedGoods);
   };
 
   return (
