@@ -30,8 +30,8 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        onClick={async () => {
-          setGoods(await goodsAPI.get5First());
+        onClick={() => {
+          getGoods(goodsAPI.get5First);
         }}
         className="button"
       >
@@ -40,8 +40,8 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        onClick={async () => {
-          setGoods(await goodsAPI.getRedGoods());
+        onClick={() => {
+          getGoods(goodsAPI.getRedGoods);
         }}
         className="button"
       >
