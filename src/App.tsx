@@ -4,24 +4,15 @@ import './App.scss';
 import { GoodList } from './Components/GoodList/GoodList';
 import 'bulma';
 
+type FetchFunction = () => Promise<Good[]>;
+
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleGetAll = () => {
-    goodsAPI.getAll().then(goodsFromServer => setGoods(goodsFromServer));
-  };
-
-  const handleGet5First = () => {
-    goodsAPI.get5First().then(goodsFromServer => (
-      setGoods(goodsFromServer.slice(0, 5))
-    ));
-  };
-
-  const handleGetRedGoods = () => {
-    goodsAPI.getRedGoods().then(goodsFromServer => (
-      setGoods(goodsFromServer.filter(good => good.color === 'red'))
-    ));
-  };
+  function getGoods(fetchFunction: FetchFunction) {
+    fetchFunction()
+      .then(goodsFromServer => setGoods(goodsFromServer));
+  }
 
   return (
     <div className="container">
@@ -29,7 +20,9 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        onClick={handleGetAll}
+        onClick={() => {
+          getGoods(goodsAPI.getAll);
+        }}
         className="button"
       >
         all
@@ -37,7 +30,9 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        onClick={handleGet5First}
+        onClick={async () => {
+          setGoods(await goodsAPI.get5First());
+        }}
         className="button"
       >
         5
@@ -45,7 +40,9 @@ const App: React.FC = () => {
 
       <button
         type="button"
-        onClick={handleGetRedGoods}
+        onClick={async () => {
+          setGoods(await goodsAPI.getRedGoods());
+        }}
         className="button"
       >
         red
