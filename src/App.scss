@@ -1,1 +1,13 @@
-// styles go here
+* {
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.button {
+  margin: 15px;
+}
