@@ -4,12 +4,12 @@ import { getAll, get5First, getRed } from './api/goods';
 import { GoodsList } from './GoodsList';
 
 const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[]>([]);
+  const [goodsList, setGoods] = useState<Good[]>([]);
 
-  const getGoods = async (inputGoods: () => Promise<Good[]>) => {
-    const response = await inputGoods();
+  const getGoods = async (callback: () => Promise<Good[]>) => {
+    const goods = await callback();
 
-    setGoods(response);
+    setGoods(goods);
   };
 
   return (
@@ -35,11 +35,7 @@ const App: React.FC = () => {
           Red goods
         </button>
       </div>
-      <ul>
-        <GoodsList
-          goods={goods}
-        />
-      </ul>
+      <GoodsList goods={goodsList} />
     </>
   );
 };
