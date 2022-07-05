@@ -22,8 +22,8 @@ const App: React.FC = () => {
   return (
     <div>
       <button
-        type="button"
         onClick={all}
+        type="button"
       >
         All
       </button>
