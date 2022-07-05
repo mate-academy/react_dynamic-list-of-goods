@@ -4,8 +4,6 @@ import 'bulma';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './GoodsList';
-// or
-// import * as goodsAPI from './api/goods';
 
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
@@ -38,7 +36,7 @@ const App: React.FC = () => {
           className="button is-info mx-3"
           onClick={() => loadAllGoods()}
         >
-          Load All goods
+          Load all goods
         </button>
         <button
           type="button"
