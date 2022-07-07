@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 
 import { getAll, get5First, getRed } from './api/goods';
@@ -7,23 +7,32 @@ import { GoodsList } from './components/GoodList';
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadAllGoods = async () => {
-    const loadedGoods = await getAll();
+  const loadAllGoods = useCallback(
+    async () => {
+      const loadedGoods = await getAll();
 
-    setGoods(loadedGoods);
-  };
+      setGoods(loadedGoods);
+    },
+    [],
+  );
 
-  const loadFirst5Goods = async () => {
-    const loadedGoods = await get5First();
+  const loadFirst5Goods = useCallback(
+    async () => {
+      const loadedGoods = await get5First();
 
-    setGoods(loadedGoods);
-  };
+      setGoods(loadedGoods);
+    },
+    [],
+  );
 
-  const loadRedGoods = async () => {
-    const loadedGoods = await getRed();
+  const loadRedGoods = useCallback(
+    async () => {
+      const loadedGoods = await getRed();
 
-    setGoods(loadedGoods);
-  };
+      setGoods(loadedGoods);
+    },
+    [],
+  );
 
   return (
     <div className="container">
