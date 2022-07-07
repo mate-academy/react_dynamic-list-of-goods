@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import * as goodsAPI from './api/goods';
 import './App.scss';
 import { GoodList } from './Components/GoodList/GoodList';
@@ -9,10 +9,10 @@ type FetchFunction = () => Promise<Good[]>;
 const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  function getGoods(fetchFunction: FetchFunction) {
-    fetchFunction()
-      .then(goodsFromServer => setGoods(goodsFromServer));
-  }
+  const getGoods = useCallback(
+    (fetchFunction: FetchFunction) => fetchFunction().then(setGoods),
+    [goods],
+  );
 
   return (
     <div className="container">
