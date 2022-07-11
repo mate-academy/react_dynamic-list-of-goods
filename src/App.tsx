@@ -4,8 +4,6 @@ import './App.scss';
 
 import { get5First, getAll, getRedGoods } from './api/goods';
 import { GoodsList } from './components/GoodsList';
-// or
-// import * as goodsAPI from './api/goods';
 
 const App: React.FC = () => {
   const [goodsList, setGoodsList] = useState<Good[]>([]);
