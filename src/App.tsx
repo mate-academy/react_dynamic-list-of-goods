@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import 'bulma';
 import './App.scss';
 
@@ -10,17 +10,23 @@ import { GoodsList } from './components/GoodsList';
 const App: React.FC = () => {
   const [goodsList, setGoodsList] = useState<Good[]>([]);
 
-  const getAllGoods = async () => {
-    setGoodsList(await getAll());
-  };
+  const getAllGoods = useCallback(
+    async () => {
+      setGoodsList(await getAll());
+    }, [],
+  );
 
-  const getFirst5Goods = async () => {
-    setGoodsList(await get5First());
-  };
+  const getFirst5Goods = useCallback(
+    async () => {
+      setGoodsList(await get5First());
+    }, [],
+  );
 
-  const getAllRedGoods = async () => {
-    setGoodsList(await getRedGoods());
-  };
+  const getAllRedGoods = useCallback(
+    async () => {
+      setGoodsList(await getRedGoods());
+    }, [],
+  );
 
   return (
     <>

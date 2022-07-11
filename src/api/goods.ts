@@ -7,13 +7,16 @@ export function getAll(): Promise<Good[]> {
 }
 
 export const get5First = async () => {
-  return (await getAll()).sort((goodItem1, goodItem2) => (
-    goodItem1.name.localeCompare(goodItem2.name)
-  )).slice(0, 5);
+  return (await getAll())
+    .sort((goodItem1, goodItem2) => (
+      goodItem1.name.localeCompare(goodItem2.name)
+    ))
+    .slice(0, 5);
 };
 
 export const getRedGoods = async () => {
-  return (await getAll()).filter(goodItem => (
-    goodItem.color === 'red'
-  ));
+  return (await getAll())
+    .filter(goodItem => (
+      goodItem.color === 'red'
+    ));
 };

@@ -6,17 +6,15 @@ interface GoodsListProps {
 
 export const GoodsList: FC<GoodsListProps> = ({ goodsList }) => (
   <ul>
-    {
-      goodsList.map(goodItem => (
-        <li
-          key={goodItem.id}
-          style={{
-            color: goodItem.color,
-          }}
-        >
-          {goodItem.name}
-        </li>
-      ))
-    }
+    {goodsList.map(goodItem => (
+      <li
+        key={goodItem.id}
+        style={{
+          color: goodItem.color,
+        }}
+      >
+        {goodItem.name}
+      </li>
+    ))}
   </ul>
 );
