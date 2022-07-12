@@ -6,7 +6,7 @@ interface Props {
 
 export const GoodList: React.FC<Props> = React.memo(
   ({ goods }) => (
-    <ul>
+    <ul className="goods">
       {goods.map(({ name, id, color }) => (
         <li
           key={id}
