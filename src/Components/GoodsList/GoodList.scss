@@ -1,0 +1,15 @@
+.goodlist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  &__item {
+    width: 300px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    padding: 5px 0;
+  }
+}
