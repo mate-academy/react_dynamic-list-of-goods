@@ -6,7 +6,7 @@ import './App.scss';
 // import * as goodsAPI from './api/goods';
 
 const App: React.FC = () => (
-  <h1>Dynamic list of Goods</h1>
+  <h1>Henlo</h1>
 );
 
 export default App;
