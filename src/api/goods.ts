@@ -6,7 +6,11 @@ export async function getAll(): Promise<Good[]> {
 }
 
 export const get5First = async () => {
-  return (await getAll()).slice(0, 5);
+  return getAll()
+    .then(goods => (
+      goods.sort((first, second) => first.name.localeCompare(second.name))
+    ))
+    .then(goods => goods.slice(0, 5));
 };
 
 export const getRedGoods = async () => {
