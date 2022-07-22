@@ -1,24 +1,18 @@
 # React dynamic list of goods
-- Replace `<your_account>` with your Github username in the
- [DEMO LINK](https://<your_account>.github.io/react_dynamic-list-of-goods/)
-- Follow the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline)
-- Use [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript)
+You have 3 button that should load [the goods](https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json) and show them on the page using the `GoodsList`.
 
-## Task
-> Load [the goods](https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json) and show them on the page
+1. `Load All goods` should load and show all the `goods`;
+1. `Load 5 first goods` should do the next:
+    - load all the goods;
+    - sort them by name;
+    - and show the first 5;
+1. `Load red goods` should load all the goods show only `red` ones;
+1. Server has only 1 endpoint returning all the goods, so you should do all the preparations in corresponding methods in `/api/goods`.
+1. `GoodsList` is almost finished, you just need to use corresponding colors for `li`s;
 
-1. Render 3 buttons loading the goods from server and saving them in the state:
-    - `Load All goods` shows all the received `goods`
-    - `Load 5 first goods` shows 5 first `goods` after sorting them by name
-    - `Load red goods` containing only `red` goods
-1. Server has only 1 endpoint returning all the goods, so you should prepare them after receiving.
-1. Create a component `GoodsList` accepting an array of goods and rendering them inside a `<ul>`
-1. Print a `name` of each `good` using `good.color`(for example `style={{ color: 'red' }}`)
-1. There should be a new request to the server on each button click.
-1. `GoodsList` should show the last loaded goods.
+## Instructions
 
-REQUIREMENTS:
-1. The button for choosing all goods should have inside text `all`
-2. The button for choosing 5 goods should have inside text `5`
-3. The button for choosing red goods should have inside text `red`
-
+- Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).
+- Use the [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript).
+- Open one more terminal and run tests with `npm test` to ensure your solution is correct.
+- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_dynamic-list-of-goods/) and add it to the PR description.
