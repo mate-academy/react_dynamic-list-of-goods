@@ -1,1 +1,35 @@
-// styles go here
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button {
+  margin: 10px;
+
+  width: max-content;
+  line-height: 30px;
+  color: #00f;
+
+  background-color: #dedef0;
+  border: 2px solid #00f;
+  border-radius: 8px;
+
+  &:hover {
+    cursor: pointer;
+
+    background-color: #bbbbef;
+  }
+}
+
+.goods__list {
+  list-style: none;
+}
+
+.goods__item {
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+
+  max-width: max-content;
+
+  border-bottom: 1px solid;
+}
