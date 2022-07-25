@@ -1,1 +1,15 @@
-// styles go here
+.App {
+  text-align: center;
+}
+
+.title {
+  text-align: center;
+}
+
+.button {
+  margin-left: 10px;
+}
+
+li::marker {
+  content: none;
+}
