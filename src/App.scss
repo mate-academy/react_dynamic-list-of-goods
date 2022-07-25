@@ -1,1 +1,19 @@
 // styles go here
+$marginForAll: 15px;
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-top: 180px;
+
+  &__title {
+    margin-bottom: $marginForAll;
+  }
+
+  &__button-container {
+    margin-bottom: $marginForAll;
+  }
+}
