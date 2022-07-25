@@ -5,27 +5,26 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
-  const [goodsToShow, setGoods]: any = useState([])
+  const [goodsToShow, setGoods]: any | null = useState([]);
   const showAll = () => {
     getAll()
-      .then(goods=>setGoods(goods));
-  }
+      .then(goods => setGoods(goods));
+  };
 
   const showFiveFarst = () => {
     get5First()
-      .then(goods=>setGoods(goods));
-  }
+      .then(goods => setGoods(goods));
+  };
 
   const showRedGoods = () => {
     getRedGoods()
-      .then(goods=>setGoods(goods));
-  }
-
+      .then(goods => setGoods(goods));
+  };
 
   return (
     (
       <div className="App">
-        <h1 className='title large'>Dynamic list of Goods</h1>
+        <h1 className="title large">Dynamic list of Goods</h1>
 
         <button
           type="button"
@@ -54,5 +53,5 @@ export const App: React.FC = () => {
         <GoodsList goods={goodsToShow} />
       </div>
     )
-  )
+  );
 };
