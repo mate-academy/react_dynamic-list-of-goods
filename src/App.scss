@@ -1,1 +1,22 @@
 // styles go here
+.title {
+  display: block;
+  width: 400px;
+  margin: 0 auto;
+  padding-left: 80px;
+}
+
+.container {
+  width: 400px;
+  margin: 0 auto;
+}
+
+.button {
+  height: 40px;
+  text-align: center;
+  margin: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
