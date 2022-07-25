@@ -5,7 +5,7 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
-  const [goodsToShow, setGoods]: any | null = useState([]);
+  const [goodsToShow, setGoods]: any[] = useState([]);
   const showAll = () => {
     getAll()
       .then(goods => setGoods(goods));
