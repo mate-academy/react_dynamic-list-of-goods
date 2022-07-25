@@ -6,7 +6,7 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [hasGoods, setHasGoods] = useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
 
   return (
     <div className="App">
