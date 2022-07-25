@@ -1,1 +1,18 @@
-// styles go here
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 4px solid;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+  padding: 10px;
+  background-color: #ebb990;
+  font-size: 20px;
+  text-align: center;
+
+  &__title {
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+}
