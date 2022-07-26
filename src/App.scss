@@ -1,1 +1,18 @@
-// styles go here
+.App {
+  width: 540px;
+  margin: 0 auto;
+  text-align: center;
+
+  &__title {
+    margin: 20px 0 30px;
+  }
+
+  &__btn {
+    margin-left: 20px;
+  }
+}
+
+.GoodsList {
+  padding: 20px;
+  list-style: none;
+}
