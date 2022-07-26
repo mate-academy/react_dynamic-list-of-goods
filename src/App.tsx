@@ -15,7 +15,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={async () => setHasGoods(await getAll())}
+        onClick={async () => setGoods(await getAll())}
       >
         Load all goods
       </button>
@@ -23,7 +23,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={async () => setHasGoods(await get5First())}
+        onClick={async () => setGoods(await get5First())}
       >
         Load 5 first goods
       </button>
@@ -31,12 +31,12 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={async () => setHasGoods(await getRedGoods())}
+        onClick={async () => setGoods(await getRedGoods())}
       >
         Load red goods
       </button>
 
-      <GoodsList goods={hasGoods} />
+      <GoodsList goods={goods} />
     </div>
   );
 };
