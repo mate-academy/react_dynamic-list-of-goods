@@ -1,1 +1,38 @@
-// styles go here
+.title {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+
+  &__button {
+    width: 200px;
+    height: 40px;
+    background-color: rgb(174, 128, 255);
+
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 16px;
+    color: aliceblue;
+
+    border: 1px transparent;
+    border-radius: 5px;
+
+    cursor: pointer;
+  }
+}
+
+.content {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    &__item {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 16px;
+    }
+  }
+}
