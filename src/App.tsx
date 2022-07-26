@@ -8,15 +8,18 @@ const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const all = () => {
-    getAll().then(allGoods => setGoods(allGoods));
+    getAll().then(allGoods => setGoods(allGoods))
+      .catch(error => alert(error.message));
   };
 
   const first5 = () => {
-    get5First().then(someGoods => setGoods(someGoods));
+    get5First().then(someGoods => setGoods(someGoods))
+      .catch(error => alert(error.message));
   };
 
   const red = () => {
-    getRed().then(allGoods => setGoods(allGoods));
+    getRed().then(allGoods => setGoods(allGoods))
+      .catch(error => alert(error.message));
   };
 
   return (
