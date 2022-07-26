@@ -1,1 +1,58 @@
-// styles go here
+$blackColor: #030e12;
+$yellowColor: #fcde67;
+
+html {
+  background-color: #5bccf6;
+  text-align: center;
+
+  &::after {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 120px;
+    display: block;
+    background-color: $yellowColor;
+    content: "";
+  }
+}
+
+h1 {
+  color: $yellowColor;
+  font-size: 50px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 0 auto;
+}
+
+button {
+  background-color: $yellowColor;
+  font-size: 25px;
+  transition: transform 0.5s;
+
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+}
+
+.goods {
+  font-size: 30px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+
+  &__item {
+    padding: 5px;
+    width: max-content;
+    border: 3px solid $yellowColor;
+    border-radius: 8px;
+  }
+}
