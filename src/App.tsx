@@ -1,27 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import 'bulma/css/bulma.min.css';
+import { Button } from 'react-bulma-components';
+import { Good } from './types/Good';
+import { GoodsList } from './components/GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRed } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [viewGoods, setViewGoods] = useState<Good[]>([]);
+  const [hasLoadingError, setLoadingError] = useState(false);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const loadGoods = async (callback: () => Promise<Good[]>) => {
+    setLoadingError(false);
+    try {
+      const goods = await callback();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      setViewGoods(goods);
+    } catch {
+      setLoadingError(true);
+    }
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="App container is-widescreen">
+      <h1 className="box is-small title is-1 text title">
+        Dynamic list of Goods
+      </h1>
+      <div className="">
+        <Button
+          type="button"
+          data-cy="all-button"
+          onClick={() => loadGoods(getAll)}
+        >
+          Load all goods
+        </Button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+        <Button
+          type="button"
+          data-cy="first-five-button"
+          onClick={() => loadGoods(get5First)}
+        >
+          Load 5 first goods
+        </Button>
+
+        <Button
+          type="button"
+          data-cy="red-button"
+          onClick={() => loadGoods(getRed)}
+        >
+          Load red goods
+        </Button>
+      </div>
+
+      <div className="content is-large card">
+        {!hasLoadingError && <GoodsList goods={viewGoods} />}
+      </div>
+
+    </div>
+  );
+};
