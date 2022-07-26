@@ -1,0 +1,16 @@
+.GoodsList {
+  &__item {
+
+    &--red {
+      color: rgb(214, 7, 7);
+    }
+
+    &--blue {
+      color: rgb(18, 18, 175);
+    }
+
+    &--green {
+      color: rgb(8, 129, 8);
+    }
+  }
+}
