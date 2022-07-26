@@ -10,15 +10,13 @@ export async function getAll(): Promise<Good[]> {
 
 export const get5First = async () => {
   const goods = await getAll();
-  const goodsOne = goods;
 
-  return goodsOne.sort((goodA, goodB) => goodA.name.localeCompare(goodB.name))
+  return goods.sort((goodA, goodB) => goodA.name.localeCompare(goodB.name))
     .slice(0, 5);
 };
 
 export const getRedGoods = async () => {
   const goods = await getAll();
-  const goodsOne = goods;
 
-  return goodsOne.filter(good => good.color === 'red');
+  return goods.filter(good => good.color === 'red');
 };

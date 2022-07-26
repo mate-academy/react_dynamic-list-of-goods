@@ -9,11 +9,11 @@ export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
   const [hasLoadingError, setLoadingError] = useState(false);
 
-  const loadGoods = async (loadingGoods: () => Promise<Good[]>) => {
+  const loadGoods = async (loadGoodCallback: () => Promise<Good[]>) => {
     setLoadingError(false);
 
     try {
-      const goods = await loadingGoods();
+      const goods = await loadGoodCallback();
 
       setVisibleGoods(goods);
     } catch (error) {
