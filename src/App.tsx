@@ -1,5 +1,5 @@
 import './App.scss';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import classNames from 'classnames';
 
 import { GoodsList } from './GoodsList';
@@ -8,25 +8,7 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [allGoods, getAllGoods] = useState<Good[]>([]);
-  const [isLoaded, setLoaded] = useState(false);
-  const [isSorted, setSorted] = useState(false);
-  const [isFiltred, setFiltred] = useState(false);
-
-  useEffect(() => {
-    if (isLoaded) {
-      getAll()
-        .then(goods => getAllGoods(goods));
-    }
-
-    if (isSorted) {
-      get5First().then(goods => getAllGoods(goods));
-    }
-
-    if (isFiltred) {
-      getRedGoods().then(goods => getAllGoods(goods));
-    }
-  }, [isLoaded, isSorted, isFiltred]);
+  const [allGoods, setGoods] = useState<Good[]>([]);
 
   return (
     <div className={classNames(
@@ -43,10 +25,8 @@ export const App: React.FC = () => {
           type="button"
           className="button is-info"
           data-cy="all-button"
-          onClick={() => {
-            setFiltred(false);
-            setSorted(false);
-            setLoaded(true);
+          onClick={async () => {
+            setGoods(await getAll());
           }}
         >
           Load all goods
@@ -56,10 +36,8 @@ export const App: React.FC = () => {
           type="button"
           className="button is-info"
           data-cy="first-five-button"
-          onClick={() => {
-            setFiltred(false);
-            setLoaded(false);
-            setSorted(true);
+          onClick={async () => {
+            setGoods(await get5First());
           }}
         >
           Load 5 first goods
@@ -69,10 +47,8 @@ export const App: React.FC = () => {
           type="button"
           className="button is-info"
           data-cy="red-button"
-          onClick={() => {
-            setSorted(false);
-            setLoaded(false);
-            setFiltred(true);
+          onClick={async () => {
+            setGoods(await getRedGoods());
           }}
         >
           Load red goods
