@@ -1,1 +1,21 @@
 // styles go here
+.button {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    background: gray;
+
+    left: -10px;
+    width: 10px;
+    top: 0;
+    bottom: 0;
+  }
+
+  &:hover::before {
+    left: calc(100% + 10px);
+    transition: left 300ms;
+  }
+}
