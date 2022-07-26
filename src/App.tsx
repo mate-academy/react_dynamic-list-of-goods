@@ -9,7 +9,7 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [itemsGoods, setItemsGoods] = useState<Good[]>([]);
 
-  const handleAllGoods = () => {
+  const handleAllGoods = async () => {
     getAll().then(allArray => setItemsGoods(allArray));
   };
 
