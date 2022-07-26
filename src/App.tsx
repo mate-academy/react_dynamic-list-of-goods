@@ -9,16 +9,16 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingError, setIsLoadingError] = useState(true);
 
-  const loadGoods = async (params:() => Promise<Good[]>) => {
-    setIsLoading(true);
+  const loadGoods = async (loadGoodsCallback:() => Promise<Good[]>) => {
+    setIsLoadingError(false);
     try {
-      const goods = await params();
+      const goods = await loadGoodsCallback();
 
       setVisibleGoods(goods);
     } catch {
-      setIsLoading(false);
+      setIsLoadingError(true);
     }
   };
 
@@ -50,7 +50,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      {isLoading && <GoodsList goods={visibleGoods} />}
+      {!isLoadingError && <GoodsList goods={visibleGoods} />}
     </div>
   );
 };
