@@ -1,1 +1,20 @@
-// styles go here
+.button {
+  margin-right: 5px;
+}
+
+.App {
+  margin: 50px auto;
+  width: max-content;
+  padding: 50px;
+  border: 2px solid black;
+  border-radius: 20px;
+}
+
+.list {
+  list-style: none;
+  margin-top: 20px;
+
+  &__link {
+    padding: 3px;
+  }
+}
