@@ -6,12 +6,24 @@ import { Good } from './types/Good';
 import 'bulma';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[] | []>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [hasLoadingError, setHasLoadingError] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(false);
 
   const loadUsers = async (preparedGoods: () => Promise<Good[]>) => {
-    const goodsFromServer = await preparedGoods();
+    setHasLoadingError(false);
 
-    setGoods(goodsFromServer);
+    try {
+      const goodsFromServer = await preparedGoods();
+
+      if (goodsFromServer.length === 0) {
+        setIsEmpty(true);
+      }
+
+      setGoods(goodsFromServer);
+    } catch (error) {
+      setHasLoadingError(true);
+    }
   };
 
   return (
@@ -48,7 +60,20 @@ export const App: React.FC = () => {
           Load red goods
         </button>
 
-        <GoodsList goods={goods} />
+        {!hasLoadingError ? (
+          <>
+            {isEmpty && (
+              <p className="subtitle block">
+                Empty list of goods
+              </p>
+            )}
+            <GoodsList goods={goods} />
+          </>
+        ) : (
+          <p className="subtitle block">
+            Sorry, we hadn`t found your data
+          </p>
+        )}
       </div>
     </div>
   );
