@@ -13,11 +13,11 @@ export const App: React.FC = () => {
     getAll().then(allArray => setItemsGoods(allArray));
   };
 
-  const handleFiveElGoods = () => {
+  const handleFiveElGoods = async () => {
     get5First().then(firstFiveElArray => setItemsGoods(firstFiveElArray));
   };
 
-  const onlyRedElGood = () => {
+  const onlyRedElGood = async () => {
     getRedGoods().then(onlyRedArray => setItemsGoods(onlyRedArray));
   };
 
