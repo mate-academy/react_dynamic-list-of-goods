@@ -8,6 +8,18 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goodsFromServer, setGoodsFromServer] = useState<Good[]>([]);
 
+  const loadAll = () => {
+    getAll().then(setGoodsFromServer);
+  };
+
+  const loadFiveFirst = () => {
+    get5First().then(setGoodsFromServer);
+  };
+
+  const loadOnlyRed = () => {
+    getRedGoods().then(setGoodsFromServer);
+  };
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -15,11 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={async () => {
-          const allGoods = getAll();
-
-          setGoodsFromServer(await allGoods);
-        }}
+        onClick={loadAll}
       >
         Load all goods
       </button>
@@ -27,11 +35,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={async () => {
-          const fiveFirst = get5First();
-
-          setGoodsFromServer(await fiveFirst);
-        }}
+        onClick={loadFiveFirst}
       >
         Load 5 first goods
       </button>
@@ -39,11 +43,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={async () => {
-          const onlyRed = getRedGoods();
-
-          setGoodsFromServer(await onlyRed);
-        }}
+        onClick={loadOnlyRed}
       >
         Load red goods
       </button>
