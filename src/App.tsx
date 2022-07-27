@@ -1,27 +1,88 @@
-import React from 'react';
-import './App.scss';
+import React, { useState } from 'react';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+import 'bulma';
+import './App.scss';
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+import * as goodsAPI from './api/goods';
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+export const App: React.FC = () => {
+  const [selectedGoods, setSelectedGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const loadAllGoods = () => {
+    goodsAPI.getAll()
+      .then(setSelectedGoods);
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const loadGoodsSortedByColor = () => {
+    goodsAPI.getAllSortedByColor()
+      .then(setSelectedGoods);
+  };
+
+  const load5FirstGoods = () => {
+    goodsAPI.get5First()
+      .then(setSelectedGoods);
+  };
+
+  const loadRedGoods = () => {
+    goodsAPI.getRedGoods()
+      .then(setSelectedGoods);
+  };
+
+  return (
+    <div className="section">
+      <div className="container">
+        <h1 className="title">Dynamic list of Goods</h1>
+
+        <button
+          type="button"
+          className="button is-responsive"
+          data-cy="all-button"
+          onClick={loadAllGoods}
+        >
+          Load all goods
+        </button>
+
+        <button
+          type="button"
+          className="button is-responsive"
+          data-cy="sorted-button"
+          onClick={loadGoodsSortedByColor}
+        >
+          Load all sorted by color
+        </button>
+
+        <button
+          type="button"
+          className="button is-responsive"
+          data-cy="first-five-button"
+          onClick={load5FirstGoods}
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          type="button"
+          className="button is-responsive"
+          data-cy="red-button"
+          onClick={loadRedGoods}
+        >
+          Load red goods
+        </button>
+
+        <button
+          type="button"
+          className="button is-responsive"
+          data-cy="hide-button"
+          onClick={() => setSelectedGoods([])}
+        >
+          Hide goods
+        </button>
+
+        <GoodsList goods={selectedGoods} />
+      </div>
+    </div>
+  );
+};
