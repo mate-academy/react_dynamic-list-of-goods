@@ -10,18 +10,25 @@ import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [selectedGoods, setSelectedGoods] = useState<Good[]>([]);
-  const [hasLoadingError, setHasLoadingError] = useState(false);
 
-  const loadGoods = async (callback:() => Promise<Good[]>) => {
-    setHasLoadingError(false);
+  const loadAllGoods = () => {
+    goodsAPI.getAll()
+      .then(setSelectedGoods);
+  };
 
-    try {
-      const goods = await callback();
+  const loadGoodsSortedByColor = () => {
+    goodsAPI.getAllSortedByColor()
+      .then(setSelectedGoods);
+  };
 
-      setSelectedGoods(goods);
-    } catch (error) {
-      setHasLoadingError(true);
-    }
+  const load5FirstGoods = () => {
+    goodsAPI.get5First()
+      .then(setSelectedGoods);
+  };
+
+  const loadRedGoods = () => {
+    goodsAPI.getRedGoods()
+      .then(setSelectedGoods);
   };
 
   return (
@@ -33,7 +40,7 @@ export const App: React.FC = () => {
           type="button"
           className="button is-responsive"
           data-cy="all-button"
-          onClick={() => loadGoods(goodsAPI.getAll)}
+          onClick={loadAllGoods}
         >
           Load all goods
         </button>
@@ -42,7 +49,7 @@ export const App: React.FC = () => {
           type="button"
           className="button is-responsive"
           data-cy="sorted-button"
-          onClick={() => loadGoods(goodsAPI.getAllSortedByColor)}
+          onClick={loadGoodsSortedByColor}
         >
           Load all sorted by color
         </button>
@@ -51,7 +58,7 @@ export const App: React.FC = () => {
           type="button"
           className="button is-responsive"
           data-cy="first-five-button"
-          onClick={() => loadGoods(goodsAPI.get5First)}
+          onClick={load5FirstGoods}
         >
           Load 5 first goods
         </button>
@@ -60,7 +67,7 @@ export const App: React.FC = () => {
           type="button"
           className="button is-responsive"
           data-cy="red-button"
-          onClick={() => loadGoods(goodsAPI.getRedGoods)}
+          onClick={loadRedGoods}
         >
           Load red goods
         </button>
@@ -74,9 +81,7 @@ export const App: React.FC = () => {
           Hide goods
         </button>
 
-        {!hasLoadingError && (
-          <GoodsList goods={selectedGoods} />
-        )}
+        <GoodsList goods={selectedGoods} />
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ export function getAll(): Promise<Good[]> {
 
 export const getAllSortedByColor = () => {
   return getAll()
-    .then(goods => goods.sort(
+    .then(goods => [...goods].sort(
       (firstGood, secondGood) => firstGood.color
         .localeCompare(secondGood.color),
     ));
@@ -18,7 +18,7 @@ export const getAllSortedByColor = () => {
 
 export const get5First = () => {
   return getAll()
-    .then(goods => goods.sort(
+    .then(goods => [...goods].sort(
       (firstGood, secondGood) => firstGood.name
         .localeCompare(secondGood.name),
     ))
