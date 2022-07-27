@@ -11,14 +11,16 @@ export function getAll(): Promise<Good[]> {
 export const getAllSortedByColor = () => {
   return getAll()
     .then(goods => goods.sort(
-      (a, b) => a.color.localeCompare(b.color),
+      (firstGood, secondGood) => firstGood.color
+        .localeCompare(secondGood.color),
     ));
 };
 
 export const get5First = () => {
   return getAll()
     .then(goods => goods.sort(
-      (a, b) => a.name.localeCompare(b.name),
+      (firstGood, secondGood) => firstGood.name
+        .localeCompare(secondGood.name),
     ))
     .then(goods => goods.slice(0, 5));
 };
