@@ -4,14 +4,12 @@ import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const setGoodType = (promise: () => Promise<Good[]>) => {
-    promise().then((goodsFromServer: Good[]) => setGoods(goodsFromServer));
+  const setGoodByType = (promise: () => Promise<Good[]>) => {
+    promise().then((goodsFromServer) => setGoods(goodsFromServer));
   };
 
   return (
@@ -19,7 +17,7 @@ export const App: React.FC = () => {
       <h1>Dynamic list of Goods</h1>
 
       <button
-        onClick={() => setGoodType(getAll)}
+        onClick={() => setGoodByType(getAll)}
         type="button"
         data-cy="all-button"
       >
@@ -27,7 +25,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => setGoodType(get5First)}
+        onClick={() => setGoodByType(get5First)}
         type="button"
         data-cy="first-five-button"
       >
@@ -35,7 +33,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => setGoodType(getRedGoods)}
+        onClick={() => setGoodByType(getRedGoods)}
         type="button"
         data-cy="red-button"
       >
