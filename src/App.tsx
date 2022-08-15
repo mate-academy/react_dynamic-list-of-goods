@@ -23,20 +23,12 @@ export const App: FC = () => {
     if (selectedGoods !== type) {
       setIsLoading(true);
       apiCallBack()
-        .then(goodsFromServer => {
-          setVisibleGoods(goodsFromServer);
-          setIsLoading(false);
-        })
-        .catch(error => setErrorMessage(error));
+        .then(goodsFromServer => setVisibleGoods(goodsFromServer))
+        .catch(error => setErrorMessage(error))
+        .finally(() => setIsLoading(false));
       setSelectedGoods(type);
     }
   };
-
-  const loadAll = () => loadGoods(getAll, GoodsType.All);
-
-  const loadFirstFive = () => loadGoods(get5First, GoodsType.FirstFive);
-
-  const loadRedGoods = () => loadGoods(getRedGoods, GoodsType.Red);
 
   return (
     <div className="App">
@@ -45,7 +37,7 @@ export const App: FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={loadAll}
+        onClick={() => loadGoods(getAll, GoodsType.All)}
       >
         Load all goods
       </button>
@@ -53,7 +45,7 @@ export const App: FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={loadFirstFive}
+        onClick={() => loadGoods(get5First, GoodsType.FirstFive)}
       >
         Load 5 first goods
       </button>
@@ -61,14 +53,14 @@ export const App: FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={loadRedGoods}
+        onClick={() => loadGoods(getRedGoods, GoodsType.Red)}
       >
         Load red goods
       </button>
 
       {!isLoading && !errorMessage && (<GoodsList goods={visibleGoods} />)}
       {isLoading && (<div>Loading...</div>)}
-      {errorMessage && (<div>Something gone wrong... Please, try later</div>)}
+      {errorMessage && (<div>{`Error: ${errorMessage}`}</div>)}
     </div>
   );
 };
