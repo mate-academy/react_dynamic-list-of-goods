@@ -10,18 +10,8 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadAllGoods = () => {
-    getAll().then((allGoodsFromServer) => setGoods(allGoodsFromServer));
-  };
-
-  const loadFirstFiveGoods = () => {
-    get5First().then((fiveFirstGoodsFromServer) => {
-      return setGoods(fiveFirstGoodsFromServer);
-    });
-  };
-
-  const loadRedGoods = () => {
-    getRedGoods().then((redGoodsFromServer) => setGoods(redGoodsFromServer));
+  const setGoodType = (promise: () => Promise<Good[]>) => {
+    promise().then((goodsFromServer: Good[]) => setGoods(goodsFromServer));
   };
 
   return (
@@ -29,7 +19,7 @@ export const App: React.FC = () => {
       <h1>Dynamic list of Goods</h1>
 
       <button
-        onClick={() => loadAllGoods()}
+        onClick={() => setGoodType(getAll)}
         type="button"
         data-cy="all-button"
       >
@@ -37,7 +27,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => loadFirstFiveGoods()}
+        onClick={() => setGoodType(get5First)}
         type="button"
         data-cy="first-five-button"
       >
@@ -45,7 +35,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => loadRedGoods()}
+        onClick={() => setGoodType(getRedGoods)}
         type="button"
         data-cy="red-button"
       >
