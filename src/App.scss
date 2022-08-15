@@ -1,1 +1,18 @@
-// styles go here
+.App {
+  margin: 100px auto 0;
+  width: 500px;
+
+  text-align: center;
+
+  &__loading {
+    padding-top: 10px;
+  }
+
+  &__error {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #fdeaef;
+    color: red;
+  }
+}
