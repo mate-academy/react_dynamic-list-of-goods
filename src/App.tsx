@@ -15,8 +15,8 @@ export const App: FC = () => {
     setIsLoading(true);
     apiFunction()
       .then(goodsFromServer => setGoods(goodsFromServer))
-      .catch(() => setHasError(true));
-    setIsLoading(false);
+      .catch(() => setHasError(true))
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
