@@ -13,12 +13,15 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [selectedGoods, setSelectedGoods] = useState<SelectedType>(null);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (selectedGoods) {
+      setIsLoading(true);
       goodsAPI[selectedGoods]()
         .then(_goods => setGoods(_goods))
-        .catch(err => setError(err));
+        .catch(err => setError(err))
+        .finally(() => setIsLoading(false));
     }
   }, [selectedGoods]);
 
@@ -50,7 +53,9 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      { goods.length > 0 && <GoodsList goods={goods} />}
+      { !isLoading
+        ? <GoodsList goods={goods} />
+        : <p>Loading...</p> }
 
       { error !== null && (
         <p>{`Здається я заблукав! ${error}`}</p>
