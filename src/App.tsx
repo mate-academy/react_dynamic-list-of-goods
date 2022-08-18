@@ -1,27 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handelGet5First = () => {
+    get5First()
+      .then((result) => {
+        const goods5 = [...result]
+          .sort((itemA, itemB) => itemA.name.localeCompare(itemB.name))
+          .filter((_, index) => index < 5);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+        setGoods(goods5);
+      });
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const handelGetRed = () => {
+    getRedGoods()
+      .then((result) => {
+        const goodsRed = result.filter(item => item.color === 'red');
 
-    <GoodsList goods={[]} />
-  </div>
-);
+        setGoods(goodsRed);
+      });
+  };
+
+  const handelGetAll = () => {
+    getAll()
+      .then((result: Good[]): void => setGoods(result));
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={handelGetAll}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handelGet5First}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={handelGetRed}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
