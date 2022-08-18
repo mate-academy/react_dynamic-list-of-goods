@@ -1,1 +1,11 @@
-// styles go here
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Buttons {
+  display: flex;
+  gap: 10px;
+}
