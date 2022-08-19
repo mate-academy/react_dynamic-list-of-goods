@@ -10,11 +10,11 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good []>([]);
   const [activeButton, setActiveButton] = useState('');
 
-  const loadByTypeOfGet = useCallback(async (typeOfGet) => {
-    const loadedGoods = typeOfGet();
+  const loadByTypeOfGet = useCallback(async (loadGoods) => {
+    const loadedGoods = loadGoods();
 
     setGoods(await loadedGoods);
-    setActiveButton(`${typeOfGet.name}`);
+    setActiveButton(`${loadGoods.name}`);
   }, []);
 
   return (
