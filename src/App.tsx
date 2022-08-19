@@ -10,20 +10,14 @@ export const App: React.FC = () => {
 
   const handelGet5First = () => {
     get5First()
-      .then((result) => {
-        const goods5 = [...result]
-          .sort((itemA, itemB) => itemA.name.localeCompare(itemB.name))
-          .filter((_, index) => index < 5);
-
+      .then((goods5) => {
         setGoods(goods5);
       });
   };
 
   const handelGetRed = () => {
     getRedGoods()
-      .then((result) => {
-        const goodsRed = result.filter(item => item.color === 'red');
-
+      .then((goodsRed) => {
         setGoods(goodsRed);
       });
   };
