@@ -10,8 +10,8 @@ export const App: React.FC = () => {
 
   const handelGetGoods = useCallback((renderingСondition) => {
     renderingСondition()
-      .then((goodsRed: Good[]) => {
-        setGoods(goodsRed);
+      .then((goodsGot: Good[]) => {
+        setGoods(goodsGot);
       });
   }, []);
 
