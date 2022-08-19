@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { Box, Button, Typography } from '@mui/material';
 import { GoodsList } from './GoodsList';
@@ -7,29 +7,29 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good []>([]);
   const [activeButton, setActiveButton] = useState('');
 
-  const loadAllGoods = async () => {
-    const allGoods = await getAll();
+  const loadAllGoods = useCallback(async () => {
+    const allGoods = getAll();
 
-    setGoods(allGoods);
+    setGoods(await allGoods);
     setActiveButton('load all goods');
-  };
+  }, []);
 
-  const load5First = async () => {
-    const fiveFirst = await get5First();
+  const load5First = useCallback(async () => {
+    const fiveFirst = get5First();
 
-    setGoods(fiveFirst);
+    setGoods(await fiveFirst);
     setActiveButton('load 5 first goods');
-  };
+  }, []);
 
-  const loadRedGoods = async () => {
-    const redGoods = await getRedGoods();
+  const loadRedGoods = useCallback(async () => {
+    const redGoods = getRedGoods();
 
-    setGoods(redGoods);
+    setGoods(await redGoods);
     setActiveButton('load red goods');
-  };
+  }, []);
 
   return (
     <Box
