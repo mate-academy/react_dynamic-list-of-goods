@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -8,14 +8,15 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [selectedGoods, setSelectedGoods] = useState<Good[]>([]);
   const [isError, setIsError] = useState(false);
-  const handleButtonClick = async (func: ()=> Promise<Good[]>) => {
+
+  const handleButtonClick = useCallback(async (func: ()=> Promise<Good[]>) => {
     try {
       func()
         .then(data => setSelectedGoods(data));
     } catch {
       (setIsError(true));
     }
-  };
+  }, []);
 
   return (
     <div className="App">
