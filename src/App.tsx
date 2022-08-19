@@ -10,25 +10,11 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good []>([]);
   const [activeButton, setActiveButton] = useState('');
 
-  const loadAllGoods = useCallback(async () => {
-    const allGoods = getAll();
+  const loadByTypeOfGet = useCallback(async (typeOfGet) => {
+    const loadedGoods = typeOfGet();
 
-    setGoods(await allGoods);
-    setActiveButton('load all goods');
-  }, []);
-
-  const load5First = useCallback(async () => {
-    const fiveFirst = get5First();
-
-    setGoods(await fiveFirst);
-    setActiveButton('load 5 first goods');
-  }, []);
-
-  const loadRedGoods = useCallback(async () => {
-    const redGoods = getRedGoods();
-
-    setGoods(await redGoods);
-    setActiveButton('load red goods');
+    setGoods(await loadedGoods);
+    setActiveButton(`${typeOfGet.name}`);
   }, []);
 
   return (
@@ -51,35 +37,35 @@ export const App: React.FC = () => {
         </Typography>
         <div className="Buttons">
           <Button
-            variant={activeButton === 'load all goods'
+            variant={activeButton === 'getAll'
               ? 'contained'
               : 'outlined'}
             type="button"
             size="small"
             data-cy="all-button"
-            onClick={loadAllGoods}
+            onClick={() => loadByTypeOfGet(getAll)}
           >
             Load all goods
           </Button>
           <Button
-            variant={activeButton === 'load 5 first goods'
+            variant={activeButton === 'get5First'
               ? 'contained'
               : 'outlined'}
             type="button"
             size="small"
             data-cy="first-five-button"
-            onClick={load5First}
+            onClick={() => loadByTypeOfGet(get5First)}
           >
             Load 5 first goods
           </Button>
           <Button
-            variant={activeButton === 'load red goods'
+            variant={activeButton === 'getRedGoods'
               ? 'contained'
               : 'outlined'}
             type="button"
             size="small"
             data-cy="red-button"
-            onClick={loadRedGoods}
+            onClick={() => loadByTypeOfGet(getRedGoods)}
           >
             Load red goods
           </Button>
