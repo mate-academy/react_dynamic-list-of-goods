@@ -48,7 +48,7 @@ export const App: React.FC = () => {
 
       {!isError
         ? <GoodsList goods={selectedGoods} />
-        : 'Arror with API'}
+        : 'Error with API'}
     </div>
   );
 };
