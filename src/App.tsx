@@ -8,23 +8,11 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handelGet5First = useCallback(() => {
-    get5First()
-      .then((goods5) => {
-        setGoods(goods5);
-      });
-  }, []);
-
-  const handelGetRed = useCallback(() => {
-    getRedGoods()
-      .then((goodsRed) => {
+  const handelGetGoods = useCallback((renderingСondition) => {
+    renderingСondition()
+      .then((goodsRed: Good[]) => {
         setGoods(goodsRed);
       });
-  }, []);
-
-  const handelGetAll = useCallback(() => {
-    getAll()
-      .then((result: Good[]): void => setGoods(result));
   }, []);
 
   return (
@@ -34,7 +22,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={handelGetAll}
+        onClick={() => handelGetGoods(getAll)}
       >
         Load all goods
       </button>
@@ -42,7 +30,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handelGet5First}
+        onClick={() => handelGetGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -50,7 +38,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={handelGetRed}
+        onClick={() => handelGetGoods(getRedGoods)}
       >
         Load red goods
       </button>
