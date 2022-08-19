@@ -8,35 +8,27 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [isActiveButtonLag, setIsActiveButtonLag] = useState(false);
-  const [isActiveButtonL5fg, setIsActiveButtonL5fg] = useState(false);
-  const [isActiveButtonLrg, setIsActiveButtonLrg] = useState(false);
+  const [activeButton, setActiveButton] = useState('');
 
   const loadAllGoods = async () => {
     const allGoods = await getAll();
 
     setGoods(allGoods);
-    setIsActiveButtonLag(true);
-    setIsActiveButtonL5fg(false);
-    setIsActiveButtonLrg(false);
+    setActiveButton('load all goods');
   };
 
   const load5First = async () => {
     const fiveFirst = await get5First();
 
     setGoods(fiveFirst);
-    setIsActiveButtonLag(false);
-    setIsActiveButtonL5fg(true);
-    setIsActiveButtonLrg(false);
+    setActiveButton('load 5 first goods');
   };
 
   const loadRedGoods = async () => {
     const redGoods = await getRedGoods();
 
     setGoods(redGoods);
-    setIsActiveButtonLag(false);
-    setIsActiveButtonL5fg(false);
-    setIsActiveButtonLrg(true);
+    setActiveButton('load red goods');
   };
 
   return (
@@ -59,7 +51,7 @@ export const App: React.FC = () => {
         </Typography>
         <div className="Buttons">
           <Button
-            variant={isActiveButtonLag
+            variant={activeButton === 'load all goods'
               ? 'contained'
               : 'outlined'}
             type="button"
@@ -70,7 +62,7 @@ export const App: React.FC = () => {
             Load all goods
           </Button>
           <Button
-            variant={isActiveButtonL5fg
+            variant={activeButton === 'load 5 first goods'
               ? 'contained'
               : 'outlined'}
             type="button"
@@ -81,7 +73,7 @@ export const App: React.FC = () => {
             Load 5 first goods
           </Button>
           <Button
-            variant={isActiveButtonLrg
+            variant={activeButton === 'load red goods'
               ? 'contained'
               : 'outlined'}
             type="button"
