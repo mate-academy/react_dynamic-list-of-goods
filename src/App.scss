@@ -1,1 +1,13 @@
-// styles go here
+body {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}
+
+.button {
+  margin: 10px;
+}
+
+.list {
+  padding: 20px
+}
