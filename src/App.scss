@@ -1,1 +1,14 @@
-// styles go here
+html {
+  padding: 40px;
+}
+
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.list-group {
+  padding-top: 10px;
+  padding-left: 10px;
+  list-style-type: none;
+}
