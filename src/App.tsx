@@ -4,18 +4,10 @@ import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-
-const initialList: Good[] | [] = [];
-
-enum ButtonActive {
-  allList,
-  fiveList,
-  redList,
-  none,
-}
+import { ButtonActive } from './types/ButtonActive';
 
 export const App: React.FC = () => {
-  const [listToShow, setListToShow] = useState(initialList);
+  const [listToShow, setListToShow] = useState<Good[]>([]);
   const [buttonActive, setButtonActive] = useState(ButtonActive.none);
 
   const handleClickAll = () => {
