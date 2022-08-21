@@ -1,27 +1,85 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+const initialList: Good[] | [] = [];
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+enum ButtonActive {
+  allList,
+  fiveList,
+  redList,
+  none,
+}
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+export const App: React.FC = () => {
+  const [listToShow, setListToShow] = useState(initialList);
+  const [buttonActive, setButtonActive] = useState(ButtonActive.none);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const handleClickAll = () => {
+    setButtonActive(ButtonActive.allList);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+    return getAll()
+      .then(goods => setListToShow([...goods]));
+  };
+
+  const handleClick5First = () => {
+    setButtonActive(ButtonActive.fiveList);
+
+    return get5First()
+      .then(goods => setListToShow([...goods]));
+  };
+
+  const handleClickRedGoods = () => {
+    setButtonActive(ButtonActive.redList);
+
+    return getRedGoods()
+      .then(goods => setListToShow([...goods]));
+  };
+
+  return (
+    <div className="App">
+      <h1 className="title">
+        Dynamic list of Goods
+      </h1>
+      <div className="buttons">
+        <button
+          type="button"
+          data-cy="all-button"
+          onClick={handleClickAll}
+          className={buttonActive === ButtonActive.allList
+            ? 'button is-success'
+            : 'button'}
+        >
+          Load all goods
+        </button>
+
+        <button
+          type="button"
+          data-cy="first-five-button"
+          onClick={handleClick5First}
+          className={buttonActive === ButtonActive.fiveList
+            ? 'button is-success'
+            : 'button'}
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          type="button"
+          data-cy="red-button"
+          onClick={handleClickRedGoods}
+          className={buttonActive === ButtonActive.redList
+            ? 'button is-success'
+            : 'button'}
+        >
+          Load red goods
+        </button>
+      </div>
+
+      <GoodsList goods={listToShow} />
+    </div>
+  );
+};

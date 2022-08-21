@@ -1,1 +1,18 @@
-// styles go here
+
+iframe {
+  display: none;
+}
+
+.App {
+  width: 500px;
+  margin: 20px auto;
+}
+
+.title {
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+}
