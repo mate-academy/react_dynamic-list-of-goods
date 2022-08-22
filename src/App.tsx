@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
@@ -11,10 +11,10 @@ type ApiFunction = () => Promise<Good[]>;
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadedGoods = ((apiFunction: ApiFunction) => {
+  const loadedGoods = useCallback((apiFunction: ApiFunction) => {
     apiFunction()
       .then(goodsFromServer => setGoods(goodsFromServer));
-  });
+  }, []);
 
   return (
     <div className="App">
