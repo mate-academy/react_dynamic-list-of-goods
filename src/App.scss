@@ -1,1 +1,40 @@
-// styles go here
+iframe {
+  display: none;
+}
+
+html {
+  font-family: "Roboto", sans-serif;
+}
+
+ul {
+  margin-right: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  background-color: #009688;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px #00796b;
+  background-color: whitesmoke;
+}
+
+.appTitle {
+  color: #121858;
+}
+
+.goodsList {
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+}
