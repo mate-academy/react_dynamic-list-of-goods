@@ -8,8 +8,8 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleClick = (promise: () => Promise<Good[]>) => {
-    promise().then(data => setGoods(data));
+  const loadTodo = (loadCallback: () => Promise<Good[]>) => {
+    loadCallback().then(data => setGoods(data));
   };
 
   return (
@@ -19,7 +19,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => handleClick(getAll)}
+        onClick={() => loadTodo(getAll)}
       >
         Load all goods
       </button>
@@ -27,7 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => handleClick(get5First)}
+        onClick={() => loadTodo(get5First)}
       >
         Load 5 first goods
       </button>
@@ -35,7 +35,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => handleClick(getRedGoods)}
+        onClick={() => loadTodo(getRedGoods)}
       >
         Load red goods
       </button>
