@@ -7,8 +7,8 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadGoods = (promise: () => Promise<Good[]>) => {
-    promise().then(goodsToLoad => setGoods(goodsToLoad));
+  const loadGoods = (loadCallback: () => Promise<Good[]>) => {
+    loadCallback().then(goodsToLoad => setGoods(goodsToLoad));
   };
 
   return (
