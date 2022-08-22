@@ -7,8 +7,8 @@ import { getAll, get5First, getRed } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const setGoodsFromServer = (promise:() => Promise<Good[]>) => {
-    promise().then((goodsFromServer) => setGoods(goodsFromServer));
+  const loadGoods = (loadCallback:() => Promise<Good[]>) => {
+    loadCallback().then(setGoods);
   };
 
   return (
@@ -17,7 +17,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setGoodsFromServer(getAll)}
+        onClick={() => loadGoods(getAll)}
       >
         Load all goods
       </button>
@@ -25,7 +25,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setGoodsFromServer(get5First)}
+        onClick={() => loadGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -33,7 +33,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setGoodsFromServer(getRed)}
+        onClick={() => loadGoods(getRed)}
       >
         Load red goods
       </button>
