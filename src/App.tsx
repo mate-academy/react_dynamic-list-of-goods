@@ -9,6 +9,12 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[] | null>(null);
   const [hasLoadingError, setLoadingError] = useState(false);
 
+  const handleButtonClick = (func: () => Promise<Good[]>) => {
+    func()
+      .then(goodsList => setGoods(goodsList))
+      .catch(() => setLoadingError(true));
+  };
+
   return (
     <div className="App container">
       <h1>Dynamic list of Goods</h1>
@@ -18,11 +24,7 @@ export const App: React.FC = () => {
           type="button"
           className="button btn btn-outline-primary"
           data-cy="all-button"
-          onClick={() => {
-            getAll()
-              .then(goodsList => setGoods(goodsList))
-              .catch(() => setLoadingError(true));
-          }}
+          onClick={() => handleButtonClick(getAll)}
         >
           Load all goods
         </button>
@@ -31,11 +33,7 @@ export const App: React.FC = () => {
           type="button"
           className="button btn btn-outline-primary"
           data-cy="first-five-button"
-          onClick={() => {
-            get5First()
-              .then(goodsList => setGoods(goodsList))
-              .catch(() => setLoadingError(true));
-          }}
+          onClick={() => handleButtonClick(get5First)}
         >
           Load 5 first goods
         </button>
@@ -44,11 +42,7 @@ export const App: React.FC = () => {
           className="button btn btn-outline-primary"
           type="button"
           data-cy="red-button"
-          onClick={() => {
-            getRed()
-              .then(goodsList => setGoods(goodsList))
-              .catch(() => setLoadingError(true));
-          }}
+          onClick={() => handleButtonClick(getRed)}
         >
           Load red goods
         </button>
