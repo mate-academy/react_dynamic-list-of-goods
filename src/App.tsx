@@ -10,6 +10,11 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
+  const getGoods = () => {
+    getAll()
+      .then(goodsFromServer => setGoods(goodsFromServer));
+  };
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -17,8 +22,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getAll()
-          .then(goodsFromServer => setGoods(goodsFromServer))}
+        onClick={getGoods}
       >
         Load all goods
       </button>
