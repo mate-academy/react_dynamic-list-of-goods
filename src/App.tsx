@@ -15,6 +15,16 @@ export const App: React.FC = () => {
       .then(goodsFromServer => setGoods(goodsFromServer));
   };
 
+  const get5Goods = () => {
+    get5First()
+      .then(goodsFromServer => setGoods(goodsFromServer));
+  };
+
+  const getOnlyRedGoods = () => {
+    getRedGoods()
+      .then(goodsFromServer => setGoods(goodsFromServer));
+  };
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -30,8 +40,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => get5First()
-          .then(goodsFromServer => setGoods(goodsFromServer))}
+        onClick={get5Goods}
       >
         Load 5 first goods
       </button>
@@ -39,8 +48,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => getRedGoods()
-          .then(goodsFromServer => setGoods(goodsFromServer))}
+        onClick={getOnlyRedGoods}
       >
         Load red goods
       </button>
