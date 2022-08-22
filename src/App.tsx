@@ -8,8 +8,8 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-  const goodsLoading = (promise: () => Promise<Good[]>) => {
-    promise()
+  const goodsLoading = (loadCallback: () => Promise<Good[]>) => {
+    loadCallback()
       .then(goodsFromServer => setVisibleGoods(goodsFromServer));
   };
 
