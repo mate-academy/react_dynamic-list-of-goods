@@ -1,27 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
+import 'bulma';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const loadedGoods = (promise: () => Promise<Good[]>) => {
+    promise().then(visibleGoods => setGoods(visibleGoods));
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return (
+    <div className="App box">
+      <h1
+        className="title is-2"
+      >
+        Dynamic list of Goods
+      </h1>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      <div
+        className="block"
+      >
+        <button
+          type="button"
+          data-cy="all-button"
+          onClick={() => loadedGoods(getAll)}
+          className="button is-info is-outlined"
+          style={{ marginLeft: 10 }}
+        >
+          Load all goods
+        </button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+        <button
+          type="button"
+          data-cy="first-five-button"
+          onClick={() => loadedGoods(get5First)}
+          className="button is-info is-outlined"
+          style={{ marginLeft: 10 }}
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          type="button"
+          data-cy="red-button"
+          onClick={() => loadedGoods(getRedGoods)}
+          className="button is-info is-outlined"
+          style={{ marginLeft: 10 }}
+        >
+          Load red goods
+        </button>
+      </div>
+
+      {(goods.length > 1)
+        ? <GoodsList goods={goods} />
+        : (
+          <article className="message is-warning">
+            <div className="message-body">
+              Please press any button
+            </div>
+          </article>
+        )}
+    </div>
+  );
+};
