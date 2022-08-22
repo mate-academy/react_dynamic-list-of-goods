@@ -40,7 +40,8 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={selectedGoods} />
+      {selectedGoods.length > 0
+        && <GoodsList goods={selectedGoods} />}
     </div>
   );
 };
