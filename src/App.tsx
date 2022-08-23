@@ -8,8 +8,9 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const handleButtonClick = (func: () => Promise<Good[]>) => {
     func()
-      .then((good: Good[]) => setGoods(good))
-      .catch();
+      .then((good: Good[]) => setGoods(good));
+    // eslint-disable-next-line no-console
+    console.log(goods);
   };
 
   return (
