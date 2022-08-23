@@ -7,7 +7,6 @@ type Props = {
 
 export const GoodsList: React.FC<Props> = ({ goods }) => (
   <ul>
-    {!goods.length && <p>No goods yet!!!</p>}
     {goods.map(good => (
       <li
         key={good.id}
