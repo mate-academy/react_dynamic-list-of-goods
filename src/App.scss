@@ -1,1 +1,9 @@
 // styles go here
+button {
+  margin-right: 5px;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.07);
+  }
+}
