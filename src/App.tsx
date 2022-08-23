@@ -1,27 +1,52 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
+import { Button } from '@mui/material';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleClick = useCallback((getFunction) => {
+    getFunction().then((gods: Good[]) => setGoods(gods));
+  }, []);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  return (
+    <div className="App">
+      <h1 className="appTitle">Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      <Button
+        type="button"
+        className="button"
+        data-cy="all-button"
+        variant="outlined"
+        onClick={() => handleClick(getAll)}
+      >
+        Load all goods
+      </Button>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      <Button
+        type="button"
+        className="button"
+        data-cy="first-five-button"
+        variant="outlined"
+        onClick={() => handleClick(get5First)}
+      >
+        Load 5 first goods
+      </Button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <Button
+        type="button"
+        className="button"
+        data-cy="red-button"
+        variant="outlined"
+        onClick={() => handleClick(getRedGoods)}
+      >
+        Load red goods
+      </Button>
+
+      {goods.length > 0 && <GoodsList goods={goods} />}
+    </div>
+  );
+};
