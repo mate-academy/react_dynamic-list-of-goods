@@ -10,10 +10,12 @@ type ApiFunction = () => Promise<Good[]>;
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const loadedGoods = useCallback((apiFunction: ApiFunction) => {
     apiFunction()
-      .then(goodsFromServer => setGoods(goodsFromServer));
+      .then(goodsFromServer => setGoods(goodsFromServer))
+      .finally(() => setIsLoading(true));
   }, []);
 
   return (
@@ -43,8 +45,7 @@ export const App: React.FC = () => {
       >
         Load red goods
       </button>
-
-      <GoodsList goods={goods} />
+      {isLoading && <GoodsList goods={goods} />}
     </div>
   );
 };
