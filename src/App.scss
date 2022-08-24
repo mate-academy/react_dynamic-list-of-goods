@@ -1,1 +1,41 @@
-// styles go here
+* {
+  font-family: "Aboreto", cursive;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #eee;
+}
+
+h1 {
+  color: #e3963c;
+}
+
+button {
+  width: 170px;
+  height: 30px;
+  margin-right: 10px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: #33cee0;
+  color: #7c0860;
+  cursor: pointer;
+  transition: ease-in-out 0.6s;
+}
+
+button:hover {
+  color: #fff;
+  background-color: #65031d;
+}
+
+button:last-child {
+  margin-right: 0;
+}
+
+.message-error {
+  font-weight: bold;
+  margin: 16px 0;
+  padding-left: 50px;
+  color: #c41125;
+}
