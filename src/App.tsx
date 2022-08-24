@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
@@ -8,6 +8,24 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[] | null>(null);
   const [hasLoadingError, setHasLoadingError] = useState(false);
 
+  const allTodos = useCallback(() => {
+    getAll()
+      .then(goodList => setGoods(goodList))
+      .catch(() => setHasLoadingError(true));
+  }, []);
+
+  const fiveFirsTodos = useCallback(() => {
+    get5First()
+      .then(goodList => setGoods(goodList))
+      .catch(() => setHasLoadingError(true));
+  }, []);
+
+  const redGoods = useCallback(() => {
+    getRedGoods()
+      .then(goodList => setGoods(goodList))
+      .catch(() => setHasLoadingError(true));
+  }, []);
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -15,11 +33,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => {
-          getAll()
-            .then(goodList => setGoods(goodList))
-            .catch(() => setHasLoadingError(true));
-        }}
+        onClick={allTodos}
       >
         Load all goods
       </button>
@@ -27,11 +41,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => {
-          get5First()
-            .then(goodList => setGoods(goodList))
-            .catch(() => setHasLoadingError(true));
-        }}
+        onClick={fiveFirsTodos}
       >
         Load 5 first goods
       </button>
@@ -39,11 +49,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => {
-          getRedGoods()
-            .then(goodList => setGoods(goodList))
-            .catch(() => setHasLoadingError(true));
-        }}
+        onClick={redGoods}
       >
         Load red goods
       </button>
