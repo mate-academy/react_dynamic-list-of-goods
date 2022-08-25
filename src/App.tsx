@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -7,10 +7,9 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [goodsRequest, setGoodsRequest] = useState('');
 
-  useEffect(() => {
-    switch (goodsRequest) {
+  const request = (way: string) => {
+    switch (way) {
       case 'all':
         getAll()
           .then(setGoods);
@@ -29,7 +28,7 @@ export const App: React.FC = () => {
       default:
         break;
     }
-  }, [goodsRequest]);
+  };
 
   return (
     <div className="App">
@@ -38,7 +37,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setGoodsRequest('all')}
+        onClick={() => request('all')}
       >
         Load all goods
       </button>
@@ -46,7 +45,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setGoodsRequest('first 5')}
+        onClick={() => request('first 5')}
       >
         Load 5 first goods
       </button>
@@ -54,7 +53,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setGoodsRequest('red')}
+        onClick={() => request('red')}
       >
         Load red goods
       </button>
