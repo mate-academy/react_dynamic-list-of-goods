@@ -9,18 +9,21 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const loadAllGoods = () => {
-    return getAll()
-      .then(setGoods);
+    getAll().then(allGoods => setGoods(allGoods))
+      // eslint-disable-next-line no-alert
+      .catch(error => alert(error.message));
   };
 
   const load5Goods = () => {
-    return get5First()
-      .then(setGoods);
+    get5First().then(someGoods => setGoods(someGoods))
+      // eslint-disable-next-line no-alert
+      .catch(error => alert(error.message));
   };
 
   const loadRedGoods = () => {
-    return getRedGoods()
-      .then(setGoods);
+    getRedGoods().then(allGoods => setGoods(allGoods))
+      // eslint-disable-next-line no-alert
+      .catch(error => alert(error.message));
   };
 
   return (
