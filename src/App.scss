@@ -1,1 +1,88 @@
-// styles go here
+.App {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+}
+
+.button_container {
+  display: flex;
+  gap: 5px;
+}
+
+.goodsList {
+  display: flex;
+  flex-direction: column;
+
+  &__item {
+    padding-top: 15px;
+    border-bottom: 1px solid #00d1b2;
+    animation-duration: 200ms;
+    transition-duration: 200ms;
+
+    &:hover {
+      padding-left: 20px;
+      animation-name: goodItemMovie;
+      animation-duration: 200ms;
+      cursor: pointer;
+    }
+  }
+}
+
+@keyframes goodItemMovie {
+  0% {
+    padding-left: 0;
+  }
+
+  100% {
+    padding-left: 20px;
+  }
+}
+
+.color {
+  position: relative;
+
+  &::after {
+    content: "";
+    display: block;
+
+    position: absolute;
+    top: 50%;
+
+    border-radius: 50%;
+
+    right: 0;
+
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.color-red {
+  @extend .color;
+
+  &::after {
+    background-color: red;
+    box-shadow: 0 0 5px red;
+  }
+}
+
+.color-green {
+  @extend .color;
+
+  &::after {
+    background-color: green;
+    box-shadow: 0 0 5px green;
+  }
+}
+
+.color-blue {
+  @extend .color;
+
+  &::after {
+    background-color: blue;
+    box-shadow: 0 0 5px blue;
+  }
+}
