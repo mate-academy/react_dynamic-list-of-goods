@@ -1,27 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+import 'bulma';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goodsFromApi, setGoods] = useState<Good[]>([]);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const fetchAllGoods = async () => {
+    const goods = await getAll();
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+    setGoods(goods);
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const fetch5First = async () => {
+    const goods = await get5First();
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    setGoods(goods);
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const fetchRedGoods = async () => {
+    const goods = await getRedGoods();
+
+    setGoods(goods);
+  };
+
+  return (
+    <div className="App">
+      <h1 className="title has-text-centered">
+        Dynamic list of Goods
+      </h1>
+
+      <div
+        className="buttons is-centered"
+      >
+
+        <button
+          className="button is-primary is-light"
+          type="button"
+          data-cy="all-button"
+          onClick={fetchAllGoods}
+        >
+          Load all goods
+        </button>
+
+        <button
+          className="button is-primary is-light"
+          type="button"
+          data-cy="first-five-button"
+          onClick={fetch5First}
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          className="button is-primary is-light"
+          type="button"
+          data-cy="red-button"
+          onClick={fetchRedGoods}
+        >
+          Load red goods
+        </button>
+
+      </div>
+
+      <GoodsList goods={goodsFromApi} />
+    </div>
+  );
+};
