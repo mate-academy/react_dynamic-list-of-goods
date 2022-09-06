@@ -6,26 +6,42 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [users, setUsers] = useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [dataLoadError, setDataLoadError] = useState(false);
 
-  const allUsers = () => {
+  const allGoods = () => {
     getAll()
       .then(res => {
-        return setUsers(res);
+        return setGoods(res);
+      })
+      .catch(error => {
+        setDataLoadError(true);
+        // eslint-disable-next-line no-console
+        console.warn(error);
       });
   };
 
-  const first5Users = () => {
+  const first5Goods = () => {
     get5First()
       .then(res => {
-        return setUsers(res);
+        return setGoods(res);
+      })
+      .catch(error => {
+        setDataLoadError(true);
+        // eslint-disable-next-line no-console
+        console.warn(error);
       });
   };
 
-  const onlyRedUsers = () => {
+  const onlyRedGoods = () => {
     getRedGoods()
       .then(res => {
-        return setUsers(res);
+        return setGoods(res);
+      })
+      .catch(error => {
+        setDataLoadError(true);
+        // eslint-disable-next-line no-console
+        console.warn(error);
       });
   };
 
@@ -36,7 +52,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={allUsers}
+        onClick={allGoods}
       >
         Load all goods
       </button>
@@ -44,7 +60,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={first5Users}
+        onClick={first5Goods}
       >
         Load 5 first goods
       </button>
@@ -52,12 +68,18 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={onlyRedUsers}
+        onClick={onlyRedGoods}
       >
         Load red goods
       </button>
 
-      <GoodsList goods={users} />
+      {!dataLoadError && (
+        <GoodsList goods={goods} />
+      )}
+
+      {dataLoadError && (
+        <p style={{ color: 'red' }}>Data load error</p>
+      )}
     </div>
   );
 };
