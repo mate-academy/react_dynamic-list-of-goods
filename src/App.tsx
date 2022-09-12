@@ -7,6 +7,7 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goodsFromApi, setGoods] = useState<Good[]>([]);
+  const [isRed, setIsRed] = useState(false);
 
   const fetchAllGoods = async () => {
     const goods = await getAll();
@@ -40,7 +41,10 @@ export const App: React.FC = () => {
           className="button is-primary is-light"
           type="button"
           data-cy="all-button"
-          onClick={fetchAllGoods}
+          onClick={() => {
+            fetchAllGoods();
+            setIsRed(false);
+          }}
         >
           Load all goods
         </button>
@@ -49,7 +53,10 @@ export const App: React.FC = () => {
           className="button is-primary is-light"
           type="button"
           data-cy="first-five-button"
-          onClick={fetch5First}
+          onClick={() => {
+            fetch5First();
+            setIsRed(false);
+          }}
         >
           Load 5 first goods
         </button>
@@ -58,14 +65,17 @@ export const App: React.FC = () => {
           className="button is-primary is-light"
           type="button"
           data-cy="red-button"
-          onClick={fetchRedGoods}
+          onClick={() => {
+            fetchRedGoods();
+            setIsRed(true);
+          }}
         >
           Load red goods
         </button>
 
       </div>
 
-      <GoodsList goods={goodsFromApi} />
+      <GoodsList goods={goodsFromApi} red={isRed} />
     </div>
   );
 };
