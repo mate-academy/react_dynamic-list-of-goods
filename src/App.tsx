@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-import { get5First, getAll } from './api/goods';
+import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
@@ -34,7 +34,11 @@ export const App: React.FC = () => {
         Load 5 first goods
       </button>
 
-      <button type="button" data-cy="red-button">
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => handleCLick(getRedGoods)}
+      >
         Load red goods
       </button>
 
