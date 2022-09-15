@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-import { getAll } from './api/goods';
+import { get5First, getAll } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
@@ -29,6 +29,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
+        onClick={() => handleCLick(get5First)}
       >
         Load 5 first goods
       </button>
