@@ -6,24 +6,24 @@ import { Good } from './types/Good';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
-  const [goodsFromApi, setGoods] = useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
 
   const fetchAllGoods = async () => {
-    const goods = await getAll();
+    const allGoods = await getAll();
 
-    setGoods(goods);
+    setGoods(allGoods);
   };
 
   const fetch5First = async () => {
-    const goods = await get5First();
+    const firstFiveGoods = await get5First();
 
-    setGoods(goods);
+    setGoods(firstFiveGoods);
   };
 
   const fetchRedGoods = async () => {
-    const goods = await getRedGoods();
+    const redGoods = await getRedGoods();
 
-    setGoods(goods);
+    setGoods(redGoods);
   };
 
   return (
@@ -71,7 +71,7 @@ export const App: React.FC = () => {
 
       </div>
 
-      <GoodsList goods={goodsFromApi} />
+      <GoodsList goods={goods} />
     </div>
   );
 };
