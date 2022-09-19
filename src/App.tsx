@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
@@ -13,7 +11,7 @@ export const App: React.FC = () => {
   const handleDownload = async (callback: () => Promise<Good[]>) => {
     const downloadedGoods = await callback();
 
-    return setGoods(downloadedGoods);
+    setGoods(downloadedGoods);
   };
 
   return (
