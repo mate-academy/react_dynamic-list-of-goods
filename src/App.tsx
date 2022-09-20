@@ -7,8 +7,11 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[] | []>([]);
+  const [colored, setColored] = useState(false);
 
-  const handleClick = (method: () => Promise<Good[]>) => {
+  const handleClick = (method: () => Promise<Good[]>, isColored = false) => {
+    setColored(isColored);
+
     method().then(g => setGoods(g));
   };
 
@@ -35,12 +38,15 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => handleClick(getRedGoods)}
+        onClick={() => handleClick(getRedGoods, true)}
       >
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      <GoodsList
+        goods={goods}
+        colored={colored}
+      />
     </div>
   );
 };
