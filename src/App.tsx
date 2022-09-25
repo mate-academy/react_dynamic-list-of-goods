@@ -6,13 +6,10 @@ import { Good } from './types/Good';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[] | []>([]);
-  const [colored, setColored] = useState(false);
+  const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleClick = (method: () => Promise<Good[]>, isColored = false) => {
-    setColored(isColored);
-
-    method().then(g => setGoods(g));
+  const handleClick = (method: () => Promise<Good[]>) => {
+    method().then(setGoods);
   };
 
   return (
@@ -38,14 +35,13 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => handleClick(getRedGoods, true)}
+        onClick={() => handleClick(getRedGoods)}
       >
         Load red goods
       </button>
 
       <GoodsList
         goods={goods}
-        colored={colored}
       />
     </div>
   );
