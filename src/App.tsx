@@ -4,50 +4,27 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [users, setUsers] = useState<Good[]>([]);
-  // const [loudAll, setLoudAll] = useState(false);
-  // const [loudFiveGoods, setFiveGoods] = useState(false);
-  // const [loudRedGoods, setRedGoods] = useState(false);
-  // const [loudError, setError] = useState(false);
 
-
-  const a = async () => {
-    // if (loudAll) {
-    //   return;
-    // }
-    //   setLoudAll(true);
+  const handleAllGoods = async () => {
     const users1 = await getAll();
 
     setUsers(users1);
-
-      // setLoudAll(false);
   };
 
-  const b = async () => {
-      // setFiveGoods(true);
+  const handle5Goods = async () => {
     const users2 = await get5First();
 
-      setUsers(users2);
-      // setFiveGoods(false);
+    setUsers(users2);
   };
 
-  const c = async () => {
-      // setRedGoods(true);
-      const users3 = await getRedGoods();
+  const handleRedGoods = async () => {
+    const users3 = await getRedGoods();
 
-      setUsers(users3);
-      // setRedGoods(false);
+    setUsers(users3);
   };
-    // if (users.length === 0) {
-    //   return <p>Not found users</p>
-    // }
-  // }, []);
-
-  // useEffect(() => a(),[users,loudAll,loudFiveGoods,loudRedGoods] );
 
   return (
     <div className="App">
@@ -56,7 +33,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => a()}
+        onClick={() => handleAllGoods()}
       >
         Load all goods
       </button>
@@ -64,7 +41,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => b()}
+        onClick={() => handle5Goods()}
       >
         Load 5 first goods
       </button>
@@ -72,7 +49,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => c()}
+        onClick={() => handleRedGoods()}
       >
         Load red goods
       </button>
