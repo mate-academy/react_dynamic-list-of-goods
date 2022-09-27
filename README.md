@@ -3,7 +3,7 @@ You have 3 button that should load [the goods](https://mate-academy.github.io/re
 
 1. `Load All goods` should load and show all the `goods`;
 1. `Load 5 first goods` should do the next:
-    - load all the goods;
+    -   npm 
     - sort them by name;
     - and show the first 5;
 1. `Load red goods` should load all the goods show only `red` ones;
