@@ -6,24 +6,10 @@ import { Good } from './types/Good';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
-  const [users, setUsers] = useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleAllGoods = async () => {
-    const users1 = await getAll();
-
-    setUsers(users1);
-  };
-
-  const handle5Goods = async () => {
-    const users2 = await get5First();
-
-    setUsers(users2);
-  };
-
-  const handleRedGoods = async () => {
-    const users3 = await getRedGoods();
-
-    setUsers(users3);
+  const handleClick = async (callback: () => Promise<Good[]>) => {
+    setGoods(await callback());
   };
 
   return (
@@ -33,7 +19,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={handleAllGoods}
+        onClick={async () => handleClick(getAll)}
       >
         Load all goods
       </button>
@@ -41,7 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handle5Goods}
+        onClick={async () => handleClick(get5First)}
       >
         Load 5 first goods
       </button>
@@ -49,12 +35,12 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={handleRedGoods}
+        onClick={async () => handleClick(getRedGoods)}
       >
         Load red goods
       </button>
 
-      <GoodsList goods={users} />
+      <GoodsList goods={goods} />
     </div>
   );
 };

@@ -12,7 +12,7 @@ export const get5First = () => {
   return getAll()
     .then(goods => {
       return [...goods]
-        .sort((user1, user2) => user1.name.localeCompare(user2.name))
+        .sort((good1, good2) => good1.name.localeCompare(good2.name))
         .slice(0, 5);
     });
 };
@@ -21,6 +21,6 @@ export const getRedGoods = () => {
   return getAll()
     .then(goods => {
       return [...goods]
-        .filter(user => user.color === 'red');
+        .filter(good => good.color === 'red');
     }); // get only red
 };
