@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import { getAll, get5First, getRedGoods } from './api/goods';
+
+import 'bulma/css/bulma.css';
+import './App.scss';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
@@ -12,10 +14,11 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="App">
-      <h1>Dynamic list of Goods</h1>
+    <div className="App box">
+      <h1 className="title is-2">Dynamic list of Goods</h1>
 
       <button
+        className="button is-info is-light mr-2"
         type="button"
         data-cy="all-button"
         onClick={() => handleClick(getAll)}
@@ -24,6 +27,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
+        className="button is-warning is-light mr-2"
         type="button"
         data-cy="first-five-button"
         onClick={() => handleClick(get5First)}
@@ -32,6 +36,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
+        className="button is-danger is-light mr-2"
         type="button"
         data-cy="red-button"
         onClick={() => handleClick(getRedGoods)}

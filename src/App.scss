@@ -1,1 +1,14 @@
-// styles go here
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 600px;
+  margin: 20px auto;
+  text-align: center;
+
+  &-list {
+    padding: 20px;
+  }
+}
+
+
