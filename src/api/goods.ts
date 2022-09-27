@@ -14,11 +14,11 @@ export const get5First = async () => {
     .sort((firstGood: Good, secondGood: Good) => {
       return (firstGood.name).localeCompare(secondGood.name);
     })
-    .slice(0, 5); // sort and get the first 5
+    .slice(0, 5);
 };
 
 export const getRedGoods = async () => {
   return (await getAll()
     .then(goods => goods))
-    .filter(good => good.color === 'red'); // get only red
+    .filter(good => good.color === 'red');
 };

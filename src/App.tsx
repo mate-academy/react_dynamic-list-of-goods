@@ -3,39 +3,24 @@ import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import { getAll, get5First, getRedGoods } from './api/goods';
+import 'bulma/css/bulma.min.css';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadAllGoods = async () => {
-    getAll()
-      .then(allGoods => {
-        setGoods(allGoods);
-      });
-  };
-
-  const load5First = async () => {
-    get5First()
-      .then(fiveGoods => {
-        setGoods(fiveGoods);
-      });
-  };
-
-  const loadRedGoods = async () => {
-    getRedGoods()
-      .then(redGoods => {
-        setGoods(redGoods);
-      });
+  const handleClick = async (callback: () => Promise<Good[]>) => {
+    setGoods(await callback());
   };
 
   return (
-    <div className="App">
-      <h1>Dynamic list of Goods</h1>
+    <div className="App box">
+      <h1 className="title is-3">Dynamic list of Goods</h1>
 
       <button
         type="button"
         data-cy="all-button"
-        onClick={loadAllGoods}
+        className="button is-info is-rounded is-inverted"
+        onClick={() => handleClick(getAll)}
       >
         Load all goods
       </button>
@@ -43,7 +28,8 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={load5First}
+        className="button is-info is-rounded is-inverted"
+        onClick={() => handleClick(get5First)}
       >
         Load 5 first goods
       </button>
@@ -51,7 +37,8 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={loadRedGoods}
+        className="button is-info is-rounded is-inverted"
+        onClick={() => handleClick(getRedGoods)}
       >
         Load red goods
       </button>
