@@ -22,5 +22,5 @@ export const getRedGoods = () => {
     .then(goods => {
       return [...goods]
         .filter(good => good.color === 'red');
-    }); // get only red
+    });
 };
