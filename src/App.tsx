@@ -8,45 +8,63 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleClick = async (newGoods: () => Promise<Good[]>) => {
     const editedGoods = await newGoods();
 
     setGoods(editedGoods);
+    setIsVisible(true)
+  };
+
+  const clear = () => {
+    setIsVisible(false)
   }
 
   return (
     <div className="App">
-    <h1 className='title is-1'>Dynamic list of Goods</h1>
+      <h1 className="title is-1">Dynamic list of Goods</h1>
 
-    <button
-      type="button"
-      data-cy="all-button"
-      onClick={() => handleClick(getAll)}
-      className='button is-success'
-    >
-      Load all goods
-    </button>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => handleClick(getAll)}
+        className="button is-success"
+      >
+        Load all goods
+      </button>
 
-    <button
-      type="button"
-      data-cy="first-five-button"
-      onClick={() => handleClick(get5First)}
-      className='button is-warning'
-    >
-      Load 5 first goods
-    </button>
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => handleClick(get5First)}
+        className="button is-warning"
+      >
+        Load 5 first goods
+      </button>
 
-    <button
-      type="button"
-      data-cy="red-button"
-      onClick={() => handleClick(getRedGoods)}
-      className='button is-danger'
-    >
-      Load red goods
-    </button>
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => handleClick(getRedGoods)}
+        className="button is-danger"
+      >
+        Load red goods
+      </button>
 
-      <GoodsList goods={goods} />
-  </div>
-  )
+    {isVisible
+      &&
+        <div
+          className="delete is-large"
+          onClick={clear}
+        >
+        </div>
+    }
+
+      {isVisible
+        &&
+        <GoodsList goods={goods} />
+      }
+    </div>
+  );
 };
