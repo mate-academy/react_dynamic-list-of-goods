@@ -9,8 +9,8 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const handleGetGoods = (callback: ()=> Promise<Good[]>) => {
     callback()
-      .then(good => {
-        setGoods(good);
+      .then(goodsFromServer => {
+        setGoods(goodsFromServer);
       });
   };
 
