@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
+import 'bulma/css/bulma.min.css';
+import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
@@ -20,6 +21,7 @@ export const App: React.FC = () => {
       <h1>Dynamic list of Goods</h1>
 
       <button
+        className="button is-success"
         type="button"
         data-cy="all-button"
         onClick={() => handleLoadGoods(getAll)}
@@ -28,6 +30,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
+        className="button is-info"
         type="button"
         data-cy="first-five-button"
         onClick={() => handleLoadGoods(get5First)}
@@ -36,6 +39,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
+        className="button is-danger"
         type="button"
         data-cy="red-button"
         onClick={() => handleLoadGoods(getRedGoods)}
