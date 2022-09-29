@@ -8,6 +8,12 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
+  async function handleClick(getFunction: () => Promise<Good[]>) {
+    const event = await getFunction();
+
+    setGoods(event);
+  }
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -15,11 +21,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={async () => {
-          const event = await getAll();
-
-          setGoods(event);
-        }}
+        onClick={() => handleClick(getAll)}
       >
         Load all goods
       </button>
@@ -27,11 +29,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={async () => {
-          const event = await get5First();
-
-          setGoods(event);
-        }}
+        onClick={() => handleClick(get5First)}
       >
         Load 5 first goods
       </button>
@@ -39,11 +37,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={async () => {
-          const event = await getRedGoods();
-
-          setGoods(event);
-        }}
+        onClick={() => handleClick(getRedGoods)}
       >
         Load red goods
       </button>
@@ -52,3 +46,7 @@ export const App: React.FC = () => {
     </div>
   );
 };
+
+// function handleClick(getAll: () => Promise<Good[]>): React.MouseEventHandler<HTMLButtonElement> | undefined {
+//   throw new Error('Function not implemented.');
+// }
