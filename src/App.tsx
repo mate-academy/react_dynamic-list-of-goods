@@ -14,12 +14,12 @@ export const App: React.FC = () => {
     const editedGoods = await newGoods();
 
     setGoods(editedGoods);
-    setIsVisible(true)
+    setIsVisible(true);
   };
 
   const clear = () => {
-    setIsVisible(false)
-  }
+    setIsVisible(false);
+  };
 
   return (
     <div className="App">
@@ -52,19 +52,18 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-    {isVisible
-      &&
-        <div
-          className="delete is-large"
-          onClick={clear}
-        >
-        </div>
-    }
-
       {isVisible
-        &&
-        <GoodsList goods={goods} />
-      }
+        && (
+          <>
+            <button
+              className="delete is-large"
+              onClick={clear}
+              onKeyDown={clear}
+              aria-hidden="true"
+            />
+            <GoodsList goods={goods} />
+          </>
+        )}
     </div>
   );
 };
