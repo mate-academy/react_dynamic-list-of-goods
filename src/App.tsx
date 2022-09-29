@@ -1,27 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+import 'bulma/css/bulma.min.css';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [isVisible, setIsVisible] = useState(false);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleClick = async (newGoods: () => Promise<Good[]>) => {
+    const editedGoods = await newGoods();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    setGoods(editedGoods);
+    setIsVisible(true);
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const clear = () => {
+    setIsVisible(false);
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <h1 className="title is-1">Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => handleClick(getAll)}
+        className="button is-success"
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => handleClick(get5First)}
+        className="button is-warning"
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => handleClick(getRedGoods)}
+        className="button is-danger"
+      >
+        Load red goods
+      </button>
+
+      {isVisible
+        && (
+          <>
+            <button
+              className="delete is-large"
+              onClick={clear}
+              onKeyDown={clear}
+              aria-hidden="true"
+            />
+            <GoodsList goods={goods} />
+          </>
+        )}
+    </div>
+  );
+};
