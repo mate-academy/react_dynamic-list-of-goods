@@ -4,11 +4,13 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
 import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goodsList, setGoodsList] = React.useState<Good[]>([]);
+
+  const goodsSetter = (callback: Good[]) => {
+    setGoodsList(callback);
+  };
 
   return (
     <div className="App">
@@ -17,7 +19,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={async () => setGoodsList(await getAll())}
+        onClick={async () => goodsSetter(await getAll())}
       >
         Load all goods
       </button>
@@ -25,7 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={async () => setGoodsList(await get5First())}
+        onClick={async () => goodsSetter(await get5First())}
       >
         Load 5 first goods
       </button>
@@ -33,7 +35,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={async () => setGoodsList(await getRed())}
+        onClick={async () => goodsSetter(await getRed())}
       >
         Load red goods
       </button>
