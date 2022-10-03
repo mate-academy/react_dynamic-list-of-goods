@@ -4,29 +4,13 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const showGoods = () => {
-    getAll()
-      .then((goodsFromServer) => {
-        setGoods(goodsFromServer);
-      });
-  };
-
-  const showFiveGoods = () => {
-    get5First()
-      .then((goodsFromServer) => {
-        setGoods(goodsFromServer);
-      });
-  };
-
-  const showRedGoods = () => {
-    getRedGoods()
-      .then((goodsFromServer) => {
+  const handleGoods = (howToShowGoods: () => Promise<Good[]>) => {
+    howToShowGoods()
+      .then((goodsFromServer: React.SetStateAction<Good[]>) => {
         setGoods(goodsFromServer);
       });
   };
@@ -38,7 +22,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={showGoods}
+        onClick={() => handleGoods(getAll)}
       >
         Load all goods
       </button>
@@ -46,7 +30,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={showFiveGoods}
+        onClick={() => handleGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -54,7 +38,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={showRedGoods}
+        onClick={() => handleGoods(getRedGoods)}
       >
         Load red goods
       </button>
