@@ -8,8 +8,8 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [visiableGoods, setVisiableGoods] = useState<Good[]>([]);
 
-  const loaderGoods = async (sortMethod: Promise<Good[]>) => {
-    const goods = await sortMethod;
+  const loaderGoods = async (sortType: Promise<Good[]>) => {
+    const goods = await sortType;
 
     setVisiableGoods(goods);
   };
