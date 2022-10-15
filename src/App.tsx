@@ -8,8 +8,7 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 // import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
-  const goodsInitial: Good[] = [];
-  const [goods, setGoods] = useState(goodsInitial);
+  const [goods, setGoods] = useState<Good[]>([]);
 
   return (
     <div className="App">
