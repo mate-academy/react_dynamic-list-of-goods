@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
+import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
