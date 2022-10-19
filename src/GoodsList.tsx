@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { Good } from './types/Good';
 
 type Props = {
@@ -13,9 +12,7 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
         <li
           key={good.id}
           data-cy="good"
-          className={classNames(
-            { 'has-text-red': good.color === 'red' },
-          )}
+          className={good.color}
 
         >
           {good.name}
