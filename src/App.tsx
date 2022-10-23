@@ -7,17 +7,17 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goood, setGoods] = useState<Good[]>([]);
 
-  const handler1 = () => (
+  const handlerAll = () => (
     getAll().then(goods => setGoods(goods))
   );
 
-  const handler2 = () => (
+  const handlerSort = () => (
     get5First().then(goods => setGoods(goods
       .sort((a, b) => a.name.localeCompare(b.name))
-      .filter(good => good.id < 6)))
+      .slice(0, 5)))
   );
 
-  const handler3 = () => (
+  const handlerFilter = () => (
     getRedGoods().then(goods => setGoods(goods
       .filter(good => good.color === 'red')))
   );
@@ -29,7 +29,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={handler1}
+        onClick={handlerAll}
       >
         Load all goods
       </button>
@@ -37,7 +37,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handler2}
+        onClick={handlerSort}
       >
         Load 5 first goods
       </button>
@@ -45,7 +45,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={handler3}
+        onClick={handlerFilter}
       >
         Load red goods
       </button>
