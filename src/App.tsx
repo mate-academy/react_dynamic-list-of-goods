@@ -10,6 +10,36 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
+  const LoadAllGoods = async () => {
+    try {
+      const data = await getAll();
+
+      setGoods(data);
+    } catch (e) {
+      throw new Error('Error, sorry :(');
+    }
+  };
+
+  const LoadFiveFirstGoods = async () => {
+    try {
+      const data = await get5First();
+
+      setGoods(data);
+    } catch (e) {
+      throw new Error('Error, sorry :(');
+    }
+  };
+
+  const LoadRedGoods = async () => {
+    try {
+      const data = await getRedGoods();
+
+      setGoods(data);
+    } catch (e) {
+      throw new Error('Error, sorry :(');
+    }
+  };
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -17,14 +47,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => {
-          getAll()
-            .then((data) => {
-              setGoods(data);
-            }).catch(() => {
-              throw new Error('Error, sorry :(');
-            });
-        }}
+        onClick={LoadAllGoods}
       >
         Load all goods
       </button>
@@ -32,14 +55,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => {
-          get5First()
-            .then((data) => {
-              setGoods(data);
-            }).catch(() => {
-              throw new Error('Error, sorry :(');
-            });
-        }}
+        onClick={LoadFiveFirstGoods}
       >
         Load 5 first goods
       </button>
@@ -47,14 +63,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => {
-          getRedGoods()
-            .then((data) => {
-              setGoods(data);
-            }).catch(() => {
-              throw new Error('Error, sorry :(');
-            });
-        }}
+        onClick={LoadRedGoods}
       >
         Load red goods
       </button>
