@@ -6,22 +6,22 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [users, setUsers] = useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
 
   async function loadGoods(event: React.MouseEvent<HTMLButtonElement>) {
     const button = event.currentTarget.dataset.cy;
 
     switch (button) {
       case 'all-button':
-        setUsers(await getAll());
+        setGoods(await getAll());
         break;
 
       case 'first-five-button':
-        setUsers(await get5First());
+        setGoods(await get5First());
         break;
 
       case 'red-button':
-        setUsers(await getRedGoods());
+        setGoods(await getRedGoods());
         break;
 
       default:
@@ -57,7 +57,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={users} />
+      <GoodsList goods={goods} />
     </div>
   );
 };
