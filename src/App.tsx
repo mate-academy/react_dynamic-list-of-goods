@@ -31,10 +31,10 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1 className="title is-3">Dynamic list of Goods</h1>
+      <h1 className="title is-3 m-6">Dynamic list of Goods</h1>
 
       <button
-        className="button is-light"
+        className="button is-light ml-6 mr-4"
         type="button"
         data-cy="all-button"
         onClick={handleAllGoods}
@@ -43,7 +43,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        className="button is-light"
+        className="button is-light mr-4"
         type="button"
         data-cy="first-five-button"
         onClick={handleFirst5Goods}
