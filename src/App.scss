@@ -1,1 +1,19 @@
-// styles go here
+.title {
+  margin: 20px;
+}
+
+.button {
+  margin-right: 20px;
+  width: 160px;
+
+  transition: background-color 0.3s;
+
+  &:first-of-type {
+    margin-left: 20px;
+  }
+}
+
+.list {
+  margin: 20px;
+}
+
