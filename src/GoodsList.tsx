@@ -11,7 +11,7 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
       <li
         key={good.id}
         data-cy="good"
-        style={{ color: good.color ? good.color : 'black' }}
+        style={{ color: good.color || 'black' }}
       >
         {good.name}
       </li>

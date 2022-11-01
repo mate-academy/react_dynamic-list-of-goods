@@ -7,8 +7,16 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const goodsList = (callback: Promise<Good[]>) => {
-    callback.then(chosenGoods => setGoods(chosenGoods));
+  const handleAllGoods = () => {
+    getAll().then(chosenGoods => setGoods(chosenGoods));
+  };
+
+  const handle5FirstGoods = () => {
+    get5First().then(chosenGoods => setGoods(chosenGoods));
+  };
+
+  const handleRedGoods = () => {
+    getRedGoods().then(chosenGoods => setGoods(chosenGoods));
   };
 
   return (
@@ -18,7 +26,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => goodsList(getAll())}
+        onClick={handleAllGoods}
       >
         Load all goods
       </button>
@@ -26,7 +34,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => goodsList(get5First())}
+        onClick={handle5FirstGoods}
       >
         Load 5 first goods
       </button>
@@ -34,7 +42,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => goodsList(getRedGoods())}
+        onClick={handleRedGoods}
       >
         Load red goods
       </button>
