@@ -8,12 +8,17 @@ export function getAll(): Promise<Good[]> {
     .then(response => response.json());
 }
 
-export const get5First = () => {
-  return getAll()
-    .then(goods => goods); // sort and get the first 5
+export const get5First = async () => {
+  const goods = await getAll();
+  const goodsCopy = [...goods];
+  const sortedGoods = goodsCopy.sort((
+    currentGood, nextGood,
+  ) => currentGood.name.localeCompare(nextGood.name));
+
+  return sortedGoods.slice(0, 5);
 };
 
 export const getRedGoods = () => {
   return getAll()
-    .then(goods => goods); // get only red
+    .then(goods => goods.filter(good => good.color === 'red'));
 };
