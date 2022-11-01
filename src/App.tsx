@@ -11,7 +11,7 @@ export const App: React.FC = () => {
   const getUsers = async (request: () => Promise<Good[]>) => {
     const response = await request().then(apiUsers => apiUsers);
 
-    if (response !== undefined) {
+    if (response) {
       setUsers(() => {
         return response;
       });
