@@ -1,1 +1,13 @@
-// styles go here
+html {
+  background-color: rgb(192, 214, 168);
+}
+
+.title {
+  margin: 20px 0 30px 30px;
+}
+
+.App__buttons {
+  margin-left: 30px;
+  display: flex;
+  gap: 20px;
+}
