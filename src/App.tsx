@@ -8,14 +8,18 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [users, setUsers] = useState<Good[] | null>(null);
 
-  const getUsers = async (request: () => Promise<Good[]>) => {
-    const response = await request().then(apiUsers => apiUsers);
+  const getGoods = async (request: () => Promise<Good[]>) => {
+    const response = await request().then(apiGoods => apiGoods);
 
-    if (response !== undefined) {
+    if (response) {
       setUsers(() => {
         return response;
       });
+
+      return;
     }
+
+    setUsers(null);
   };
 
   return (
@@ -26,7 +30,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          getUsers(getAll);
+          getGoods(getAll);
         }}
       >
         Load all goods
@@ -36,7 +40,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          getUsers(get5First);
+          getGoods(get5First);
         }}
       >
         Load 5 first goods
@@ -46,7 +50,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          getUsers(getRedGoods);
+          getGoods(getRedGoods);
         }}
       >
         Load red goods
