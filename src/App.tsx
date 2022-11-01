@@ -15,7 +15,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="App">
+    <div className="app">
       <h1>Dynamic list of Goods</h1>
 
       <div className="app_buttons">

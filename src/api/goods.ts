@@ -18,7 +18,7 @@ export const get5First = async () => {
   const goods = await getAll();
 
   return goods
-    .sort((g1, g2) => (g1.name.localeCompare(g2.name)))
+    .sort((goodA, goodB) => (goodA.name.localeCompare(goodB.name)))
     .slice(0, 5);
 };
 
