@@ -14,13 +14,12 @@ export const App: React.FC = () => {
   };
 
   const handleLoad5First = async () => {
-    setList(await get5First().then((goods) => goods.slice(5, -1)));
+    setList(await get5First());
   };
 
   const handleLoadRedGoods = async () => {
     setList(
-      await getRedGoods()
-        .then((goods) => goods.filter((good) => good.color === 'red')),
+      await getRedGoods(),
     );
   };
 
