@@ -12,14 +12,12 @@ import {
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadGoodsFromServer = (promiseFromServer: () => Promise<Good[]>) => {
-    const setGoodsFromServer = async () => {
-      const goodsFromServer = await promiseFromServer();
+  const loadGoodsFromServer = async (
+    promiseFromServer: () => Promise<Good[]>,
+  ) => {
+    const goodsFromServer = await promiseFromServer();
 
-      setGoods(goodsFromServer);
-    };
-
-    return setGoodsFromServer();
+    setGoods(goodsFromServer);
   };
 
   return (
