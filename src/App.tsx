@@ -8,22 +8,8 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleAllGoods = () => {
-    getAll()
-      .then(goodsFromServer => {
-        setGoods(goodsFromServer);
-      });
-  };
-
-  const handleFirst5Goods = () => {
-    get5First()
-      .then(goodsFromServer => {
-        setGoods(goodsFromServer);
-      });
-  };
-
-  const handleRedGoods = () => {
-    getRedGoods()
+  const handleClick = (getGoods: () => Promise<Good[]>): void => {
+    getGoods()
       .then(goodsFromServer => {
         setGoods(goodsFromServer);
       });
@@ -37,7 +23,7 @@ export const App: React.FC = () => {
         className="button is-light ml-6 mr-4"
         type="button"
         data-cy="all-button"
-        onClick={handleAllGoods}
+        onClick={() => handleClick(getAll)}
       >
         Load all goods
       </button>
@@ -46,7 +32,7 @@ export const App: React.FC = () => {
         className="button is-light mr-4"
         type="button"
         data-cy="first-five-button"
-        onClick={handleFirst5Goods}
+        onClick={() => handleClick(get5First)}
       >
         Load 5 first goods
       </button>
@@ -55,7 +41,7 @@ export const App: React.FC = () => {
         className="button is-light"
         type="button"
         data-cy="red-button"
-        onClick={handleRedGoods}
+        onClick={() => handleClick(getRedGoods)}
       >
         Load red goods
       </button>
