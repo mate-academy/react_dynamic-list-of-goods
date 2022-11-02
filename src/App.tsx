@@ -10,14 +10,6 @@ import { Good } from './types/Good';
 export const App = () => {
   const [listGoods, setListGoods] = useState<Good[]>([]);
 
-  function redGoods(goods: Good[]) {
-    if (goods.length > 0) {
-      setListGoods(goods);
-    } else {
-      setListGoods([]);
-    }
-  }
-
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -26,7 +18,7 @@ export const App = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          getAll().then(Goods => setListGoods(Goods));
+          getAll().then(goods => setListGoods(goods));
         }}
       >
         Load all goods
@@ -46,12 +38,12 @@ export const App = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          getRedGoods().then(goodsRed => redGoods(goodsRed));
+          getRedGoods().then(goodsRed => setListGoods(goodsRed));
         }}
       >
         Load red goods
       </button>
-      {listGoods.length > 0 && <GoodsList goods={listGoods} />}
+      <GoodsList goods={listGoods} />
     </div>
   );
 };
