@@ -31,15 +31,27 @@ export const App: React.FC = () => {
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button type="button" data-cy="all-button" onClick={loadGoods}>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={loadGoods}
+      >
         Load all goods
       </button>
 
-      <button type="button" data-cy="first-five-button" onClick={loadFiveGoods}>
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={loadFiveGoods}
+      >
         Load 5 first goods
       </button>
 
-      <button type="button" data-cy="red-button" onClick={loadOnlyRedGoods}>
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={loadOnlyRedGoods}
+      >
         Load red goods
       </button>
 
