@@ -13,7 +13,7 @@ export const get5First = () => {
     .then(goods => {
       return goods
         .sort((goodA, goodB) => goodA.name.localeCompare(goodB.name))
-        .filter((_good, i) => i < 5);
+        .slice(0, 5);
     });
 };
 
