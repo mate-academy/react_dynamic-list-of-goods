@@ -10,10 +10,7 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const setGoodsFromServer = (getGoods: GetGoodsCallback) => {
     getGoods()
-      .then(newGoods => setGoods(newGoods))
-      .catch(error => {
-        throw new Error(error);
-      });
+      .then(newGoods => setGoods(newGoods));
   };
 
   return (
