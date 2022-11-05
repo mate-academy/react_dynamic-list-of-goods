@@ -6,20 +6,12 @@ import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [users, setUsers] = useState<Good[] | null>(null);
+  const [goods, setGoods] = useState<Good[] | null>(null);
 
   const getGoods = async (request: () => Promise<Good[]>) => {
-    const response = await request().then(apiGoods => apiGoods);
+    const goodsFromServer = await request();
 
-    if (response) {
-      setUsers(() => {
-        return response;
-      });
-
-      return;
-    }
-
-    setUsers(null);
+    setGoods(goodsFromServer || null);
   };
 
   return (
@@ -56,8 +48,8 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      {users !== null
-        && <GoodsList goods={users} />}
+      {goods !== null
+        && <GoodsList goods={goods} />}
     </div>
   );
 };
