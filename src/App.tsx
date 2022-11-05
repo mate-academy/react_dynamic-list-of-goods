@@ -8,9 +8,22 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleButtonClick = (request: Promise<Good[]>) => {
-    request
-      .then((updatedGoods: Good[]) => setGoods(updatedGoods));
+  const LoadAllGoods = async () => {
+    const allGoods = await getAll();
+
+    setGoods(allGoods);
+  };
+
+  const LoadFiveFirstGoods = async () => {
+    const fiveGoods = await get5First();
+
+    setGoods(fiveGoods);
+  };
+
+  const LoadRedGoods = async () => {
+    const redGoods = await getRedGoods();
+
+    setGoods(redGoods);
   };
 
   return (
@@ -20,7 +33,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => handleButtonClick(getAll())}
+        onClick={LoadAllGoods}
       >
         Load all goods
       </button>
@@ -28,7 +41,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => handleButtonClick(get5First())}
+        onClick={LoadFiveFirstGoods}
       >
         Load 5 first goods
       </button>
@@ -36,7 +49,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => handleButtonClick(getRedGoods())}
+        onClick={LoadRedGoods}
       >
         Load red goods
       </button>
