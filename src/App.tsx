@@ -10,9 +10,13 @@ export const App: React.FC = () => {
 
   const setGoodsFromServer = (getGoodsFromServer: () => Promise<Good[]>) => {
     getGoodsFromServer()
-      .then((goodsFromServer: Good[]) => setGoods(goodsFromServer))
-      .catch(error => {
-        throw new Error(error);
+      .then((goodsFromServer) => setGoods(goodsFromServer))
+      .catch(() => {
+        setGoods([{
+          id: 0,
+          name: 'Error: goods could not be loaded, try reloading the page',
+          color: 'red',
+        }]);
       });
   };
 
