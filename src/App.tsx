@@ -7,17 +7,23 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-  const handleShowAll = () => (
-    getAll().then(goodsFromServer => setVisibleGoods(goodsFromServer))
-  );
+  const handleShowAll = async () => {
+    const goodsFromServer = await getAll();
 
-  const handleFirstFive = () => (
-    get5First().then(goodsFromServer => setVisibleGoods(goodsFromServer))
-  );
+    setVisibleGoods(goodsFromServer);
+  };
 
-  const handleShowRed = () => (
-    getRedGoods().then(goodsFromServer => setVisibleGoods(goodsFromServer))
-  );
+  const handleFirstFive = async () => {
+    const goodsFromServer = await get5First();
+
+    setVisibleGoods(goodsFromServer);
+  };
+
+  const handleShowRed = async () => {
+    const goodsFromServer = await getRedGoods();
+
+    setVisibleGoods(goodsFromServer);
+  };
 
   return (
     <div className="App">
