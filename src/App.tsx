@@ -5,12 +5,12 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
-type Callback = () => Promise<Good[]>;
+type GetTodo = () => Promise<Good[]>;
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleClick = async (getGoods: Callback) => {
+  const handleClick = async (getGoods: GetTodo) => {
     const goodsFromServer = await getGoods();
 
     setGoods(goodsFromServer);
