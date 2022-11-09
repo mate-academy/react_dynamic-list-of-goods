@@ -8,11 +8,11 @@ export function getAll(): Promise<Good[]> {
     .then(response => response.json());
 }
 
-export const get5First = () => {
-  return getAll()
-    .then(goods => goods
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .slice(0, 5));
+export const get5First = async () => {
+  const goodsFromApi = await getAll();
+
+  return goodsFromApi.sort((a, b) => a.name.localeCompare(b.name))
+    .slice(0, 5);
 };
 
 export const getRedGoods = () => {

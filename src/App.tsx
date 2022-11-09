@@ -6,12 +6,12 @@ import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[] | null>(null);
+  const [goods, setGoods] = useState<Good[]>([]);
 
   const getGoods = async (request: () => Promise<Good[]>) => {
     const goodsFromServer = await request();
 
-    setGoods(goodsFromServer || null);
+    setGoods(goodsFromServer);
   };
 
   return (
@@ -48,7 +48,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      {goods !== null
+      {goods
         && <GoodsList goods={goods} />}
     </div>
   );
