@@ -13,10 +13,6 @@ export const get5First = async () => {
 
   return list.sort((goodA, goodB) => goodA.name.localeCompare(goodB.name))
     .slice(0, 5);
-  //   .then(goods => {
-  //     return goods.sort((goodA, goodB) => goodA.name.localeCompare(goodB.name))
-  //       .slice(0, 5);
-  //   });
 };
 
 export const getRedGoods = async () => {
