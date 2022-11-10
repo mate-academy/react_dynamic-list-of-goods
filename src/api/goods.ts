@@ -8,3 +8,18 @@ export async function getAll(): Promise<Good[]> {
 
   return GoodsFromServer.json();
 }
+
+export const get5First = async () => {
+  const goodsFromServer = await getAll();
+
+  return goodsFromServer.sort((prev, curr) => (
+    prev.name.localeCompare(curr.name)
+  ))
+    .slice(0, 5);
+};
+
+export const getRedGoods = async () => {
+  const goodsFromServer = await getAll();
+
+  return goodsFromServer.filter(({ color }) => color === 'red');
+};

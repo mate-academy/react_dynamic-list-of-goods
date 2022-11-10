@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-import { getAll } from './api/goods';
+import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
@@ -14,18 +14,15 @@ export const App: React.FC = () => {
   };
 
   const handleFirstFive = async () => {
-    const goodsFromServer = await getAll();
+    const goodsFromServer = await get5First();
 
-    setVisibleGoods(goodsFromServer.sort((prev, curr) => (
-      prev.name.localeCompare(curr.name)
-    ))
-      .slice(0, 5));
+    setVisibleGoods(goodsFromServer);
   };
 
   const handleShowRed = async () => {
-    const goodsFromServer = await getAll();
+    const goodsFromServer = await getRedGoods();
 
-    setVisibleGoods(goodsFromServer.filter(({ color }) => color === 'red'));
+    setVisibleGoods(goodsFromServer);
   };
 
   return (
