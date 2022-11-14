@@ -4,22 +4,24 @@ import { Good } from '../types/Good';
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
 const request = async (url: string) => {
-  const response = await fetch(url);
+  try {
+    const response = await fetch(url);
 
-  if (!response.ok) {
-    throw new Error(`${response.status}-${response.statusText}`);
+    return await response.json();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    // eslint-disable-next-line no-console
+    console.log('error', error.message);
+
+    return error;
   }
-
-  const data = await response.json();
-
-  return data;
 };
 
 export function getAll(): Promise<Good[]> {
   const answerFromServer = async () => {
-    const jsonData = await request(API_URL);
+    const promise = await request(API_URL);
 
-    return jsonData;
+    return promise;
   };
 
   return answerFromServer();

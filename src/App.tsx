@@ -15,9 +15,7 @@ export const App: React.FC = () => {
   const loadGoodsFromServer = async (
     promiseFromServer: () => Promise<Good[]>,
   ) => {
-    const goodsFromServer = await promiseFromServer();
-
-    setGoods(goodsFromServer);
+    setGoods(await promiseFromServer());
   };
 
   return (
