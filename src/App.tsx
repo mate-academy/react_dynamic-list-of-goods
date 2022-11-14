@@ -7,10 +7,11 @@ import 'bulma';
 // import { getAll, get5First, getRed } from './api/goods';
 // or
 // import * as goodsAPI from './api/goods';
-import { getInfoApi } from './api/goods';
+import { getAllTodosApi, getFiveGoodsApi, getRedGoodsApi } from './api/goods';
 
 export const App: React.FC = () => {
   const [todosAll, setTodosAll] = useState([]);
+  // const [todosFive, setTodosFive] = useState([]);
 
   const [loadingAll, setLoadingAll] = useState(false);
   const [loadingFiveGoods, setLoadingFiveGoods] = useState(false);
@@ -25,7 +26,7 @@ export const App: React.FC = () => {
 
   const handleLoadAllGoods = async () => {
     setLoadingAll(true);
-    const listOfTodos = await getInfoApi();
+    const listOfTodos = await getAllTodosApi();
 
     setTodosAll(listOfTodos);
 
@@ -38,36 +39,20 @@ export const App: React.FC = () => {
 
   const handleFiveGoods = async () => {
     setLoadingFiveGoods(true);
-    setTodosAll([]);
+    const listOfTodos = await getFiveGoodsApi();
 
-    // const todos = await getAll();
+    setTodosAll(listOfTodos);
 
-    // setTodos({ todos });
-
-    // console.log('the button was clicked');
-    // eslint-disable-next-line no-alert
-    alert("I'm an alert");
-    // getAll()
-    //   .then(todos => {
-    //     setTodos(todos);
-    //   });
+    setLoadingFiveGoods(false);
   };
 
-  const handleRedGoods = () => {
+  const handleRedGoods = async () => {
     setLoadingRedGoods(true);
-    setTodosAll([]);
+    const listOfTodos = await getRedGoodsApi();
 
-    // const todos = await getAll();
+    setTodosAll(listOfTodos);
 
-    // setTodos({ todos });
-
-    // console.log('the button was clicked');
-    // eslint-disable-next-line no-alert
-    alert("I'm an alert");
-    // getAll()
-    //   .then(todos => {
-    //     setTodos(todos);
-    //   });
+    setLoadingRedGoods(false);
   };
 
   return (
@@ -111,3 +96,12 @@ export const App: React.FC = () => {
     </div>
   );
 };
+
+// const todos = await getAll();
+
+// setTodos({ todos });
+
+// getAll()
+//   .then(todos => {
+//     setTodos(todos);
+//   });

@@ -36,7 +36,7 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 // };
 // =======================
 
-export const getInfoApi = async () => {
+export const getAllTodosApi = async () => {
   const response = await fetch(API_URL);
 
   if (!response.ok) {
@@ -46,6 +46,30 @@ export const getInfoApi = async () => {
   const body = await response.json();
 
   return body;
+};
+
+export const getFiveGoodsApi = async () => {
+  const response = await fetch(API_URL);
+
+  if (!response.ok) {
+    throw new Error(`${response.status} - ${response.statusText}`);
+  }
+
+  const body = await response.json();
+
+  return body.slice(0, 5);
+};
+
+export const getRedGoodsApi = async () => {
+  const response = await fetch(API_URL);
+
+  if (!response.ok) {
+    throw new Error(`${response.status} - ${response.statusText}`);
+  }
+
+  const body = await response.json();
+
+  return body.filter((el: any) => el.color === 'red');
   // await fetch(API_URL)
   //   .then(response => {
   //     response.json();
