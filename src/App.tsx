@@ -13,9 +13,9 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const loadGoodsFromServer = async (
-    promiseFromServer: () => Promise<Good[]>,
+    goodsFromServer: () => Promise<Good[]>,
   ) => {
-    setGoods(await promiseFromServer());
+    setGoods(await goodsFromServer());
   };
 
   return (

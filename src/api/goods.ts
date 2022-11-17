@@ -3,48 +3,54 @@ import { Good } from '../types/Good';
 // eslint-disable-next-line
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
-const request = async (url: string) => {
+const request = async (url: string): Promise<Good[]> => {
   try {
-    const response = await fetch(url);
+    const dataFromServer = await fetch(url);
 
-    return await response.json();
+    return await dataFromServer.json();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     // eslint-disable-next-line no-console
     console.log('error', error.message);
-
-    return error;
+    throw error;
   }
 };
 
-export function getAll(): Promise<Good[]> {
-  const answerFromServer = async () => {
-    const promise = await request(API_URL);
-
-    return promise;
-  };
-
-  return answerFromServer();
-}
-
-export const get5First = () => {
-  const answerFromServer = async () => {
-    const jsonData = await request(API_URL);
-
-    return jsonData.sort((prevGood: Good, currentGood: Good) => (
-      prevGood.name.localeCompare(currentGood.name)
-    )).slice(0, 5);
-  };
-
-  return answerFromServer();
+export const getAll = async (): Promise<Good[]> => {
+  try {
+    return await request(API_URL);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    // eslint-disable-next-line no-console
+    console.log('error', error.message);
+    throw error;
+  }
 };
 
-export const getRedGoods = () => {
-  const answerFromServer = async () => {
-    const jsonData = await request(API_URL);
+export const get5First = async () => {
+  try {
+    const goodsFromServer = await request(API_URL);
 
-    return jsonData.filter((good: Good) => good.color === 'red');
-  };
+    return goodsFromServer.sort((prevGood: Good, currentGood: Good) => (
+      prevGood.name.localeCompare(currentGood.name)
+    )).slice(0, 5);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    // eslint-disable-next-line no-console
+    console.log('error', error.message);
+    throw error;
+  }
+};
 
-  return answerFromServer();
+export const getRedGoods = async () => {
+  try {
+    const goodsFromServer = await request(API_URL);
+
+    return goodsFromServer.filter((good: Good) => good.color === 'red');
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } catch (error: any) {
+    // eslint-disable-next-line no-console
+    console.log('error', error.message);
+    throw error;
+  }
 };
