@@ -5,9 +5,6 @@ import { GoodsList } from './GoodsList';
 import 'bulma';
 import { getAll, get5First, getRed } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
-// import { getAllTodosApi, getFiveGoodsApi, getRedGoodsApi } from './api/goods';
 
 export const App: React.FC = () => {
   const [goodsAll, setGoodsAll] = useState<Good[]>([]);
@@ -15,33 +12,6 @@ export const App: React.FC = () => {
   const [loadingAll, setLoadingAll] = useState(false);
   const [loadingFiveGoods, setLoadingFiveGoods] = useState(false);
   const [loadingRedGoods, setLoadingRedGoods] = useState(false);
-
-  // const handleLoadAllGoods = async () => {
-  //   setLoadingAll(true);
-  //   const listOfTodos = await getAllTodosApi();
-
-  //   setGoodsAll(listOfTodos);
-
-  //   setLoadingAll(false);
-  // };
-
-  // const handleFiveGoods = async () => {
-  //   setLoadingFiveGoods(true);
-  //   const listOfTodos = await getFiveGoodsApi();
-
-  //   setGoodsAll(listOfTodos);
-
-  //   setLoadingFiveGoods(false);
-  // };
-
-  // const handleRedGoods = async () => {
-  //   setLoadingRedGoods(true);
-  //   const listOfTodos = await getRedGoodsApi();
-
-  //   setGoodsAll(listOfTodos);
-
-  //   setLoadingRedGoods(false);
-  // };
 
   const handleLoadAllGoods = async () => {
     setLoadingAll(true);
@@ -69,6 +39,36 @@ export const App: React.FC = () => {
 
     setLoadingRedGoods(false);
   };
+
+  // ----- variant 2 -----
+  // import { getAllTodosApi, getFiveGoodsApi, getRedGoodsApi } from './api/goods';
+
+  // const handleLoadAllGoods = async () => {
+  //   setLoadingAll(true);
+  //   const listOfTodos = await getAllTodosApi();
+
+  //   setGoodsAll(listOfTodos);
+
+  //   setLoadingAll(false);
+  // };
+
+  // const handleFiveGoods = async () => {
+  //   setLoadingFiveGoods(true);
+  //   const listOfTodos = await getFiveGoodsApi();
+
+  //   setGoodsAll(listOfTodos);
+
+  //   setLoadingFiveGoods(false);
+  // };
+
+  // const handleRedGoods = async () => {
+  //   setLoadingRedGoods(true);
+  //   const listOfTodos = await getRedGoodsApi();
+
+  //   setGoodsAll(listOfTodos);
+
+  //   setLoadingRedGoods(false);
+  // };
 
   return (
     <div className="App">
