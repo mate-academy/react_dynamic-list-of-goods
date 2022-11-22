@@ -3,54 +3,69 @@ import classnames from 'classnames';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import 'bulma';
-// import { getAll } from './api/goods';
-// import { getAll, get5First, getRed } from './api/goods';
+import { getAll, get5First, getRed } from './api/goods';
+import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
-import { getAllTodosApi, getFiveGoodsApi, getRedGoodsApi } from './api/goods';
+// import { getAllTodosApi, getFiveGoodsApi, getRedGoodsApi } from './api/goods';
 
 export const App: React.FC = () => {
-  const [todosAll, setTodosAll] = useState([]);
-  // const [todosFive, setTodosFive] = useState([]);
+  const [goodsAll, setGoodsAll] = useState<Good[]>([]);
 
   const [loadingAll, setLoadingAll] = useState(false);
   const [loadingFiveGoods, setLoadingFiveGoods] = useState(false);
   const [loadingRedGoods, setLoadingRedGoods] = useState(false);
 
-  // useEffect(() => {
-  //   getAll()
-  //     .then(todos => {
-  //       setTodos(todos);
-  //     });
-  // }, []);
+  // const handleLoadAllGoods = async () => {
+  //   setLoadingAll(true);
+  //   const listOfTodos = await getAllTodosApi();
+
+  //   setGoodsAll(listOfTodos);
+
+  //   setLoadingAll(false);
+  // };
+
+  // const handleFiveGoods = async () => {
+  //   setLoadingFiveGoods(true);
+  //   const listOfTodos = await getFiveGoodsApi();
+
+  //   setGoodsAll(listOfTodos);
+
+  //   setLoadingFiveGoods(false);
+  // };
+
+  // const handleRedGoods = async () => {
+  //   setLoadingRedGoods(true);
+  //   const listOfTodos = await getRedGoodsApi();
+
+  //   setGoodsAll(listOfTodos);
+
+  //   setLoadingRedGoods(false);
+  // };
 
   const handleLoadAllGoods = async () => {
     setLoadingAll(true);
-    const listOfTodos = await getAllTodosApi();
+    const listOfTodos = await getAll();
 
-    setTodosAll(listOfTodos);
+    setGoodsAll(listOfTodos);
 
     setLoadingAll(false);
-
-    // const todoList = await getAll();
-
-    // setTodos(todoList);
   };
 
   const handleFiveGoods = async () => {
     setLoadingFiveGoods(true);
-    const listOfTodos = await getFiveGoodsApi();
+    const listOfTodos = await get5First();
 
-    setTodosAll(listOfTodos);
+    setGoodsAll(listOfTodos);
 
     setLoadingFiveGoods(false);
   };
 
   const handleRedGoods = async () => {
     setLoadingRedGoods(true);
-    const listOfTodos = await getRedGoodsApi();
+    const listOfTodos = await getRed();
 
-    setTodosAll(listOfTodos);
+    setGoodsAll(listOfTodos);
 
     setLoadingRedGoods(false);
   };
@@ -92,16 +107,10 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={todosAll} />
+      <GoodsList
+        goods={goodsAll}
+
+      />
     </div>
   );
 };
-
-// const todos = await getAll();
-
-// setTodos({ todos });
-
-// getAll()
-//   .then(todos => {
-//     setTodos(todos);
-//   });

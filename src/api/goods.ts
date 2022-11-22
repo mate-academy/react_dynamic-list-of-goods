@@ -1,128 +1,59 @@
-// import { resolve } from 'path';
-// import { Good } from '../types/Good';
+import { Good } from '../types/Good';
 
 // eslint-disable-next-line
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
-// export function getAll(): Promise<Good[]> {
-//   return fetch(API_URL)
-//     .then(response => {
-//       if (!response.ok) {
-//         // return Promise.reject('Can\'t load todos');
-//         throw new Error(`${response.status} - ${response.statusText}`);
-//       }
+// export const getAllTodosApi = async () => {
+//   const response = await fetch(API_URL);
 
-//       return response.json();
-//     })
-//     .then(result => result.data);
-// }
+//   if (!response.ok) {
+//     throw new Error(`${response.status} - ${response.statusText}`);
+//   }
 
-// export const getTodos = () => {
-//   return getAll();
+//   const body = await response.json();
+
+//   return body;
 // };
-// =================
 
-// export const getAll = async () => {
-//   await fetch(API_URL)
-//     .then(response => {
-//       if (!response.ok) {
-//         throw new Error(`${response.status} - ${response.statusText}`);
-//       }
+// export const getFiveGoodsApi = async () => {
+//   const response = await fetch(API_URL);
 
-//       return response.json();
-//     });
+//   if (!response.ok) {
+//     throw new Error(`${response.status} - ${response.statusText}`);
+//   }
 
-//   // .then(result => result.data);
+//   const body = await response.json();
+
+//   return body.slice(0, 5);
 // };
-// =======================
 
-export const getAllTodosApi = async () => {
-  const response = await fetch(API_URL);
+// export const getRedGoodsApi = async () => {
+//   const response = await fetch(API_URL);
 
-  if (!response.ok) {
-    throw new Error(`${response.status} - ${response.statusText}`);
-  }
+//   if (!response.ok) {
+//     throw new Error(`${response.status} - ${response.statusText}`);
+//   }
 
-  const body = await response.json();
+//   const body = await response.json();
 
-  return body;
+//   return body.filter((el: any) => el.color === 'red');
+// };
+
+// -----------------------------------------------------------------------
+
+export const getAll = async (): Promise<Good[]> => {
+  return fetch(API_URL)
+    .then(response => response.json());
 };
 
-export const getFiveGoodsApi = async () => {
-  const response = await fetch(API_URL);
+export const get5First = async () => {
+  const goods = await getAll();
 
-  if (!response.ok) {
-    throw new Error(`${response.status} - ${response.statusText}`);
-  }
-
-  const body = await response.json();
-
-  return body.slice(0, 5);
+  return goods.slice(0, 5);
 };
 
-export const getRedGoodsApi = async () => {
-  const response = await fetch(API_URL);
+export const getRed = async () => {
+  const goods = await getAll();
 
-  if (!response.ok) {
-    throw new Error(`${response.status} - ${response.statusText}`);
-  }
-
-  const body = await response.json();
-
-  return body.filter((el: any) => el.color === 'red');
-  // await fetch(API_URL)
-  //   .then(response => {
-  //     response.json();
-  //   });
+  return goods.filter((el: any) => el.color === 'red');
 };
-
-// export function getAll(): Promise<Good[]> {
-//   return fetch(API_URL)
-//     .then(response => response.json());
-// }
-
-// export const get5First = () => {
-//   return getAll()
-//     .then(goods => goods); // sort and get the first 5
-// };
-
-// export const getRedGoods = () => {
-//   return getAll()
-//     .then(goods => goods); // get only red
-// };
-
-// fetch(API_URL)
-//   .then(response => response.json())
-//   .then(goods => {
-//     console.log(goods);
-//   });
-
-// function wait(delay) {
-//   return new Promise(resolve => setTimeout(resolve, delay));
-// }
-
-// export const request = (url, options) => {
-//   return fetch(`${API_URL}${url}`, options)
-//     .then(res => {
-//       if (!res.ok) {
-//         throw new Error(`${res.status} - ${res.statusText}`)
-//       }
-
-//       return res.json();
-//     });
-// };
-
-// export function getAll(): Promise<Good[]> {
-//   return fetch(API_URL)
-//     .then(response => {
-//       if (!response.ok) {
-//         throw new Error(`${response.status} - ${response.statusText}`)
-//       }
-
-//       return response.json();
-//     }
-// }
-
-// export const getTodos = () = {
-//   return request ('/goods')
-// }
