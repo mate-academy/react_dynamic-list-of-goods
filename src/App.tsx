@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import classnames from 'classnames';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import 'bulma';
@@ -7,68 +6,25 @@ import { getAll, get5First, getRed } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [goodsAll, setGoodsAll] = useState<Good[]>([]);
-
-  const [loadingAll, setLoadingAll] = useState(false);
-  const [loadingFiveGoods, setLoadingFiveGoods] = useState(false);
-  const [loadingRedGoods, setLoadingRedGoods] = useState(false);
+  const [goods, setGoods] = useState<Good[]>([]);
 
   const handleLoadAllGoods = async () => {
-    setLoadingAll(true);
     const listOfTodos = await getAll();
 
-    setGoodsAll(listOfTodos);
-
-    setLoadingAll(false);
+    setGoods(listOfTodos);
   };
 
   const handleFiveGoods = async () => {
-    setLoadingFiveGoods(true);
     const listOfTodos = await get5First();
 
-    setGoodsAll(listOfTodos);
-
-    setLoadingFiveGoods(false);
+    setGoods(listOfTodos);
   };
 
   const handleRedGoods = async () => {
-    setLoadingRedGoods(true);
     const listOfTodos = await getRed();
 
-    setGoodsAll(listOfTodos);
-
-    setLoadingRedGoods(false);
+    setGoods(listOfTodos);
   };
-
-  // ----- variant 2 -----
-  // import { getAllTodosApi, getFiveGoodsApi, getRedGoodsApi } from './api/goods';
-
-  // const handleLoadAllGoods = async () => {
-  //   setLoadingAll(true);
-  //   const listOfTodos = await getAllTodosApi();
-
-  //   setGoodsAll(listOfTodos);
-
-  //   setLoadingAll(false);
-  // };
-
-  // const handleFiveGoods = async () => {
-  //   setLoadingFiveGoods(true);
-  //   const listOfTodos = await getFiveGoodsApi();
-
-  //   setGoodsAll(listOfTodos);
-
-  //   setLoadingFiveGoods(false);
-  // };
-
-  // const handleRedGoods = async () => {
-  //   setLoadingRedGoods(true);
-  //   const listOfTodos = await getRedGoodsApi();
-
-  //   setGoodsAll(listOfTodos);
-
-  //   setLoadingRedGoods(false);
-  // };
 
   return (
     <div className="App">
@@ -77,9 +33,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        className={classnames(
-          'button is-primary is-medium', { 'is-loading': loadingAll },
-        )}
+        className="button is-primary is-medium"
         onClick={handleLoadAllGoods}
       >
         Load all goods
@@ -88,9 +42,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        className={classnames(
-          'button is-link is-medium', { 'is-loading': loadingFiveGoods },
-        )}
+        className="button is-link is-medium"
         onClick={handleFiveGoods}
       >
         Load 5 first goods
@@ -99,18 +51,13 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        className={classnames(
-          'button is-danger is-medium', { 'is-loading': loadingRedGoods },
-        )}
+        className="button is-danger is-medium"
         onClick={handleRedGoods}
       >
         Load red goods
       </button>
 
-      <GoodsList
-        goods={goodsAll}
-
-      />
+      <GoodsList goods={goods} />
     </div>
   );
 };

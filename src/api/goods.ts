@@ -17,45 +17,5 @@ export const get5First = async () => {
 export const getRed = async () => {
   const goods = await getAll();
 
-  return goods.filter((el: any) => el.color === 'red');
+  return goods.filter(item => item.color === 'red');
 };
-
-// --- variant 2 ----
-// ------------------------------------------------------------
-// export const getAllTodosApi = async () => {
-//   const response = await fetch(API_URL);
-
-//   if (!response.ok) {
-//     throw new Error(`${response.status} - ${response.statusText}`);
-//   }
-
-//   const body = await response.json();
-
-//   return body;
-// };
-
-// export const getFiveGoodsApi = async () => {
-//   const response = await fetch(API_URL);
-
-//   if (!response.ok) {
-//     throw new Error(`${response.status} - ${response.statusText}`);
-//   }
-
-//   const body = await response.json();
-
-//   return body.slice(0, 5);
-// };
-
-// export const getRedGoodsApi = async () => {
-//   const response = await fetch(API_URL);
-
-//   if (!response.ok) {
-//     throw new Error(`${response.status} - ${response.statusText}`);
-//   }
-
-//   const body = await response.json();
-
-//   return body.filter((el: any) => el.color === 'red');
-// };
-
-// -----------------------------------------------------------------------
