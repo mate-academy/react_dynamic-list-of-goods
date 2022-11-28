@@ -9,26 +9,11 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const loadAll = () => {
-    getAll()
-      .then((data: Good[]) => (
-        setGoods(data)
-      ));
-  };
+  const loadAll = () => getAll().then(setGoods);
 
-  const loadFirst5 = () => {
-    get5First()
-      .then((data: Good[]) => (
-        setGoods(data)
-      ));
-  };
+  const loadFirst5 = () => get5First().then(setGoods);
 
-  const loadRed = () => {
-    getRed()
-      .then((data: Good[]) => (
-        setGoods(data)
-      ));
-  };
+  const loadRed = () => getRed().then(setGoods);
 
   return (
     <div className="App">
