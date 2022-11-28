@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -10,11 +10,12 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleClick = async (isLoading: () => Promise<Good[]>) => {
-    const loadedGoods = await isLoading();
+  const handleClick = useCallback(async (loadingCallback: () =>
+  Promise<Good[]>) => {
+    const loadedGoods = await loadingCallback();
 
     setGoods(loadedGoods);
-  };
+  }, []);
 
   return (
     <div className="App">
