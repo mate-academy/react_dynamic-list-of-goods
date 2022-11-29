@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -6,30 +6,28 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [visiableGoods, setVisiableGoods] = useState<Good[]>([]);
-  const [showGoods, setShowGoods] = useState('');
+  const [showGoods, setShowGoods] = useState(false);
 
-  useEffect(() => {
-    if (showGoods === 'getAll') {
-      getAll()
-        .then(result => {
-          setVisiableGoods(result);
-        });
-    }
+  const handelLoadAllGoods = () => {
+    getAll()
+      .then(result => setVisiableGoods(result))
+      .catch(() => setShowGoods(false))
+      .finally(() => setShowGoods(true));
+  };
 
-    if (showGoods === 'get5First') {
-      get5First()
-        .then(result => {
-          setVisiableGoods(result);
-        });
-    }
+  const handelLoad5FirstGoods = () => {
+    get5First()
+      .then(result => setVisiableGoods(result))
+      .catch(() => setShowGoods(false))
+      .finally(() => setShowGoods(true));
+  };
 
-    if (showGoods === 'getRed') {
-      getRedGoods()
-        .then(result => {
-          setVisiableGoods(result);
-        });
-    }
-  }, [showGoods]);
+  const handelLoadRedGoods = () => {
+    getRedGoods()
+      .then(result => setVisiableGoods(result))
+      .catch(() => setShowGoods(false))
+      .finally(() => setShowGoods(true));
+  };
 
   return (
     <div className="App">
@@ -39,7 +37,7 @@ export const App: React.FC = () => {
         className="button is-loading"
         type="button"
         data-cy="all-button"
-        onClick={() => setShowGoods('getAll')}
+        onClick={handelLoadAllGoods}
       >
         Load all goods
       </button>
@@ -47,7 +45,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setShowGoods('get5First')}
+        onClick={handelLoad5FirstGoods}
       >
         Load 5 first goods
       </button>
@@ -55,7 +53,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setShowGoods('getRed')}
+        onClick={handelLoadRedGoods}
       >
         Load red goods
       </button>
