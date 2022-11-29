@@ -15,23 +15,19 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleClick = useCallback(async (sortType: SortType) => {
-    let goodsFromServer: Good[] = [];
-
     switch (sortType) {
       case SortType.All:
-        goodsFromServer = await getAll();
+        setGoods(await getAll());
         break;
       case SortType.First5:
-        goodsFromServer = await get5First();
+        setGoods(await get5First());
         break;
       case SortType.Red:
-        goodsFromServer = await getRedGoods();
+        setGoods(await getRedGoods());
         break;
       default:
-        goodsFromServer = await getAll();
+        setGoods(await getAll());
     }
-
-    setGoods(goodsFromServer);
   }, [goods]);
 
   return (

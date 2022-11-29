@@ -13,9 +13,10 @@ export const get5First = () => {
     .then(goods => {
       const sortedGoods = [...goods];
 
-      sortedGoods.sort((a, b) => a.name.localeCompare(b.name)).splice(5);
+      const remaining = sortedGoods.sort((a, b) => a.name.localeCompare(b.name))
+        .slice(0, 5);
 
-      return sortedGoods;
+      return remaining;
     });
 };
 
