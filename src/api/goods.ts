@@ -14,7 +14,7 @@ export const get5First = () => {
       .slice(0, 5));
 };
 
-export const getRedGoods = () => {
+export const getRed = () => {
   return getAll()
     .then(goods => goods.filter(good => good.color === 'red'));
 };
