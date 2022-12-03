@@ -43,7 +43,6 @@ export const App: React.FC = () => {
       >
         Load red goods
       </button>
-
       {goods.length > 0 && (<GoodsList goods={goods} />)}
     </div>
   );
