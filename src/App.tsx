@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -8,26 +8,35 @@ export const App: React.FC = () => {
   const [visiableGoods, setVisiableGoods] = useState<Good[]>([]);
   const [showGoods, setShowGoods] = useState(false);
 
-  const handelLoadAllGoods = () => {
-    getAll()
-      .then(result => setVisiableGoods(result))
-      .catch(() => setShowGoods(false))
-      .finally(() => setShowGoods(true));
-  };
+  const handelLoadAllGoods = useCallback(
+    () => {
+      getAll()
+        .then(result => setVisiableGoods(result))
+        .catch(() => setShowGoods(false))
+        .finally(() => setShowGoods(true));
+    },
+    [],
+  );
 
-  const handelLoad5FirstGoods = () => {
-    get5First()
-      .then(result => setVisiableGoods(result))
-      .catch(() => setShowGoods(false))
-      .finally(() => setShowGoods(true));
-  };
+  const handelLoad5FirstGoods = useCallback(
+    () => {
+      get5First()
+        .then(result => setVisiableGoods(result))
+        .catch(() => setShowGoods(false))
+        .finally(() => setShowGoods(true));
+    },
+    [],
+  );
 
-  const handelLoadRedGoods = () => {
-    getRedGoods()
-      .then(result => setVisiableGoods(result))
-      .catch(() => setShowGoods(false))
-      .finally(() => setShowGoods(true));
-  };
+  const handelLoadRedGoods = useCallback(
+    () => {
+      getRedGoods()
+        .then(result => setVisiableGoods(result))
+        .catch(() => setShowGoods(false))
+        .finally(() => setShowGoods(true));
+    },
+    [],
+  );
 
   return (
     <div className="App">
