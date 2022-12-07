@@ -57,17 +57,6 @@ export const App: React.FC = () => {
         >
           Load red goods
         </button>
-
-        <button
-          type="button"
-          data-cy="all-button"
-          className="button is-danger mr-2"
-          onClick={() => {
-            (setSelectedGoods([]));
-          }}
-        >
-          Reset
-        </button>
       </div>
 
       {selectedGoods && (
