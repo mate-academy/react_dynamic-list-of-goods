@@ -5,12 +5,12 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
-type GoodsStateValue = [] | Good[];
+type CallbackGetFn = () => Promise<Good[]>;
 
 export const App: React.FC = () => {
-  const [visibleGoods, setVisibleGoods] = useState([] as GoodsStateValue);
+  const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-  const showGoods = (getFn: () => Promise<Good[]>) => {
+  const showGoods = (getFn: CallbackGetFn) => {
     getFn()
       .then(goods => setVisibleGoods(goods));
   };
