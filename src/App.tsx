@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
@@ -21,7 +21,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => handleClick(goodsAPI.getAll())}
+        onClick={() => handleClick(getAll())}
       >
         Load all goods
       </button>
@@ -29,7 +29,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => handleClick(goodsAPI.get5First())}
+        onClick={() => handleClick(get5First())}
       >
         Load 5 first goods
       </button>
@@ -37,7 +37,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => handleClick(goodsAPI.getRedGoods())}
+        onClick={() => handleClick(getRedGoods())}
       >
         Load red goods
       </button>
