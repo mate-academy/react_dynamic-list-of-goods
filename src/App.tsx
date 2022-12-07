@@ -1,27 +1,67 @@
-import React from 'react';
+import 'bulma/css/bulma.min.css';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { get5First, getAll, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [selectedGoods, setSelectedGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleClick = async (result: Promise<Good[]>) => {
+    setSelectedGoods(await result);
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return (
+    <div className="App p-3">
+      <h1 className="
+        mb-5
+        title
+        is-3
+        is-flex
+        is-justify-content-center"
+      >
+        Dynamic list of Goods
+      </h1>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      <div className="
+        buttons
+        mb-5
+        is-flex
+        is-justify-content-center"
+      >
+        <button
+          type="button"
+          data-cy="all-button"
+          className="button is-primary mr-2"
+          onClick={() => handleClick(getAll())}
+        >
+          Load all goods
+        </button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+        <button
+          type="button"
+          data-cy="first-five-button"
+          className="button is-warning mr-2"
+          onClick={() => handleClick(get5First())}
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          type="button"
+          data-cy="red-button"
+          className="button is-danger"
+          onClick={() => handleClick(getRedGoods())}
+        >
+          Load red goods
+        </button>
+      </div>
+
+      {selectedGoods && (
+        <GoodsList goods={selectedGoods} />
+      )}
+    </div>
+  );
+};
