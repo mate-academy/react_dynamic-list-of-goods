@@ -43,7 +43,7 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="first-five-button"
-          className="button is-warning mr-2"
+          className="button is-info mr-2"
           onClick={() => handleClick(get5First())}
         >
           Load 5 first goods
@@ -52,10 +52,21 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="red-button"
-          className="button is-danger"
+          className="button is-warning"
           onClick={() => handleClick(getRedGoods())}
         >
           Load red goods
+        </button>
+
+        <button
+          type="button"
+          data-cy="all-button"
+          className="button is-danger mr-2"
+          onClick={() => {
+            (setSelectedGoods([]));
+          }}
+        >
+          Reset
         </button>
       </div>
 
