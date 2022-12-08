@@ -11,9 +11,11 @@ export const App: React.FC = () => {
   const handelLoadAllGoods = useCallback(
     () => {
       getAll()
-        .then(result => setVisiableGoods(result))
-        .catch(() => setShowGoods(false))
-        .finally(() => setShowGoods(true));
+        .then(result => {
+          setVisiableGoods(result);
+          setShowGoods(true);
+        })
+        .catch(() => setShowGoods(false));
     },
     [],
   );
@@ -21,9 +23,11 @@ export const App: React.FC = () => {
   const handelLoad5FirstGoods = useCallback(
     () => {
       get5First()
-        .then(result => setVisiableGoods(result))
-        .catch(() => setShowGoods(false))
-        .finally(() => setShowGoods(true));
+        .then(result => {
+          setVisiableGoods(result);
+          setShowGoods(true);
+        })
+        .catch(() => setShowGoods(false));
     },
     [],
   );
@@ -31,9 +35,11 @@ export const App: React.FC = () => {
   const handelLoadRedGoods = useCallback(
     () => {
       getRedGoods()
-        .then(result => setVisiableGoods(result))
-        .catch(() => setShowGoods(false))
-        .finally(() => setShowGoods(true));
+        .then(result => {
+          setVisiableGoods(result);
+          setShowGoods(true);
+        })
+        .catch(() => setShowGoods(false));
     },
     [],
   );
