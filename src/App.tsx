@@ -8,8 +8,8 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleClick = (gettingNeededGoods: Promise<Good[]>) => {
-    gettingNeededGoods.then(newGoods => setGoods(newGoods));
+  const handleClick = (result: Promise<Good[]>) => {
+    result.then(setGoods);
   };
 
   return (
@@ -40,7 +40,9 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {goods && (
+        <GoodsList goods={goods} />
+      )}
     </div>
   );
 };
