@@ -9,17 +9,17 @@ export const App: React.FC = () => {
 
   const showAllGoods = () => (
     getAll()
-      .then(goodsFromServer => setGoods(goodsFromServer))
+      .then(setGoods)
   );
 
   const showFirstFiveGoods = () => (
     get5First()
-      .then(goodsFromServer => setGoods(goodsFromServer))
+      .then(setGoods)
   );
 
   const showRedGoods = () => (
     getRedGoods()
-      .then(goodsFromServer => setGoods(goodsFromServer))
+      .then(setGoods)
   );
 
   return (
@@ -50,7 +50,8 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {goods.length > 0
+        && <GoodsList goods={goods} />}
     </div>
   );
 };
