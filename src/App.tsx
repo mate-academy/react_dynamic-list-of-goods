@@ -9,9 +9,7 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleClick = (getGoods: Promise<Good[]>) => {
-    getGoods.then(allGoods => (
-      setGoods(allGoods)
-    ));
+    getGoods.then(setGoods);
   };
 
   return (
@@ -42,7 +40,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {!!goods.length && <GoodsList goods={goods} />}
     </div>
   );
 };
