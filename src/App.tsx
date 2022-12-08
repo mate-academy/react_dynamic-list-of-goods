@@ -8,8 +8,8 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleClick = async (callback: Promise<Good[]>) => {
-    setGoods(await callback);
+  const handleClick = (getGoods: Promise<Good[]>) => {
+    getGoods.then(setGoods);
   };
 
   return (
@@ -40,7 +40,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      {goods.length && (
+      {goods.length > 0 && (
         <GoodsList goods={goods} />
       )}
     </div>
