@@ -10,7 +10,9 @@ export const App: React.FC = () => {
   const [selectedGoods, setSelectedGoods] = useState<Good[]>([]);
 
   const handleClick = async (result: Promise<Good[]>) => {
-    setSelectedGoods(await result);
+    const res = await result;
+
+    setSelectedGoods(res);
   };
 
   return (
