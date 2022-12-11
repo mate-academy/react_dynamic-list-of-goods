@@ -26,7 +26,7 @@ export const App: React.FC = () => {
 
       <button
         type="button"
-        data-cy="all-button"
+        data-cy="first-five-button"
         onClick={() => handleClick(get5First())}
       >
         Load 5 first goods
