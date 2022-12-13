@@ -36,7 +36,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      {sortGoods.length && (
+      {sortGoods.length > 0 && (
         <GoodsList goods={sortGoods} />
       )}
     </div>
