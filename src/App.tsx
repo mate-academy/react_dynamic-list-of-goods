@@ -8,6 +8,17 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [sortGoods, setSortGoods] = useState<Good[]>([]);
 
+  const handleClick = async (promise: Promise<Good[]>) => {
+    try {
+      const result = await promise;
+
+      setSortGoods(result);
+    } catch (error: unknown) {
+      // eslint-disable-next-line no-alert
+      alert(`Network Error: ${error}`);
+    }
+  };
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -15,7 +26,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getAll().then(setSortGoods)}
+        onClick={() => handleClick(getAll())}
       >
         Load all goods
       </button>
@@ -23,7 +34,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => get5First().then(setSortGoods)}
+        onClick={() => handleClick(get5First())}
       >
         Load 5 first goods
       </button>
@@ -31,7 +42,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => getRedGoods().then(setSortGoods)}
+        onClick={() => handleClick(getRedGoods())}
       >
         Load red goods
       </button>
