@@ -12,17 +12,17 @@ export const App: React.FC = () => {
   const loadGoods = async () => {
     try {
       switch (clickedButton) {
-        case 'all':
+        case 'all-button':
           setGoods(await getAll());
 
           return;
 
-        case 'five':
+        case 'first-five-button':
           setGoods(await get5First());
 
           return;
 
-        case 'red':
+        case 'red-button':
           setGoods(await getRedGoods());
 
           return;
@@ -37,6 +37,13 @@ export const App: React.FC = () => {
     }
   };
 
+  const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (clickedButton !== event.currentTarget.id) {
+      setClickedButton(event.currentTarget.id);
+      loadGoods();
+    }
+  };
+
   useEffect(() => {
     loadGoods();
   }, [clickedButton]);
@@ -48,10 +55,8 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => {
-          setClickedButton('all');
-          loadGoods();
-        }}
+        id="all-button"
+        onClick={onButtonClick}
       >
         Load all goods
       </button>
@@ -59,10 +64,8 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => {
-          setClickedButton('five');
-          loadGoods();
-        }}
+        id="first-five-button"
+        onClick={onButtonClick}
       >
         Load 5 first goods
       </button>
@@ -70,10 +73,8 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => {
-          setClickedButton('red');
-          loadGoods();
-        }}
+        id="red-button"
+        onClick={onButtonClick}
       >
         Load red goods
       </button>
