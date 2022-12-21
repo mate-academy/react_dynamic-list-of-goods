@@ -33,9 +33,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => {
-          getAllGoods();
-        }}
+        onClick={getAllGoods}
       >
         Load all goods
       </button>
