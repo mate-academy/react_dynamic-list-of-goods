@@ -19,6 +19,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
+        className="button"
         onClick={() => handleSelectButton(getAll())}
       >
         Load all goods
@@ -27,6 +28,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
+        className="button"
         onClick={() => handleSelectButton(get5First())}
       >
         Load 5 first goods
@@ -35,6 +37,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
+        className="button"
         onClick={() => handleSelectButton(getRedGoods())}
       >
         Load red goods
