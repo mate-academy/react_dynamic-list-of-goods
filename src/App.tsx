@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import 'bulma/css/bulma.css';
 
 import {
   getAll,
@@ -30,33 +31,47 @@ export const App: React.FC = () => {
     setGoods(newGoods);
   };
 
+  const basicClassesForButton = 'button is-primary m-2';
+
   return (
-    <div className="App">
-      <h1>Dynamic list of Goods</h1>
+    <div className="
+        App
+        section
+        is-flex
+        is-flex-direction-column
+        is-align-items-center
+      "
+    >
+      <h1 className="title">Dynamic list of Goods</h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={handleGetAll}
-      >
-        Load all goods
-      </button>
+      <div>
+        <button
+          type="button"
+          data-cy="all-button"
+          onClick={handleGetAll}
+          className={`${basicClassesForButton}`}
+        >
+          Load all goods
+        </button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={handleGet5First}
-      >
-        Load 5 first goods
-      </button>
+        <button
+          type="button"
+          data-cy="first-five-button"
+          onClick={handleGet5First}
+          className={`${basicClassesForButton}`}
+        >
+          Load 5 first goods
+        </button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={handleGetRedGoods}
-      >
-        Load red goods
-      </button>
+        <button
+          type="button"
+          data-cy="red-button"
+          onClick={handleGetRedGoods}
+          className={`${basicClassesForButton} is-danger`}
+        >
+          Load red goods
+        </button>
+      </div>
 
       <GoodsList goods={goods} />
     </div>
