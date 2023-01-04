@@ -39,45 +39,6 @@ export const App: React.FC = () => {
     }
   };
 
-  // const loadGoods = async () => {
-  //   try {
-  //     switch (clickedButton) {
-  //       case 'all-button':
-  //         setGoods(await getAll());
-
-  //         return;
-
-  //       case 'first-five-button':
-  //         setGoods(await get5First());
-
-  //         return;
-
-  //       case 'red-button':
-  //         setGoods(await getRedGoods());
-
-  //         return;
-
-  //       default:
-  //         setGoods([]);
-
-  //         return;
-  //     }
-  //   } catch (error) {
-  //     setGoods([]);
-  //   }
-  // };
-
-  // const onButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   if (clickedButton !== event.currentTarget.id) {
-  //     setClickedButton(event.currentTarget.id);
-  //     loadGoods();
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   loadGoods();
-  // }, [clickedButton]);
-
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
