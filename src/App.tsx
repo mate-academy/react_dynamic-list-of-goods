@@ -9,9 +9,9 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const getGoods = (promise: Promise<Good[]>) => (
-    promise
-      .then(receivedGoods => setGoods(receivedGoods))
+  const getGoods = (loadedGoods: Promise<Good[]>) => (
+    loadedGoods
+      .then(setGoods)
   );
 
   return (
