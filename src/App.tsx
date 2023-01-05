@@ -4,22 +4,27 @@ import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
-type SortType = 'All' | 'FirstFive' | 'OnlyRed' | '';
+enum SortType {
+  All,
+  FirstFive,
+  OnlyRed,
+  NotSelected,
+}
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [sortType, setSortType] = useState<SortType>('');
+  const [sortType, setSortType] = useState<SortType>(SortType.NotSelected);
 
   const sortGoods = () => {
     switch (sortType) {
-      case 'All':
-        getAll().then(goodsFromServer => setGoods(goodsFromServer));
+      case SortType.All:
+        getAll().then(setGoods);
         break;
-      case 'FirstFive':
-        get5First().then(goodsFromServer => setGoods(goodsFromServer));
+      case SortType.FirstFive:
+        get5First().then(setGoods);
         break;
-      case 'OnlyRed':
-        getRedGoods().then(goodsFromServer => setGoods(goodsFromServer));
+      case SortType.OnlyRed:
+        getRedGoods().then(setGoods);
         break;
       default:
         setGoods([]);
@@ -37,7 +42,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setSortType('All')}
+        onClick={() => setSortType(SortType.All)}
       >
         Load all goods
       </button>
@@ -45,7 +50,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setSortType('FirstFive')}
+        onClick={() => setSortType(SortType.FirstFive)}
       >
         Load 5 first goods
       </button>
@@ -53,7 +58,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setSortType('OnlyRed')}
+        onClick={() => setSortType(SortType.OnlyRed)}
       >
         Load red goods
       </button>

@@ -2,22 +2,11 @@ import { Good } from '../types/Good';
 
 // eslint-disable-next-line
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
-// let allGoods: Promise<Good[]>;
 
 // Tests required me to send a new request for each click. So commented these out.
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
     .then(response => response.json());
-//  if (!allGoods) {
-  // return fetch(API_URL)
-  //   .then(response => {
-  //     allGoods = response.json();
-  //   })
-  //   .then(() => {
-  //     return allGoods;
-  //   });
-//  }
-//  return allGoods;
 }
 
 export const get5First = () => {
