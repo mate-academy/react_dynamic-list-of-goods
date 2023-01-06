@@ -6,8 +6,7 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRed } from './api/goods';
 
 export const App: React.FC = () => {
-  const initialGoods: Good[] = [];
-  const [goods, setGoods] = useState(initialGoods);
+  const [goods, setGoods] = useState<Good[]>([]);
 
   const loadHandler = () => {
     getAll().then(data => setGoods(data));
