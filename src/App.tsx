@@ -9,9 +9,9 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadGoods = async (callback: Promise<Good[]>) => {
+  const loadGoods = async (callback: () => Promise<Good[]>) => {
     try {
-      const loadedGoods = await callback;
+      const loadedGoods = await callback();
 
       setGoods(loadedGoods);
     } catch (error) {
@@ -26,7 +26,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => loadGoods(getAll())}
+        onClick={() => loadGoods(getAll)}
       >
         Load all goods
       </button>
@@ -34,7 +34,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => loadGoods(get5First())}
+        onClick={() => loadGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -42,7 +42,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => loadGoods(getRedGoods())}
+        onClick={() => loadGoods(getRedGoods)}
       >
         Load red goods
       </button>
