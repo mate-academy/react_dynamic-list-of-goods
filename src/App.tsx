@@ -21,9 +21,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          getAll().then(goods => {
-            setVisibleGoods(goods);
-          });
+          getAll().then(setVisibleGoods);
         }}
       >
         Load all goods
@@ -33,9 +31,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          get5First().then(goods => {
-            setVisibleGoods(goods);
-          });
+          get5First().then(setVisibleGoods);
         }}
       >
         Load 5 first goods
@@ -45,9 +41,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          getRedGoods().then(goods => {
-            setVisibleGoods(goods);
-          });
+          getRedGoods().then(setVisibleGoods);
         }}
       >
         Load red goods
