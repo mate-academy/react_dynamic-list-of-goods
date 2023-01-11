@@ -12,6 +12,7 @@ export const GoodsList: React.FC<Props> = memo(({ goods }) => {
         <li
           key={name}
           style={{ color }}
+          data-cy="good"
         >
           {name}
         </li>
