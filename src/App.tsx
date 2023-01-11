@@ -17,12 +17,17 @@ export const App: FC = () => {
   const [loaded, setLoaded] = useState(Load.None);
 
   const loadGoods = async (
-    goodsToLoad: () => Promise<Good[]>,
-    loadedId: Load,
+    loadId: Exclude<Load, Load.None>,
   ) => {
-    if (loadedId !== loaded) {
+    const goodsToLoad = {
+      [Load.All]: getAll,
+      [Load.First5]: get5First,
+      [Load.Red]: getRedGoods,
+    }[loadId];
+
+    if (loadId !== loaded) {
       setGoods(await goodsToLoad());
-      setLoaded(loadedId);
+      setLoaded(loadId);
     }
   };
 
@@ -33,7 +38,7 @@ export const App: FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => loadGoods(getAll, Load.All)}
+        onClick={() => loadGoods(Load.All)}
       >
         Load all goods
       </button>
@@ -41,7 +46,7 @@ export const App: FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => loadGoods(get5First, Load.First5)}
+        onClick={() => loadGoods(Load.First5)}
       >
         Load 5 first goods
       </button>
@@ -49,7 +54,7 @@ export const App: FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => loadGoods(getRedGoods, Load.Red)}
+        onClick={() => loadGoods(Load.Red)}
       >
         Load red goods
       </button>
