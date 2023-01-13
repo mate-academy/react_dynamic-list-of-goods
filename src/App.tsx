@@ -30,7 +30,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => handleAll()}
+        onClick={handleAll}
       >
         Load all goods
       </button>
@@ -38,7 +38,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => handleFive()}
+        onClick={handleFive}
       >
         Load 5 first goods
       </button>
@@ -46,7 +46,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => handleRed()}
+        onClick={handleRed}
       >
         Load red goods
       </button>
