@@ -1,27 +1,67 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+import { get5First, getAll, getRedGoods } from './api/goods';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleLoadClick = useCallback(
+    async (fetchGoodsFunc: () => Promise<Good[]>) => {
+      try {
+        setErrorMessage('');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+        const loadedGoods = await fetchGoodsFunc();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+        setGoods(loadedGoods);
+        setIsInitialized(true);
+      } catch (error) {
+        setGoods([]);
+        setErrorMessage(error.message);
+      }
+    },
+    [],
+  );
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="App">
+      <div className="App__content">
+        <h1>Dynamic list of Goods</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+        <button
+          type="button"
+          className="button"
+          data-cy="all-button"
+          onClick={() => handleLoadClick(getAll)}
+        >
+          Load all goods
+        </button>
+
+        <button
+          type="button"
+          data-cy="first-five-button"
+          onClick={() => handleLoadClick(get5First)}
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          type="button"
+          data-cy="red-button"
+          onClick={() => handleLoadClick(getRedGoods)}
+        >
+          Load red goods
+        </button>
+
+        {errorMessage && <p>{errorMessage}</p>}
+
+        {goods.length
+          ? <GoodsList goods={goods} />
+          : isInitialized && <p>There are no goods</p>}
+      </div>
+    </div>
+  );
+};
