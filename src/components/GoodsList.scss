@@ -1,0 +1,18 @@
+.GoodsList {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 50%;
+  // height: 100%;
+
+  text-align: center;
+
+
+  &__item {
+    border: 1px solid rgb(179, 179, 179);
+    border-radius: 5px;
+    font-size: 20px;
+    background-color: rgb(224, 222, 222);
+  }
+}

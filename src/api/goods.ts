@@ -1,10 +1,17 @@
 import { Good } from '../types/Good';
 
+function sleeper(ms:number) {
+  return (x: Response): Promise<Response> => {
+    return new Promise(resolve => setTimeout(() => resolve(x), ms));
+  };
+}
+
 // eslint-disable-next-line
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
+    .then(sleeper(500))
     .then(response => response.json());
 }
 

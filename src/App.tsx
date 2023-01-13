@@ -1,26 +1,39 @@
 import React, { useCallback, useState } from 'react';
+import 'bulma';
+import cn from 'classnames';
+
 import { get5First, getAll, getRedGoods } from './api/goods';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import { GoodsList } from './components/GoodsList';
 import { Good } from './types/Good';
+import { LoadType } from './types/LoadedType';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setisLoading] = useState(false);
+  const [loadedType, setLoadedType] = useState(LoadType.NONE);
 
   const handleLoadClick = useCallback(
-    async (fetchGoodsFunc: () => Promise<Good[]>) => {
-      try {
-        setErrorMessage('');
+    async (fetchGoodsFunc: () => Promise<Good[]>, loadType) => {
+      setIsInitialized(false);
+      setGoods([]);
+      setisLoading(true);
+      setErrorMessage('');
 
+      try {
         const loadedGoods = await fetchGoodsFunc();
 
         setGoods(loadedGoods);
         setIsInitialized(true);
+        setLoadedType(loadType);
       } catch (error) {
         setGoods([]);
+        setLoadedType(LoadType.NONE);
         setErrorMessage(error.message);
+      } finally {
+        setisLoading(false);
       }
     },
     [],
@@ -28,39 +41,64 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <div className="App__content">
-        <h1>Dynamic list of Goods</h1>
+      <div className="App__content box">
+        <h1 className="title">Dynamic list of Goods</h1>
 
-        <button
-          type="button"
-          className="button"
-          data-cy="all-button"
-          onClick={() => handleLoadClick(getAll)}
-        >
-          Load all goods
-        </button>
+        <div className="App__loadButtons">
+          <button
+            type="button"
+            className={cn(
+              'button',
+              'is-primary',
+              { 'is-outlined': loadedType !== LoadType.ALL },
+            )}
+            data-cy="all-button"
+            onClick={() => handleLoadClick(getAll, LoadType.ALL)}
+          >
+            Load all goods
+          </button>
+          <button
+            type="button"
+            className={cn(
+              'button',
+              'is-primary',
+              { 'is-outlined': loadedType !== LoadType.FIVE },
+            )}
+            data-cy="first-five-button"
+            onClick={() => handleLoadClick(get5First, LoadType.FIVE)}
+          >
+            Load 5 first goods
+          </button>
+          <button
+            type="button"
+            className={cn(
+              'button',
+              'is-primary',
+              { 'is-outlined': loadedType !== LoadType.RED },
+            )}
+            data-cy="red-button"
+            onClick={() => handleLoadClick(getRedGoods, LoadType.RED)}
+          >
+            Load red goods
+          </button>
+        </div>
 
-        <button
-          type="button"
-          data-cy="first-five-button"
-          onClick={() => handleLoadClick(get5First)}
-        >
-          Load 5 first goods
-        </button>
-
-        <button
-          type="button"
-          data-cy="red-button"
-          onClick={() => handleLoadClick(getRedGoods)}
-        >
-          Load red goods
-        </button>
-
-        {errorMessage && <p>{errorMessage}</p>}
+        {errorMessage && <p className="has-text-danger">{errorMessage}</p>}
 
         {goods.length
           ? <GoodsList goods={goods} />
-          : isInitialized && <p>There are no goods</p>}
+          : isInitialized && (
+            <p className="has-text-danger">There are no goods</p>
+          )}
+
+        {isLoading && (
+          <img
+          // eslint-disable-next-line max-len
+            src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
+            alt=""
+          />
+        )}
+
       </div>
     </div>
   );
