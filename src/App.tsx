@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
+import 'bulma';
 import { GoodsList } from './components/GoodsList/GoodsList';
 
 import { Good } from './types/Good';
@@ -16,9 +17,10 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
+      <h1 className="title is-3">Dynamic list of Goods</h1>
 
       <button
+        className="button is-info mr-3"
         type="button"
         data-cy="all-button"
         onClick={() => handleGoods(getAll())}
@@ -27,6 +29,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
+        className="button is-success mr-3"
         type="button"
         data-cy="first-five-button"
         onClick={() => handleGoods(get5First())}
@@ -35,6 +38,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
+        className="button is-danger"
         type="button"
         data-cy="red-button"
         onClick={() => handleGoods(getRedGoods())}
