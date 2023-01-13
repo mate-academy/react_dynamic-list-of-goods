@@ -4,17 +4,17 @@ body {
   text-align: center;
 }
 
-ul {
+.goods-list {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-li {
+.goods-item {
   margin: 0;
 }
 
-button {
+.button {
   padding: 10px;
   width: 150px;
   background-color: lightblue;

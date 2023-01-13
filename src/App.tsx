@@ -22,6 +22,7 @@ export const App: React.FC = () => {
       <h1>Dynamic list of Goods</h1>
 
       <button
+        className="button"
         type="button"
         data-cy="all-button"
         onClick={handleAllGoods}
@@ -30,6 +31,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
+        className="button"
         type="button"
         data-cy="first-five-button"
         onClick={handle5Goods}
@@ -38,6 +40,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
+        className="button"
         type="button"
         data-cy="red-button"
         onClick={handleRedGoods}
