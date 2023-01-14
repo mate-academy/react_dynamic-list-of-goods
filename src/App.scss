@@ -1,6 +1,4 @@
-body {
-  display: flex;
-  justify-content: center;
+.App {
   text-align: center;
 }
 
@@ -22,6 +20,8 @@ body {
 }
 
 .empty-data {
+  width: 250px;
+  margin: 0 auto;
   padding: 20px;
   background-color: lightcoral;
 }
