@@ -12,27 +12,45 @@ export const App: React.FC = () => {
   const handleClickGoods = async () => {
     getAll()
       .then((allGoods: Good[]) => {
-        setSelectedButton('all');
+        if (selectedButton !== 'all') {
+          setSelectedButton('all');
 
-        return setGoods(allGoods);
+          return setGoods(allGoods);
+        }
+
+        setSelectedButton('');
+
+        return setGoods([]);
       });
   };
 
   const handleClick5First = async () => {
     get5First()
       .then((first5Goods: Good[]) => {
-        setSelectedButton('five');
+        if (selectedButton !== 'five') {
+          setSelectedButton('five');
 
-        return setGoods(first5Goods);
+          return setGoods(first5Goods);
+        }
+
+        setSelectedButton('');
+
+        return setGoods([]);
       });
   };
 
   const handleClickRedGoods = async () => {
     getRedGoods()
       .then(redGoods => {
-        setSelectedButton('red');
+        if (selectedButton !== 'red') {
+          setSelectedButton('red');
 
-        return setGoods(redGoods);
+          return setGoods(redGoods);
+        }
+
+        setSelectedButton('');
+
+        return setGoods([]);
       });
   };
 
