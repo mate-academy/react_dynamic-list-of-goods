@@ -9,7 +9,7 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [selectedButton, setSelectedButton] = useState('');
 
-  const handleClickGoods = async () => {
+  const handleClickGoods = () => {
     getAll()
       .then((allGoods: Good[]) => {
         if (selectedButton !== 'all') {
@@ -24,7 +24,7 @@ export const App: React.FC = () => {
       });
   };
 
-  const handleClick5First = async () => {
+  const handleClick5First = () => {
     get5First()
       .then((first5Goods: Good[]) => {
         if (selectedButton !== 'five') {
@@ -39,7 +39,7 @@ export const App: React.FC = () => {
       });
   };
 
-  const handleClickRedGoods = async () => {
+  const handleClickRedGoods = () => {
     getRedGoods()
       .then(redGoods => {
         if (selectedButton !== 'red') {
