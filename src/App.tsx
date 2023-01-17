@@ -1,27 +1,54 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+import 'bulma/css/bulma.min.css';
+import { Button, Container, Heading } from 'react-bulma-components';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleTableRender = async (getGoods: Promise<Good[]>) => {
+    setGoods(await getGoods);
+  };
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
-
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
-
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
-
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <Container breakpoint="fullhd">
+        <Heading
+          size={1}
+          spaced
+          weight="light"
+        >
+          Dynamic list of Goods
+        </Heading>
+        <Button
+          color="success is-light"
+          renderAs="span"
+          data-cy="all-button"
+          onClick={() => handleTableRender(getAll())}
+        >
+          Load all goods
+        </Button>
+        <Button
+          color="info is-light"
+          renderAs="span"
+          data-cy="first-five-button"
+          onClick={() => handleTableRender(get5First())}
+        >
+          Load 5 first goods
+        </Button>
+        <Button
+          color="danger is-light"
+          renderAs="span"
+          data-cy="red-button"
+          onClick={() => handleTableRender(getRedGoods())}
+        >
+          Load red goods
+        </Button>
+        <GoodsList goods={goods} />
+      </Container>
+    </div>
+  );
+};
