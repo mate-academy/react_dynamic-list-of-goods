@@ -25,7 +25,8 @@ export const App: React.FC = () => {
     <div
       className="App is-flex
         is-justify-content-center
-        is-align-items-start"
+        is-align-items-start
+        has-background-grey-lighter"
     >
       <div className="wrapper">
         <h1
