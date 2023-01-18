@@ -16,7 +16,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="App box">
-      <h1>Dynamic list of Goods</h1>
+      <h1 className="title">Dynamic list of Goods</h1>
       <div className="buttons">
         <button
           type="button"
