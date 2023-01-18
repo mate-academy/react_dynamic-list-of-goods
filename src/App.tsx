@@ -14,8 +14,6 @@ export const App: React.FC = () => {
     promise
       .then((json) => {
         setGoods(json);
-
-        return json;
       })
       .catch((error) => {
         return error;
