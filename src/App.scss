@@ -1,1 +1,16 @@
-// styles go here
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: hsl(217, 71%, 53%);
+  height: 100vh;
+}
+
+.App {
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  top: 40px;
+  width: max-content;
+}
