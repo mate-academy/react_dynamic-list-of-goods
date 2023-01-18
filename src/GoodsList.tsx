@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Loader, List } from 'semantic-ui-react';
 import { Good } from './types/Good';
 
@@ -7,7 +7,7 @@ type Props = {
   loading: boolean;
 };
 
-export const GoodsList: React.FC<Props> = ({ goods, loading }) => (
+export const GoodsList: React.FC<Props> = memo(({ goods, loading }) => (
   <ul>
     {loading ? (
       <Loader active inline size="medium">
@@ -15,8 +15,8 @@ export const GoodsList: React.FC<Props> = ({ goods, loading }) => (
       </Loader>
     ) : (
       goods.map((good) => (
-        <List>
-          <List.Item ordered>
+        <List key={good.id}>
+          <List.Item>
             <li
               key={good.id}
               data-cy="good"
@@ -29,4 +29,4 @@ export const GoodsList: React.FC<Props> = ({ goods, loading }) => (
       ))
     )}
   </ul>
-);
+));

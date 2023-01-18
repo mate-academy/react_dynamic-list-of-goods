@@ -16,20 +16,19 @@ export const App: React.FC = () => {
 
   const handlerGetGoods = async (promise: Promise<Good[]>) => {
     try {
-      setLoading(true); // Set loading before sending API request
-      await promise.then((goods1) => {
-        setGoods(goods1);
-      });
+      setLoading(true);
+      const myGoods = await promise;
 
-      setLoading(false); // Stop loading
+      setGoods(myGoods);
+      setLoading(false);
     } catch (error) {
-      setLoading(false); // Stop loading in case of error
+      setLoading(false);
     }
   };
 
   return (
     <div className="App">
-      <Card content>
+      <Card>
         <Card.Content>
           <h1>Dynamic list of Goods</h1>
         </Card.Content>
