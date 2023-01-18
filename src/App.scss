@@ -1,1 +1,53 @@
-// styles go here
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.App {
+  font-family: Arial, Helvetica, sans-serif;
+
+  &__title {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    height: 150px;
+    width: 300px;
+    border-radius: 30%;
+    background-color: lightskyblue;
+    color: whitesmoke;
+  }
+
+  &__button {
+    cursor: pointer;
+    border: transparent;
+    border-radius: 4px;
+
+    height: 32px;
+    width: max-content;
+    margin-bottom: 8px;
+
+    color: whitesmoke;
+    font-weight: 600;
+
+    &--all {
+      background-color: #4681f4;
+    }
+
+    &--five {
+      background-color: #5783db;
+    }
+
+    &--red {
+      background-color: #55c2da;
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin: 0 auto;
+  padding: 0 24px;
+}
