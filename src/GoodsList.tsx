@@ -30,7 +30,3 @@ export const GoodsList: React.FC<Props> = ({ goods, loading }) => (
     )}
   </ul>
 );
-
-//  <li key={good.id} data-cy="good" style={{ color: `${good.color}` }}>
-// {good.name}
-// </li>
