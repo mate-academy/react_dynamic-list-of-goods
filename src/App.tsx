@@ -13,8 +13,8 @@ export const App: React.FC = () => {
   const handleClickAll = () => {
     getAll()
       .then((good: Good[]) => {
-        if (selectButton !== 'five') {
-          setSelectButton('five');
+        if (selectButton !== 'all') {
+          setSelectButton('all');
 
           return setGoods(good);
         }
