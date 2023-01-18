@@ -1,5 +1,4 @@
 import React from 'react';
-import cn from 'classnames';
 import { Good } from './types/Good';
 
 type Props = {
@@ -13,11 +12,7 @@ export const GoodsList: React.FC<Props> = React.memo(
         <li
           key={good.id}
           data-cy="good"
-          className={cn({
-            'has-text-primary': good.color === 'green',
-            'has-text-link': good.color === 'blue',
-            'has-text-danger': good.color === 'red',
-          })}
+          style={{ color: good.color }}
         >
           {good.name}
         </li>
