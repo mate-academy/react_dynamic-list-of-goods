@@ -1,16 +1,36 @@
 import React from 'react';
+import { Loader, List } from 'semantic-ui-react';
 import { Good } from './types/Good';
 
 type Props = {
-  goods: Good[]
+  goods: Good[];
+  loading: boolean;
 };
 
-export const GoodsList: React.FC<Props> = ({ goods }) => (
+export const GoodsList: React.FC<Props> = ({ goods, loading }) => (
   <ul>
-    {goods.map(good => (
-      <li key={good.id} data-cy="good" style={{ color: `${good.color}` }}>
-        {good.name}
-      </li>
-    ))}
+    {loading ? (
+      <Loader active inline size="medium">
+        Loading
+      </Loader>
+    ) : (
+      goods.map((good) => (
+        <List>
+          <List.Item ordered>
+            <li
+              key={good.id}
+              data-cy="good"
+              style={{ color: `${good.color}`, fontSize: '20px' }}
+            >
+              {good.name}
+            </li>
+          </List.Item>
+        </List>
+      ))
+    )}
   </ul>
 );
+
+//  <li key={good.id} data-cy="good" style={{ color: `${good.color}` }}>
+// {good.name}
+// </li>

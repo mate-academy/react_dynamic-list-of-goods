@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './App.scss';
+import { Button, Card } from 'semantic-ui-react';
+
 import { GoodsList } from './GoodsList';
+import 'semantic-ui-css/semantic.min.css';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
@@ -9,46 +12,66 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  const handlerGetGoods = (promise: Promise<Good[]>) => {
-    promise
-      .then((json) => {
-        setGoods(json);
-      })
-      .catch((error) => {
-        return error;
+  const handlerGetGoods = async (promise: Promise<Good[]>) => {
+    try {
+      setLoading(true); // Set loading before sending API request
+      await promise.then((goods1) => {
+        setGoods(goods1);
       });
+
+      setLoading(false); // Stop loading
+    } catch (error) {
+      setLoading(false); // Stop loading in case of error
+    }
   };
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
+      <Card content>
+        <Card.Content>
+          <h1>Dynamic list of Goods</h1>
+        </Card.Content>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={() => handlerGetGoods(getAll())}
-      >
-        Load all goods
-      </button>
+        <Card.Content extra textAlign="center">
+          <Button.Group vertical widths="3">
+            <Button
+              type="button"
+              data-cy="all-button"
+              color="green"
+              onClick={() => handlerGetGoods(getAll())}
+            >
+              Load all goods
+            </Button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={() => handlerGetGoods(get5First())}
-      >
-        Load 5 first goods
-      </button>
+            <Button
+              type="button"
+              data-cy="first-five-button"
+              color="teal"
+              onClick={() => handlerGetGoods(get5First())}
+            >
+              Load 5 first goods
+            </Button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={() => handlerGetGoods(getRedGoods())}
-      >
-        Load red goods
-      </button>
-
-      <GoodsList goods={goods} />
+            <Button
+              type="button"
+              data-cy="red-button"
+              color="red"
+              onClick={() => handlerGetGoods(getRedGoods())}
+            >
+              Load red goods
+            </Button>
+          </Button.Group>
+        </Card.Content>
+        <Card.Content>
+          {!goods.length ? (
+            <p style={{ textAlign: 'center' }}>please press the button</p>
+          ) : (
+            <GoodsList goods={goods} loading={loading} />
+          )}
+        </Card.Content>
+      </Card>
     </div>
   );
 };
