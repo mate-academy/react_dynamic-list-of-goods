@@ -14,6 +14,10 @@ export const App: React.FC = () => {
   //   setGoods(await callback);
   // };
 
+  const handleButtonClick = (func: Promise<Good[]>) => (
+    func.then(good => setGoods(good))
+  );
+
   return (
     <div className="App">
       <h1 className="title is-1">Dynamic list of Goods</h1>
@@ -22,7 +26,7 @@ export const App: React.FC = () => {
           type="button"
           className="button is-info is-rounded is-light"
           data-cy="all-button"
-          onClick={() => (getAll().then(good => setGoods(good)))}
+          onClick={() => handleButtonClick(getAll())}
         >
           Load all goods
         </button>
@@ -31,7 +35,7 @@ export const App: React.FC = () => {
           type="button"
           className="button is-link is-rounded is-light"
           data-cy="first-five-button"
-          onClick={() => (get5First().then(good => setGoods(good)))}
+          onClick={() => handleButtonClick(get5First())}
         >
           Load 5 first goods
         </button>
@@ -40,7 +44,7 @@ export const App: React.FC = () => {
           type="button"
           className="button is-danger is-rounded is-light"
           data-cy="red-button"
-          onClick={() => (getRedGoods().then(good => setGoods(good)))}
+          onClick={() => handleButtonClick(getRedGoods())}
         >
           Load red goods
         </button>
