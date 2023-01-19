@@ -8,18 +8,18 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [selectButton, setSelectButton] = useState('');
+  const [selectedButton, setSelectedButton] = useState('');
 
   const handleClickAll = () => {
     getAll()
-      .then((good: Good[]) => {
-        if (selectButton !== 'all') {
-          setSelectButton('all');
+      .then((loadedGoods: Good[]) => {
+        if (selectedButton !== 'all') {
+          setSelectedButton('all');
 
-          return setGoods(good);
+          return setGoods(loadedGoods);
         }
 
-        setSelectButton('');
+        setSelectedButton('');
 
         return setGoods([]);
       });
@@ -27,14 +27,14 @@ export const App: React.FC = () => {
 
   const handleClick5First = () => {
     get5First()
-      .then((good: Good[]) => {
-        if (selectButton !== 'five') {
-          setSelectButton('five');
+      .then((loadedGoods: Good[]) => {
+        if (selectedButton !== 'five') {
+          setSelectedButton('five');
 
-          return setGoods(good);
+          return setGoods(loadedGoods);
         }
 
-        setSelectButton('');
+        setSelectedButton('');
 
         return setGoods([]);
       });
@@ -42,14 +42,14 @@ export const App: React.FC = () => {
 
   const handleClickRedGoods = () => {
     getRedGoods()
-      .then(good => {
-        if (selectButton !== 'red') {
-          setSelectButton('red');
+      .then(loadedGoods => {
+        if (selectedButton !== 'red') {
+          setSelectedButton('red');
 
-          return setGoods(good);
+          return setGoods(loadedGoods);
         }
 
-        setSelectButton('');
+        setSelectedButton('');
 
         return setGoods([]);
       });
