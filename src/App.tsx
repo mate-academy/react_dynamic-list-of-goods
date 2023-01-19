@@ -20,8 +20,7 @@ export const App: React.FC = () => {
       const myGoods = await promise;
 
       setGoods(myGoods);
-      setLoading(false);
-    } catch (error) {
+    } finally {
       setLoading(false);
     }
   };
