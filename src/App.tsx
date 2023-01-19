@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
+import { Button, ButtonGroup, Typography } from '@mui/material';
 import { GoodsList } from './GoodsList';
 import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
@@ -14,31 +15,54 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={() => handleClickForRequest(getAll())}
-      >
-        Load all goods
-      </button>
+      <div className="App__container">
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={() => handleClickForRequest(get5First())}
-      >
-        Load 5 first goods
-      </button>
+        <Typography
+          className="App__title"
+          variant="h2"
+          gutterBottom
+        >
+          Dynamic list of Goods
+        </Typography>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={() => handleClickForRequest(getRedGoods())}
-      >
-        Load red goods
-      </button>
+        <ButtonGroup
+          className="App__buttonGroup"
+          variant="contained"
+          aria-label="outlined primary button group"
+        >
+          <Button
+            variant="outlined"
+            size="medium"
+            type="button"
+            data-cy="all-button"
+            onClick={() => handleClickForRequest(getAll())}
+          >
+            Load all goods
+          </Button>
+
+          <Button
+            variant="outlined"
+            size="medium"
+            type="button"
+            data-cy="first-five-button"
+            onClick={() => handleClickForRequest(get5First())}
+          >
+            Load 5 first goods
+          </Button>
+
+          <Button
+            variant="outlined"
+            size="medium"
+            type="button"
+            data-cy="red-button"
+            onClick={() => handleClickForRequest(getRedGoods())}
+          >
+            Load red goods
+          </Button>
+
+        </ButtonGroup>
+      </div>
 
       <GoodsList goods={currentRequest} />
     </div>
