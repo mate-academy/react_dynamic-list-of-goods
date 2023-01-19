@@ -1,1 +1,13 @@
-// styles go here
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+.button {
+  margin-right: 10px;
+}
