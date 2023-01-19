@@ -1,4 +1,5 @@
 import React from 'react';
+import { Typography } from '@mui/material';
 import { Good } from './types/Good';
 
 type Props = {
@@ -13,7 +14,9 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
         data-cy="good"
         style={{ color: good.color }}
       >
-        {good.name}
+        <Typography variant="subtitle2">
+          {good.name}
+        </Typography>
       </li>
     ))}
   </ul>
