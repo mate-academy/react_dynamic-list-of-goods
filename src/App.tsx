@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
+import { Button } from '@mui/material';
 import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRed } from './api/goods';
@@ -8,7 +9,7 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadGoods = (listOfGoods: Promise<Good[]>) => (
+  const handleClickLoadGoods = (listOfGoods: Promise<Good[]>) => (
     listOfGoods
       .then(setGoods)
   );
@@ -17,29 +18,37 @@ export const App: React.FC = () => {
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={() => loadGoods(getAll())}
-      >
-        Load all goods
-      </button>
+      <div className="Buttons">
+        <Button
+          variant="contained"
+          color="success"
+          type="button"
+          data-cy="all-button"
+          onClick={() => handleClickLoadGoods(getAll())}
+        >
+          Load all goods
+        </Button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={() => loadGoods(get5First())}
-      >
-        Load 5 first goods
-      </button>
+        <Button
+          variant="contained"
+          color="success"
+          type="button"
+          data-cy="first-five-button"
+          onClick={() => handleClickLoadGoods(get5First())}
+        >
+          Load 5 first goods
+        </Button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={() => loadGoods(getRed())}
-      >
-        Load red goods
-      </button>
+        <Button
+          variant="contained"
+          color="success"
+          type="button"
+          data-cy="red-button"
+          onClick={() => handleClickLoadGoods(getRed())}
+        >
+          Load red goods
+        </Button>
+      </div>
 
       <GoodsList goods={goods} />
     </div>
