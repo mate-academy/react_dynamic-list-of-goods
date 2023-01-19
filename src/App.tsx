@@ -4,8 +4,6 @@ import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
-// import * as goodsAPI from './api/goods';
-
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
@@ -26,31 +24,38 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
+      <div className="App--header">
+        <h1>Dynamic list of Goods</h1>
+      </div>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={handleClickAll}
-      >
-        Load all goods
-      </button>
+      <div className="button-container">
+        <button
+          className="button-container button"
+          type="button"
+          data-cy="all-button"
+          onClick={handleClickAll}
+        >
+          Load all goods
+        </button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={handleClick5First}
-      >
-        Load 5 first goods
-      </button>
+        <button
+          className="button-container button"
+          type="button"
+          data-cy="first-five-button"
+          onClick={handleClick5First}
+        >
+          Load 5 first goods
+        </button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={handleClickRed}
-      >
-        Load red goods
-      </button>
+        <button
+          className="button-container button"
+          type="button"
+          data-cy="red-button"
+          onClick={handleClickRed}
+        >
+          Load red goods
+        </button>
+      </div>
 
       <GoodsList goods={goods} />
     </div>
