@@ -11,9 +11,14 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleButtonClick = async (callback: Promise<Good[]>) => {
-    setGoods(await callback);
+  const handleButtonClick = (callback: Promise<Good[]>) => {
+    callback.then(good => setGoods(good));
   };
+
+  // 'Saw this method when did studen review'
+  // const handleButtonClick = async (callback: Promise<Good[]>) => {
+  //   setGoods(await callback);
+  // };
 
   return (
     <div className="App">
