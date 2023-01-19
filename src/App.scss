@@ -1,1 +1,51 @@
-// styles go here
+:root {
+  font-family: Arial, sans-serif;
+}
+
+.Goods {
+
+  &__Btn {
+    padding: 15px 10px;
+    background: #eee;
+    border: none;
+    border-radius: 5px;
+
+    text-transform: uppercase;
+
+    transition: background-color 0.5s;
+
+    &:hover {
+      background-color: #aaa;
+    }
+  }
+}
+
+.Good {
+  padding: 0;
+  list-style: none;
+
+  &__Item {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    height: 30px;
+    width: 100px;
+
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 1px;
+      width: 100%;
+      background-color: #222;
+    }
+
+    @each $color in red, green, blue {
+      &--#{$color} {
+        color: $color;
+      }
+    }
+  }
+}
