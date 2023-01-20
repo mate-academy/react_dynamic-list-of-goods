@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+import List from '@mui/material/List';
 import { Good } from './types/Good';
 
 type Props = {
@@ -8,13 +9,13 @@ type Props = {
 export const GoodsList: React.FC<Props> = memo(({ goods }) => (
   <ul>
     {goods.map(good => (
-      <li
+      <List
         key={good.id}
         data-cy="good"
         style={{ color: good.color }}
       >
         {good.name}
-      </li>
+      </List>
     ))}
   </ul>
 ));
