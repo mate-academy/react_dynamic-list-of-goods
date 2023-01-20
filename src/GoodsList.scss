@@ -1,11 +1,26 @@
+.list {
+  padding: 0;
+  width: 100%;
+  list-style: none;
+}
+
 .red {
+  margin-bottom: 5px;
+  padding: 5px;
+
+  font-size: 24px;
   color: rgb(255, 0, 0);
+
+  border: 2px solid #1976d5;
+  border-radius: 5px;
 }
 
 .green {
+  @extend .red;
   color: rgb(0, 128, 0);
 }
 
 .blue {
+  @extend .red;
   color: rgb(0, 0, 255);
 }
