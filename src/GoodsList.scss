@@ -1,0 +1,10 @@
+.list {
+  display: flex;
+  margin: auto;
+
+  &--item {
+    flex-direction: column;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+}

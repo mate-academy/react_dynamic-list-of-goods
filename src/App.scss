@@ -1,1 +1,31 @@
-// styles go here
+li {
+  list-style: none;
+}
+
+html {
+  height: 100vh;
+  width: 100%;
+
+  background-image: url(./images/back.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+
+  &--header {
+    margin: auto;
+  }
+}
+
+.button-container {
+  display: flex;
+  margin: auto;
+}
+
+.button {
+  flex-direction: row;
+}
