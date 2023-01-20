@@ -5,30 +5,27 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import 'bulma/css/bulma.css';
 
-
-// стейт - на кожен клік міняємо дані з сервера - передаємо їх як пропси
-
-
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleClickAll = () => {
-    getAll().then((data) => setGoods(data))
-  }
+    getAll().then(setGoods);
+  };
 
   const handleClickMax5 = () => {
-    get5First().then((data) => setGoods(data))
-  }
+    get5First().then(setGoods);
+  };
+
   const handleClickAllRed = () => {
-    getRedGoods().then((data) => setGoods(data))
-  }
+    getRedGoods().then(setGoods);
+  };
 
   return (
-    < div className="App" >
-      <h1 className='title'>Dynamic list of Goods</h1>
+    <div className="App">
+      <h1 className="title">Dynamic list of Goods</h1>
 
       <button
-        className='button margin is-info'
+        className="button margin is-info"
         type="button"
         data-cy="all-button"
         onClick={handleClickAll}
@@ -40,13 +37,13 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={handleClickMax5}
-        className='button margin is-info'
+        className="button margin is-info"
       >
         Load 5 first goods
       </button>
 
       <button
-        className='button margin is-info'
+        className="button margin is-info"
         type="button"
         data-cy="red-button"
         onClick={handleClickAllRed}
@@ -55,6 +52,6 @@ export const App: React.FC = () => {
       </button>
 
       <GoodsList goods={goods} />
-    </div >
-  )
-}
+    </div>
+  );
+};
