@@ -1,0 +1,18 @@
+.GoodsList {
+  list-style: none;
+
+  &__good {
+    width: max-content;
+    padding: 4px;
+    border-radius: 8px;
+
+    font-size: 20px;
+    font-weight: 600;
+
+    background-color: #ffc93c;
+  }
+
+  :not(:last-child) {
+    margin-bottom: 4px;
+  }
+}
