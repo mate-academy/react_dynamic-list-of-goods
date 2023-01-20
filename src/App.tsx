@@ -8,8 +8,8 @@ import { GoodsList } from './GoodsList';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const displayGoods = async (promise: Promise<Good[]>) => {
-    setGoods(await promise);
+  const loadGoods = async (loadedGoods: Promise<Good[]>) => {
+    setGoods(await loadedGoods);
   };
 
   return (
@@ -22,7 +22,7 @@ export const App: React.FC = () => {
         className="button"
         type="button"
         data-cy="all-button"
-        onClick={() => displayGoods(getAll())}
+        onClick={() => loadGoods(getAll())}
       >
         Load all goods
       </Button>
@@ -33,7 +33,7 @@ export const App: React.FC = () => {
         className="button"
         type="button"
         data-cy="first-five-button"
-        onClick={() => displayGoods(get5First())}
+        onClick={() => loadGoods(get5First())}
       >
         Load 5 first goods
       </Button>
@@ -44,7 +44,7 @@ export const App: React.FC = () => {
         className="button"
         type="button"
         data-cy="red-button"
-        onClick={() => displayGoods(getRedGoods())}
+        onClick={() => loadGoods(getRedGoods())}
       >
         Load red goods
       </Button>
