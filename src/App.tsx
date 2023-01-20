@@ -9,19 +9,8 @@ import { getAll, get5First, getRed } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleShowAllGoods = () => {
-    getAll()
-      .then(setGoods);
-  };
-
-  const handleShow5First = () => {
-    get5First()
-      .then(setGoods);
-  };
-
-  const handleShowRedOnes = () => {
-    getRed()
-      .then(setGoods);
+  const handleClick = (callback: () => Promise<Good[]>) => {
+    callback().then(good => setGoods(good));
   };
 
   return (
@@ -32,7 +21,7 @@ export const App: React.FC = () => {
         type="button"
         className="button is-primary is-outlined btn-class"
         data-cy="all-button"
-        onClick={handleShowAllGoods}
+        onClick={() => handleClick(getAll)}
       >
         Load all goods
       </button>
@@ -41,7 +30,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         className="button is-link is-outlined btn-class"
-        onClick={handleShow5First}
+        onClick={() => handleClick(get5First)}
       >
         Load 5 first goods
       </button>
@@ -50,7 +39,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         className="button is-danger is-outlined btn-class"
-        onClick={handleShowRedOnes}
+        onClick={() => handleClick(getRed)}
       >
         Load red goods
       </button>
