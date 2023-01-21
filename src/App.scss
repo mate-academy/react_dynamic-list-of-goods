@@ -1,1 +1,24 @@
-// styles go here
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  background-color: peachpuff;
+}
+
+.App {
+  position: relative;
+  display: block;
+  margin: 0 auto;
+  padding: 20px;
+  top: 30px;
+  width: max-content;
+  min-height: max-content;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.title {
+  text-align: center;
+}
