@@ -1,1 +1,60 @@
-// styles go here
+body {
+  background-color: #fff;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  margin-bottom: 70px;
+
+  font-size: 24px;
+  letter-spacing: 5px;
+
+}
+.App {
+  padding: 30px;
+}
+
+button {
+  height: 40px;
+  width: 200px;
+  margin-bottom: 40px;
+
+  color: rgb(232, 22, 232);
+  background-color: #fff;
+
+  font-size: 13px;
+  font-weight: 800;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 2px;
+
+  border: 1px solid  rgb(12, 12, 12);
+  border-radius: 5px;
+  cursor: pointer;
+
+  transition: background-color, color, 0.5s;
+
+  &:hover {
+    background-color: rgb(232, 22, 232);
+    color: #fff;
+  }
+}
+
+.buttonWraper {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+}
+
+.goodsList {
+  list-style: none;
+  text-align: center;
+  font-size: 22px;
+  letter-spacing: 2px;
+}
