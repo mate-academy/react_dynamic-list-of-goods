@@ -17,6 +17,7 @@ export const App: React.FC = () => {
     <div className="App">
       <h1>DYNAMIC LIST OF GOODS</h1>
       <div className="buttonWraper">
+
         <button
           type="button"
           data-cy="all-button"
