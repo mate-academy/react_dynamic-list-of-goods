@@ -1,1 +1,30 @@
-// styles go here
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  box-sizing: border-box;
+  margin: auto;
+  border: 5px solid black;
+  background-color: bisque;
+
+  &__title {
+    font-size: 50px;
+    margin-bottom: 30px;
+  }
+
+  &__container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  &__button {
+    height: 50px;
+    width: 100px;
+    border: 2px solid black;
+    border-radius: 10px;
+    font-weight: bold;
+    background-color: white;
+  }
+}
