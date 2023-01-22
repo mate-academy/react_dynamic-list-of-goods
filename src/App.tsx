@@ -1,27 +1,82 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import type { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export enum PreferedGoods {
+  All = 'all',
+  FirstFive = 'firstFive',
+  Red = 'red',
+}
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [showPreferedGoods, setShowPreferedGoods] = useState(PreferedGoods.All);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const [, setHasError] = useState(false);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const loadGoods = async (func: typeof getAll) => {
+    try {
+      const goodsFromServer = await func();
+
+      setGoods(goodsFromServer);
+    } catch (error) {
+      setHasError(true);
+    }
+  };
+
+  useEffect(() => {
+    switch (showPreferedGoods) {
+      case PreferedGoods.All:
+        loadGoods(getAll);
+        break;
+
+      case PreferedGoods.FirstFive:
+        loadGoods(get5First);
+        break;
+
+      case PreferedGoods.Red:
+        loadGoods(getRedGoods);
+        break;
+
+      default:
+        loadGoods(getAll);
+        break;
+    }
+  }, [showPreferedGoods]);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setShowPreferedGoods(PreferedGoods.All)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setShowPreferedGoods(PreferedGoods.FirstFive)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setShowPreferedGoods(PreferedGoods.Red)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
