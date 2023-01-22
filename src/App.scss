@@ -1,1 +1,57 @@
-// styles go here
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.App {
+  height: 100vh;
+  width: 100%;
+
+  padding: 40px 0 0 30px;
+
+  background-image: url(./img/bc.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  font-family: sans-serif;
+}
+
+.header {
+  color: #880200;
+}
+
+.button {
+  margin: 20px 20px 0 0;
+  padding: 10px;
+
+  color: #8a0402;
+  font-weight: 700;
+
+  background-color: #dfc7ad;
+  border-color: transparent;
+  border-radius: 20px;
+
+  box-shadow: 2px 5px #322c274e;
+
+  cursor: pointer;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.list {
+  margin: 20px 0 0 20px;
+
+  &__item {
+    margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 18px;
+  }
+}
