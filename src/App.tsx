@@ -8,20 +8,9 @@ import * as goodsAPI from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleClickLoadAll = () => {
-    goodsAPI.getAll()
-      .then(allGoods => setGoods(allGoods));
-  };
-
-  const handleClickLoad5First = () => {
-    goodsAPI.get5First()
-      .then(first5Goods => setGoods(first5Goods));
-  };
-
-  const handleClickLoadRed = () => {
-    goodsAPI.getRedGoods()
-      .then(redGoods => setGoods(redGoods));
-  };
+  const getGoods = (goodsFromServer: Promise<Good[]>) => (
+    goodsFromServer.then(setGoods)
+  );
 
   return (
     <div className="App">
@@ -30,7 +19,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={handleClickLoadAll}
+        onClick={() => getGoods(goodsAPI.getAll())}
       >
         Load all goods
       </button>
@@ -38,7 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handleClickLoad5First}
+        onClick={() => getGoods(goodsAPI.get5First())}
       >
         Load 5 first goods
       </button>
@@ -46,7 +35,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={handleClickLoadRed}
+        onClick={() => getGoods(goodsAPI.getRedGoods())}
       >
         Load red goods
       </button>
