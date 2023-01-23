@@ -1,27 +1,99 @@
-import React from 'react';
+import 'bulma/css/bulma.css';
+import React, { useState } from 'react';
+import { get5First, getAll, getRedGoods } from './api/goods';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [selectedButton, setSelectedButton] = useState('');
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleClickGoods = () => {
+    getAll()
+      .then((allGoods: Good[]) => {
+        if (selectedButton !== 'all') {
+          setSelectedButton('all');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+          return setGoods(allGoods);
+        }
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+        setSelectedButton('');
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+        return setGoods([]);
+      });
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const handleClick5First = () => {
+    get5First()
+      .then((first5Goods: Good[]) => {
+        if (selectedButton !== 'five') {
+          setSelectedButton('five');
+
+          return setGoods(first5Goods);
+        }
+
+        setSelectedButton('');
+
+        return setGoods([]);
+      });
+  };
+
+  const handleClickRedGoods = () => {
+    getRedGoods()
+      .then(redGoods => {
+        if (selectedButton !== 'red') {
+          setSelectedButton('red');
+
+          return setGoods(redGoods);
+        }
+
+        setSelectedButton('');
+
+        return setGoods([]);
+      });
+  };
+
+  return (
+    <div className="columns">
+      <div className="column"></div>
+      <div
+        className="App box"
+      >
+        <h1 className="title">
+          Dynamic list of Goods
+        </h1>
+
+        <button
+          className={`button ${selectedButton === 'all' && 'is-primary'}`}
+          type="button"
+          data-cy="all-button"
+          onClick={handleClickGoods}
+        >
+          Load all goods
+        </button>
+
+        <button
+          className={`button ${selectedButton === 'five' && 'is-primary'}`}
+          type="button"
+          data-cy="first-five-button"
+          onClick={handleClick5First}
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          className={`button ${selectedButton === 'red' && 'is-primary'}`}
+          type="button"
+          data-cy="red-button"
+          onClick={handleClickRedGoods}
+        >
+          Load red goods
+        </button>
+
+        <GoodsList goods={goods} />
+      </div>
+      <div className="column"></div>
+    </div>
+  );
+};
