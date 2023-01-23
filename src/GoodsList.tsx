@@ -6,17 +6,19 @@ type Props = {
   goods: Good[]
 };
 
-export const GoodsList: React.FC<Props> = ({ goods }) => (
-  <ul>
-    {goods.map(good => (
-      <ListItem disablePadding key={good.id}>
-        <ListItemButton
-          data-cy="good"
-          style={{ color: `${good.color}` }}
-        >
-          <ListItemText primary={good.name} />
-        </ListItemButton>
-      </ListItem>
-    ))}
-  </ul>
+export const GoodsList: React.FC<Props> = React.memo(
+  ({ goods }) => (
+    <ul>
+      {goods.map(good => (
+        <ListItem disablePadding key={good.id}>
+          <ListItemButton
+            data-cy="good"
+            style={{ color: `${good.color}` }}
+          >
+            <ListItemText primary={good.name} />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </ul>
+  ),
 );
