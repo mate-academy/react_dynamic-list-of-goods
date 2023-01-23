@@ -10,7 +10,10 @@ export const App: React.FC = () => {
 
   const handleLoad = (loadedGoods: Promise<Good[]>) => {
     loadedGoods
-      .then(data => setGoods(data));
+      .then(data => setGoods(data))
+      .catch(error => {
+        window.console.log('Error: ', error);
+      });
   };
 
   return (
