@@ -1,0 +1,14 @@
+.list {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(#414856, 0.05);
+
+  &__item {
+    padding: 10px;
+    font-size: larger;
+
+    &:hover {
+      background-color: #fafafa;
+    }
+  }
+}

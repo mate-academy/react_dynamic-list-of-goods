@@ -1,1 +1,33 @@
-// styles go here
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+
+  background: #e8ebf3;
+
+  font: 400 16px "Varela Round", sans-serif;
+}
+
+.button {
+  height: 44px;
+  padding: 0 25px;
+
+  background-color: #405cf5;
+  border-radius: 6px;
+
+  color: #fff;
+  line-height: 1.15;
+  text-align: center;
+
+  cursor: pointer;
+  transition: all 500ms linear;
+  outline: none;
+
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+
+  &:hover {
+    background-color: rgb(39, 8, 192);
+  }
+}
