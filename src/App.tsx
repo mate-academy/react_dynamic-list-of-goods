@@ -8,6 +8,10 @@ import 'bulma';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
+  const showGoods = (visibleGoods: Promise<Good[]>) => {
+    visibleGoods.then(setGoods);
+  };
+
   return (
     <div className="App panel">
       <h1 className="block panel-heading">Dynamic list of Goods</h1>
@@ -17,7 +21,7 @@ export const App: React.FC = () => {
           className="button is-light"
           type="button"
           data-cy="all-button"
-          onClick={() => getAll().then(data => setGoods(data))}
+          onClick={() => showGoods(getAll())}
         >
           Load all goods
         </button>
@@ -26,7 +30,7 @@ export const App: React.FC = () => {
           className="button is-light"
           type="button"
           data-cy="first-five-button"
-          onClick={() => get5First().then(data => setGoods(data))}
+          onClick={() => showGoods(get5First())}
         >
           Load 5 first goods
         </button>
@@ -35,9 +39,7 @@ export const App: React.FC = () => {
           className="button is-light"
           type="button"
           data-cy="red-button"
-          onClick={() => {
-            getRedGoods().then(data => setGoods(data));
-          }}
+          onClick={() => showGoods(getRedGoods())}
         >
           Load red goods
         </button>
