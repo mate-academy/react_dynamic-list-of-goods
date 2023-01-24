@@ -10,8 +10,8 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleClick = async (getGoodsFunc: Promise<Good[]>) => (
-    setGoods(await getGoodsFunc));
+  const handleClick = async (loadedGoods: Promise<Good[]>) => (
+    setGoods(await loadedGoods));
 
   return (
     <Box
