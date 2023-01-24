@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
+import { Button, ButtonGroup, Paper } from '@mui/material';
 import './App.scss';
 import { GoodsList } from './components/GoodsList/GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
@@ -15,34 +14,73 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="App">
-      <h1>Dynamic list of Goods</h1>
+    <Paper
+      variant="outlined"
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+        verticalAlign: 'middle',
+        // boxShadow: "4px 4px 4px rgba(0, 0, 0, 0.25)",
+        // borderRadius: "25px",
+      }}
+    >
+      <div className="App">
+        <h1>Dynamic list of Goods</h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={() => handleLoadButtonClick(getAll())}
-      >
-        Load all goods
-      </button>
+        <ButtonGroup variant="text" aria-label="text button group">
+          <Button
+            type="button"
+            data-cy="all-button"
+            onClick={() => handleLoadButtonClick(getAll())}
+          >
+            Load all goods
+          </Button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={() => handleLoadButtonClick(get5First())}
-      >
-        Load 5 first goods
-      </button>
+          <Button
+            type="button"
+            data-cy="first-five-button"
+            onClick={() => handleLoadButtonClick(get5First())}
+          >
+            Load 5 first goods
+          </Button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={() => handleLoadButtonClick(getRedGoods())}
-      >
-        Load red goods
-      </button>
+          <Button
+            type="button"
+            data-cy="red-button"
+            onClick={() => handleLoadButtonClick(getRedGoods())}
+          >
+            Load red goods
+          </Button>
+        </ButtonGroup>
 
-      <GoodsList goods={visibleGoods} />
-    </div>
+        {/* <button
+          type="button"
+          data-cy="all-button"
+          onClick={() => handleLoadButtonClick(getAll())}
+        >
+          Load all goods
+        </button> */}
+
+        {/* <button
+          type="button"
+          data-cy="first-five-button"
+          onClick={() => handleLoadButtonClick(get5First())}
+        >
+          Load 5 first goods
+        </button> */}
+
+        {/* <button
+          type="button"
+          data-cy="red-button"
+          onClick={() => handleLoadButtonClick(getRedGoods())}
+        >
+          Load red goods
+        </button> */}
+
+        <GoodsList goods={visibleGoods} />
+      </div>
+    </Paper>
   );
 };
