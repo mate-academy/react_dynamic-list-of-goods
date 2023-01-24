@@ -1,1 +1,26 @@
-// styles go here
+body {
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}
+
+li {
+  list-style: none;
+}
+
+h1 {
+  text-align: center;
+}
+
+button {
+
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
+
+.box {
+  padding-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
