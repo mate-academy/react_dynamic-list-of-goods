@@ -9,8 +9,16 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-  const handleLoadButtonClick = async (callback: Promise<Good[]>) => {
-    setVisibleGoods(await callback);
+  const handleLoadButtonClick = async (getListCallback: Promise<Good[]>) => {
+    try {
+      setVisibleGoods(await getListCallback);
+    } catch {
+      setVisibleGoods([{
+        id: 1,
+        name: 'Something went wrong',
+        color: 'red',
+      }]);
+    }
   };
 
   return (
@@ -22,8 +30,6 @@ export const App: React.FC = () => {
         alignItems: 'center',
         textAlign: 'center',
         verticalAlign: 'middle',
-        // boxShadow: "4px 4px 4px rgba(0, 0, 0, 0.25)",
-        // borderRadius: "25px",
       }}
     >
       <div className="App">
@@ -54,30 +60,6 @@ export const App: React.FC = () => {
             Load red goods
           </Button>
         </ButtonGroup>
-
-        {/* <button
-          type="button"
-          data-cy="all-button"
-          onClick={() => handleLoadButtonClick(getAll())}
-        >
-          Load all goods
-        </button> */}
-
-        {/* <button
-          type="button"
-          data-cy="first-five-button"
-          onClick={() => handleLoadButtonClick(get5First())}
-        >
-          Load 5 first goods
-        </button> */}
-
-        {/* <button
-          type="button"
-          data-cy="red-button"
-          onClick={() => handleLoadButtonClick(getRedGoods())}
-        >
-          Load red goods
-        </button> */}
 
         <GoodsList goods={visibleGoods} />
       </div>
