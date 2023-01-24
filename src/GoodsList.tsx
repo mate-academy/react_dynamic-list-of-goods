@@ -6,7 +6,7 @@ type Props = {
 };
 
 export const GoodsList: React.FC<Props> = React.memo(({ goods }) => (
-  <ul>
+  <ul className="box has-text-centered">
     {goods.map(good => (
       <li key={good.id} data-cy="good" style={{ color: `${good.color}` }}>
         {good.name}
