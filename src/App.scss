@@ -1,1 +1,11 @@
-// styles go here
+.App__title {
+  margin-bottom: 20px;
+  padding: 15px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.App__button {
+  display: flex;
+  justify-content: space-around;
+}
