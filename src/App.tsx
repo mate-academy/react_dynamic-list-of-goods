@@ -7,8 +7,8 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-  const handleButtonSubmit = async (callback: Promise<Good[]>) => {
-    setVisibleGoods(await callback);
+  const handleButtonSubmit = async (loadedGoods: Promise<Good[]>) => {
+    setVisibleGoods(await loadedGoods);
   };
 
   return (
