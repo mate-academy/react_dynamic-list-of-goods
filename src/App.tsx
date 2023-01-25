@@ -1,11 +1,41 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-import { getAll, get5First, getRed } from './api/goods';
+import { get5First, getAll, getRed } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+
+  const handleGetAllGoods = async () => {
+    try {
+      const allGoods = await getAll();
+
+      setGoods(allGoods);
+    } catch {
+      throw new Error('Data load failed');
+    }
+  };
+
+  const handleFirstFive = async () => {
+    try {
+      const getFirst5 = await get5First();
+
+      setGoods(getFirst5);
+    } catch {
+      throw new Error('Data load failed');
+    }
+  };
+
+  const handleAllRed = async () => {
+    try {
+      const getAllRed = await getRed();
+
+      setGoods(getAllRed);
+    } catch {
+      throw new Error('Data load failed');
+    }
+  };
 
   return (
     <div className="App">
@@ -14,11 +44,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={async () => {
-          const allGoods = await getAll();
-
-          setGoods(allGoods);
-        }}
+        onClick={handleGetAllGoods}
       >
         Load all goods
       </button>
@@ -26,11 +52,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={async () => {
-          const getFirst5 = await get5First();
-
-          setGoods(getFirst5);
-        }}
+        onClick={handleFirstFive}
       >
         Load 5 first goods
       </button>
@@ -38,11 +60,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={async () => {
-          const getAllRed = await getRed();
-
-          setGoods(getAllRed);
-        }}
+        onClick={handleAllRed}
       >
         Load red goods
       </button>
