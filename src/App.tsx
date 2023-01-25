@@ -7,10 +7,10 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const getGoods = (func: Promise<Good[]>) => {
-    func.then(result => {
-      setGoods(result);
-    });
+  const getGoods = (loadedGoods: Promise<Good[]>) => {
+    loadedGoods
+      .then(result => setGoods(result))
+      .catch(error => window.console.log(error));
   };
 
   return (
