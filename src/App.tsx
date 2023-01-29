@@ -1,27 +1,50 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import 'bulma/css/bulma.css';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handelClick = async (loadGoods: Promise<Good[]>) => {
+    setGoods(await loadGoods);
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return (
+    <div className="App content box">
+      <h1>Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      <button
+        type="button"
+        data-cy="all-button"
+        className="button is-success"
+        onClick={() => handelClick(getAll())}
+      >
+        Load all goods
+      </button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="first-five-button"
+        className="button is-success"
+        onClick={() => handelClick(get5First())}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        className="button is-success"
+        onClick={() => handelClick(getRedGoods())}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
