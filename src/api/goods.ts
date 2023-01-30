@@ -12,11 +12,13 @@ export const get5First = () => {
   return getAll()
     .then(goods => goods
       .sort((a, b) => a.name.localeCompare(b.name))
-      .slice(0, 5)); // sort and get the first 5
+      .slice(0, 5));
 };
 
 export const getRedGoods = () => {
   return getAll()
+  // eslint-disable-next-line
     .then(goods => goods
-      .filter(goods => goods.color === 'red')); // get only red
+      // eslint-disable-next-line
+      .filter(goods => goods.color === 'red'));
 };

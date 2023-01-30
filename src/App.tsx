@@ -28,11 +28,19 @@ export const App: React.FC = () => {
         Load all goods
       </button>
 
-      <button type="button" data-cy="first-five-button" onClick={firstFiveGoods}>
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={firstFiveGoods}
+      >
         Load 5 first goods
       </button>
 
-      <button type="button" data-cy="red-button" onClick={redGoods}>
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={redGoods}
+      >
         Load red goods
       </button>
 
