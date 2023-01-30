@@ -11,6 +11,8 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const isEmpty = goods.length === 0;
+  const arentRed = goods.some((good) => good.color !== 'red');
+  const areRed = goods.every((good) => good.color === 'red');
 
   const handleLoadAllGoods = async () => {
     const loadedGoods = await getAll();
@@ -29,21 +31,23 @@ export const App: React.FC = () => {
 
     if (isEmpty || goods.length > 5) {
       setGoods(loadedGoods);
-    } else if (goods.length === 5) {
+    } else if (goods.length === 5 && arentRed) {
       setGoods([]);
+    } else if (goods.length === 5 && areRed) {
+      setGoods(loadedGoods);
     }
   };
 
   const handlerRedGoods = async () => {
     const loadedGoods = await getRedGoods();
 
-    return (isEmpty || goods.some((good) => good.color !== 'red')
+    return (isEmpty || arentRed)
       ? (
         setGoods(loadedGoods)
       )
       : (
         setGoods([])
-      ));
+      );
   };
 
   return (
