@@ -4,14 +4,9 @@ import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
-
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const isEmpty = goods.length === 0;
-  const arentRed = goods.some((good) => good.color !== 'red');
   const areRed = goods.every((good) => good.color === 'red');
 
   const handleLoadAllGoods = async () => {
@@ -31,9 +26,11 @@ export const App: React.FC = () => {
 
     if (isEmpty || goods.length > 5) {
       setGoods(loadedGoods);
-    } else if (goods.length === 5 && arentRed) {
-      setGoods([]);
-    } else if (goods.length === 5 && areRed) {
+    } else if (goods.length === 5) {
+      if (!areRed) {
+        setGoods([]);
+      }
+
       setGoods(loadedGoods);
     }
   };
@@ -41,7 +38,7 @@ export const App: React.FC = () => {
   const handlerRedGoods = async () => {
     const loadedGoods = await getRedGoods();
 
-    return (isEmpty || arentRed)
+    return (isEmpty || !areRed)
       ? (
         setGoods(loadedGoods)
       )

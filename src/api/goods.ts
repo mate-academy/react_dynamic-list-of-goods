@@ -16,7 +16,6 @@ export function getAll(): Promise<Good[]> {
 
       return response.json();
     });
-  // .then((result) => result.data);
 }
 
 export const get5First = () => {
@@ -25,12 +24,12 @@ export const get5First = () => {
       const sortedGoods = goods.sort((a, b) => a.name.localeCompare(b.name));
 
       return sortedGoods.slice(0, 5);
-    }); // sort and get the first 5
+    });
 };
 
 export const getRedGoods = () => {
   return getAll()
     .then(goods => {
       return goods.filter((good) => good.color === 'red');
-    }); // get only red
+    });
 };
