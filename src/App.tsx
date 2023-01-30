@@ -7,7 +7,7 @@ import { Good } from './types/Good';
 // import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[] | []>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
 
   const loadGoods = async () => {
     const loadedGoods = await getAll();
