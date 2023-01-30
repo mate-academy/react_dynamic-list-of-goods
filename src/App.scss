@@ -27,7 +27,7 @@ button {
   transition: 0.5s;
 
   &:before {
-    content: '';
+    content: "";
     position: absolute;
     background: #19aae6;
     height: 150px;
@@ -38,7 +38,7 @@ button {
   &:hover {
     color: #fff;
   }
-  &:before {
+  &::before {
     top: 100%;
     left: 100%;
     transition: 0.7s;
@@ -61,4 +61,3 @@ li {
   list-style-type: none;
   font-size: 17px;
 }
-
