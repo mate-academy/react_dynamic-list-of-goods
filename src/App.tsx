@@ -19,11 +19,11 @@ export const App: React.FC = () => {
     getAll().then(data => setGoodList(data))
   );
 
-  const setFiveFirst = async () => (
+  const setFiveFirst = () => (
     get5First().then(data => setGoodList(data))
   );
 
-  const setReds = async () => (
+  const setReds = () => (
     getRedGoods().then(data => setGoodList(data))
   );
 
