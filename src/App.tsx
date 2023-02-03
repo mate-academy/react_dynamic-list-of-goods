@@ -8,6 +8,21 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
+  const clickAllHandler = () => {
+    getAll()
+      .then(goods => setVisibleGoods(goods));
+  };
+
+  const click5FirstHandler = () => {
+    get5First()
+      .then(goods => setVisibleGoods(goods));
+  };
+
+  const clickRedGoodsHandler = () => {
+    getRedGoods()
+      .then(goods => setVisibleGoods(goods));
+  };
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -15,10 +30,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => {
-          getAll()
-            .then(goods => setVisibleGoods(goods));
-        }}
+        onClick={clickAllHandler}
       >
         Load all goods
       </button>
@@ -26,10 +38,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => {
-          get5First()
-            .then(goods => setVisibleGoods(goods));
-        }}
+        onClick={click5FirstHandler}
       >
         Load 5 first goods
       </button>
@@ -37,10 +46,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => {
-          getRedGoods()
-            .then(goods => setVisibleGoods(goods));
-        }}
+        onClick={clickRedGoodsHandler}
       >
         Load red goods
       </button>
