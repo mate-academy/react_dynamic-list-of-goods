@@ -11,4 +11,22 @@ li {
 
 button {
   margin: 0 10px;
+
+  &:hover {
+
+    cursor: pointer;
+  }
+
+  &--all {
+    background-color: green;
+  }
+
+  &--five {
+    background-color: orange;
+  }
+
+  &--red {
+    background-color: red;
+  }
+
 }
