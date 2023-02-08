@@ -17,3 +17,8 @@ export const getRedGoods = () => {
   return getAll()
     .then(goods => goods.filter(good => good.color === 'red'));
 };
+
+export const getSelectedColor = (selectedColor: string) => {
+  return getAll()
+    .then(goods => goods.filter(good => good.color === selectedColor));
+};
