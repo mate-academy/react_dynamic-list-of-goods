@@ -1,1 +1,21 @@
-// styles go here
+.App {
+  font-family: "Roboto Light", Arial, Helvetica, sans-serif;
+  margin-left: 20px;
+}
+
+.list {
+  list-style-type: circle;
+  font-family: Roboto;
+  font-weight: 450;
+  font-size: 20px;
+}
+
+.button {
+  color: rgb(0, 65, 139);
+  background-color: rgb(206, 255, 239);
+  border-radius: 5px;
+  border-color: lightblue;
+  margin-right: 20px;
+
+  font-weight: 550;
+}
