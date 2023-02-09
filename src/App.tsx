@@ -26,39 +26,43 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
+      <div className="App__container">
+        <h1>Dynamic list of Goods</h1>
 
-      <Button
-        variant="contained"
-        color="success"
-        type="button"
-        data-cy="all-button"
-        onClick={() => handleClick(getAll())}
-      >
-        Load all goods
-      </Button>
+        <div className="App__content">
+          <Button
+            variant="contained"
+            color="success"
+            type="button"
+            data-cy="all-button"
+            onClick={() => handleClick(getAll())}
+          >
+            Load all goods
+          </Button>
 
-      <Button
-        variant="contained"
-        color="info"
-        type="button"
-        data-cy="first-five-button"
-        onClick={() => handleClick(get5First())}
-      >
-        Load 5 first goods
-      </Button>
+          <Button
+            variant="contained"
+            color="info"
+            type="button"
+            data-cy="first-five-button"
+            onClick={() => handleClick(get5First())}
+          >
+            Load 5 first goods
+          </Button>
 
-      <Button
-        variant="contained"
-        color="error"
-        type="button"
-        data-cy="red-button"
-        onClick={() => handleClick(getRed())}
-      >
-        Load red goods
-      </Button>
+          <Button
+            variant="contained"
+            color="error"
+            type="button"
+            data-cy="red-button"
+            onClick={() => handleClick(getRed())}
+          >
+            Load red goods
+          </Button>
 
-      {goods.length !== 0 && <GoodsList goods={goods} />}
+          {goods.length !== 0 && <GoodsList goods={goods} />}
+        </div>
+      </div>
     </div>
   );
 };
