@@ -1,15 +1,29 @@
+/* eslint-disable max-len */
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-import * as goodsFilterFunctionAPI from './api/goods';
+import { getAll, get5First, getRedGoods, getSelectedColor } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const buttonClickHandle = async (loadedGoods: Promise<Good[]>) => (
-    setGoods(await loadedGoods)
-  );
+  const getAllGoods = async () => {
+    setGoods(await getAll());
+  };
+
+  const getFirstFiveGoods = async () => {
+    setGoods(await get5First());
+  };
+
+  const setRedGoods = async () => {
+    setGoods(await getRedGoods());
+  };
+
+  const getSelectedColoredGoods = async (color: string) => {
+    setGoods(await getSelectedColor(color));
+  };
+
 
   return (
 
@@ -20,7 +34,7 @@ export const App: React.FC = () => {
         className="button"
         type="button"
         data-cy="all-button"
-        onClick={() => buttonClickHandle(goodsFilterFunctionAPI.getAll())}
+        onClick={getAllGoods}
       >
         Load All Goods
       </button>
@@ -29,7 +43,7 @@ export const App: React.FC = () => {
         className="button"
         type="button"
         data-cy="first-five-button"
-        onClick={() => buttonClickHandle(goodsFilterFunctionAPI.get5First())}
+        onClick={getFirstFiveGoods}
       >
         Load 5 First Goods
       </button>
@@ -38,13 +52,13 @@ export const App: React.FC = () => {
         className="button"
         type="button"
         data-cy="red-button"
-        onClick={() => buttonClickHandle(goodsFilterFunctionAPI.getRedGoods())}
+        onClick={setRedGoods}
       >
         Load Red Goods
       </button>
 
       <label className="dropdown" htmlFor="colors">Select Goods By Color: </label>
-      <select onChange={(e) => buttonClickHandle(goodsFilterFunctionAPI.getSelectedColor(e.target.value))}>
+      <select onChange={(e) => getSelectedColoredGoods(e.target.value)}>
         <option selected disabled hidden>Choose Here...</option>
         <option value="blue">Blue</option>
         <option value="green">Green</option>
