@@ -7,23 +7,42 @@ import { Good } from './types/Good';
 
 export const App: FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [hasError, setHasError] = useState(false);
 
   const handleGetAll = useCallback(async () => {
-    const allGoods = await getAll();
+    setHasError(false);
 
-    setGoods(allGoods);
+    try {
+      const allGoods = await getAll();
+
+      setGoods(allGoods);
+    } catch {
+      setHasError(true);
+    }
   }, []);
 
   const handleGetFirst5 = useCallback(async () => {
-    const first5 = await get5First();
+    setHasError(false);
 
-    setGoods(first5);
+    try {
+      const first5 = await get5First();
+
+      setGoods(first5);
+    } catch {
+      setHasError(true);
+    }
   }, []);
 
   const handleGetReds = useCallback(async () => {
-    const reds = await getRedGoods();
+    setHasError(false);
 
-    setGoods(reds);
+    try {
+      const reds = await getRedGoods();
+
+      setGoods(reds);
+    } catch {
+      setHasError(true);
+    }
   }, []);
 
   return (
@@ -47,6 +66,12 @@ export const App: FC = () => {
       </button>
 
       <GoodsList goods={goods} />
+
+      {hasError && (
+        <p className="error">
+          Unable to fetch goods
+        </p>
+      )}
     </div>
   );
 };
