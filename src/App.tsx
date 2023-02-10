@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
@@ -9,21 +10,45 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleAll = async () => {
-    const allGoods = await getAll();
+    try {
+      const allGoods = await getAll();
 
-    setGoods(allGoods);
+      setGoods(allGoods);
+    } catch (e) {
+      if (e instanceof Error) {
+        alert(e.message);
+      } else {
+        alert('Unexpected error');
+      }
+    }
   };
 
   const handleFirst5 = async () => {
-    const first5 = await get5First();
+    try {
+      const first5 = await get5First();
 
-    setGoods(first5);
+      setGoods(first5);
+    } catch (e) {
+      if (e instanceof Error) {
+        alert(e.message);
+      } else {
+        alert('Unexpected error');
+      }
+    }
   };
 
   const handleAllRed = async () => {
-    const red = await getRedGoods();
+    try {
+      const red = await getRedGoods();
 
-    setGoods(red);
+      setGoods(red);
+    } catch (e) {
+      if (e instanceof Error) {
+        alert(e.message);
+      } else {
+        alert('Unexpected error');
+      }
+    }
   };
 
   return (
