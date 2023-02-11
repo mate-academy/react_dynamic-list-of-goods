@@ -1,27 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+import { Button, Paper, Container } from '@mui/material';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5FirstGoods, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleOnClick = (processedGoods: Promise<Good[]>) => {
+    processedGoods.then(setGoods);
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return (
+    <div className="App">
+      <Paper sx={{
+        width: '400px',
+        margin: 'auto',
+        textAlign: 'center',
+        padding: '10px 20px',
+      }}
+      >
+        <h1>Dynamic list of Goods</h1>
+        <Container sx={{ width: 250 }}>
+          <Button
+            variant="contained"
+            data-cy="all-button"
+            onClick={() => handleOnClick(getAll())}
+            sx={{ width: 200, marginBottom: 1 }}
+          >
+            Load all goods
+          </Button>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+          <Button
+            variant="contained"
+            data-cy="first-five-button"
+            onClick={() => handleOnClick(get5FirstGoods())}
+            sx={{ width: 200, marginBottom: 1 }}
+          >
+            Load 5 first goods
+          </Button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+          <Button
+            variant="contained"
+            data-cy="red-button"
+            onClick={() => handleOnClick(getRedGoods())}
+            sx={{ width: 200, marginBottom: 1 }}
+          >
+            Load red goods
+          </Button>
+        </Container>
+
+        <GoodsList goods={goods} />
+      </Paper>
+    </div>
+  );
+};
