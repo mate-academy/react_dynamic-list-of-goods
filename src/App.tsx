@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
+import { Button, Paper, Container } from '@mui/material';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
@@ -14,33 +15,45 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
-
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={() => handleOnClick(getAll())}
+      <Paper sx={{
+        width: '400px',
+        margin: 'auto',
+        textAlign: 'center',
+        padding: '10px 20px',
+      }}
       >
-        Load all goods
-      </button>
+        <h1>Dynamic list of Goods</h1>
+        <Container sx={{ width: 250 }}>
+          <Button
+            variant="contained"
+            data-cy="all-button"
+            onClick={() => handleOnClick(getAll())}
+            sx={{ width: 200, marginBottom: 1 }}
+          >
+            Load all goods
+          </Button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={() => handleOnClick(get5FirstGoods())}
-      >
-        Load 5 first goods
-      </button>
+          <Button
+            variant="contained"
+            data-cy="first-five-button"
+            onClick={() => handleOnClick(get5FirstGoods())}
+            sx={{ width: 200, marginBottom: 1 }}
+          >
+            Load 5 first goods
+          </Button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={() => handleOnClick(getRedGoods())}
-      >
-        Load red goods
-      </button>
+          <Button
+            variant="contained"
+            data-cy="red-button"
+            onClick={() => handleOnClick(getRedGoods())}
+            sx={{ width: 200, marginBottom: 1 }}
+          >
+            Load red goods
+          </Button>
+        </Container>
 
-      <GoodsList goods={goods} />
+        <GoodsList goods={goods} />
+      </Paper>
     </div>
   );
 };
