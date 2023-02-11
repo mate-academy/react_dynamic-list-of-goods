@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
+import 'bulma/css/bulma.min.css';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
@@ -29,41 +28,39 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="App">
-      <h1>Dynamic list of Goods</h1>
+    <div className="App content">
+      <h1 className="App__title title">
+        Dynamic list of Goods
+      </h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={() => {
-          getAllGoods()
-            .then();
-        }}
-      >
-        Load all goods
-      </button>
+      <div className="App__buttons">
+        <button
+          className="button is-success"
+          type="button"
+          data-cy="all-button"
+          onClick={getAllGoods}
+        >
+          Load all goods
+        </button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={() => {
-          getFirstFive()
-            .then();
-        }}
-      >
-        Load 5 first goods
-      </button>
+        <button
+          className="button is-warning"
+          type="button"
+          data-cy="first-five-button"
+          onClick={getFirstFive}
+        >
+          Load 5 first goods
+        </button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={() => {
-          getAllRead()
-            .then();
-        }}
-      >
-        Load red goods
-      </button>
+        <button
+          className="button is-danger"
+          type="button"
+          data-cy="red-button"
+          onClick={getAllRead}
+        >
+          Load red goods
+        </button>
+      </div>
 
       <GoodsList goods={visibleGoods} />
     </div>

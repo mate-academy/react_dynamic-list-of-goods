@@ -1,1 +1,23 @@
-// styles go here
+.App {
+  padding-top: 50px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &__buttons {
+    margin-bottom: 50px;
+
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+}
+
+.goods__list {
+
+}
