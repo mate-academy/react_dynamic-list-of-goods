@@ -7,23 +7,39 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [hasLoadingError, setHasLoadingError] = useState(false);
 
   const hangleClickGetAll = async () => {
-    const visibleGoods = await getAll();
+    try {
+      const visibleGoods = await getAll();
 
-    setGoods(visibleGoods);
+      setGoods(visibleGoods);
+      setHasLoadingError(false);
+    } catch {
+      setHasLoadingError(true);
+    }
   };
 
   const hangleClickGetFive = async () => {
-    const visibleGoods = await get5First();
+    try {
+      const visibleGoods = await get5First();
 
-    setGoods(visibleGoods);
+      setGoods(visibleGoods);
+      setHasLoadingError(false);
+    } catch {
+      setHasLoadingError(true);
+    }
   };
 
   const hangleClickGetRed = async () => {
-    const visibleGoods = await getRedGoods();
+    try {
+      const visibleGoods = await getRedGoods();
 
-    setGoods(visibleGoods);
+      setGoods(visibleGoods);
+      setHasLoadingError(false);
+    } catch {
+      setHasLoadingError(true);
+    }
   };
 
   return (
@@ -54,7 +70,9 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {hasLoadingError
+        ? <h4> No goods on server</h4>
+        : <GoodsList goods={goods} />}
     </div>
   );
 };
