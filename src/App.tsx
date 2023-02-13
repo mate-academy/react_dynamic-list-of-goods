@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -9,7 +9,7 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleAll = async () => {
+  const handleAll = useCallback(async () => {
     try {
       const allGoods = await getAll();
 
@@ -21,9 +21,9 @@ export const App: React.FC = () => {
         alert('Unexpected error');
       }
     }
-  };
+  }, []);
 
-  const handleFirst5 = async () => {
+  const handleFirst5 = useCallback(async () => {
     try {
       const first5 = await get5First();
 
@@ -35,9 +35,9 @@ export const App: React.FC = () => {
         alert('Unexpected error');
       }
     }
-  };
+  }, []);
 
-  const handleAllRed = async () => {
+  const handleAllRed = useCallback(async () => {
     try {
       const red = await getRedGoods();
 
@@ -49,7 +49,7 @@ export const App: React.FC = () => {
         alert('Unexpected error');
       }
     }
-  };
+  }, []);
 
   return (
     <div className="App">
