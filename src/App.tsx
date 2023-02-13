@@ -9,7 +9,7 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [hasLoadingError, setHasLoadingError] = useState(false);
 
-  const hangleClickGetAll = async () => {
+  const handleClickGetAll = async () => {
     try {
       const visibleGoods = await getAll();
 
@@ -20,7 +20,7 @@ export const App: React.FC = () => {
     }
   };
 
-  const hangleClickGetFive = async () => {
+  const handleClickGetFive = async () => {
     try {
       const visibleGoods = await get5First();
 
@@ -31,7 +31,7 @@ export const App: React.FC = () => {
     }
   };
 
-  const hangleClickGetRed = async () => {
+  const handleClickGetRed = async () => {
     try {
       const visibleGoods = await getRedGoods();
 
@@ -49,7 +49,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={hangleClickGetAll}
+        onClick={handleClickGetAll}
       >
         Load all goods
       </button>
@@ -57,7 +57,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={hangleClickGetFive}
+        onClick={handleClickGetFive}
       >
         Load 5 first goods
       </button>
@@ -65,7 +65,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={hangleClickGetRed}
+        onClick={handleClickGetRed}
       >
         Load red goods
       </button>
