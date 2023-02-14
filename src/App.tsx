@@ -1,27 +1,51 @@
-import React from 'react';
+import { useState } from 'react';
+import 'bulma';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const uploadGoods = async (loader: () => Promise<Good[]>) => {
+    const goodsFromServer = await loader();
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+    setGoods(goodsFromServer);
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return (
+    <div className="App">
+      <h1 className="title is-1 mt-3 ml-3">Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      <button
+        type="button"
+        data-cy="all-button"
+        className="button is-success is-medium is-rounded ml-2 mr-2"
+        onClick={() => uploadGoods(getAll)}
+      >
+        Load all goods
+      </button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="first-five-button"
+        className="button is-warning is-medium is-rounded mr-2"
+        onClick={() => uploadGoods(get5First)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        className="button is-danger is-medium is-rounded"
+        onClick={() => uploadGoods(getRedGoods)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
