@@ -7,20 +7,15 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [hasError, setHasError] = useState(false);
 
-  const loadAllGoods = () => {
-    getAll()
-      .then(goodsFromServer => setGoods(goodsFromServer));
-  };
-
-  const loadFirstFiveGoods = () => {
-    get5First()
-      .then(goodsFromServer => setGoods(goodsFromServer));
-  };
-
-  const loadRedGoods = () => {
-    getRedGoods()
-      .then(goodsFromServer => setGoods(goodsFromServer));
+  const loadGoods = (f:() => Promise<Good[]>) => {
+    f()
+      .then(goodsFromServer => {
+        setGoods(goodsFromServer);
+        setHasError(false);
+      })
+      .catch(() => setHasError(true));
   };
 
   return (
@@ -30,7 +25,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => loadAllGoods()}
+        onClick={() => loadGoods(getAll)}
       >
         Load all goods
       </button>
@@ -38,7 +33,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={loadFirstFiveGoods}
+        onClick={() => loadGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -46,11 +41,14 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={loadRedGoods}
+        onClick={() => loadGoods(getRedGoods)}
       >
         Load red goods
       </button>
 
+      {hasError && (
+        <p>There are no goods on server</p>
+      )}
       <GoodsList goods={goods} />
     </div>
   );
