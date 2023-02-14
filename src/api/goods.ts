@@ -19,11 +19,11 @@ export const get5First = async () => {
 
   return goods5First
     .sort((a, b) => (a.name.localeCompare(b.name)))
-    .slice(0, 5);// sort and get the first 5
+    .slice(0, 5);
 };
 
 export const getRedGoods = async () => {
   const goodsRed = await getAll();
 
-  return goodsRed.filter(good => good.color === 'red'); // get only red
+  return goodsRed.filter(good => good.color === 'red');
 };
