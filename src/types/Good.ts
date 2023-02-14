@@ -1,5 +1,5 @@
 export interface Good {
-  [x: string]: any;
+  [x: string]: unknown;
   id: number;
   name: string;
   color: string;
