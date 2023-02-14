@@ -1,14 +1,28 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[] | []>([]);
+  const [hasError, setHasError] = useState(false);
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  const handleButton = useCallback((f: Function) => {
+    return async () => {
+      setHasError(false);
+
+      try {
+        const selectedGoods = await f();
+
+        setGoods(selectedGoods);
+      } catch {
+        setHasError(true);
+      }
+    };
+  }, []);
 
   return (
     <div className="App">
@@ -17,7 +31,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={async () => setGoods(await getAll())}
+        onClick={handleButton(getAll)}
       >
         Load all goods
       </button>
@@ -25,7 +39,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={async () => setGoods(await get5First())}
+        onClick={handleButton(get5First)}
       >
         Load 5 first goods
       </button>
@@ -33,12 +47,17 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={async () => setGoods(await getRedGoods())}
+        onClick={handleButton(getRedGoods)}
       >
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {hasError
+        ? (
+          <p>No goods yet</p>
+        ) : (
+          <GoodsList goods={goods} />
+        )}
     </div>
   );
 };
