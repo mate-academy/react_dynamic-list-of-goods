@@ -5,40 +5,36 @@ import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
+import { ActiveButton } from './types/ActiveButton';
 
 import 'bulma/css/bulma.css';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [isAllGoodsVisible, setAllGoodsVisible] = useState(false);
-  const [isFiveGoodsVisible, setFiveGoodsVisible] = useState(false);
-  const [isRedGoodsVisible, setRedGoodsVisible] = useState(false);
+  const [
+    activeButton,
+    setButtonType,
+  ] = useState<ActiveButton>(ActiveButton.NONE);
 
   const handleAllGoodsButton = async () => {
     const visibleGood = await getAll();
 
+    setButtonType(ActiveButton.ALL);
     setGoods(visibleGood);
-    setAllGoodsVisible(true);
-    setFiveGoodsVisible(false);
-    setRedGoodsVisible(false);
   };
 
   const handleFiveGoodsButton = async () => {
     const visibleGood = await get5First();
 
+    setButtonType(ActiveButton.FIVE);
     setGoods(visibleGood);
-    setAllGoodsVisible(false);
-    setFiveGoodsVisible(true);
-    setRedGoodsVisible(false);
   };
 
   const handleRedGoodsButton = async () => {
     const visibleGood = await getRedGoods();
 
+    setButtonType(ActiveButton.RED);
     setGoods(visibleGood);
-    setAllGoodsVisible(false);
-    setFiveGoodsVisible(false);
-    setRedGoodsVisible(true);
   };
 
   return (
@@ -50,7 +46,7 @@ export const App: React.FC = () => {
         data-cy="all-button"
         onClick={handleAllGoodsButton}
         className={classNames('button', 'is-info',
-          { 'is-success': isAllGoodsVisible })}
+          { 'is-success': activeButton === ActiveButton.ALL })}
       >
         Load all goods
       </button>
@@ -60,7 +56,7 @@ export const App: React.FC = () => {
         data-cy="first-five-button"
         onClick={handleFiveGoodsButton}
         className={classNames('button', 'is-info',
-          { 'is-success': isFiveGoodsVisible })}
+          { 'is-success': activeButton === ActiveButton.FIVE })}
       >
         Load 5 first goods
       </button>
@@ -70,7 +66,7 @@ export const App: React.FC = () => {
         data-cy="red-button"
         onClick={handleRedGoodsButton}
         className={classNames('button', 'is-info',
-          { 'is-success': isRedGoodsVisible })}
+          { 'is-success': activeButton === ActiveButton.RED })}
       >
         Load red goods
       </button>
