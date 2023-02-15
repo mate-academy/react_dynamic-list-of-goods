@@ -1,27 +1,89 @@
-import React from 'react';
+import React, { useState } from 'react';
+import 'bulma/css/bulma.min.css';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
+  const [isError, setIsError] = useState(false);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const getAllGoods = async () => {
+    try {
+      const goodsFromServer = await getAll();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      setVisibleGoods(goodsFromServer);
+    } catch (error) {
+      setIsError(true);
+      throw new Error('No data from server');
+    }
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const getFirstFive = async () => {
+    try {
+      const goodsFromServer = await get5First();
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      setVisibleGoods(goodsFromServer);
+    } catch (error) {
+      setIsError(true);
+      throw new Error('No data from server');
+    }
+  };
+
+  const getAllRead = async () => {
+    try {
+      const goodsFromServer = await getRedGoods();
+
+      setVisibleGoods(goodsFromServer);
+    } catch (error) {
+      setIsError(true);
+      throw new Error('No data from server');
+    }
+  };
+
+  return (
+    <div className="App content">
+      <h1 className="App__title title">
+        Dynamic list of Goods
+      </h1>
+
+      <div className="App__buttons">
+        <button
+          className="button is-success"
+          type="button"
+          data-cy="all-button"
+          onClick={getAllGoods}
+        >
+          Load all goods
+        </button>
+
+        <button
+          className="button is-warning"
+          type="button"
+          data-cy="first-five-button"
+          onClick={getFirstFive}
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          className="button is-danger"
+          type="button"
+          data-cy="red-button"
+          onClick={getAllRead}
+        >
+          Load red goods
+        </button>
+      </div>
+      {isError
+        ? (
+          <div className="notification is-danger">
+            No data on server !
+          </div>
+        )
+        : <GoodsList goods={visibleGoods} />}
+    </div>
+  );
+};
