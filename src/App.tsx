@@ -18,7 +18,9 @@ export const App: React.FC = () => {
         const selectedGoods = await f();
 
         setGoods(selectedGoods);
-      } catch {
+      } catch (error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
         setHasError(true);
       }
     };
