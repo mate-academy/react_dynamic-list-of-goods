@@ -7,17 +7,30 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [isError, setIsError] = useState(false);
 
   const handleGetAll = useCallback(async () => {
-    setGoods(await getAll());
+    try {
+      setGoods(await getAll());
+    } catch (error) {
+      setIsError(true);
+    }
   }, []);
 
   const handleFirst5Sorted = useCallback(async () => {
-    setGoods(await get5First());
+    try {
+      setGoods(await get5First());
+    } catch (error) {
+      setIsError(true);
+    }
   }, []);
 
   const handleRedGoods = useCallback(async () => {
-    setGoods(await getRedGoods());
+    try {
+      setGoods(await getRedGoods());
+    } catch (error) {
+      setIsError(true);
+    }
   }, []);
 
   return (
@@ -47,7 +60,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      <GoodsList goods={goods} isError={isError} />
     </div>
   );
 };
