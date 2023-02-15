@@ -1,27 +1,77 @@
-import React from 'react';
+import { FC, useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [hasError, setHasError] = useState(false);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleGetAll = useCallback(async () => {
+    setHasError(false);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    try {
+      const allGoods = await getAll();
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      setGoods(allGoods);
+    } catch {
+      setHasError(true);
+    }
+  }, []);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const handleGetFirst5 = useCallback(async () => {
+    setHasError(false);
+
+    try {
+      const first5 = await get5First();
+
+      setGoods(first5);
+    } catch {
+      setHasError(true);
+    }
+  }, []);
+
+  const handleGetReds = useCallback(async () => {
+    setHasError(false);
+
+    try {
+      const reds = await getRedGoods();
+
+      setGoods(reds);
+    } catch {
+      setHasError(true);
+    }
+  }, []);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={handleGetAll}>
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleGetFirst5}
+      >
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={handleGetReds}>
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+
+      {hasError && (
+        <p className="error">
+          Unable to fetch goods
+        </p>
+      )}
+    </div>
+  );
+};
