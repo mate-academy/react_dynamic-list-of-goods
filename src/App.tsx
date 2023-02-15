@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -7,24 +7,40 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [errorDataFromServer, setErrorDataFromServer] = useState(false);
 
-  const handleGetAll = async () => {
-    const allGoods = await getAll();
+  const handleGetAll = useCallback(async () => {
+    setErrorDataFromServer(false);
+    try {
+      const goodsList = await getAll();
 
-    setGoods(allGoods);
-  };
+      setGoods(goodsList);
+    } catch {
+      setErrorDataFromServer(true);
+    }
+  }, []);
 
-  const handleGet5First = async () => {
-    const allGoods = await get5First();
+  const handleGet5First = useCallback(async () => {
+    setErrorDataFromServer(false);
+    try {
+      const goodsList = await get5First();
 
-    setGoods(allGoods);
-  };
+      setGoods(goodsList);
+    } catch {
+      setErrorDataFromServer(true);
+    }
+  }, []);
 
-  const handleRedGoods = async () => {
-    const allGoods = await getRedGoods();
+  const handleRedGoods = useCallback(async () => {
+    setErrorDataFromServer(false);
+    try {
+      const goodsList = await getRedGoods();
 
-    setGoods(allGoods);
-  };
+      setGoods(goodsList);
+    } catch {
+      setErrorDataFromServer(true);
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -54,7 +70,9 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {errorDataFromServer
+        ? (<p>Error loading from server</p>)
+        : (<GoodsList goods={goods} />)}
     </div>
   );
 };
