@@ -4,12 +4,13 @@ import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
+import { LoadFucntion } from './types/LoadFunction';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [hasError, setHasError] = useState(false);
 
-  const loadGoods = (f:() => Promise<Good[]>) => {
+  const loadGoods = (f: LoadFucntion) => {
     f()
       .then(goodsFromServer => {
         setGoods(goodsFromServer);
