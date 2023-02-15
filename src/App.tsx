@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -7,11 +7,40 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [hasError, setHasError] = useState(false);
 
-  const handleClickButton = useCallback(async (callback: () =>
-  Promise<Good[]>) => {
-    setGoods(await callback());
-  }, []);
+  const handleClickButtonAll = async () => {
+    try {
+      const visibleGoods = await getAll();
+
+      setGoods(visibleGoods);
+      setHasError(false);
+    } catch {
+      setHasError(true);
+    }
+  };
+
+  const handleClickButtonFive = async () => {
+    try {
+      const visibleGoods = await get5First();
+
+      setGoods(visibleGoods);
+      setHasError(false);
+    } catch {
+      setHasError(true);
+    }
+  };
+
+  const handleClickButtonRed = async () => {
+    try {
+      const visibleGoods = await getRedGoods();
+
+      setGoods(visibleGoods);
+      setHasError(false);
+    } catch {
+      setHasError(true);
+    }
+  };
 
   return (
     <div className="App">
@@ -20,9 +49,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => {
-          handleClickButton(getAll);
-        }}
+        onClick={handleClickButtonAll}
       >
         Load all goods
       </button>
@@ -30,9 +57,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => {
-          handleClickButton(get5First);
-        }}
+        onClick={handleClickButtonFive}
       >
         Load 5 first goods
       </button>
@@ -40,14 +65,17 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => {
-          handleClickButton(getRedGoods);
-        }}
+        onClick={handleClickButtonRed}
       >
         Load red goods
       </button>
 
       <GoodsList goods={goods} />
+      {hasError && (
+        <p className="error">
+          Goods not found
+        </p>
+      )}
     </div>
   );
 };
