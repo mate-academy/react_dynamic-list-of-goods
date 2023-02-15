@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -7,10 +7,40 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [hasLoadingError, setHasLoadingError] = useState(false);
 
-  const handleClick = useCallback((f: () => Promise<Good[]>) => {
-    return async () => setGoods(await f());
-  }, []);
+  const handleClickGetAll = async () => {
+    try {
+      const visibleGoods = await getAll();
+
+      setGoods(visibleGoods);
+      setHasLoadingError(false);
+    } catch {
+      setHasLoadingError(true);
+    }
+  };
+
+  const handleClickGetFive = async () => {
+    try {
+      const visibleGoods = await get5First();
+
+      setGoods(visibleGoods);
+      setHasLoadingError(false);
+    } catch {
+      setHasLoadingError(true);
+    }
+  };
+
+  const handleClickGetRed = async () => {
+    try {
+      const visibleGoods = await getRedGoods();
+
+      setGoods(visibleGoods);
+      setHasLoadingError(false);
+    } catch {
+      setHasLoadingError(true);
+    }
+  };
 
   return (
     <div className="App">
@@ -19,7 +49,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={handleClick(getAll)}
+        onClick={handleClickGetAll}
       >
         Load all goods
       </button>
@@ -27,7 +57,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handleClick(get5First)}
+        onClick={handleClickGetFive}
       >
         Load 5 first goods
       </button>
@@ -35,12 +65,14 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={handleClick(getRedGoods)}
+        onClick={handleClickGetRed}
       >
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {hasLoadingError
+        ? <h4> No goods on server</h4>
+        : <GoodsList goods={goods} />}
     </div>
   );
 };
