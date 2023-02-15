@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -9,15 +9,17 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [hasError, setHasError] = useState(false);
 
-  const handleGoods = async (callback: () => Promise<Good[]>) => {
+  const handleGoods = useCallback(async (callback: () => Promise<Good[]>) => {
     try {
       const visibleGoods = await callback();
 
       setGoods(visibleGoods);
     } catch {
+      // eslint-disable-next-line no-console
+      console.log('Loading error');
       setHasError(true);
     }
-  };
+  }, []);
 
   return (
     <div className="App">
