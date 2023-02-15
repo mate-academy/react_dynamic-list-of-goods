@@ -8,23 +8,42 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [good, setGood] = useState<Good[]>([]);
+  const [hasResponse, setHasResponse] = useState(false);
 
   const getAllLoad = useCallback(async () => {
-    const goodFromServer = await getAll();
+    try {
+      setHasResponse(false);
+      const goodFromServer = await getAll();
 
-    setGood(goodFromServer);
+      setGood(goodFromServer);
+    } catch (erorr) {
+      setHasResponse(true);
+      throw new Error('Server has no response');
+    }
   }, []);
 
   const getFiveFirst = useCallback(async () => {
-    const goodFromServer = await get5First();
+    try {
+      setHasResponse(false);
+      const goodFromServer = await get5First();
 
-    setGood(goodFromServer);
+      setGood(goodFromServer);
+    } catch (erorr) {
+      setHasResponse(true);
+      throw new Error('Server has no response');
+    }
   }, []);
 
   const getRedGood = useCallback(async () => {
-    const goodFromServer = await getRedGoods();
+    try {
+      setHasResponse(false);
+      const goodFromServer = await getRedGoods();
 
-    setGood(goodFromServer);
+      setGood(goodFromServer);
+    } catch (erorr) {
+      setHasResponse(true);
+      throw new Error('Server has no response');
+    }
   }, []);
 
   return (
@@ -57,8 +76,9 @@ export const App: React.FC = () => {
       >
         Load red goods
       </button>
-
-      <GoodsList goods={good} />
+      {hasResponse
+        ? <p>Server can`t handle your request, try later</p>
+        : <GoodsList goods={good} />}
     </div>
   );
 };
