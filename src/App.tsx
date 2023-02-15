@@ -9,7 +9,14 @@ export const App: React.FC = () => {
   const [goodsList, setGoodsList] = useState<Good[]>([]);
 
   const handleClick = useCallback(async (callback: () => Promise<Good[]>) => {
-    setGoodsList(await callback());
+    try {
+      setGoodsList(await callback());
+    } catch (error) {
+      if (error instanceof Error) {
+        /* eslint no-console: */
+        console.log("Goods aren't loaded", error.message);
+      }
+    }
   }, []);
 
   return (
