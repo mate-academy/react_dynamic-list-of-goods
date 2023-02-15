@@ -17,24 +17,36 @@ export const App: React.FC = () => {
   ] = useState<ActiveButton>(ActiveButton.NONE);
 
   const handleAllGoodsButton = async () => {
-    const visibleGood = await getAll();
+    try {
+      const visibleGood = await getAll();
 
-    setButtonType(ActiveButton.ALL);
-    setGoods(visibleGood);
+      setButtonType(ActiveButton.ALL);
+      setGoods(visibleGood);
+    } catch (error) {
+      throw new Error('There is problem with loading data, please try later');
+    }
   };
 
   const handleFiveGoodsButton = async () => {
-    const visibleGood = await get5First();
+    try {
+      const visibleGood = await get5First();
 
-    setButtonType(ActiveButton.FIVE);
-    setGoods(visibleGood);
+      setButtonType(ActiveButton.FIVE);
+      setGoods(visibleGood);
+    } catch (error) {
+      throw new Error('There is problem with loading data, please try later');
+    }
   };
 
   const handleRedGoodsButton = async () => {
-    const visibleGood = await getRedGoods();
+    try {
+      const visibleGood = await getRedGoods();
 
-    setButtonType(ActiveButton.RED);
-    setGoods(visibleGood);
+      setButtonType(ActiveButton.RED);
+      setGoods(visibleGood);
+    } catch (error) {
+      throw new Error('There is problem with loading data, please try later');
+    }
   };
 
   return (
