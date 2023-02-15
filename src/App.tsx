@@ -8,6 +8,36 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
+  const handleAllGoods = async () => {
+    try {
+      const goods = await getAll();
+
+      setVisibleGoods(goods);
+    } catch (error) {
+      throw new Error('Something went wrong. Try again later, please');
+    }
+  };
+
+  const handle5First = async () => {
+    try {
+      const goods = await get5First();
+
+      setVisibleGoods(goods);
+    } catch (error) {
+      throw new Error('Something went wrong. Try again later, please');
+    }
+  };
+
+  const handleRedGoods = async () => {
+    try {
+      const goods = await getRedGoods();
+
+      setVisibleGoods(goods);
+    } catch (error) {
+      throw new Error('Something went wrong. Try again later, please');
+    }
+  };
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -15,10 +45,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => {
-          getAll()
-            .then(goods => setVisibleGoods(goods));
-        }}
+        onClick={handleAllGoods}
       >
         Load all goods
       </button>
@@ -26,10 +53,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => {
-          get5First()
-            .then(goods => setVisibleGoods(goods));
-        }}
+        onClick={handle5First}
       >
         Load 5 first goods
       </button>
@@ -37,10 +61,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => {
-          getRedGoods()
-            .then(goods => setVisibleGoods(goods));
-        }}
+        onClick={handleRedGoods}
       >
         Load red goods
       </button>
