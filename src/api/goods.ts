@@ -5,15 +5,25 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
-    .then(response => response.json());
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Error ${response.status}. Goods can not be loaded`);
+      }
+
+      return response.json();
+    });
 }
 
-export const get5First = () => {
-  return getAll()
-    .then(goods => goods); // sort and get the first 5
+export const get5First = async () => {
+  const goods5First = await getAll();
+
+  return goods5First
+    .sort((a, b) => (a.name.localeCompare(b.name)))
+    .slice(0, 5);
 };
 
-export const getRedGoods = () => {
-  return getAll()
-    .then(goods => goods); // get only red
+export const getRedGoods = async () => {
+  const goodsRed = await getAll();
+
+  return goodsRed.filter(good => good.color === 'red');
 };
