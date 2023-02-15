@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import 'bulma';
 import './App.scss';
 import { GoodsList } from './GoodsList';
@@ -7,12 +7,43 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [hasError, setHasError] = useState(false);
 
-  const uploadGoods = async (loader: () => Promise<Good[]>) => {
-    const goodsFromServer = await loader();
+  const handlerGetAll = useCallback(async () => {
+    setHasError(false);
 
-    setGoods(goodsFromServer);
-  };
+    try {
+      const allGoods = await getAll();
+
+      setGoods(allGoods);
+    } catch {
+      setHasError(true);
+    }
+  }, []);
+
+  const handlerGetFirst5 = useCallback(async () => {
+    setHasError(false);
+
+    try {
+      const first5 = await get5First();
+
+      setGoods(first5);
+    } catch {
+      setHasError(true);
+    }
+  }, []);
+
+  const handlerGetRedGoods = useCallback(async () => {
+    setHasError(false);
+
+    try {
+      const reds = await getRedGoods();
+
+      setGoods(reds);
+    } catch {
+      setHasError(true);
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -22,7 +53,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         className="button is-success is-medium is-rounded ml-2 mr-2"
-        onClick={() => uploadGoods(getAll)}
+        onClick={handlerGetAll}
       >
         Load all goods
       </button>
@@ -31,7 +62,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         className="button is-warning is-medium is-rounded mr-2"
-        onClick={() => uploadGoods(get5First)}
+        onClick={handlerGetFirst5}
       >
         Load 5 first goods
       </button>
@@ -40,12 +71,18 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         className="button is-danger is-medium is-rounded"
-        onClick={() => uploadGoods(getRedGoods)}
+        onClick={handlerGetRedGoods}
       >
         Load red goods
       </button>
 
       <GoodsList goods={goods} />
+
+      {hasError && (
+        <p className="error">
+          Error
+        </p>
+      )}
     </div>
   );
 };
