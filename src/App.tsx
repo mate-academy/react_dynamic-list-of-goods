@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import 'bulma/css/bulma.min.css';
@@ -9,23 +9,23 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [good, setGood] = useState<Good[]>([]);
 
-  const getAllLoad = async () => {
+  const getAllLoad = useCallback(async () => {
     const goodFromServer = await getAll();
 
     setGood(goodFromServer);
-  };
+  }, []);
 
-  const getFiveFirst = async () => {
+  const getFiveFirst = useCallback(async () => {
     const goodFromServer = await get5First();
 
-    await setGood(goodFromServer);
-  };
+    setGood(goodFromServer);
+  }, []);
 
-  const getRedGood = async () => {
+  const getRedGood = useCallback(async () => {
     const goodFromServer = await getRedGoods();
 
-    await setGood(goodFromServer);
-  };
+    setGood(goodFromServer);
+  }, []);
 
   return (
     <div className="App">
