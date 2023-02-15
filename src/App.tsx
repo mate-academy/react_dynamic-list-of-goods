@@ -5,7 +5,7 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState([]);
+  const [goods, setGoods] = useState<Good[]>([]);
   const [hasError, setHasError] = useState(false);
 
   const setVisibleGoods = (callback: () => Promise<Good[]>) => {
