@@ -24,7 +24,7 @@ export const App: React.FC = () => {
       <h1>Dynamic list of Goods</h1>
 
       {hasLoadingError && (
-        <p>You catch some error</p>
+        <p>You catched some error</p>
       )}
 
       <button
