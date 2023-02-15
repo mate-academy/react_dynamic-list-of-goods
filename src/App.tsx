@@ -8,23 +8,39 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
+  const [isError, setIsError] = useState(false);
 
   const getAllGoods = async () => {
-    const goodsFromServer = await getAll();
+    try {
+      const goodsFromServer = await getAll();
 
-    setVisibleGoods(goodsFromServer);
+      setVisibleGoods(goodsFromServer);
+    } catch (error) {
+      setIsError(true);
+      throw new Error('No data from server');
+    }
   };
 
   const getFirstFive = async () => {
-    const goodsFromServer = await get5First();
+    try {
+      const goodsFromServer = await get5First();
 
-    await setVisibleGoods(goodsFromServer);
+      setVisibleGoods(goodsFromServer);
+    } catch (error) {
+      setIsError(true);
+      throw new Error('No data from server');
+    }
   };
 
   const getAllRead = async () => {
-    const goodsFromServer = await getRedGoods();
+    try {
+      const goodsFromServer = await getRedGoods();
 
-    await setVisibleGoods(goodsFromServer);
+      setVisibleGoods(goodsFromServer);
+    } catch (error) {
+      setIsError(true);
+      throw new Error('No data from server');
+    }
   };
 
   return (
@@ -61,8 +77,13 @@ export const App: React.FC = () => {
           Load red goods
         </button>
       </div>
-
-      <GoodsList goods={visibleGoods} />
+      {isError
+        ? (
+          <div className="notification is-danger">
+            No data on server !
+          </div>
+        )
+        : <GoodsList goods={visibleGoods} />}
     </div>
   );
 };
