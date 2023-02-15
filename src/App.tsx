@@ -6,14 +6,26 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [hasLoadingError, setHasLoadingError] = useState(false);
 
-  const handleClick = useCallback((f: () => Promise<Good[]>) => {
-    return async () => setGoods(await f());
+  const handleClick = useCallback((callBack: () => Promise<Good[]>) => {
+    return async () => {
+      try {
+        setGoods(await callBack());
+        setHasLoadingError(false);
+      } catch (error) {
+        setHasLoadingError(true);
+      }
+    };
   }, []);
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
+
+      {hasLoadingError && (
+        <p>You catch some error</p>
+      )}
 
       <button
         type="button"
