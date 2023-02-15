@@ -1,27 +1,64 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import 'bulma/css/bulma.min.css';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [good, setGood] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const getAllLoad = async () => {
+    const goodFromServer = await getAll();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    setGood(goodFromServer);
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const getFiveFirst = async () => {
+    const goodFromServer = await get5First();
 
-    <GoodsList goods={[]} />
-  </div>
-);
+    await setGood(goodFromServer);
+  };
+
+  const getRedGood = async () => {
+    const goodFromServer = await getRedGoods();
+
+    await setGood(goodFromServer);
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={getAllLoad}
+        className="button is-primary is-outlined"
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={getFiveFirst}
+        className="button is-info is-outlined"
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={getRedGood}
+        className="button is-danger is-outlined"
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={good} />
+    </div>
+  );
+};
