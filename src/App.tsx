@@ -9,11 +9,17 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [hasRequestError, setHasRequestError] = useState<boolean>(false);
 
   const handleShowGoodsClick = async (getGoods: () => Promise<Good[]>) => {
-    const goodsFromServer = await getGoods();
+    try {
+      const goodsFromServer = await getGoods();
 
-    setGoods(goodsFromServer);
+      setGoods(goodsFromServer);
+      setHasRequestError(false);
+    } catch (error) {
+      setHasRequestError(true);
+    }
   };
 
   return (
@@ -44,7 +50,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      <GoodsList goods={goods} hasRequestError={hasRequestError} />
     </div>
   );
 };
