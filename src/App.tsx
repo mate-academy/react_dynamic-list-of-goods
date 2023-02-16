@@ -4,22 +4,32 @@ import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRed } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const getAllGoods = () => {
-    getAll().then(result => setGoods(result));
+    getAll()
+      .then(result => setGoods(result))
+      .catch(error => {
+        throw new Error(error);
+      });
   };
 
   const getFirstFive = () => {
-    get5First().then(result => setGoods(result));
+    get5First()
+      .then(result => setGoods(result))
+      .catch(error => {
+        throw new Error(error);
+      });
   };
 
   const getRedGoods = () => {
-    getRed().then(result => setGoods(result));
+    getRed()
+      .then(result => setGoods(result))
+      .catch(error => {
+        throw new Error(error);
+      });
   };
 
   return (
