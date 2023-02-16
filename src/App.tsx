@@ -4,28 +4,34 @@ import 'bulma';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import { get5First, getAll, getRedGoods } from './api/goods';
+import { Select } from './types/Select';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good[] | null>(null);
+  const [dataError, setDataError] = useState(false);
 
-  const getData = async (method:string) => {
+  const getData = async (method:Select) => {
     let data;
 
-    switch (method) {
-      case 'all':
-        data = await getAll();
-        setGoods(data);
-        break;
-      case 'firstFive':
-        data = await get5First();
-        setGoods(data);
-        break;
-      case 'onlyRed':
-        data = await getRedGoods();
-        setGoods(data);
-        break;
-      default:
-        throw new Error('no such data');
+    try {
+      switch (method) {
+        case Select.all:
+          data = await getAll();
+          break;
+        case Select.firstFive:
+          data = await get5First();
+          break;
+        case Select.onlyRed:
+          data = await getRedGoods();
+          break;
+        default:
+          data = null;
+      }
+
+      setGoods(data);
+    } catch {
+      setGoods(null);
+      setDataError(true);
     }
   };
 
@@ -37,7 +43,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         className="button is-info is-light is-outlined"
-        onClick={() => getData('all')}
+        onClick={() => getData(Select.all)}
       >
         Load all goods
       </button>
@@ -46,7 +52,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         className="button is-primary is-light is-outlined"
-        onClick={() => getData('firstFive')}
+        onClick={() => getData(Select.firstFive)}
       >
         Load 5 first goods
       </button>
@@ -55,12 +61,12 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         className="button is-danger is-light is-outlined"
-        onClick={() => getData('onlyRed')}
+        onClick={() => getData(Select.onlyRed)}
       >
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      <GoodsList goods={goods} dataError={dataError} />
     </div>
   );
 };

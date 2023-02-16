@@ -21,6 +21,5 @@ export const get5First = async () => {
 export const getRedGoods = async () => {
   const result = await getAll();
 
-  return [...result]
-    .filter(good => good.color === 'red');
+  return result.filter(good => good.color === 'red');
 };
