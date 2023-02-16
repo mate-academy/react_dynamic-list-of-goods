@@ -6,12 +6,15 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [isError, setError] = useState(false);
 
   const setVisibleGoods = (callback: () => Promise<Good[]>) => {
     callback()
       .then(visibleGoods => {
+        setError(false);
         setGoods(visibleGoods);
-      });
+      })
+      .catch(() => setError(true));
   };
 
   return (
@@ -40,6 +43,9 @@ export const App: React.FC = () => {
       >
         Load red goods
       </button>
+      {isError && (
+        <p>ERROR!!!!!</p>
+      )}
       <GoodsList goods={goods} />
     </div>
   );
