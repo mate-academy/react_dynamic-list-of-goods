@@ -10,21 +10,21 @@ export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
   const handleAllGoods = async () => {
-    const allGoods = getAll();
+    const allGoods = await getAll();
 
-    setVisibleGoods(await allGoods);
+    setVisibleGoods(allGoods);
   };
 
   const handleFiveGoods = async () => {
-    const fiveGoods = get5First();
+    const fiveGoods = await get5First();
 
-    setVisibleGoods(await fiveGoods);
+    setVisibleGoods(fiveGoods);
   };
 
   const handleRedGoods = async () => {
-    const redGoods = getRedGoods();
+    const redGoods = await getRedGoods();
 
-    setVisibleGoods(await redGoods);
+    setVisibleGoods(redGoods);
   };
 
   return (
