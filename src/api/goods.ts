@@ -1,7 +1,7 @@
 import { Good } from '../types/Good';
 
 // eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json1`;
+const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
 export const getAll = async (): Promise<Good[]> => {
   const result = await fetch(API_URL)
@@ -15,7 +15,7 @@ export const get5First = async () => {
 
   return result.sort((prev, next) => (
     prev.name.localeCompare(next.name)))
-    .slice(0, 6);
+    .slice(0, 5);
 };
 
 export const getRedGoods = async () => {

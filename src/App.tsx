@@ -21,7 +21,7 @@ export const App: React.FC = () => {
       /* eslint-disable no-console */
       console.warn(error);
     }
-  }, []);
+  }, [goods]);
 
   return (
     <div className="App">
