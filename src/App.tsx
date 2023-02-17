@@ -9,31 +9,10 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[] | null>(null);
   const [cathError, setCathError] = useState(false);
-  const handleAllGoodsButton = async () => {
+
+  const handleButton = async (f:Promise<Good[]>) => {
     try {
-      const goodsFromServer = await getAll();
-
-      setCathError(false);
-      setGoods(goodsFromServer);
-    } catch {
-      setCathError(true);
-    }
-  };
-
-  const handleFirstFiveGoodsButton = async () => {
-    try {
-      const goodsFromServer = await get5First();
-
-      setCathError(false);
-      setGoods(goodsFromServer);
-    } catch {
-      setCathError(true);
-    }
-  };
-
-  const handleRedGoodsButton = async () => {
-    try {
-      const goodsFromServer = await getRedGoods();
+      const goodsFromServer = await f;
 
       setCathError(false);
       setGoods(goodsFromServer);
@@ -50,7 +29,7 @@ export const App: React.FC = () => {
         className="button"
         type="button"
         data-cy="all-button"
-        onClick={handleAllGoodsButton}
+        onClick={() => handleButton(getAll())}
       >
         Load all goods
       </button>
@@ -59,7 +38,7 @@ export const App: React.FC = () => {
         className="button"
         type="button"
         data-cy="first-five-button"
-        onClick={handleFirstFiveGoodsButton}
+        onClick={() => handleButton(get5First())}
       >
         Load 5 first goods
       </button>
@@ -68,7 +47,7 @@ export const App: React.FC = () => {
         className="button"
         type="button"
         data-cy="red-button"
-        onClick={handleRedGoodsButton}
+        onClick={() => handleButton(getRedGoods())}
       >
         Load red goods
       </button>
