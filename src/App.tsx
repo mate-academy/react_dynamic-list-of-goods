@@ -7,26 +7,39 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[]>([]);
-  const handleAllGoodsButton = () => {
-    getAll()
-      .then(goodsFromServer => {
-        if (goodsFromServer.length === 0) {
-          throw new Error('Goods are empty');
-        }
+  const [goods, setGoods] = useState<Good[] | null>(null);
+  const [cathError, setCathError] = useState(false);
+  const handleAllGoodsButton = async () => {
+    try {
+      const goodsFromServer = await getAll();
 
-        return (setGoods(goodsFromServer));
-      });
+      setCathError(false);
+      setGoods(goodsFromServer);
+    } catch {
+      setCathError(true);
+    }
   };
 
-  const handleFirstFiveGoodsButton = () => {
-    get5First()
-      .then(goodsFromServer => setGoods(goodsFromServer));
+  const handleFirstFiveGoodsButton = async () => {
+    try {
+      const goodsFromServer = await get5First();
+
+      setCathError(false);
+      setGoods(goodsFromServer);
+    } catch {
+      setCathError(true);
+    }
   };
 
-  const handleRedGoodsButton = () => {
-    getRedGoods()
-      .then(goodsFromServer => setGoods(goodsFromServer));
+  const handleRedGoodsButton = async () => {
+    try {
+      const goodsFromServer = await getRedGoods();
+
+      setCathError(false);
+      setGoods(goodsFromServer);
+    } catch {
+      setCathError(true);
+    }
   };
 
   return (
@@ -60,8 +73,9 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
-
+      {cathError
+        ? <p>Could`t load data from server</p>
+        : <GoodsList goods={goods} />}
     </div>
   );
 };
