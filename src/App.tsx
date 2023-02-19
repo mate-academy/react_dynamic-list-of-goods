@@ -13,24 +13,23 @@ enum SelectedBy {
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const select = useCallback(async (selection: SelectedBy) => {
+  const selectGoods = useCallback(async (selection: SelectedBy) => {
     let selected;
 
     switch (selection) {
       case SelectedBy.FiveFirst:
         selected = await get5First();
-        setGoods(selected);
         break;
       case SelectedBy.RedGoods:
         selected = await getRedGoods();
-        setGoods(selected);
         break;
       case SelectedBy.All:
       default:
         selected = await getAll();
-        setGoods(selected);
         break;
     }
+
+    setGoods(selected);
   }, []);
 
   return (
@@ -40,7 +39,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => select(SelectedBy.All)}
+        onClick={() => selectGoods(SelectedBy.All)}
       >
         Load all goods
       </button>
@@ -48,7 +47,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => select(SelectedBy.FiveFirst)}
+        onClick={() => selectGoods(SelectedBy.FiveFirst)}
       >
         Load 5 first goods
       </button>
@@ -56,7 +55,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => select(SelectedBy.RedGoods)}
+        onClick={() => selectGoods(SelectedBy.RedGoods)}
       >
         Load red goods
       </button>
