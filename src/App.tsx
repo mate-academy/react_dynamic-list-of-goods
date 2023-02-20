@@ -32,7 +32,6 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        // onClick={() => handleClick(getRedGoods())}
         onClick={() => handleClick(getRedGoods())}
         type="button"
         data-cy="red-button"
