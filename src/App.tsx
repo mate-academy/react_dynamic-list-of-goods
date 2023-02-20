@@ -1,27 +1,97 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [clickedButton, setClickedButton] = useState('');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const loadAllGoods = async () => {
+    try {
+      const allGoods = await getAll();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      setGoods(allGoods);
+    } catch (error) {
+      setGoods([]);
+    }
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const loadFirstFiveGoods = async () => {
+    try {
+      const fiveFirstGoods = await get5First();
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      setGoods(fiveFirstGoods);
+    } catch (error) {
+      setGoods([]);
+    }
+  };
+
+  const loadRedGoods = async () => {
+    try {
+      const redGoods = await getRedGoods();
+
+      setGoods(redGoods);
+    } catch (error) {
+      setGoods([]);
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        id="all-button"
+        onClick={(event) => {
+          const { id } = event.currentTarget;
+
+          if (clickedButton !== id) {
+            setClickedButton(id);
+            loadAllGoods();
+          }
+        }}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        id="first-five-button"
+        onClick={(event) => {
+          const { id } = event.currentTarget;
+
+          if (clickedButton !== id) {
+            setClickedButton(id);
+            loadFirstFiveGoods();
+          }
+        }}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        id="red-button"
+        onClick={(event) => {
+          const { id } = event.currentTarget;
+
+          if (clickedButton !== id) {
+            setClickedButton(id);
+            loadRedGoods();
+          }
+        }}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
