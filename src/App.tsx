@@ -1,27 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRed } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export default function BasicButtons() {
+  return (
+    <Stack spacing={2} direction="row">
+      <Button variant="text">Text</Button>
+      <Button variant="contained">Contained</Button>
+      <Button variant="outlined">Outlined</Button>
+    </Stack>
+  );
+}
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleClick = (preparedGoods: Promise<Good[]>) => (
+    preparedGoods
+      .then(setGoods)
+  );
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return (
+    <div className="App">
+      <div className="App__container">
+        <h1>Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+        <div className="App__content">
+          <Button
+            variant="contained"
+            color="success"
+            type="button"
+            data-cy="all-button"
+            onClick={() => handleClick(getAll())}
+          >
+            Load all goods
+          </Button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+          <Button
+            variant="contained"
+            color="info"
+            type="button"
+            data-cy="first-five-button"
+            onClick={() => handleClick(get5First())}
+          >
+            Load 5 first goods
+          </Button>
+
+          <Button
+            variant="contained"
+            color="error"
+            type="button"
+            data-cy="red-button"
+            onClick={() => handleClick(getRed())}
+          >
+            Load red goods
+          </Button>
+
+          {goods.length !== 0 && <GoodsList goods={goods} />}
+        </div>
+      </div>
+    </div>
+  );
+};
