@@ -1,0 +1,15 @@
+.GoodsList {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  &__good {
+    padding: 5px;
+    width: max-content;
+
+    font-weight: bold;
+    background-color: #99cd3262;
+
+    border-radius: 5px;
+  }
+}

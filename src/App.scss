@@ -1,1 +1,57 @@
-// styles go here
+.App {
+  &__title {
+    margin-bottom: 20px;
+  }
+
+  &__buttons {
+    position: relative;
+
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    width: max-content;
+
+    &::after {
+      position: absolute;
+      bottom: -10px;
+      content: "";
+
+      height: 1px;
+      width: 100%;
+
+      background-color: black;
+    }
+  }
+
+  &__button {
+    display: block;
+    height: 30px;
+    padding: 5px 10px;
+
+    font-weight: bold;
+    color: white;
+
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 0.5;
+    }
+
+    &--all {
+      background-color: yellowgreen;
+    }
+
+    &--five {
+      background-color: orange;
+    }
+
+    &--red {
+      background-color: red;
+    }
+  }
+}
