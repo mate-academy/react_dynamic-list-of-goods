@@ -1,27 +1,105 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+import 'bulma';
+import cn from 'classnames';
+
+import { get5First, getAll, getRedGoods } from './api/goods';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import { GoodsList } from './components/GoodsList';
+import { Good } from './types/Good';
+import { LoadType } from './types/LoadedType';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setisLoading] = useState(false);
+  const [loadedType, setLoadedType] = useState(LoadType.NONE);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleLoadClick = useCallback(
+    async (fetchGoodsFunc: () => Promise<Good[]>, loadType) => {
+      setIsInitialized(false);
+      setGoods([]);
+      setisLoading(true);
+      setErrorMessage('');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+      try {
+        const loadedGoods = await fetchGoodsFunc();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+        setGoods(loadedGoods);
+        setIsInitialized(true);
+        setLoadedType(loadType);
+      } catch (error) {
+        setGoods([]);
+        setLoadedType(LoadType.NONE);
+        setErrorMessage(error.message);
+      } finally {
+        setisLoading(false);
+      }
+    },
+    [],
+  );
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="App">
+      <div className="App__content box">
+        <h1 className="title">Dynamic list of Goods</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+        <div className="App__loadButtons">
+          <button
+            type="button"
+            className={cn(
+              'button',
+              'is-primary',
+              { 'is-outlined': loadedType !== LoadType.ALL },
+            )}
+            data-cy="all-button"
+            onClick={() => handleLoadClick(getAll, LoadType.ALL)}
+          >
+            Load all goods
+          </button>
+          <button
+            type="button"
+            className={cn(
+              'button',
+              'is-primary',
+              { 'is-outlined': loadedType !== LoadType.FIVE },
+            )}
+            data-cy="first-five-button"
+            onClick={() => handleLoadClick(get5First, LoadType.FIVE)}
+          >
+            Load 5 first goods
+          </button>
+          <button
+            type="button"
+            className={cn(
+              'button',
+              'is-primary',
+              { 'is-outlined': loadedType !== LoadType.RED },
+            )}
+            data-cy="red-button"
+            onClick={() => handleLoadClick(getRedGoods, LoadType.RED)}
+          >
+            Load red goods
+          </button>
+        </div>
+
+        {errorMessage && <p className="has-text-danger">{errorMessage}</p>}
+
+        {goods.length
+          ? <GoodsList goods={goods} />
+          : isInitialized && (
+            <p className="has-text-danger">There are no goods</p>
+          )}
+
+        {isLoading && (
+          <img
+          // eslint-disable-next-line max-len
+            src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif?20151024034921"
+            alt=""
+          />
+        )}
+
+      </div>
+    </div>
+  );
+};
