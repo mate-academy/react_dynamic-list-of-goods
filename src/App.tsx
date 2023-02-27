@@ -1,27 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [hasLoadingError, setHasLoadingError] = useState<boolean>(false);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const dataFromServer = async (data: () => Promise<Good[]>) => {
+    try {
+      setHasLoadingError(false);
+      const goodsFromServer = await data();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      setGoods(goodsFromServer);
+    } catch (error) {
+      setHasLoadingError(true);
+    }
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => dataFromServer(getAll)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => dataFromServer(get5First)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => dataFromServer(getRedGoods)}
+      >
+        Load red goods
+      </button>
+
+      {goods.length > 0 && <GoodsList goods={goods} />}
+      {hasLoadingError && 'An error occurred when loading data'}
+    </div>
+  );
+};
