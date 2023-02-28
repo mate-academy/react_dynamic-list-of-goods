@@ -1,27 +1,93 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleListOfGoods = () => {
+    getAll()
+      .then((good) => {
+        setGoods(good);
+      });
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const handleSortById = () => {
+    get5First()
+      .then((goodName) => {
+        setGoods(goodName);
+      });
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const handleSortColorRed = () => {
+    getRedGoods().then((goodColor) => {
+      setGoods(goodColor);
+    });
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <Paper
+      sx={{
+        display: 'block',
+        margin: 'auto',
+        width: 370,
+        height: 430,
+      }}
+      elevation={5}
+      className="App"
+    >
+      <div style={{ textAlign: 'center' }}>
+        <h1 className="title">
+          Dynamic list of Goods
+        </h1>
+
+        <Button
+          variant="contained"
+          size="medium"
+          type="button"
+          data-cy="all-button"
+          onClick={handleListOfGoods}
+          className="button"
+        >
+          Load all
+        </Button>
+
+        <Button
+          variant="contained"
+          size="medium"
+          type="button"
+          color="success"
+          data-cy="first-five-button"
+          className="button"
+          onClick={handleSortById}
+        >
+          Load 5 first
+        </Button>
+
+        <Button
+          variant="contained"
+          size="medium"
+          color="error"
+          type="button"
+          data-cy="red-button"
+          className="button"
+          onClick={handleSortColorRed}
+        >
+          Load red
+        </Button>
+
+        <GoodsList
+          goods={goods}
+        />
+      </div>
+
+    </Paper>
+  );
+};
