@@ -1,1 +1,22 @@
-// styles go here
+body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  margin: 0;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  color: #363636;
+  background-color: #4a6ad6;
+}
+
+.App {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #ffffff;
+
+  &_title {
+    margin: 0;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+}

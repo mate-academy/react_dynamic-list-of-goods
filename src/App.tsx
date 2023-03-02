@@ -1,27 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
+
 import './App.scss';
+import { Button } from '@mui/material';
+
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { get5First, getAll, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleButtonSubmit = async (loadedGoods: Promise<Good[]>) => {
+    setVisibleGoods(await loadedGoods);
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return (
+    <div className="App">
+      <h1 className="App_title">Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      <Button
+        sx={{ m: 0.5 }}
+        variant="contained"
+        color="success"
+        type="button"
+        data-cy="all-button"
+        onClick={() => handleButtonSubmit(getAll())}
+      >
+        Load all goods
+      </Button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <Button
+        sx={{ m: 0.5 }}
+        variant="contained"
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => handleButtonSubmit(get5First())}
+      >
+        Load 5 first goods
+      </Button>
+
+      <Button
+        sx={{ m: 0.5 }}
+        variant="contained"
+        color="error"
+        type="button"
+        data-cy="red-button"
+        onClick={() => handleButtonSubmit(getRedGoods())}
+      >
+        Load red goods
+      </Button>
+
+      <GoodsList goods={visibleGoods} />
+    </div>
+  );
+};
