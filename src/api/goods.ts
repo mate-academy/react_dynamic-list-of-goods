@@ -11,15 +11,11 @@ export function getAll(): Promise<Good[]> {
 export const get5First = () => {
   return getAll()
     .then(goods => {
-      const newGoods = [...goods];
-
-      newGoods.sort((a, b) => {
+      goods.sort((a, b) => {
         return a.name.localeCompare(b.name);
       });
 
-      newGoods.length = 5;
-
-      return newGoods;
+      return goods.slice(0, 5);
     });
 };
 
