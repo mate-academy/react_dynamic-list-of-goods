@@ -1,27 +1,70 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+import { Button, ButtonGroup, Typography } from '@mui/material';
 import { GoodsList } from './GoodsList';
+import { get5First, getAll, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [currentRequest, setCurrentRequest] = useState<Good[]>([]);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleClickForRequest = (request: Promise<Good[]>) => {
+    request
+      .then(goods => setCurrentRequest(goods));
+  };
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  return (
+    <div className="App">
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      <div className="App__container">
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+        <Typography
+          className="App__title"
+          variant="h2"
+          gutterBottom
+        >
+          Dynamic list of Goods
+        </Typography>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+        <ButtonGroup
+          className="App__buttonGroup"
+          variant="contained"
+          aria-label="outlined primary button group"
+        >
+          <Button
+            variant="outlined"
+            size="medium"
+            type="button"
+            data-cy="all-button"
+            onClick={() => handleClickForRequest(getAll())}
+          >
+            Load all goods
+          </Button>
+
+          <Button
+            variant="outlined"
+            size="medium"
+            type="button"
+            data-cy="first-five-button"
+            onClick={() => handleClickForRequest(get5First())}
+          >
+            Load 5 first goods
+          </Button>
+
+          <Button
+            variant="outlined"
+            size="medium"
+            type="button"
+            data-cy="red-button"
+            onClick={() => handleClickForRequest(getRedGoods())}
+          >
+            Load red goods
+          </Button>
+
+        </ButtonGroup>
+      </div>
+
+      <GoodsList goods={currentRequest} />
+    </div>
+  );
+};
