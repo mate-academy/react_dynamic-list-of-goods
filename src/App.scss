@@ -1,1 +1,13 @@
-// styles go here
+.App {
+  margin-top: 100px;
+
+  &__paper {
+    border-radius: 50px;
+  }
+
+  &__title {
+    font-size: 40px;
+    color: #1e7fdf;
+    text-align: center;
+  }
+}
