@@ -10,7 +10,7 @@ export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
   const handleClick = (promise: Promise<Good[]>) => {
-    promise.then(goods => setVisibleGoods(goods));
+    promise.then(setVisibleGoods);
   };
 
   return (
