@@ -1,27 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+import { useQuery } from '@tanstack/react-query';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getGoods, QueryTypes } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [
+    goodsSelect,
+    setGoodsSelect,
+  ] = useState<QueryTypes>(QueryTypes.allGoods);
+  const {
+    data: goods,
+    isError,
+    isLoading,
+  } = useQuery(
+    ['goods', goodsSelect],
+    () => getGoods(goodsSelect),
+  );
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  if (isError) {
+    return <div>Error occurred</div>;
+  }
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setGoodsSelect(QueryTypes.allGoods)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setGoodsSelect(QueryTypes.firstFiveGoods)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setGoodsSelect(QueryTypes.allRedGoods)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
