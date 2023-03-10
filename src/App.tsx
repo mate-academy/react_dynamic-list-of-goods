@@ -6,29 +6,39 @@ import { Good } from './types/Good';
 import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[]>();
+  const [goods, setGoods] = useState<Good[] | void>([]);
+  const [color, setColor] = useState('black');
 
   const getAllGoods = async () => {
-    const allGoods = await goodsAPI.getAll();
+    try {
+      const allGoods = await goodsAPI.getAll();
 
-    if (allGoods) {
       setGoods(allGoods);
+      setColor('black');
+    } catch (error) {
+      throw new Error('error');
     }
   };
 
   const get5FirstGoods = async () => {
-    const filteredGoods = await goodsAPI.get5First();
+    try {
+      const filteredGoods = await goodsAPI.get5First();
 
-    if (filteredGoods) {
       setGoods(filteredGoods);
+      setColor('black');
+    } catch (error) {
+      throw new Error('error');
     }
   };
 
   const getRedGoods = async () => {
-    const filteredGoods = await goodsAPI.getRed();
+    try {
+      const filteredGoods = await goodsAPI.getRed();
 
-    if (filteredGoods) {
       setGoods(filteredGoods);
+      setColor('red');
+    } catch (error) {
+      throw new Error('error');
     }
   };
 
@@ -60,7 +70,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      {goods && (<GoodsList goods={goods} />)}
+      {goods && (<GoodsList goods={goods} color={color} />)}
     </div>
   );
 };
