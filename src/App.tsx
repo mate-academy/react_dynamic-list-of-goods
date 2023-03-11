@@ -15,8 +15,13 @@ enum SortType {
 
 export const App: FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [sortType, setSortType] = useState<SortType>();
 
   const getGoods = async (param: SortType): Promise<void> => {
+    if (param === sortType) {
+      return;
+    }
+
     let newGoods: Good[];
 
     switch (param) {
@@ -36,6 +41,7 @@ export const App: FC = () => {
         throw new Error('unknown sort type');
     }
 
+    setSortType(param);
     setGoods(newGoods);
   };
 
