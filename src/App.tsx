@@ -8,31 +8,24 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 // import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
-  const [goodsAll, setGoodsAll] = useState<Good[]>([]);
-  const [goods5First, setGoods5First] = useState<Good[]>([]);
-  const [goodsRed, setGoodsRed] = useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
 
   const handleClickAll = () => {
     getAll()
-      .then(goods => {
-        setGoodsAll(goods);
-        setGoods5First([]);
-        setGoodsRed([]);
+      .then(good => {
+        setGoods(good);
       });
   };
 
   const handleClick5First = () => {
-    get5First().then(goods => {
-      setGoods5First(goods);
-      setGoodsAll([]);
+    get5First().then(good => {
+      setGoods(good);
     });
   };
 
   const handleClickRedGoods = () => {
-    getRedGoods().then(goods => {
-      setGoodsRed(goods);
-      setGoodsAll([]);
-      setGoods5First([]);
+    getRedGoods().then(good => {
+      setGoods(good);
     });
   };
 
@@ -64,11 +57,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList
-        goods={goodsAll}
-        goods5First={goods5First}
-        goodsRed={goodsRed}
-      />
+      <GoodsList goods={goods} />
     </div>
   );
 };
