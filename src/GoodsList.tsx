@@ -5,18 +5,24 @@ type Props = {
   goods: Good[]
 };
 
-export const GoodsList: React.FC<Props> = ({ goods }) => {
-  return (
-    <ul>
-      {goods.map(good => (
+export const GoodsList: React.FC<Props> = ({ goods }) => (
+  <ul>
+    {goods.map(good => {
+      const {
+        id,
+        name,
+        color,
+      } = good;
+
+      return (
         <li
-          key={good.id}
+          key={id}
           data-cy="good"
-          style={{ color: good.color }}
+          style={{ color }}
         >
-          {good.name}
+          {name}
         </li>
-      ))}
-    </ul>
-  );
-};
+      );
+    })}
+  </ul>
+);
