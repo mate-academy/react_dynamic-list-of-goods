@@ -17,32 +17,8 @@ export const App: FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [sortType, setSortType] = useState<SortType>();
 
-  const getGoods = async (param: SortType): Promise<void> => {
-    if (param === sortType) {
-      return;
-    }
-
-    let newGoods: Good[];
-
-    switch (param) {
-      case SortType.ALL:
-        newGoods = await getAll();
-        break;
-
-      case SortType.FIRST5:
-        newGoods = await get5First();
-        break;
-
-      case SortType.RED:
-        newGoods = await getRedGoods();
-        break;
-
-      default:
-        throw new Error('unknown sort type');
-    }
-
-    setSortType(param);
-    setGoods(newGoods);
+  const getGoods = async (promise: Promise<Good[]>): Promise<void> => {
+    setGoods(await promise);
   };
 
   return (
@@ -52,7 +28,12 @@ export const App: FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getGoods(SortType.ALL)}
+        onClick={() => {
+          if (sortType !== SortType.ALL) {
+            setSortType(SortType.ALL);
+            getGoods(getAll());
+          }
+        }}
       >
         Load all goods
       </button>
@@ -60,7 +41,12 @@ export const App: FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => getGoods(SortType.FIRST5)}
+        onClick={() => {
+          if (sortType !== SortType.FIRST5) {
+            setSortType(SortType.FIRST5);
+            getGoods(get5First());
+          }
+        }}
       >
         Load 5 first goods
       </button>
@@ -68,7 +54,12 @@ export const App: FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => getGoods(SortType.RED)}
+        onClick={() => {
+          if (sortType !== SortType.RED) {
+            setSortType(SortType.RED);
+            getGoods(getRedGoods());
+          }
+        }}
       >
         Load red goods
       </button>
