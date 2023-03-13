@@ -31,36 +31,13 @@ export const App: React.FC = () => {
       >
         Load 5 first goods
       </Button>
+
       <Button
         action={() => getGoods(getRedGoods)}
         data="red-button"
       >
         Load red goods
       </Button>
-
-      {/* <button
-        type="button"
-        data-cy="all-button"
-        onClick={() => getGoods(getAll)}
-      >
-        Load all goods
-      </button> */}
-
-      {/* <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={() => getGoods(get5First)}
-      >
-        Load 5 first goods
-      </button>
-
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={() => getGoods(getRedGoods)}
-      >
-        Load red goods
-      </button> */}
 
       <GoodsList goods={goods} />
     </div>
