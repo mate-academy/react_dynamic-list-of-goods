@@ -5,14 +5,22 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
-    .then(response => response.json())
-    .catch(reason => new Error(reason));
+    .then(response => {
+      if (!response.ok) {
+        return Promise.reject(
+          new Error(response.statusText),
+        );
+      }
+
+      return response.json();
+    })
+    .catch(error => new Error(error));
 }
 
 export const get5First = () => {
   return getAll()
     .then(goods => goods)
-    .then(goods => [...goods]
+    .then(goods => goods
       .sort((a, b) => a.name.localeCompare(b.name))
       .slice(0, 5));
 };
