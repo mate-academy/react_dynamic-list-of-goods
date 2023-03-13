@@ -12,7 +12,7 @@ export const App: React.FC = () => {
     try {
       setGoods(await getAll());
     } catch (error) {
-      console.error('Error while fetching all goods:', error);
+      console.warn('Error while fetching all goods:', error);
     }
   };
 
@@ -20,7 +20,7 @@ export const App: React.FC = () => {
     try {
       setGoods(await get5First());
     } catch (error) {
-      console.error('Error while fetching first 5 goods:', error);
+      console.warn('Error while fetching first 5 goods:', error);
     }
   };
 
@@ -28,7 +28,7 @@ export const App: React.FC = () => {
     try {
       setGoods(await getRedGoods());
     } catch (error) {
-      console.error('Error while fetching red goods:', error);
+      console.warn('Error while fetching red goods:', error);
     }
   };
 
