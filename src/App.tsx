@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
@@ -8,15 +9,27 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleAllClick = async () => {
-    setGoods(await getAll());
+    try {
+      setGoods(await getAll());
+    } catch (error) {
+      console.error('Error while fetching all goods:', error);
+    }
   };
 
   const handleFirstFiveClick = async () => {
-    setGoods(await get5First());
+    try {
+      setGoods(await get5First());
+    } catch (error) {
+      console.error('Error while fetching first 5 goods:', error);
+    }
   };
 
   const handleRedClick = async () => {
-    setGoods(await getRedGoods());
+    try {
+      setGoods(await getRedGoods());
+    } catch (error) {
+      console.error('Error while fetching red goods:', error);
+    }
   };
 
   return (
