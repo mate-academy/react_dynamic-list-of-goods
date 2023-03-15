@@ -3,8 +3,14 @@ import { Good } from '../types/Good';
 // eslint-disable-next-line
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
-const sortByName = (a: string, b: string) => {
-  return a.localeCompare(b);
+const sortGoodByNameCallback = (
+  firstGood: Good,
+  secondGood: Good,
+) => {
+  const firstName = firstGood.name;
+  const secondName = secondGood.name;
+
+  return firstName.localeCompare(secondName);
 };
 
 export function getAll(): Promise<Good[]> {
@@ -15,12 +21,7 @@ export function getAll(): Promise<Good[]> {
 export const get5First = () => {
   return getAll()
     .then((goods) => {
-      const sortedGoods = [...goods.sort((goodOne, goodTwo) => {
-        const firstName = goodOne.name;
-        const secondName = goodTwo.name;
-
-        return sortByName(firstName, secondName);
-      })];
+      const sortedGoods = [...goods.sort(sortGoodByNameCallback)];
 
       return sortedGoods.slice(0, 5);
     });
