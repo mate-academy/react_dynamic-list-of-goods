@@ -1,27 +1,77 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
+import { Box, Button, Typography } from '@mui/material';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good []>([]);
+  const [activeButton, setActiveButton] = useState('');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const loadByTypeOfGet = useCallback(async (loadGoods) => {
+    const loadedGoods = loadGoods();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    setGoods(await loadedGoods);
+    setActiveButton(`${loadGoods.name}`);
+  }, []);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '100vh',
+        margin: '0, auto',
+      }}
+    >
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <div className="App">
+        <Typography
+          variant="h3"
+          gutterBottom
+        >
+          Dynamic list of Goods
+        </Typography>
+        <div className="Buttons">
+          <Button
+            variant={activeButton === 'getAll'
+              ? 'contained'
+              : 'outlined'}
+            type="button"
+            size="small"
+            data-cy="all-button"
+            onClick={() => loadByTypeOfGet(getAll)}
+          >
+            Load all goods
+          </Button>
+          <Button
+            variant={activeButton === 'get5First'
+              ? 'contained'
+              : 'outlined'}
+            type="button"
+            size="small"
+            data-cy="first-five-button"
+            onClick={() => loadByTypeOfGet(get5First)}
+          >
+            Load 5 first goods
+          </Button>
+          <Button
+            variant={activeButton === 'getRedGoods'
+              ? 'contained'
+              : 'outlined'}
+            type="button"
+            size="small"
+            data-cy="red-button"
+            onClick={() => loadByTypeOfGet(getRedGoods)}
+          >
+            Load red goods
+          </Button>
+        </div>
+        <GoodsList goods={goods} />
+      </div>
+    </Box>
+  );
+};
