@@ -1,1 +1,33 @@
-// styles go here
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.blue {
+  color: blue;
+}
+
+.buttons {
+  justify-content: center;
+  align-items: center;
+
+}
+
+.goods {
+  padding-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  text-align: center;
+}
