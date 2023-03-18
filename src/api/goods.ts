@@ -1,7 +1,7 @@
 import { Good } from '../types/Good';
 
 // eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods123.json`;
+const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 const HEADER_TYPE = 'content-type';
 const DATA_TYPE = 'application/json';
 
