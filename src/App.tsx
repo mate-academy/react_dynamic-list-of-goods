@@ -3,13 +3,11 @@ import './App.scss';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleAllGoods = (callback: () => Promise<Good[]>) => {
+  const handleAllGoods = (callback: () => Promise<Good[]>) => () => {
     callback()
       .then(result => setGoods(result))
       .catch(error => {
@@ -24,7 +22,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => handleAllGoods(getAll)}
+        onClick={handleAllGoods(getAll)}
       >
         Load all goods
       </button>
@@ -32,7 +30,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => handleAllGoods(get5First)}
+        onClick={handleAllGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -40,7 +38,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => handleAllGoods(getRedGoods)}
+        onClick={handleAllGoods(getRedGoods)}
       >
         Load red goods
       </button>
