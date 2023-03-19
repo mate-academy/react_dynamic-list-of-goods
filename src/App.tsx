@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import { GoodsList } from './components/GoodsList/GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
+import { Button } from './components/Button';
 // or
 // import * as goodsAPI from './api/goods';
 
@@ -11,42 +12,54 @@ const defaultGoods: Good[] = [];
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState(defaultGoods);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleGoodsLoad = async (callback: () => Promise<Good[]>) => {
-    const loadedGoods = await callback();
+    setLoading(true);
+    try {
+      const loadedGoods = await callback();
 
-    setGoods(loadedGoods);
+      setGoods(loadedGoods);
+    } catch (err) {
+      const typedError = err as Error;
+
+      setError(typedError.message);
+    }
+
+    setLoading(false);
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={() => handleGoodsLoad(getAll)}
-      >
-        Load all goods
-      </button>
+      <Button
+        dataCy="all-button"
+        loadGoods={() => handleGoodsLoad(getAll)}
+        isLoading={loading}
+        content="Load all goods"
+      />
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={() => handleGoodsLoad(get5First)}
-      >
-        Load 5 first goods
-      </button>
+      <Button
+        dataCy="first-five-button"
+        loadGoods={() => handleGoodsLoad(get5First)}
+        isLoading={loading}
+        content="Load 5 first goods"
+      />
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={() => handleGoodsLoad(getRedGoods)}
-      >
-        Load red goods
-      </button>
+      <Button
+        dataCy="red-button"
+        loadGoods={() => handleGoodsLoad(getRedGoods)}
+        isLoading={loading}
+        content="Load red goods"
+      />
 
-      <GoodsList goods={goods} />
+      {
+        error
+          ? <h2>{error}</h2>
+          : <GoodsList goods={goods} />
+      }
     </div>
   );
 };
