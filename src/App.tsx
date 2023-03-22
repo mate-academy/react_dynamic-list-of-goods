@@ -5,8 +5,6 @@ import { GoodsList } from './components/GoodsList/GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 import { Button } from './components/Button';
-// or
-// import * as goodsAPI from './api/goods';
 
 const defaultGoods: Good[] = [];
 
@@ -16,8 +14,8 @@ export const App: React.FC = () => {
   const [error, setError] = useState('');
 
   const handleGoodsLoad = async (callback: () => Promise<Good[]>) => {
-    setLoading(true);
     try {
+      setLoading(true);
       const loadedGoods = await callback();
 
       setGoods(loadedGoods);
@@ -25,9 +23,9 @@ export const App: React.FC = () => {
       const typedError = err as Error;
 
       setError(typedError.message);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
@@ -55,11 +53,9 @@ export const App: React.FC = () => {
         content="Load red goods"
       />
 
-      {
-        error
-          ? <h2>{error}</h2>
-          : <GoodsList goods={goods} />
-      }
+      {error
+        ? <h2>{error}</h2>
+        : <GoodsList goods={goods} />}
     </div>
   );
 };
