@@ -64,17 +64,18 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      {isLoading ? (
-        <p>Loading...</p>
+      {isLoadingError ? (
+        <p className="text">An error occurred while loading goods!</p>
       ) : (
         <>
-          {isLoadingError ? (
-            <p className="text">An error occurred while loading goods!</p>
+          {isLoading ? (
+            <p>Loading...</p>
           ) : (
             <GoodsList goods={goods} />
           )}
         </>
       )}
+
     </div>
   );
 };
