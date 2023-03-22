@@ -42,23 +42,22 @@ export const App: React.FC = () => {
 
     switch (sortType) {
       case Sort.All:
-        setSort(Sort.All);
         getGoods(getAll());
         break;
 
       case Sort.FirstFive:
-        setSort(Sort.All);
         getGoods(get5First());
         break;
 
       case Sort.Red:
-        setSort(Sort.Red);
         getGoods(getRedGoods());
         break;
 
       default:
         break;
     }
+
+    setSort(sortType);
   }, []);
 
   return (
