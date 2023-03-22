@@ -6,33 +6,39 @@ import { Good } from './types/Good';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 enum Sort {
+  None = '',
   All = 'all-button',
   FirstFive = 'first-five-button',
   Red = 'red-button',
 }
 
 const getButtonName = (sortType: Sort) => {
-  switch (sortType) {
-    case Sort.All:
-      return 'Load all goods';
+  const contentBySortType = {
+    [Sort.All]: 'Load all goods',
+    [Sort.FirstFive]: 'Load 5 first goods',
+    [Sort.Red]: 'Load red goods',
+    [Sort.None]: '',
+  };
 
-    case Sort.FirstFive:
-      return 'Load 5 first goods';
-
-    case Sort.Red:
-      return 'Load red goods';
-
-    default:
-      return '';
-  }
+  return contentBySortType[sortType];
 };
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [sort, setSort] = useState<Sort>();
+  const [sort, setSort] = useState<Sort>(Sort.None);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getGoods = useCallback(async (promise: Promise<Good[]>) => {
-    setGoods(await promise);
+    setIsLoading(true);
+
+    try {
+      setGoods(await promise);
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
   }, []);
 
   const handleClick = useCallback((sortType: Sort) => {
@@ -64,19 +70,31 @@ export const App: React.FC = () => {
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      {Object.values(Sort).map(current => (
-        <button
-          type="button"
-          data-cy={current}
-          onClick={() => {
-            handleClick(current);
-          }}
-        >
-          {getButtonName(current)}
-        </button>
-      ))}
+      {Object.values(Sort)
+        .filter(value => value)
+        .map(current => (
+          <button
+            type="button"
+            data-cy={current}
+            onClick={() => {
+              handleClick(current);
+            }}
+          >
+            {getButtonName(current)}
+          </button>
+        ))}
 
-      <GoodsList goods={goods} />
+      {isLoading
+        ? <p>Is Loading...</p>
+        : (
+          <>
+            {isError && (
+              <p>Something went wrong</p>
+            )}
+
+            <GoodsList goods={goods} />
+          </>
+        )}
     </div>
   );
 };
