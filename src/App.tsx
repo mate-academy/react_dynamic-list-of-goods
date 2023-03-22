@@ -17,17 +17,20 @@ enum GoodsType {
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [currentGoodsType, setCurrentGoodsType] = useState(GoodsType.Default);
+  const [isLoading, setIsLoading] = useState(false);
   const [isLoadingError, setIsLoadingError] = useState(false);
 
-  const handleLoad = (
+  const getLoadHandler = (
     getGoods: () => Promise<Good[]>,
-    goodsType: GoodsType = GoodsType.Default,
+    goodsType = GoodsType.Default,
   ) => {
     return () => {
       if (currentGoodsType !== goodsType) {
+        setIsLoading(true);
         getGoods()
           .then(setGoods)
-          .catch(() => setIsLoadingError(true));
+          .catch(() => setIsLoadingError(true))
+          .finally(() => setIsLoading(false));
         setCurrentGoodsType(goodsType);
       }
     };
@@ -37,14 +40,10 @@ export const App: React.FC = () => {
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      {isLoadingError && (
-        <p className="text">An error occurred while loading goods!</p>
-      )}
-
       <button
         type="button"
         data-cy="all-button"
-        onClick={handleLoad(getAll, GoodsType.All)}
+        onClick={getLoadHandler(getAll, GoodsType.All)}
       >
         Load all goods
       </button>
@@ -52,7 +51,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handleLoad(get5First, GoodsType.FirstFive)}
+        onClick={getLoadHandler(get5First, GoodsType.FirstFive)}
       >
         Load 5 first goods
       </button>
@@ -60,12 +59,22 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={handleLoad(getRedGoods, GoodsType.OnlyRed)}
+        onClick={getLoadHandler(getRedGoods, GoodsType.OnlyRed)}
       >
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          {isLoadingError ? (
+            <p className="text">An error occurred while loading goods!</p>
+          ) : (
+            <GoodsList goods={goods} />
+          )}
+        </>
+      )}
     </div>
   );
 };
