@@ -1,8 +1,14 @@
 {
+  "defaultCommandTimeout": 50000,
   "baseUrl": "http://localhost:3000",
   "video": true,
   "viewportHeight": 1920,
   "viewportWidth": 1080,
+  "responseTimeout": 120000,
+  "execTimeout": 120000,
+  "taskTimeout": 120000,
+  "pageLoadTimeout": 120000,
+  "requestTimeout": 120000,
   "screenshotOnRunFailure": true,
   "reporter": "mochawesome",
   "reporterOptions": {
