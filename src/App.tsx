@@ -12,7 +12,11 @@ enum SortType {
   RED = 'red-button',
 }
 
-const buttonNames = {
+type ButtonNames = {
+  [key in SortType]: string;
+};
+
+const buttonNames: ButtonNames = {
   [SortType.NONE]: '',
   [SortType.ALL]: 'Load all goods',
   [SortType.FIRST5]: 'Load 5 first goods',
@@ -22,9 +26,16 @@ const buttonNames = {
 export const App: FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [sortType, setSortType] = useState<SortType>(SortType.NONE);
+  const [errorText, setErrorText] = useState('');
 
   const getGoods = async (promise: Promise<Good[]>): Promise<void> => {
-    setGoods(await promise);
+    try {
+      const goodsFromServer = await promise;
+
+      setGoods(goodsFromServer);
+    } catch (error) {
+      setErrorText(String(error));
+    }
   };
 
   const handleButtonClick = (newSortType: SortType) => {
@@ -48,7 +59,7 @@ export const App: FC = () => {
         break;
 
       default:
-        setSortType(SortType.NONE);
+        break;
     }
   };
 
@@ -68,7 +79,9 @@ export const App: FC = () => {
         </button>
       ))}
 
-      <GoodsList goods={goods} />
+      {errorText
+        ? <p>{`Error! ${errorText}`}</p>
+        : <GoodsList goods={goods} />}
     </div>
   );
 };
