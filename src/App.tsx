@@ -13,17 +13,15 @@ export const App: FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [isFetched, setIsFetched] = useState(false);
   const [lastClickedButton, setLastClickedButton] = useState<string>('');
 
   const handleClick = useCallback(
     async (callback: () => Promise<Good[]>, buttonName: string) => {
-      if (isFetched || lastClickedButton === buttonName) {
+      if (lastClickedButton === buttonName) {
         return;
       }
 
       setIsLoading(true);
-      setIsFetched(true);
 
       try {
         setGoods(await callback());
@@ -32,9 +30,8 @@ export const App: FC = () => {
         setError(true);
       } finally {
         setIsLoading(false);
-        setIsFetched(false);
       }
-    }, [lastClickedButton, isFetched],
+    }, [lastClickedButton],
   );
 
   return (
