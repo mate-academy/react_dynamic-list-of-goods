@@ -1,5 +1,7 @@
 import { FC, useState } from 'react';
 import './App.scss';
+import { Box } from '@mui/material';
+import { FilterButton } from './Button';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRed } from './api/goods';
 import { Good } from './types/Good';
@@ -23,34 +25,41 @@ export const App: FC = () => {
   };
 
   return (
-    <div className="App">
-      <h1>Dynamic list of Goods</h1>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        textAlign: 'center',
+      }}
+    >
+      <div className="App">
+        <h1 style={{ color: '#ff5722' }}>
+          Dynamic list of Goods
+        </h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={getAllGoods}
-      >
-        Load all goods
-      </button>
+        <FilterButton
+          dataCy="all-button"
+          onClick={getAllGoods}
+        >
+          Load all goods
+        </FilterButton>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={getFirstFiveGoods}
-      >
-        Load 5 first goods
-      </button>
+        <FilterButton
+          dataCy="first-five-button"
+          onClick={getFirstFiveGoods}
+        >
+          Load 5 first goods
+        </FilterButton>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={getRedGoods}
-      >
-        Load red goods
-      </button>
+        <FilterButton
+          dataCy="red-button"
+          onClick={getRedGoods}
+        >
+          Load red goods
+        </FilterButton>
 
-      <GoodsList goods={goods} />
-    </div>
+        <GoodsList goods={goods} />
+      </div>
+    </Box>
   );
 };
