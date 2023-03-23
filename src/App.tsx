@@ -27,6 +27,7 @@ export const App: React.FC = () => {
     return () => {
       if (currentGoodsType !== goodsType) {
         setIsLoading(true);
+        setIsLoadingError(false);
         getGoods()
           .then(setGoods)
           .catch(() => setIsLoadingError(true))
