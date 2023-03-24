@@ -22,21 +22,19 @@ export const GoodsList: React.FC<Props> = React.memo(
       }}
       subheader={<li />}
     >
-      <ul>
-        {goods.map(good => {
-          const { id, name, color } = good;
+      {goods.map(good => {
+        const { id, name, color } = good;
 
-          return (
-            <ListItem
-              key={id}
-              style={{ color }}
-              data-cy="good"
-            >
-              <ListItemText primary={name} />
-            </ListItem>
-          );
-        })}
-      </ul>
+        return (
+          <ListItem
+            key={id}
+            style={{ color }}
+            data-cy="good"
+          >
+            <ListItemText primary={name} />
+          </ListItem>
+        );
+      })}
     </List>
   ),
 );

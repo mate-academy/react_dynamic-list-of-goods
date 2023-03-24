@@ -26,6 +26,7 @@ export const App: FC = () => {
       try {
         setGoods(await callback());
         setLastClickedButton(buttonName);
+        setError(false);
       } catch {
         setError(true);
       } finally {
