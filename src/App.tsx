@@ -64,20 +64,23 @@ export const App: FC = () => {
   };
 
   return (
-    <div className="App">
-      <h1>Dynamic list of Goods</h1>
+    <div className="App p-6">
+      <h1 className="block title is-1">Dynamic list of Goods</h1>
 
-      {Object.values(SortType).filter(Boolean).map((currentSortType) => (
-        <button
-          type="button"
-          data-cy={currentSortType}
-          onClick={() => {
-            handleButtonClick(currentSortType);
-          }}
-        >
-          {buttonNames[currentSortType]}
-        </button>
-      ))}
+      <div className="field is-grouped">
+        {Object.values(SortType).filter(Boolean).map((currentSortType) => (
+          <button
+            className="button is-warning is-light mr-3"
+            type="button"
+            data-cy={currentSortType}
+            onClick={() => {
+              handleButtonClick(currentSortType);
+            }}
+          >
+            {buttonNames[currentSortType]}
+          </button>
+        ))}
+      </div>
 
       {errorText
         ? <p>{`Error! ${errorText}`}</p>
