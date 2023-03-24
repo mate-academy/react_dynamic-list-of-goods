@@ -8,7 +8,7 @@ export function getAll(): Promise<Good[]> {
     .then(response => response.json());
 }
 
-export const get5First = () => {
+export const get5FirstGoods = () => {
   return getAll()
     .then(goods => goods); // sort and get the first 5
 };
