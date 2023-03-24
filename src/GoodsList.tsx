@@ -6,7 +6,7 @@ type Props = {
 };
 
 export const GoodsList: React.FC<Props> = ({ goods }) => (
-  <ul className="content">
+  <ul>
     {goods.map(good => {
       const {
         id,

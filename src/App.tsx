@@ -64,13 +64,13 @@ export const App: FC = () => {
   };
 
   return (
-    <div className="App p-6">
+    <div className="App p-6 content">
       <h1 className="block title is-1">Dynamic list of Goods</h1>
 
       <div className="field is-grouped">
         {Object.values(SortType).filter(Boolean).map((currentSortType) => (
           <button
-            className="button is-warning is-light mr-3"
+            className="button is-light mr-3 is-medium"
             type="button"
             data-cy={currentSortType}
             onClick={() => {
