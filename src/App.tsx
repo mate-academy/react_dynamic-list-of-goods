@@ -4,14 +4,33 @@ import { GoodsList } from './components/GoodsList/GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-import { Button } from './components/Button';
+import { Button as ButtonComponent } from './components/Button';
+import { Loader } from './components/Loader';
+import { Button } from './types/Button';
 
-const defaultGoods: Good[] = [];
+const defaultButtons: Button[] = [
+  {
+    id: 'all-button',
+    action: getAll,
+    title: 'Load all goods',
+  },
+  {
+    id: 'first-five-button',
+    action: get5First,
+    title: 'Load 5 first goods',
+  },
+  {
+    id: 'red-button',
+    action: getRedGoods,
+    title: 'Load red goods',
+  },
+];
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState(defaultGoods);
+  const [goods, setGoods] = useState<Good[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [activeButton, setActiveButton] = useState('');
 
   const handleGoodsLoad = async (callback: () => Promise<Good[]>) => {
     try {
@@ -30,28 +49,30 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
+      <h1
+        className="App__title"
+      >
+        Dynamic list of Goods
+      </h1>
 
-      <Button
-        dataCy="all-button"
-        loadGoods={() => handleGoodsLoad(getAll)}
-        isLoading={loading}
-        content="Load all goods"
-      />
+      <ul className="App__buttons-list">
+        {defaultButtons.map(({ id, title, action }) => (
+          <li key={id} className="App__buttons-item">
+            <ButtonComponent
+              id={id}
+              loadGoods={() => handleGoodsLoad(action)}
+              setSelected={setActiveButton}
+              selected={activeButton === id}
+              isLoading={loading}
+              content={title}
+            />
+          </li>
+        ))}
+      </ul>
 
-      <Button
-        dataCy="first-five-button"
-        loadGoods={() => handleGoodsLoad(get5First)}
-        isLoading={loading}
-        content="Load 5 first goods"
-      />
-
-      <Button
-        dataCy="red-button"
-        loadGoods={() => handleGoodsLoad(getRedGoods)}
-        isLoading={loading}
-        content="Load red goods"
-      />
+      {loading && (
+        <Loader />
+      )}
 
       {error
         ? <h2>{error}</h2>

@@ -1,0 +1,15 @@
+.GoodsList {
+
+  padding: 10px;
+
+  &__item {
+    padding: 8px;
+    font-size: 20px;
+    color: white;
+    border-radius: 4px;
+
+    &:not(:last-child) {
+      margin-bottom: 4px;
+    }
+  }
+}
