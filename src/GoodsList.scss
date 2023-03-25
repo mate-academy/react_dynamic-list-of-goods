@@ -1,0 +1,15 @@
+.goods-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.goods-list__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px;
+  height: 120px;
+  border: 1px solid #000;
+  border-radius: 8px;
+}

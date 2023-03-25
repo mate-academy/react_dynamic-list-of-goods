@@ -1,27 +1,70 @@
-import React from 'react';
-import './App.scss';
+import React, { useState } from 'react';
+import classNames from 'classnames';
+import 'bulma/css/bulma.min.css';
+
+import { Good } from './types/Good';
+import { LoadButtonSettings } from './classes/LoadButtonSettings';
 import { GoodsList } from './GoodsList';
+import { getAllGoods, getFirstFiveGoods, getRedGoods } from './api/goods';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import './App.scss';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+const loadButtonsSettings = [
+  new LoadButtonSettings('all', 'all', getAllGoods),
+  new LoadButtonSettings('5 first', 'first-five', getFirstFiveGoods),
+  new LoadButtonSettings('red', 'red', getRedGoods),
+];
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [currentLoadingMode, setCurrentLoadingMode] = useState('');
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return (
+    <div className="App">
+      <h1 className="title">
+        Dynamic list of Goods
+      </h1>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      <div className="loading-options">
+        {loadButtonsSettings.map(loadButtonSettings => {
+          const {
+            namePart,
+            dataCyPrefix,
+            onClickCallback,
+          } = loadButtonSettings;
 
-    <GoodsList goods={[]} />
-  </div>
-);
+          const isCurrentlyUsed = namePart === currentLoadingMode;
+
+          return (
+            <button
+              type="button"
+              className={classNames(
+                'button',
+                'is-info',
+                { 'is-light': isCurrentlyUsed },
+              )}
+              data-cy={`${dataCyPrefix}-button`}
+              onClick={async () => {
+                const loadedGoods = await onClickCallback();
+
+                if (JSON.stringify(loadedGoods) !== JSON.stringify(goods)) {
+                  setGoods(loadedGoods);
+                }
+
+                setIsLoaded(true);
+                setCurrentLoadingMode(namePart);
+              }}
+            >
+              {`Load ${namePart} goods`}
+            </button>
+          );
+        })}
+      </div>
+
+      {isLoaded && (
+        <GoodsList goods={goods} />
+      )}
+    </div>
+  );
+};
