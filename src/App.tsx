@@ -8,7 +8,7 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleAllGooods = () => {
+  const handleAllGoods = () => {
     getAll()
       .then(goodsFromServer => {
         setGoods(goodsFromServer);
@@ -18,21 +18,14 @@ export const App: React.FC = () => {
   const handle5FirstGoods = () => {
     get5FirstGoods()
       .then(goodsFromServer => {
-        const result = goodsFromServer
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .slice(0, 5);
-
-        setGoods(result);
+        setGoods(goodsFromServer);
       });
   };
 
   const handleAllRedGoods = () => {
     getRedGoods()
       .then(goodsFromServer => {
-        const result = goodsFromServer
-          .filter(good => good.color === 'red');
-
-        setGoods(result);
+        setGoods(goodsFromServer);
       });
   };
 
@@ -43,7 +36,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={handleAllGooods}
+        onClick={handleAllGoods}
       >
         Load all goods
       </button>
