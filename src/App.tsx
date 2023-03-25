@@ -38,6 +38,9 @@ export const App: React.FC = () => {
       const loadedGoods = await callback();
 
       setGoods(loadedGoods);
+      if (error) {
+        setError('');
+      }
     } catch (err) {
       const typedError = err as Error;
 
