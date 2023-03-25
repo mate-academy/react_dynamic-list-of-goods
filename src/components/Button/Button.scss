@@ -1,0 +1,20 @@
+.Button {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  background-color: #466790;
+  border: none;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+
+  &:hover,
+  &__active {
+    background-color: #0065df;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+}
