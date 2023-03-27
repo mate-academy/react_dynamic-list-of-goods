@@ -1,5 +1,5 @@
 import React from 'react';
-import { Good } from './types/Good';
+import { Good } from '../../types/Good';
 
 import './GoodsList.scss';
 

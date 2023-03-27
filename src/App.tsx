@@ -4,7 +4,8 @@ import 'bulma/css/bulma.min.css';
 
 import { Good } from './types/Good';
 import { LoadButtonSettings } from './classes/LoadButtonSettings';
-import { GoodsList } from './GoodsList';
+import { LoadingError } from './components/LoadingError/LoadingError';
+import { GoodsList } from './components/GoodsList/GoodsList';
 import { getAllGoods, getFirstFiveGoods, getRedGoods } from './api/goods';
 
 import './App.scss';
@@ -17,8 +18,34 @@ const loadButtonsSettings = [
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [isFailedLoad, setIsFailedLoad] = useState(false);
   const [currentLoadingMode, setCurrentLoadingMode] = useState('');
+
+  const loadGoods = async (
+    callback: () => Promise<Good[]>,
+    namePart: string,
+  ) => {
+    setIsLoaded(false);
+    setIsFailedLoad(false);
+    setCurrentLoadingMode(namePart);
+    setIsLoading(true);
+
+    try {
+      const loadedGoods = await callback();
+
+      if (JSON.stringify(loadedGoods) !== JSON.stringify(goods)) {
+        setGoods(loadedGoods);
+      }
+
+      setIsLoaded(true);
+      setIsLoading(false);
+    } catch (error) {
+      setIsFailedLoad(true);
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="App">
@@ -34,33 +61,30 @@ export const App: React.FC = () => {
             onClickCallback,
           } = loadButtonSettings;
 
-          const isCurrentlyUsed = namePart === currentLoadingMode;
+          const isCurrentMode = namePart === currentLoadingMode;
 
           return (
             <button
+              key={namePart}
               type="button"
               className={classNames(
                 'button',
                 'is-info',
-                { 'is-light': isCurrentlyUsed },
+                { 'is-light': !isCurrentMode },
+                { 'is-loading': isCurrentMode && isLoading },
               )}
               data-cy={`${dataCyPrefix}-button`}
-              onClick={async () => {
-                const loadedGoods = await onClickCallback();
-
-                if (JSON.stringify(loadedGoods) !== JSON.stringify(goods)) {
-                  setGoods(loadedGoods);
-                }
-
-                setIsLoaded(true);
-                setCurrentLoadingMode(namePart);
-              }}
+              onClick={() => loadGoods(onClickCallback, namePart)}
             >
               {`Load ${namePart} goods`}
             </button>
           );
         })}
       </div>
+
+      {isFailedLoad && (
+        <LoadingError />
+      )}
 
       {isLoaded && (
         <GoodsList goods={goods} />
