@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import 'bulma/css/bulma.min.css';
 
 import { Good } from './types/Good';
+import { LoadButton } from './components/LoadButton/LoadButton';
 import { LoadButtonSettings } from './classes/LoadButtonSettings';
 import { LoadingError } from './components/LoadingError/LoadingError';
 import { GoodsList } from './components/GoodsList/GoodsList';
@@ -55,29 +56,17 @@ export const App: React.FC = () => {
 
       <div className="loading-options">
         {loadButtonsSettings.map(loadButtonSettings => {
-          const {
-            namePart,
-            dataCyPrefix,
-            onClickCallback,
-          } = loadButtonSettings;
-
+          const { namePart } = loadButtonSettings;
           const isCurrentMode = namePart === currentLoadingMode;
 
           return (
-            <button
+            <LoadButton
               key={namePart}
-              type="button"
-              className={classNames(
-                'button',
-                'is-info',
-                { 'is-light': !isCurrentMode },
-                { 'is-loading': isCurrentMode && isLoading },
-              )}
-              data-cy={`${dataCyPrefix}-button`}
-              onClick={() => loadGoods(onClickCallback, namePart)}
-            >
-              {`Load ${namePart} goods`}
-            </button>
+              settings={loadButtonSettings}
+              isCurrentMode={isCurrentMode}
+              isLoading={isLoading}
+              load={loadGoods}
+            />
           );
         })}
       </div>
