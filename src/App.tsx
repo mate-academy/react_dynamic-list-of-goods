@@ -4,6 +4,7 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
 import { get5First, getAll, getRedGoods } from './api/goods';
+import { Loader } from './Loader';
 
 enum SortType {
   NONE = '',
@@ -27,14 +28,20 @@ export const App: FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [sortType, setSortType] = useState<SortType>(SortType.NONE);
   const [errorText, setErrorText] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const getGoods = async (promise: Promise<Good[]>): Promise<void> => {
+    setLoading(true);
+    setErrorText('');
+
     try {
       const goodsFromServer = await promise;
 
       setGoods(goodsFromServer);
     } catch (error) {
       setErrorText(String(error));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -81,6 +88,10 @@ export const App: FC = () => {
           </button>
         ))}
       </div>
+
+      {loading && (
+        <Loader />
+      )}
 
       {errorText
         ? <p>{`Error! ${errorText}`}</p>
