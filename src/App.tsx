@@ -13,7 +13,7 @@ export const App: FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [lastClickedButton, setLastClickedButton] = useState<string>('');
+  const [lastClickedButton, setLastClickedButton] = useState('');
 
   const handleClick = useCallback(
     async (callback: () => Promise<Good[]>, buttonName: string) => {
@@ -74,7 +74,7 @@ export const App: FC = () => {
         ) : (
           <>
             {error && (
-              <p style={{ color: 'red' }}>
+              <p className="is-error">
                 Error. Something went wrong
               </p>
             )}
