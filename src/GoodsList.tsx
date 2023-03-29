@@ -1,4 +1,5 @@
 import React from 'react';
+import ListGroup from 'react-bootstrap/ListGroup';
 import { Good } from './types/Good';
 
 type Props = {
@@ -6,11 +7,17 @@ type Props = {
 };
 
 export const GoodsList: React.FC<Props> = ({ goods }) => (
-  <ul>
+  <ListGroup>
     {goods.map(good => (
-      <li key={good.id} data-cy="good">
+      <ListGroup.Item
+        key={good.id}
+        data-cy="good"
+        style={{
+          color: good.color,
+        }}
+      >
         {good.name}
-      </li>
+      </ListGroup.Item>
     ))}
-  </ul>
+  </ListGroup>
 );
