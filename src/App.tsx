@@ -8,7 +8,8 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [listOfUsers, setListOfUsers] = useState<Good[]>([]);
 
-  const hendlerClick = async (whatToShow: string) => {
+  // eslint-disable-next-line max-len
+  const hendlerClick = async (whatToShow: 'ShowAll' | 'ShowFirst5' | 'ShowAllRed') => {
     switch (whatToShow) {
       case 'ShowAll':
         setListOfUsers(await getAll());
