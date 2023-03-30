@@ -1,0 +1,9 @@
+.is-absolute {
+  position: absolute;
+}
+
+.is-x-right-y-center {
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+}

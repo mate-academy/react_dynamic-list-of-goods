@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
-import { Good } from './types/Good';
 import 'bulma';
+import { GoodsList } from './components/GoodsList/GoodsList';
+import { Good } from './types/Good';
 
 import * as goodsAPI from './api/goods';
 

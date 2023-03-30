@@ -1,0 +1,24 @@
+.ColorPicker {
+  box-sizing: content-box;
+  width: 30px;
+  background-color: red;
+
+  &__list {
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+  }
+
+  &__item {
+    box-sizing: content-box;
+    height: 30px;
+    padding: 100%;
+    background-color: blue;
+
+    &:not(:first-child) {
+      margin-top: 5px;
+    }
+  }
+}
