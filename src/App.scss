@@ -1,1 +1,12 @@
-// styles go here
+.App {
+  padding: 48px;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+.loading-options {
+  display: flex;
+  justify-content: flex-start;
+  gap: 48px;
+  margin-bottom: 48px;
+}
