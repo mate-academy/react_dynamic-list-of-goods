@@ -14,6 +14,11 @@ export const App: React.FC = () => {
       .catch(() => setError(true));
   };
 
+  const handleLoadDataParams = (getData: () => Promise<Good[]>) => {
+    handleLoadData(getData);
+    setError(false);
+  };
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -21,10 +26,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => {
-          handleLoadData(getAll);
-          setError(false);
-        }}
+        onClick={() => handleLoadDataParams(getAll)}
       >
         Load all goods
       </button>
@@ -32,10 +34,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => {
-          handleLoadData(get5First);
-          setError(false);
-        }}
+        onClick={() => handleLoadDataParams(get5First)}
       >
         Load 5 first goods
       </button>
@@ -43,10 +42,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => {
-          handleLoadData(getRedGoods);
-          setError(false);
-        }}
+        onClick={() => handleLoadDataParams(getRedGoods)}
       >
         Load red goods
       </button>
