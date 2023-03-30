@@ -6,11 +6,12 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState(false);
 
   const handleLoadData = async (request: () => Promise<Good[]>) => {
     await request()
       .then(data => setGoods(data))
-      .catch(() => new Error('This request is not handle'));
+      .catch(() => setError(true));
   };
 
   return (
@@ -20,7 +21,10 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => handleLoadData(getAll)}
+        onClick={() => {
+          handleLoadData(getAll);
+          setError(false);
+        }}
       >
         Load all goods
       </button>
@@ -28,7 +32,10 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => handleLoadData(get5First)}
+        onClick={() => {
+          handleLoadData(get5First);
+          setError(false);
+        }}
       >
         Load 5 first goods
       </button>
@@ -36,10 +43,19 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => handleLoadData(getRedGoods)}
+        onClick={() => {
+          handleLoadData(getRedGoods);
+          setError(false);
+        }}
       >
         Load red goods
       </button>
+
+      {error && (
+        <div className="error">
+          Failed to fetch data. Please try again later.
+        </div>
+      )}
 
       <GoodsList goods={goods} />
     </div>

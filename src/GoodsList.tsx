@@ -1,20 +1,22 @@
 import React from 'react';
 import { Good } from './types/Good';
 
-export const GoodsList = React.memo(
-  ({ goods }: { goods: Good[] }) => {
-    return (
-      <ul>
-        {goods.map(good => (
-          <li
-            key={good.id}
-            data-cy="good"
-            style={{ color: good.color }}
-          >
-            {good.name}
-          </li>
-        ))}
-      </ul>
-    );
-  },
-);
+type Props = {
+  goods: Good[],
+};
+
+export const GoodsList: React.FC<Props> = React.memo(({ goods }) => {
+  return (
+    <ul>
+      {goods.map(({ id, color, name }) => (
+        <li
+          key={id}
+          data-cy="good"
+          style={{ color }}
+        >
+          {name}
+        </li>
+      ))}
+    </ul>
+  );
+});

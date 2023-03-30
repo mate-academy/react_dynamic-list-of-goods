@@ -1,1 +1,9 @@
-// styles go here
+.error {
+  width: max-content;
+  margin-top: 20px;
+  padding: 20px;
+  font-weight: 600;
+  border: 1px solid red;
+  border-radius: 16px;
+  color: red;
+}
