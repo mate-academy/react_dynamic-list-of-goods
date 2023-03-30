@@ -20,7 +20,6 @@ const loadButtonsSettings = [
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
   const [isFailedLoad, setIsFailedLoad] = useState(false);
   const [currentLoadingMode, setCurrentLoadingMode] = useState('');
 
@@ -28,23 +27,24 @@ export const App: React.FC = () => {
     callback: () => Promise<Good[]>,
     namePart: string,
   ) => {
-    setIsLoaded(false);
-    setIsFailedLoad(false);
-    setCurrentLoadingMode(namePart);
-    setIsLoading(true);
+    if (namePart !== currentLoadingMode) {
+      setIsFailedLoad(false);
+      setCurrentLoadingMode(namePart);
+      setIsLoading(true);
 
-    try {
-      const loadedGoods = await callback();
+      try {
+        const loadedGoods = await callback();
 
-      if (JSON.stringify(loadedGoods) !== JSON.stringify(goods)) {
-        setGoods(loadedGoods);
+        if (JSON.stringify(loadedGoods) !== JSON.stringify(goods)) {
+          setGoods(loadedGoods);
+        }
+
+        setIsLoading(false);
+      } catch (error) {
+        setIsFailedLoad(true);
+      } finally {
+        setIsLoading(false);
       }
-
-      setIsLoaded(true);
-      setIsLoading(false);
-    } catch (error) {
-      setIsFailedLoad(true);
-      setIsLoading(false);
     }
   };
 
@@ -75,7 +75,7 @@ export const App: React.FC = () => {
         <LoadingError />
       )}
 
-      {isLoaded && (
+      {goods.length > 0 && !isLoading && (
         <GoodsList goods={goods} />
       )}
     </div>
