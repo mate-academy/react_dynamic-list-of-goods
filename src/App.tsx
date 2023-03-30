@@ -1,27 +1,61 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [listOfUsers, setListOfUsers] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  // eslint-disable-next-line max-len
+  const hendlerClick = async (whatToShow: 'ShowAll' | 'ShowFirst5' | 'ShowAllRed') => {
+    switch (whatToShow) {
+      case 'ShowAll':
+        setListOfUsers(await getAll());
+        break;
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      case 'ShowFirst5':
+        setListOfUsers(await get5First());
+        break;
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      case 'ShowAllRed':
+        setListOfUsers(await getRedGoods());
+        break;
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      default:
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => hendlerClick('ShowAll')}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => hendlerClick('ShowFirst5')}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => hendlerClick('ShowAllRed')}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={listOfUsers} />
+    </div>
+  );
+};
