@@ -1,27 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
+import 'bulma';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
-
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
-
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
-
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <div className="section">
+        <div className="container has-text-centered">
+          <h1 className="title is-1 has-text-weight-bold">
+            Dynamic list of Goods
+          </h1>
+          <div className="buttons is-centered">
+            <button
+              type="button"
+              className="button has-text-weight-medium has-text-black"
+              data-cy="all-button"
+              onClick={() => {
+                goodsAPI.getAll()
+                  .then(goodsFromServer => setGoods(goodsFromServer));
+              }}
+            >
+              Load all goods
+            </button>
+            <button
+              type="button"
+              className="button has-text-weight-medium has-text-black"
+              data-cy="first-five-button"
+              onClick={() => {
+                goodsAPI.get5First()
+                  .then(goodsFromServer => setGoods(goodsFromServer));
+              }}
+            >
+              Load 5 first goods
+            </button>
+            <button
+              type="button"
+              className="button has-text-weight-medium has-text-black"
+              data-cy="red-button"
+              onClick={() => {
+                goodsAPI.getRedGoods()
+                  .then(goodsFromServer => setGoods(goodsFromServer));
+              }}
+            >
+              Load red goods
+            </button>
+          </div>
+          <GoodsList goods={goods} />
+        </div>
+      </div>
+    </div>
+  );
+};
