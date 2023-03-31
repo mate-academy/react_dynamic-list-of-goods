@@ -1,6 +1,6 @@
 import { Good } from '../types/Good';
 
-function sortByName(value: Good[]): Good[] {
+function sortByName<T extends Good>(value: T[]): T[] {
   return [...value].sort((prev, curr) => prev.name.localeCompare(curr.name));
 }
 
@@ -18,21 +18,24 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
     .then(response => {
-      if (response.ok) {
-        return response.json();
+      if (!response.ok) {
+        return Promise.reject(new Error('Server is sleeping'));
       }
 
-      return Promise.reject(Error);
-    })
-    .catch(error => {
-      window.console.warn(`${error} Not found`);
+      if (!response.headers.get('content-type')?.includes('application/json')) {
+        return Promise.reject(new Error('Wrong format file'));
+      }
+
+      return response.json();
     });
 }
 
-export const get5First = () => {
-  return getAll()
-    .then(goods => sortByName(goods))
-    .then(goods => sliceByNumber(goods, 5));
+export const get5First = async () => {
+  const goods = await getAll();
+  const sortedGoods = sortByName<Good>(goods);
+  const first5Goods = sliceByNumber(sortedGoods, 5);
+
+  return first5Goods;
 };
 
 export const getRedGoods = () => {
