@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Good } from '../../types/Good';
 import './GoodInfo.scss';
 import { ColorPicker } from '../ColorPicker';
@@ -8,22 +8,25 @@ type Props = {
 };
 
 export const GoodInfo: React.FC<Props> = ({ good }) => {
+  const [selectedColor, setSelectedColor] = useState(good.color);
+
   return (
     <li
       className="box is-blue py-3 has-text-weight-medium has-border-grey"
-      key={good.id}
       data-cy="good"
-      style={{ color: good.color }}
+      style={{ color: selectedColor }}
     >
-      <div className="has-text-centered is-relative">
+      <div
+        className="has-text-centered is-relative"
+        style={{ zIndex: 10 - good.id }}
+      >
         <p>{good.name}</p>
-        <ColorPicker />
-        <button
-          type="button"
-          className="button is-primary is-absolute is-x-right-y-center"
-        >
-          Button
-        </button>
+        <div className="is-absolute is-x-right-y-center">
+          <ColorPicker
+            selectedColor={selectedColor}
+            onColorChange={setSelectedColor}
+          />
+        </div>
       </div>
     </li>
   );
