@@ -1,9 +1,9 @@
 @import "../../shared/variables.scss";
 
 .ColorPicker {
-  position: relative;
-
   &__opener {
+    position: relative;
+
     display: flex;
     justify-content: center;
     align-items: center;

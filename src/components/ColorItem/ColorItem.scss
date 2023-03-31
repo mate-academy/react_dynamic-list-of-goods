@@ -2,7 +2,7 @@
 
 .ColorItem {
   cursor: pointer;
-  transition: transform $animationDuration;
+  // transition: transform $animationDuration;
 
   &:hover {
     transform: scale(1.1);

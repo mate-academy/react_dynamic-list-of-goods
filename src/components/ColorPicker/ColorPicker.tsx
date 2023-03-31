@@ -35,10 +35,12 @@ export const ColorPicker: React.FC<Props> = (props) => {
           },
         )}
       >
-        <ColorPalette
-          selectedColor={selectedColor}
-          onColorChange={onColorChange}
-        />
+        {isOpened && (
+          <ColorPalette
+            selectedColor={selectedColor}
+            onColorChange={onColorChange}
+          />
+        )}
       </div>
     </div>
   );

@@ -5,9 +5,10 @@ import { ColorPicker } from '../ColorPicker';
 
 type Props = {
   good: Good;
+  zIndex: number;
 };
 
-export const GoodInfo: React.FC<Props> = ({ good }) => {
+export const GoodInfo: React.FC<Props> = ({ good, zIndex }) => {
   const [selectedColor, setSelectedColor] = useState(good.color);
 
   return (
@@ -18,7 +19,7 @@ export const GoodInfo: React.FC<Props> = ({ good }) => {
     >
       <div
         className="has-text-centered is-relative"
-        style={{ zIndex: 10 - good.id }}
+        style={{ zIndex }}
       >
         <p>{good.name}</p>
         <div className="is-absolute is-x-right-y-center">

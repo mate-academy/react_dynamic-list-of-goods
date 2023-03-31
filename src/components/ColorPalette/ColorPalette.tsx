@@ -2,7 +2,7 @@ import React from 'react';
 import './ColorPalette.scss';
 import { ColorItem } from '../ColorItem';
 
-const colors = ['red', 'green', 'blue', 'red'];
+const colors = ['red', 'green', 'blue'];
 
 type Props = {
   selectedColor: string;
@@ -17,7 +17,10 @@ export const ColorPalette: React.FC<Props> = (props) => {
 
   return (
     <div className="ColorPalette">
-      <ul className="ColorPalette__list">
+      <ul
+        className="ColorPalette__list"
+        role="menu"
+      >
         {colors.map(color => (
           <li
             className="ColorPalette__item"
