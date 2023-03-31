@@ -60,16 +60,13 @@ export const App: React.FC = () => {
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
+
       <Button
         type="button"
         data-cy="all-button"
         variant="outline-primary"
         className="Button"
-        onClick={() => {
-          if (currentButton !== PressedButton.AllGoods) {
-            getGoods(PressedButton.AllGoods);
-          }
-        }}
+        onClick={() => getGoods(PressedButton.AllGoods)}
       >
         Load all goods
       </Button>
@@ -79,11 +76,7 @@ export const App: React.FC = () => {
         data-cy="first-five-button"
         variant="outline-warning"
         className="Button"
-        onClick={() => {
-          if (currentButton !== PressedButton.FirstFive) {
-            getGoods(PressedButton.FirstFive);
-          }
-        }}
+        onClick={() => getGoods(PressedButton.FirstFive)}
       >
         Load 5 first goods
       </Button>
@@ -93,16 +86,18 @@ export const App: React.FC = () => {
         data-cy="red-button"
         variant="outline-danger"
         className="Button"
-        onClick={() => {
-          if (currentButton !== PressedButton.RedColor) {
-            getGoods(PressedButton.RedColor);
-          }
-        }}
+        onClick={() => getGoods(PressedButton.RedColor)}
       >
         Load red goods
       </Button>
-      {error !== '' && <span>{getErrorMessage(error)}</span> }
-      {currentButton !== PressedButton.None && allGoods.length === 0
+
+      {error
+      && (
+        <span>{getErrorMessage(error)}</span>
+      )}
+
+      {currentButton !== PressedButton.None
+      && allGoods.length === 0
         ? <div className="lds-hourglass" />
         : <GoodsList goods={allGoods} />}
     </div>
