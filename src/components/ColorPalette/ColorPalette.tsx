@@ -24,10 +24,9 @@ export const ColorPalette: React.FC<Props> = (props) => {
         {colors.map(color => (
           <li
             className="ColorPalette__item"
-            key={color + Math.random()}
+            key={color}
           >
             <ColorItem
-              key={color}
               color={color}
               isSelected={color === selectedColor}
               onColorChange={onColorChange}
