@@ -102,7 +102,7 @@ export const App: React.FC = () => {
         Load red goods
       </Button>
       {error !== '' && <span>{getErrorMessage(error)}</span> }
-      {currentButton === PressedButton.None && allGoods.length === 0
+      {currentButton !== PressedButton.None && allGoods.length === 0
         ? <div className="lds-hourglass" />
         : <GoodsList goods={allGoods} />}
     </div>
