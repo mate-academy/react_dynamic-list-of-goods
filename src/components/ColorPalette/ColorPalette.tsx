@@ -1,8 +1,13 @@
 import React from 'react';
 import './ColorPalette.scss';
+import { Color } from '../../types/Color';
 import { ColorItem } from '../ColorItem';
 
-const colors = ['red', 'green', 'blue'];
+const colors: Color[] = [
+  { id: 1, keyword: 'red' },
+  { id: 2, keyword: 'green' },
+  { id: 3, keyword: 'blue' },
+];
 
 type Props = {
   selectedColor: string;
@@ -24,11 +29,11 @@ export const ColorPalette: React.FC<Props> = (props) => {
         {colors.map(color => (
           <li
             className="ColorPalette__item"
-            key={color}
+            key={color.id}
           >
             <ColorItem
               color={color}
-              isSelected={color === selectedColor}
+              isSelected={color.keyword === selectedColor}
               onColorChange={onColorChange}
             />
           </li>
