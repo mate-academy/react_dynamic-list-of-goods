@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import './ColorPicker.scss';
 import classNames from 'classnames';
-
-// const colors = ['red', 'green', 'blue'];
+import { ColorPalette } from '../ColorPalette';
 
 type Props = {
   selectedColor: string;
@@ -19,70 +18,27 @@ export const ColorPicker: React.FC<Props> = (props) => {
 
   return (
     <div
-      className={classNames(
-        'ColorPicker',
-        {
-          'ColorPicker--opened': isOpened,
-        },
-      )}
-      onMouseOver={() => setIsOpened(true)}
-      onMouseOut={() => setIsOpened(false)}
-      onFocus={() => setIsOpened(true)}
-      onBlur={() => setIsOpened(false)}
+      className="ColorPicker"
+      onMouseEnter={() => setIsOpened(true)}
+      onMouseLeave={() => setIsOpened(false)}
     >
       <div className="ColorPicker__opener">
         <span className="icon has-text-danger">
           <i className="ColorPicker__icon fas fa-2x fa-palette" />
         </span>
       </div>
-      <div className="ColorPicker__list-container">
-        <ul className="ColorPicker__list">
-          <li
-            className={classNames(
-              'ColorPicker__color-container',
-              {
-                'ColorPicker__color-container--selected':
-                  selectedColor === 'red',
-              },
-            )}
-            role="menuitem"
-            tabIndex={0}
-            onClick={() => onColorChange('red')}
-            onKeyDown={() => onColorChange('red')}
-          >
-            <div className="ColorPicker__item ColorPicker__item--color-red" />
-          </li>
-          <li
-            className={classNames(
-              'ColorPicker__color-container',
-              {
-                'ColorPicker__color-container--selected':
-                  selectedColor === 'green',
-              },
-            )}
-            role="menuitem"
-            tabIndex={0}
-            onClick={() => onColorChange('green')}
-            onKeyDown={() => onColorChange('green')}
-          >
-            <div className="ColorPicker__item ColorPicker__item--color-green" />
-          </li>
-          <li
-            className={classNames(
-              'ColorPicker__color-container',
-              {
-                'ColorPicker__color-container--selected':
-                  selectedColor === 'blue',
-              },
-            )}
-            role="menuitem"
-            tabIndex={0}
-            onClick={() => onColorChange('blue')}
-            onKeyDown={() => onColorChange('blue')}
-          >
-            <div className="ColorPicker__item ColorPicker__item--color-blue" />
-          </li>
-        </ul>
+      <div
+        className={classNames(
+          'ColorPicker__dropdown',
+          {
+            'ColorPicker__dropdown--opened': isOpened,
+          },
+        )}
+      >
+        <ColorPalette
+          selectedColor={selectedColor}
+          onColorChange={onColorChange}
+        />
       </div>
     </div>
   );
