@@ -39,15 +39,18 @@
     left: 0;
     right: 0;
 
-    max-height: 0;
-
     overflow: hidden;
-    transition: max-height $animationDuration;
+
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+
+    transition: transform $animationDuration ease-out,
+      opacity $animationDuration ease-out;
 
     &--opened {
-      max-height: $colorsListHeight;
-      // max-height: none; // no effect
-      // max-height: 1000px;// hard-coding
+      opacity: 1;
+      transform: scaleY(1);
     }
   }
 }

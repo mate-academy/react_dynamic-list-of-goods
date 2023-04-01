@@ -1,25 +1,16 @@
-// ALWAYS EDIT:
-// after adding color item in markup should increase this variable
-$numerOfColors: 3;
-
 // OPTIONAL EDIT:
 // set opener size and color items size (not direct but thorugh paddings)
-$colorOpenerWidth: 30px;
-$colorOpenerHeight: 30px;
+$colorOpenerWidth: 40px;
+$colorOpenerHeight: 40px;
 
 $colorsListPaddingY: 0.2 * $colorOpenerHeight;
-$colorsListPaddingX: 0.12 * $colorOpenerWidth;
-$colorsInterval: 0.12 * $colorOpenerHeight;
+$colorsListPaddingX: 0.1 * $colorOpenerWidth;
+$colorsInterval: 0.1 * $colorOpenerHeight;
 
 $colorItemSize: $colorOpenerWidth - 2 * $colorsListPaddingX; // square
 
 $animationDuration: 0.25s;
 
 // NEVER EDIT
-// to deal with height transition of drop down list of colors
-$colorsListHeight: $colorItemSize * $numerOfColors
-  + ($numerOfColors - 1) * $colorsInterval
-  + 2 * $colorsListPaddingY;
-
 // icon size depends on opener size
 $openerIconRatio: 40 / 32; // 40px Opener - 2em icon size (16 * 2 px)
