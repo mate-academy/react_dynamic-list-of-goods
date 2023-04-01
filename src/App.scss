@@ -1,1 +1,40 @@
-// styles go here
+body {
+  background-color: lightsteelblue;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.load-button {
+  margin: 10px;
+}
+
+.list-of-goods {
+  width: 400px;
+  margin-bottom: 10px;
+
+  &__item {
+    transition: transform 0.3s linear;
+    background-color: rgba(255, 255, 255, 0.7);
+
+    &:hover {
+      transform: scale(1.05);
+      background-color: rgba(255, 255, 255, 0.85);
+      border: 1px solid grey;
+      z-index: 1;
+    }
+  }
+}

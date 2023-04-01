@@ -5,7 +5,19 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
-    .then(response => response.json());
+    .then(response => {
+      if (!response.ok) {
+        return Promise.reject(
+          new Error(`${response.status} - ${response.statusText}`),
+        );
+      }
+
+      if (!response.headers.get('content-type')?.includes('application/json')) {
+        return Promise.reject(new Error('Content-type is not supported'));
+      }
+
+      return response.json();
+    });
 }
 
 export const get5First = () => {
