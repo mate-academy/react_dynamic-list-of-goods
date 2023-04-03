@@ -1,27 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, getFirst5, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
+  const [hasLoadingError, setHasLoadingError] = useState(false);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const getAllGoods = async () => {
+    try {
+      const allGoods = await getAll();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      setVisibleGoods(allGoods);
+    } catch (error) {
+      setHasLoadingError(true);
+      throw new Error('No data was found');
+    }
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const getFirstFiveGoods = async () => {
+    try {
+      const firstFiveGoods = await getFirst5();
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      setVisibleGoods(firstFiveGoods);
+    } catch (error) {
+      setHasLoadingError(true);
+      throw new Error('No data was found');
+    }
+  };
+
+  const getAllRedGoods = async () => {
+    try {
+      const redGoods = await getRedGoods();
+
+      setVisibleGoods(redGoods);
+    } catch (error) {
+      setHasLoadingError(true);
+      throw new Error('No data was found');
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <div className="App__buttons">
+        <button
+          type="button"
+          data-cy="all-button"
+          onClick={getAllGoods}
+          className="App__button App__button-all"
+        >
+          Load all goods
+        </button>
+        <button
+          type="button"
+          data-cy="first-five-button"
+          onClick={getFirstFiveGoods}
+          className="App__button App__button-five"
+        >
+          Load 5 first goods
+        </button>
+        <button
+          type="button"
+          data-cy="red-button"
+          onClick={getAllRedGoods}
+          className="App__button App__button-red"
+        >
+          Load red goods
+        </button>
+      </div>
+      {
+        hasLoadingError
+          ? (
+            <h3>No data was found</h3>
+          )
+          : (
+            <GoodsList
+              goods={visibleGoods}
+            />
+          )
+      }
+    </div>
+  );
+};

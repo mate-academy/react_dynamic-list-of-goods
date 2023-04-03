@@ -1,1 +1,56 @@
-// styles go here
+.App {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.4rem;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__button {
+    padding: 10px 15px;
+
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 2px 2px 1px black;
+
+    font-weight: 500;
+    color: black;
+
+    cursor: pointer;
+
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+
+    &:active {
+      transform: scale(0.97);
+    }
+
+    &-all {
+      background: #86ffc8;
+
+      &:hover {
+        background: #7ae9b7;
+      }
+    }
+
+    &-five {
+      background: #86ebff;
+
+      &:hover {
+        background: #7ddaed;
+      }
+    }
+
+    &-red {
+      background: #ff8686;
+      color: #fff;
+
+      &:hover {
+        background: #ef7d7d;
+      }
+    }
+  }
+}
