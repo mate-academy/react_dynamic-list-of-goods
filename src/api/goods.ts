@@ -5,15 +5,46 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
-    .then(response => response.json());
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not OK');
+      }
+
+      return response.json();
+    })
+    .catch(error => {
+      // eslint-disable-next-line
+      console.error('Error fetching goods:', error);
+
+      throw error;
+    });
 }
 
-export const get5First = () => {
-  return getAll()
-    .then(goods => goods); // sort and get the first 5
+export const get5First = async () => {
+  try {
+    const goods = await getAll();
+
+    return goods
+      .sort((prevGood, nextGood) => prevGood.name.localeCompare(nextGood.name))
+      .slice(0, 5);
+  } catch (error) {
+    // eslint-disable-next-line
+    console.error('Error fetching 5 first goods:', error);
+
+    throw error;
+  }
 };
 
-export const getRedGoods = () => {
-  return getAll()
-    .then(goods => goods); // get only red
+export const getRedGoods = async () => {
+  try {
+    const goods = await getAll();
+
+    return goods
+      .filter(good => good.color === 'red');
+  } catch (error) {
+    // eslint-disable-next-line
+    console.error('Error fetching red goods:', error);
+
+    throw error;
+  }
 };
