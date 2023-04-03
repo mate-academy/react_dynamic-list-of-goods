@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
@@ -14,25 +14,28 @@ export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [lastButtonClicked, setLastButtonClicked] = useState('');
 
-  const handleGoodsLoading = async (
-    getGoods: () => Promise<Good[]>,
-    buttonName: string,
-  ) => {
-    if (buttonName === lastButtonClicked) {
-      return;
-    }
+  const handleGoodsLoading = useCallback(
+    async (
+      getGoods: () => Promise<Good[]>,
+      buttonName: string,
+    ) => {
+      if (buttonName === lastButtonClicked) {
+        return;
+      }
 
-    setLastButtonClicked(buttonName);
-    setIsLoading(true);
+      setLastButtonClicked(buttonName);
+      setIsLoading(true);
 
-    const goodsFromServer = await getGoods()
-      .catch(() => {
-        throw new Error('Something went wrong:(');
-      })
-      .finally(() => setIsLoading(false));
+      const goodsFromServer = await getGoods()
+        .catch(() => {
+          throw new Error('Something went wrong:(');
+        })
+        .finally(() => setIsLoading(false));
 
-    setGoods(goodsFromServer);
-  };
+      setGoods(goodsFromServer);
+    },
+    [],
+  );
 
   return (
     <div className="App">

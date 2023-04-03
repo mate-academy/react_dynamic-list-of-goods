@@ -1,30 +1,34 @@
+$margin10: 10px;
+
+@mixin flex-cloumn-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 body {
   background-color: lightsteelblue;
 }
 
 .App {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  @include flex-cloumn-center;
 }
 
 .header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px;
+  @include flex-cloumn-center;
+  margin: $margin10;
   background-color: rgba(255, 255, 255, 0.5);
   padding: 10px;
   border-radius: 10px;
 }
 
 .load-button {
-  margin: 10px;
+  margin: $margin10;
 }
 
 .list-of-goods {
   width: 400px;
-  margin-bottom: 10px;
+  margin-bottom: $margin10;
 
   &__item {
     transition: transform 0.3s linear;
