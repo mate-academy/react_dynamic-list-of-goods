@@ -1,10 +1,11 @@
 import './App.scss';
 import { Oval } from 'react-loader-spinner';
+import 'bulma';
 
 import React, { useCallback, useState } from 'react';
 import { GoodsList } from './components/GoodsList';
-import { Good } from './types/Good';
 import { Button } from './types/Button';
+import { Good } from './types/Good';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
@@ -55,28 +56,39 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
-      {buttons.map(({ text, dataCy, loadFunction }) => (
-        <button
-          type="button"
-          className="buttton"
-          data-cy={dataCy}
-          onClick={() => handleClick(loadFunction)}
-          key={text}
-        >
-          {text}
-        </button>
-      ))}
+      <div className="container">
+        <div className="box has-text-centered">
+          <h1 className="title">Dynamic list of Goods</h1>
 
-      {hasLoadingError && (
-        <p>An error occured when loading data!</p>
-      )}
+          <div className="buttons-box">
+            {buttons.map(({ text, dataCy, loadFunction }) => (
+              <button
+                className="button is-link"
+                type="button"
+                data-cy={dataCy}
+                onClick={() => handleClick(loadFunction)}
+                key={text}
+              >
+                {text}
+              </button>
+            ))}
+          </div>
+        </div>
 
-      {goods.length === 0 && loading && (
-        <Oval width={40} />
-      )}
+        {hasLoadingError && (
+          <div className="notification is-danger">
+            An error occured when loading data!
+          </div>
+        )}
 
-      <GoodsList goods={goods} />
+        {loading ? (
+          <div className="is-flex is-justify-content-center">
+            <Oval width={70} />
+          </div>
+        ) : (
+          <GoodsList goods={goods} />
+        )}
+      </div>
     </div>
   );
 };

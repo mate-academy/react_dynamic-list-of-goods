@@ -1,1 +1,14 @@
-// styles go here
+* {
+  box-sizing: border-box;
+}
+
+.buttons-box {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.button {
+  min-width: 200px;
+  margin: 5px;
+}
