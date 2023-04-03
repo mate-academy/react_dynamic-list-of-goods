@@ -1,59 +1,80 @@
 import './App.scss';
+import { Oval } from 'react-loader-spinner';
 
-import React, { useState } from 'react';
-import { GoodsList } from './GoodsList';
+import React, { useCallback, useState } from 'react';
+import { GoodsList } from './components/GoodsList';
 import { Good } from './types/Good';
+import { Button } from './types/Button';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
+const buttons: Button[] = [
+  {
+    text: 'Load all goods',
+    loadFunction: getAll,
+    dataCy: 'all-button',
+  },
+  {
+    text: 'Load 5 first goods',
+    loadFunction: get5First,
+    dataCy: 'first-five-button',
+  },
+  {
+    text: 'Load red goods',
+    loadFunction: getRedGoods,
+    dataCy: 'red-button',
+  },
+];
+
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [hasLoadingError, setHasLoadingError] = useState(false);
 
-  const loadGoods = async () => {
-    const allGoods = await getAll();
+  const loadGoods = useCallback(async (loadFunction: () => Promise<Good[]>) => {
+    setLoading(true);
+    setHasLoadingError(false);
 
-    setGoods(allGoods);
-  };
+    try {
+      const initialGoods = await loadFunction();
 
-  const load5FirstGoods = async () => {
-    const fiveFirstGoods = await get5First();
+      setGoods(initialGoods);
+      setLoading(false);
+      setHasLoadingError(false);
+    } catch (error) {
+      setHasLoadingError(true);
+      setLoading(false);
+    }
+  }, []);
 
-    setGoods(fiveFirstGoods);
-  };
-
-  const loadRedGoods = async () => {
-    const redGoods = await getRedGoods();
-
-    setGoods(redGoods);
-  };
+  const handleClick = useCallback((
+    loadFunction: () => Promise<Good[]>,
+  ): void => {
+    loadGoods(loadFunction);
+  }, [loadGoods]);
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
+      {buttons.map(({ text, dataCy, loadFunction }) => (
+        <button
+          type="button"
+          className="buttton"
+          data-cy={dataCy}
+          onClick={() => handleClick(loadFunction)}
+          key={text}
+        >
+          {text}
+        </button>
+      ))}
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={loadGoods}
-      >
-        Load all goods
-      </button>
+      {hasLoadingError && (
+        <p>An error occured when loading data!</p>
+      )}
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={load5FirstGoods}
-      >
-        Load 5 first goods
-      </button>
-
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={loadRedGoods}
-      >
-        Load red goods
-      </button>
+      {goods.length === 0 && loading && (
+        <Oval width={40} />
+      )}
 
       <GoodsList goods={goods} />
     </div>
