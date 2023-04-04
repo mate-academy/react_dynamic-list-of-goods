@@ -5,22 +5,28 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import * as goodsAPI from './api/goods';
 
+enum FilterOptions {
+  all,
+  first5,
+  red,
+}
+
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const visibleGoods = async (type: string) => {
+  const visibleGoods = async (filterOption: FilterOptions) => {
     let goodsList: Good[];
 
-    switch (type) {
-      case 'all':
+    switch (filterOption) {
+      case FilterOptions.all:
         goodsList = await goodsAPI.getAll();
         break;
 
-      case 'first5':
+      case FilterOptions.first5:
         goodsList = await goodsAPI.get5First();
         break;
 
-      case 'red':
+      case FilterOptions.red:
         goodsList = await goodsAPI.getRedGoods();
         break;
 
@@ -38,7 +44,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => visibleGoods('all')}
+        onClick={() => visibleGoods(FilterOptions.all)}
       >
         Load all goods
       </button>
@@ -46,7 +52,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => visibleGoods('first5')}
+        onClick={() => visibleGoods(FilterOptions.first5)}
       >
         Load 5 first goods
       </button>
@@ -54,7 +60,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => visibleGoods('red')}
+        onClick={() => visibleGoods(FilterOptions.red)}
       >
         Load red goods
       </button>
