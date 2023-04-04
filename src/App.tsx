@@ -1,27 +1,75 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRed } from './api/goods';
+import { Good } from './types/Good';
+import { Button } from './components/Button';
+import { GoodsList } from './components/GoodsList';
+import { Loader } from './components/Loader';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [currentClickedButton, setCurrentClickedButton] = useState('');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleFetchData = useCallback(
+    async (callback: () => Promise<Good[]>, type: string) => {
+      if (currentClickedButton !== type) {
+        setIsLoading(true);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+        try {
+          setGoods(await callback());
+          setCurrentClickedButton(type);
+          setError(false);
+        } catch {
+          setError(true);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    }, [currentClickedButton],
+  );
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="app">
+      <h1 className="app__title">Dynamic list of Goods</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <div className="app__buttons-wrapper">
+        <Button
+          data-cy="all-button"
+          onClick={() => handleFetchData(getAll, 'all')}
+          title="Load all goods"
+        />
+
+        <Button
+          data-cy="first-five-button"
+          onClick={() => handleFetchData(get5First, 'firstFive')}
+          title="Load 5 first goods"
+        />
+
+        <Button
+          data-cy="red-button"
+          onClick={() => handleFetchData(getRed, 'red')}
+          title="Load red goods"
+        />
+      </div>
+
+      {isLoading
+        ? <Loader />
+        : (
+          <>
+            {error && (
+              <p className="app__error">
+                Error: Unable to establish a connection with the server.
+              </p>
+            )}
+
+            <hr className="app__line" />
+
+            <GoodsList goods={goods} />
+          </>
+        )}
+    </div>
+  );
+};

@@ -1,0 +1,23 @@
+@mixin absolute-bottom-right-z {
+  content: "";
+  position: absolute;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+}
+
+@mixin before-settings {
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  width: 100%;
+  height: 100%;
+}
+
+@mixin prefixes {
+  -webkit-transform-origin: 50%;
+  -ms-transform-origin: 50%;
+  transform-origin: 50%;
+}

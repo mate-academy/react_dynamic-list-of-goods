@@ -1,0 +1,12 @@
+@import "../../styles/variables";
+
+.goodsList {
+  margin: 20px;
+
+  &__item {
+    font-family: $fontFamily;
+    font-size: 20px;
+    font-weight: 400;
+    margin: 5px;
+  }
+}
