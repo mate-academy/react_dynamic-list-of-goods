@@ -82,7 +82,9 @@ export const App: React.FC = () => {
         : (
           <>
             {hasError && (
-              <p>Sorry, something went wrong</p>
+              <p className="page page__error">
+                Sorry, something went wrong
+              </p>
             )}
 
             <GoodsList goods={goods} />
