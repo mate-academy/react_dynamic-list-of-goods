@@ -1,27 +1,95 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import classNames from 'classnames';
+import { GoodsList } from './components/GoodsList';
+import { get5First, getAll, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
+import { LoadingError } from './components/LoadingError';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [loading, setLoad] = useState({
+    all: false,
+    five: false,
+    red: false,
+  });
+  const [loadingError, setloadingError] = useState(false);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleGoods = async (type: string) => {
+    let goodsFromServer: React.SetStateAction<Good[]>;
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+    setLoad((prevState) => ({
+      ...prevState,
+      [type]: true,
+    }));
+    setloadingError(false);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    try {
+      switch (type) {
+        case 'all':
+          goodsFromServer = await getAll();
+          break;
+        case 'five':
+          goodsFromServer = await get5First();
+          break;
+        case 'red':
+          goodsFromServer = await getRedGoods();
+          break;
+        default:
+          goodsFromServer = [];
+          break;
+      }
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      setGoods(goodsFromServer);
+    } catch {
+      setloadingError(true);
+    } finally {
+      setLoad((prevState) => ({
+        ...prevState,
+        [type]: false,
+      }
+      ));
+    }
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <h1 className="title">
+        Dynamic list of Goods
+      </h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => handleGoods('all')}
+        className={classNames('button', 'is-light',
+          { 'is-loading': loading.all })}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => handleGoods('five')}
+        className={classNames('button', 'is-light',
+          { 'is-loading': loading.five })}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => handleGoods('red')}
+        className={classNames('button', 'is-light',
+          { 'is-loading': loading.red })}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+      {loadingError && <LoadingError />}
+    </div>
+  );
+};
