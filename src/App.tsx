@@ -7,39 +7,31 @@ import { Good } from './types/Good';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Loader } from './Components/Loader';
+import { AlertMessage } from './Components/Alert/Alert';
+
+function getErrorMessage(error: unknown) {
+  return error instanceof Error
+    ? error.message
+    : String(error);
+}
 
 export const App: React.FC = () => {
   const [goodsList, setGoodsList] = useState<Good[]>([]);
-  const [waiter, setWaiter] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleGetAll = () => {
-    setWaiter(true);
+  const handleGetGoods = async (getGood: () => Promise<Good[]>) => {
+    setIsLoading(true);
 
-    setTimeout(async () => {
-      setWaiter(false);
+    try {
+      const goods = await getGood();
 
-      return setGoodsList(await getAll());
-    }, 500);
-  };
-
-  const handleGet5Firs = () => {
-    setWaiter(true);
-
-    setTimeout(async () => {
-      setWaiter(false);
-
-      return setGoodsList(await get5First());
-    }, 500);
-  };
-
-  const handleGetRedGoods = () => {
-    setWaiter(true);
-
-    setTimeout(async () => {
-      setWaiter(false);
-
-      return setGoodsList(await getRedGoods());
-    }, 500);
+      setGoodsList(goods);
+    } catch (error) {
+      setErrorMessage(getErrorMessage(error));
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -49,7 +41,7 @@ export const App: React.FC = () => {
       <ButtonGroup>
         <Button
           variant="secondary"
-          onClick={handleGetAll}
+          onClick={() => handleGetGoods(getAll)}
           type="button"
           data-cy="all-button"
         >
@@ -58,7 +50,7 @@ export const App: React.FC = () => {
 
         <Button
           variant="warning"
-          onClick={handleGet5Firs}
+          onClick={() => handleGetGoods(get5First)}
           type="button"
           data-cy="first-five-button"
         >
@@ -67,7 +59,7 @@ export const App: React.FC = () => {
 
         <Button
           variant="danger"
-          onClick={handleGetRedGoods}
+          onClick={() => handleGetGoods(getRedGoods)}
           type="button"
           data-cy="red-button"
         >
@@ -75,9 +67,8 @@ export const App: React.FC = () => {
         </Button>
       </ButtonGroup>
 
-      {!waiter
-        ? <GoodsList goods={goodsList} />
-        : <Loader />}
+      {!isLoading ? <GoodsList goods={goodsList} /> : <Loader />}
+      {errorMessage && <AlertMessage error={errorMessage} />}
     </div>
   );
 };
