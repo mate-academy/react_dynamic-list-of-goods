@@ -1,27 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
+import 'bulma/css/bulma.css';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+// import classnames from 'classnames';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { GoodsList } from './components/goodsList/GoodsList';
+import { get5First, getAll, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const loadAllGoods = async () => {
+    const gods = await getAll();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    setGoods(gods);
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const loadSortedGoods = async () => {
+    const sortedGoods = await get5First();
 
-    <GoodsList goods={[]} />
-  </div>
-);
+    setGoods(sortedGoods);
+  };
+
+  const loadFilteredGoods = async () => {
+    const filteredGoods = await getRedGoods();
+
+    setGoods(filteredGoods);
+  };
+
+  return (
+    <div className="App content">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        className="button"
+        data-cy="all-button"
+        onClick={loadAllGoods}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        className="button"
+        data-cy="first-five-button"
+        onClick={loadSortedGoods}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        className="button"
+        data-cy="red-button"
+        onClick={loadFilteredGoods}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
