@@ -1,0 +1,27 @@
+.goods-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  width: 100%;
+
+  list-style: none;
+  padding: 0;
+
+  .good {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    color: #333;
+    transition: background-color 0.3s;
+
+    cursor: pointer;
+
+    &.is-red {
+      color: #ff0000;
+    }
+
+    &:hover {
+      background-color: #f2f2f2;
+    }
+  }
+}

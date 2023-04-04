@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import { GoodsList } from './components/GoodList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
+import { Loader } from './components/GoodList/Loader';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
@@ -28,33 +29,42 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
+      <div className="container">
+        <h1 className="title">Dynamic list of Goods</h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={handleLoadAll}
-      >
-        Load all goods
-      </button>
+        <div className="buttons is-centered">
+          <button
+            className="button is-primary is-outlined"
+            type="button"
+            data-cy="all-button"
+            onClick={handleLoadAll}
+          >
+            Load all goods
+          </button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={handleLoad5FirstGoods}
-      >
-        Load 5 first goods
-      </button>
+          <button
+            className="button is-primary is-outlined"
+            type="button"
+            data-cy="first-five-button"
+            onClick={handleLoad5FirstGoods}
+          >
+            Load 5 first goods
+          </button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={handleLoadOnlyRed}
-      >
-        Load red goods
-      </button>
+          <button
+            className="button is-primary is-outlined"
+            type="button"
+            data-cy="red-button"
+            onClick={handleLoadOnlyRed}
+          >
+            Load red goods
+          </button>
+        </div>
 
-      <GoodsList goods={goods} />
+        <GoodsList goods={goods} />
+
+        <Loader />
+      </div>
     </div>
   );
 };

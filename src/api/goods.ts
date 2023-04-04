@@ -13,10 +13,7 @@ export function getAll(): Promise<Good[]> {
       return response.json();
     })
     .catch(error => {
-      // eslint-disable-next-line
-      console.error('Error fetching goods:', error);
-
-      throw error;
+      throw new Error(error);
     });
 }
 
