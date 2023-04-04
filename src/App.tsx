@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './App.scss';
 import classNames from 'classnames';
-import { GoodsList } from './GoodsList';
+import { GoodsList } from './components/GoodsList';
 import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-import { LoadingError } from './LoadingError';
+import { LoadingError } from './components/LoadingError';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
