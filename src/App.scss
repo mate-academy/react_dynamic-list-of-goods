@@ -1,1 +1,14 @@
-// styles go here
+.App {
+  text-align: center;
+}
+
+.h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.button {
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+}
