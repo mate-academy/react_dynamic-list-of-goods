@@ -12,27 +12,22 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [lastButtonClicked, setLastButtonClicked] = useState('');
+  const [hasError, setHasError] = useState(false);
 
   const handleGoodsLoading = useCallback(
     async (
       getGoods: () => Promise<Good[]>,
-      buttonName: string,
     ) => {
-      if (buttonName === lastButtonClicked) {
-        return;
-      }
-
-      setLastButtonClicked(buttonName);
+      setHasError(false);
       setIsLoading(true);
 
       const goodsFromServer = await getGoods()
         .catch(() => {
-          throw new Error('Something went wrong:(');
+          setHasError(true);
         })
         .finally(() => setIsLoading(false));
 
-      setGoods(goodsFromServer);
+      setGoods(goodsFromServer || []);
     },
     [],
   );
@@ -48,7 +43,8 @@ export const App: React.FC = () => {
             data-cy="all-button"
             variant="info"
             className="load-button"
-            onClick={() => handleGoodsLoading(getAll, 'all-button')}
+            onClick={() => handleGoodsLoading(getAll)}
+            disabled={isLoading}
           >
             Load all goods
           </Button>
@@ -58,7 +54,8 @@ export const App: React.FC = () => {
             data-cy="first-five-button"
             variant="success"
             className="load-button"
-            onClick={() => handleGoodsLoading(get5First, 'first-five-button')}
+            onClick={() => handleGoodsLoading(get5First)}
+            disabled={isLoading}
           >
             Load 5 first goods
           </Button>
@@ -68,12 +65,20 @@ export const App: React.FC = () => {
             data-cy="red-button"
             variant="danger"
             className="load-button"
-            onClick={() => handleGoodsLoading(getRedGoods, 'red-button')}
+            onClick={() => handleGoodsLoading(getRedGoods)}
+            disabled={isLoading}
           >
             Load red goods
           </Button>
         </div>
       </div>
+
+      {
+        hasError
+          && (
+            <h3>Error occured when data loaded</h3>
+          )
+      }
 
       {isLoading
         ? <Spinner animation="border" role="status" />
