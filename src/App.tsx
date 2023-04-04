@@ -43,7 +43,6 @@ export const App: React.FC = () => {
 
       setGoods(initialGoods);
       setLoading(false);
-      setHasLoadingError(false);
     } catch (error) {
       setHasLoadingError(true);
       setLoading(false);
