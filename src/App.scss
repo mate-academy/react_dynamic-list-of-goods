@@ -1,1 +1,32 @@
-// styles go here
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  text-align: center;
+}
+
+.button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.goods {
+  display: flex;
+  flex-direction: column;
+
+  &__item {
+    border: 1px solid #bbb;
+    margin: 2px;
+  }
+}
+
+.notification {
+  margin-top: 20px;
+}
