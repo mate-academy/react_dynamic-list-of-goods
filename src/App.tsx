@@ -19,11 +19,6 @@ export const App: React.FC = () => {
   const handleGetGoods = useCallback(async (sortType: string) => {
     let goodsFromServer: React.SetStateAction<Good[]> = [];
 
-    // setChoosedType(prev => ({
-    //   ...prev,
-    //   [sortType]: true,
-    // }));
-
     try {
       switch (sortType) {
         case 'all':
@@ -87,8 +82,8 @@ export const App: React.FC = () => {
 
       {getError
         ? (
-          <h1 className="notification is-danger is-light">
-            Oops, something went wrong!
+          <h1 className="is-danger">
+            404 Error
           </h1>
         ) : (
           <GoodsList goods={goods} />
