@@ -3,39 +3,39 @@ import classNames from 'classnames';
 
 type Props = {
   text: string;
-  className: string;
   'data-cy': string;
-  onDataLoad: (stopButtonLoading: () => void) => void;
+  onDataLoad: (stopButtonLoading: () => void, goodsGroupText: string) => void;
 };
 
 export const LoadingButton: React.FC<Props> = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
-
   const {
     text,
-    className,
     'data-cy': dataCy,
     onDataLoad,
   } = props;
 
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
+
   const handleDataLoad = async () => {
-    setIsLoading(true);
-    onDataLoad(() => setIsLoading(false));
+    setIsButtonLoading(true);
+    onDataLoad(() => setIsButtonLoading(false), text);
   };
 
   return (
     <button
       type="button"
       className={classNames(
-        className,
+        'button',
+        'has-text-weight-medium',
+        'has-text-black',
         {
-          'is-loading': isLoading,
+          'is-loading': isButtonLoading,
         },
       )}
       data-cy={dataCy}
       onClick={handleDataLoad}
     >
-      {text}
+      {`Load ${text}`}
     </button>
   );
 };

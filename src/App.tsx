@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-// import classNames from 'classnames';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import 'bulma';
 
@@ -11,27 +10,36 @@ import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+
   const [isLoading, setIsLoading] = useState(false);
   const [hasLoadingError, setHasLoadingError] = useState(false);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  const handleGoodsLoad = (getGoodsFromServer: () => Promise<Good[]>) => (
-    async (stopButtonLoading: () => void) => {
-      setIsLoading(true);
+  const [loadedGoodsGroupText, setLoadedGoodsGroupText] = useState('');
 
-      try {
-        const goodsFromServer = await getGoodsFromServer();
+  const handleGoodsLoad = useCallback(
+    (getGoodsFromServer: () => Promise<Good[]>) => (
+      async (stopButtonLoading: () => void, goodsGroupText: string) => {
+        setIsLoading(true);
+        setLoadedGoodsGroupText(goodsGroupText);
 
-        setGoods(goodsFromServer);
-        setIsInitialized(true);
-      } catch {
-        setHasLoadingError(true);
+        try {
+          const goodsFromServer = await getGoodsFromServer();
+
+          setGoods(goodsFromServer);
+          setIsInitialized(true);
+        } catch {
+          setHasLoadingError(true);
+        }
+
+        setIsLoading(false);
+        stopButtonLoading();
       }
-
-      setIsLoading(false);
-      stopButtonLoading();
-    }
+    ),
+    [],
   );
+
+  const isSuccessLoad = !hasLoadingError && !isLoading && isInitialized;
 
   return (
     <div className="App">
@@ -42,41 +50,37 @@ export const App: React.FC = () => {
           </h1>
           <div className="buttons is-centered">
             <LoadingButton
-              text="Load all goods"
-              className="button has-text-weight-medium has-text-black"
+              text="all goods"
               data-cy="all-button"
               onDataLoad={handleGoodsLoad(goodsAPI.getAll)}
             />
             <LoadingButton
-              text="Load 5 first goods"
-              className="button has-text-weight-medium has-text-black"
+              text="5 first goods"
               data-cy="first-five-button"
               onDataLoad={handleGoodsLoad(goodsAPI.get5First)}
             />
             <LoadingButton
-              text="Load red goods"
-              className="button has-text-weight-medium has-text-black"
+              text="red goods"
               data-cy="red-button"
-              onDataLoad={handleGoodsLoad(goodsAPI.get5First)}
+              onDataLoad={handleGoodsLoad(goodsAPI.getRedGoods)}
             />
           </div>
 
           {hasLoadingError && (
             <article className="message is-danger">
               <div className="message-body">
-                An error occured when loading goods
+                {`An error occured when loading ${loadedGoodsGroupText}`}
               </div>
             </article>
           )}
 
-          {!hasLoadingError && !isLoading && isInitialized && !goods.length && (
+          {isSuccessLoad && !goods.length && (
             <p>
-              No goods were found
+              {`No ${loadedGoodsGroupText} were found`}
             </p>
           )}
 
-          {!hasLoadingError && !isLoading && isInitialized
-            && Boolean(goods.length)
+          {isSuccessLoad && Boolean(goods.length)
             && (
               <GoodsList goods={goods} />
             )}
