@@ -13,7 +13,7 @@ export function getAll(): Promise<Good[]> {
       return response.json();
     })
     .catch(error => {
-      throw new Error(error);
+      throw new Error(`Error fetching all goods: ${error}`);
     });
 }
 
@@ -25,10 +25,7 @@ export const get5First = async () => {
       .sort((prevGood, nextGood) => prevGood.name.localeCompare(nextGood.name))
       .slice(0, 5);
   } catch (error) {
-    // eslint-disable-next-line
-    console.error('Error fetching 5 first goods:', error);
-
-    throw error;
+    throw new Error(`Error fetching 5 first goods: ${error}`);
   }
 };
 
@@ -39,9 +36,6 @@ export const getRedGoods = async () => {
     return goods
       .filter(good => good.color === 'red');
   } catch (error) {
-    // eslint-disable-next-line
-    console.error('Error fetching red goods:', error);
-
-    throw error;
+    throw new Error(`Error fetching only red goods: ${error}`);
   }
 };

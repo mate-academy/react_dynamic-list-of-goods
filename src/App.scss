@@ -64,6 +64,14 @@ body {
       }
     }
 
+    .is-active {
+      background-color: #3498db;
+    }
+
+    .error {
+      color: #f00;
+    }
+
     .goods-list {
       margin-top: 20px;
     }

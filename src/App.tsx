@@ -1,30 +1,60 @@
 import React, { useState, useCallback } from 'react';
+import classNames from 'classnames';
 import './App.scss';
-import { GoodsList } from './components/GoodList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
+
 import { Good } from './types/Good';
+import { LoadType } from './types/LoadType';
+
+import { GoodsList } from './components/GoodList';
 import { Loader } from './components/GoodList/Loader';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleLoadAll = useCallback(async () => {
-    const goodsFromServer = await getAll();
+  const [
+    isSelectedLoadType,
+    setIsSelectedLoadType,
+  ] = useState<LoadType | null>(null);
 
-    setGoods(goodsFromServer);
-  }, []);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingError, setLoadingError] = useState('');
 
-  const handleLoad5FirstGoods = useCallback(async () => {
-    const goodsFromServer = await get5First();
+  // console.log('loadingError:', loadingError);
 
-    setGoods(goodsFromServer);
-  }, []);
+  const handleLoadData = useCallback(async (loadType: LoadType) => {
+    setIsLoading(true);
 
-  const handleLoadOnlyRed = useCallback(async () => {
-    const goodsFromServer = await getRedGoods();
+    setIsSelectedLoadType(loadType);
 
-    setGoods(goodsFromServer);
+    let goodsFromServer: Good[] = [];
+
+    try {
+      switch (loadType) {
+        case LoadType.FIRST5:
+          goodsFromServer = await get5First();
+          break;
+
+        case LoadType.ONLYRED:
+          goodsFromServer = await getRedGoods();
+          break;
+
+        default:
+          goodsFromServer = await getAll();
+      }
+
+      setGoods(goodsFromServer);
+      setLoadingError('');
+    } catch (error) {
+      setLoadingError('Failed to load data. Please try again later.');
+
+      setIsLoading(false);
+
+      throw new Error(`Something go wrong, the error is - ${error}`);
+    }
+
+    setIsLoading(false);
   }, []);
 
   return (
@@ -34,36 +64,57 @@ export const App: React.FC = () => {
 
         <div className="buttons is-centered">
           <button
-            className="button is-primary is-outlined"
+            className={classNames(
+              'button is-primary is-outlined',
+              {
+                'is-active': isSelectedLoadType === LoadType.ALL,
+              },
+            )}
             type="button"
             data-cy="all-button"
-            onClick={handleLoadAll}
+            onClick={() => handleLoadData(LoadType.ALL)}
           >
             Load all goods
           </button>
 
           <button
-            className="button is-primary is-outlined"
+            className={classNames(
+              'button is-primary is-outlined',
+              {
+                'is-active': isSelectedLoadType === LoadType.FIRST5,
+              },
+            )}
             type="button"
             data-cy="first-five-button"
-            onClick={handleLoad5FirstGoods}
+            onClick={() => handleLoadData(LoadType.FIRST5)}
           >
             Load 5 first goods
           </button>
 
           <button
-            className="button is-primary is-outlined"
+            className={classNames(
+              'button is-primary is-outlined',
+              {
+                'is-active': isSelectedLoadType === LoadType.ONLYRED,
+              },
+            )}
             type="button"
             data-cy="red-button"
-            onClick={handleLoadOnlyRed}
+            onClick={() => handleLoadData(LoadType.ONLYRED)}
           >
             Load red goods
           </button>
         </div>
 
-        <GoodsList goods={goods} />
+        {loadingError && (
+          <p className="error">
+            {loadingError}
+          </p>
+        )}
 
-        <Loader />
+        {isLoading && <Loader />}
+
+        {!loadingError && !isLoading && <GoodsList goods={goods} />}
       </div>
     </div>
   );
