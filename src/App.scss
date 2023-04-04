@@ -1,11 +1,13 @@
 .App {
   text-align: center;
 }
+
 .button {
   &:not(:last-child) {
     margin-right: 10px;
   }
 }
+
 .list {
   margin-top: 15px;
 }
