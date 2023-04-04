@@ -1,1 +1,12 @@
-// styles go here
+.App {
+  margin: 10px auto 0 ;
+  width: 50%;
+
+  &__title {
+    text-align: center;
+  }
+}
+
+.btn-group {
+  width: 100%;
+}
