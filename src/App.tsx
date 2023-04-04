@@ -52,6 +52,7 @@ export const App: React.FC = () => {
       const goods = await getGoodsByButton(selectedButton);
 
       setAllGoods(goods);
+      setError('');
     } catch (e) {
       setError(getErrorMessage(e));
     }
