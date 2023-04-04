@@ -3,13 +3,7 @@ import { Good } from '../types/Good';
 // eslint-disable-next-line
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
-function wait(delay: number) {
-  return new Promise(resolve => setTimeout(resolve, delay));
-}
-
-export async function getAll(): Promise<Good[]> {
-  await wait(300);
-
+export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
     .then(response => {
       if (!response.ok) {

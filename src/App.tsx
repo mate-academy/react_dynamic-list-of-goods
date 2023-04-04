@@ -4,12 +4,14 @@ import 'bulma';
 
 import React, { useCallback, useState } from 'react';
 import { GoodsList } from './components/GoodsList';
-import { Button } from './types/Button';
+import { ButtonType } from './types/ButtonType';
 import { Good } from './types/Good';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
+import { LoadFn } from './types/LoadFn';
+import { Button } from './components/Button';
 
-const buttons: Button[] = [
+const buttons: ButtonType[] = [
   {
     text: 'Load all goods',
     loadFunction: getAll,
@@ -32,7 +34,7 @@ export const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [hasLoadingError, setHasLoadingError] = useState(false);
 
-  const loadGoods = useCallback(async (loadFunction: () => Promise<Good[]>) => {
+  const loadGoods = useCallback(async (loadFunction: LoadFn) => {
     setLoading(true);
     setHasLoadingError(false);
 
@@ -48,12 +50,6 @@ export const App: React.FC = () => {
     }
   }, []);
 
-  const handleClick = useCallback((
-    loadFunction: () => Promise<Good[]>,
-  ): void => {
-    loadGoods(loadFunction);
-  }, [loadGoods]);
-
   return (
     <div className="App">
       <div className="container">
@@ -62,15 +58,12 @@ export const App: React.FC = () => {
 
           <div className="buttons-box">
             {buttons.map(({ text, dataCy, loadFunction }) => (
-              <button
-                className="button is-link"
-                type="button"
-                data-cy={dataCy}
-                onClick={() => handleClick(loadFunction)}
+              <Button
                 key={text}
-              >
-                {text}
-              </button>
+                text={text}
+                dataCy={dataCy}
+                handleClick={() => loadGoods(loadFunction)}
+              />
             ))}
           </div>
         </div>
