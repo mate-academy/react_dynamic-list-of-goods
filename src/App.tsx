@@ -1,27 +1,92 @@
-import React from 'react';
+import classnames from 'classnames';
+import React, { useState } from 'react';
+import { get5First, getAll, getRedGoods } from './api/goods';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+enum Tab {
+  NULL,
+  ALL,
+  FIRST5,
+  RED,
+}
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [currentTab, setCurrentTab] = useState(Tab.NULL);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleGoodsLoad = (
+    getGoods: () => Promise<Good[]>,
+    tab: Tab,
+  ) => {
+    return () => {
+      if (tab !== currentTab) {
+        setIsLoading(true);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+        getGoods()
+          .then(setGoods)
+          .catch(() => setIsError(true))
+          .finally(() => setIsLoading(false));
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+        setCurrentTab(tab);
+      }
+    };
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+
+      <div className="panel is-primary is-flex is-flex-direction-column">
+        <h1
+          className="panel-heading has-text-centered"
+        >
+          Dynamic list of Goods
+        </h1>
+
+        <p className="panel-tabs p-2 has-background-primary">
+          <button
+            type="button"
+            className={classnames('button is-light is-outlined mr-5',
+              { 'is-loading': isLoading && currentTab === Tab.ALL })}
+            data-cy="all-button"
+            onClick={handleGoodsLoad(getAll, Tab.ALL)}
+          >
+            Load all goods
+          </button>
+
+          <button
+            type="button"
+            className={classnames('button is-light is-outlined mr-5',
+              { 'is-loading': isLoading && currentTab === Tab.FIRST5 })}
+            data-cy="first-five-button"
+            onClick={handleGoodsLoad(get5First, Tab.FIRST5)}
+          >
+            Load 5 first goods
+          </button>
+
+          <button
+            type="button"
+            className={classnames('button is-light is-outlined',
+              { 'is-loading': isLoading && currentTab === Tab.RED })}
+            data-cy="red-button"
+            onClick={handleGoodsLoad(getRedGoods, Tab.RED)}
+          >
+            Load red goods
+          </button>
+        </p>
+      </div>
+
+      <p className="">
+        {isError ? (
+          <p>!!!Loading Error!!!</p>
+        ) : (
+          <GoodsList goods={goods} />
+        )}
+      </p>
+
+    </div>
+  );
+};
