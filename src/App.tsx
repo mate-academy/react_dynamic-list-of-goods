@@ -21,6 +21,7 @@ export const App: React.FC = () => {
     (getGoodsFromServer: () => Promise<Good[]>) => (
       async (stopButtonLoading: () => void, goodsGroupText: string) => {
         setIsLoading(true);
+        setHasLoadingError(false);
         setLoadedGoodsGroupText(goodsGroupText);
 
         try {
