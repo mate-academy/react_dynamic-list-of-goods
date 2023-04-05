@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import classNames from 'classnames';
 
@@ -30,7 +30,7 @@ export const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const getGoods = useCallback(async (promise: Promise<Good[]>) => {
+  const getGoods = async (promise: Promise<Good[]>) => {
     setLoading(true);
 
     try {
@@ -40,9 +40,9 @@ export const App: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  };
 
-  const handleClick = useCallback((sortType: SortBy) => {
+  const handleClick = (sortType: SortBy) => {
     if (sortBy === sortType) {
       return;
     }
@@ -65,7 +65,7 @@ export const App: React.FC = () => {
     }
 
     setSortBy(sortType);
-  }, []);
+  };
 
   return (
     <div className="App">
@@ -82,6 +82,7 @@ export const App: React.FC = () => {
           )}
           type="button"
           data-cy={currentValue}
+          key={currentValue}
           onClick={() => handleClick(currentValue)}
         >
           {sortByOption(currentValue)}
