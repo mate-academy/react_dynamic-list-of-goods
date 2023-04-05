@@ -1,1 +1,23 @@
-//styles
+.App {
+  padding: 5px;
+  font-family: "Gill Sans", "Gill Sans MT", "Trebuchet MS", sans-serif;
+  width: max-content;
+  box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
+  border-radius: 0.5em;
+}
+
+.title {
+  text-align: center;
+}
+
+.goodsList {
+  list-style-type: none;
+  font-size: 20px;
+  padding: 20px;
+}
+
+.good::before {
+  content: "\1F468\200D\1F373";
+  display: inline-block;
+  margin-right: 5px;
+}

@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import './App.scss';
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+
 import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
@@ -34,33 +38,49 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
+      <h1 className="title">Dynamic list of Goods</h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={handleGetAll}
+      <ButtonGroup
+        variant="contained"
+        aria-label="outlined primary button group"
       >
-        Load all goods
-      </button>
+        <Button
+          type="button"
+          data-cy="all-button"
+          onClick={handleGetAll}
+          className="button2"
+          variant="contained"
+        >
+          Load all goods
+        </Button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={handleGet5First}
-      >
-        Load 5 first goods
-      </button>
+        <Button
+          type="button"
+          data-cy="first-five-button"
+          onClick={handleGet5First}
+          className="button2"
+          variant="contained"
+        >
+          Load 5 first goods
+        </Button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={handleGetRedGoods}
-      >
-        Load red goods
-      </button>
+        <Button
+          type="button"
+          data-cy="red-button"
+          onClick={handleGetRedGoods}
+          className="button2"
+          variant="contained"
+        >
+          Load red goods
+        </Button>
+      </ButtonGroup>
 
-      {isError && <span>Hello</span>}
+      {isError
+        && (
+          <Alert severity="error">
+            Error loading data. Please try again later.
+          </Alert>
+        )}
       <GoodsList goods={goods} />
     </div>
   );
