@@ -8,9 +8,9 @@ import { Good } from './types/Good';
 
 enum SortBy {
   None = '',
-  ALL = 'all-goods',
-  FirstFive = 'first-five-goods',
-  RED = 'red-goods',
+  ALL = 'all-button',
+  FirstFive = 'first-five-button',
+  RED = 'red-button',
 }
 
 const sortByOption = (sortType: SortBy) => {
