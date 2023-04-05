@@ -6,7 +6,7 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
 enum Tab {
-  Null = 'null',
+  None = 'none',
   All = 'all',
   First5 = 'first5',
   Red = 'Red',
@@ -14,7 +14,7 @@ enum Tab {
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [currentTab, setCurrentTab] = useState(Tab.Null);
+  const [currentTab, setCurrentTab] = useState(Tab.None);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -25,6 +25,7 @@ export const App: React.FC = () => {
     return () => {
       if (tab !== currentTab) {
         setIsLoading(true);
+        setIsError(false);
 
         getGoods()
           .then(setGoods)
@@ -64,8 +65,9 @@ export const App: React.FC = () => {
 
           <button
             type="button"
-            className={classnames('button is-light is-outlined mr-5',
-              { 'is-loading': isLoading && currentTab === Tab.First5 })}
+            className={classnames('button is-light is-outlined mr-5', {
+              'is-loading': isLoading && currentTab === Tab.First5,
+            })}
             data-cy="first-five-button"
             onClick={handleGoodsLoad(get5First, Tab.First5)}
           >
@@ -74,8 +76,9 @@ export const App: React.FC = () => {
 
           <button
             type="button"
-            className={classnames('button is-light is-outlined',
-              { 'is-loading': isLoading && currentTab === Tab.Red })}
+            className={classnames('button is-light is-outlined', {
+              'is-loading': isLoading && currentTab === Tab.Red,
+            })}
             data-cy="red-button"
             onClick={handleGoodsLoad(getRedGoods, Tab.Red)}
           >
