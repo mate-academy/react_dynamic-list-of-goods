@@ -7,33 +7,36 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
-  const handleAllGoods = async () => {
-    const goodsFromApi = await getAll();
+  const getCallback = async (callBackFunc: () => Promise<Good[]>) => {
+    const goodsFromApi = await callBackFunc();
 
-    setGoods(goodsFromApi);
+    return goodsFromApi;
   };
 
-  const handleFiveGoods = async () => {
-    const goodsFromApi = await get5First();
+  const handleGoods = async (promiseFunc: () => Promise<Good[]>) => {
+    try {
+      setHasError(false);
+      setIsLoading(true);
+      const goodsFromApi = await getCallback(promiseFunc);
 
-    setGoods(goodsFromApi);
-  };
-
-  const handleRedGoods = async () => {
-    const goodsFromApi = await getRedGoods();
-
-    setGoods(goodsFromApi);
+      setGoods(goodsFromApi);
+    } catch (error) {
+      setHasError(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
-
       <button
         type="button"
         data-cy="all-button"
-        onClick={handleAllGoods}
+        onClick={() => handleGoods(getAll)}
       >
         Load all goods
       </button>
@@ -41,7 +44,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handleFiveGoods}
+        onClick={() => handleGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -49,14 +52,18 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={handleRedGoods}
+        onClick={() => handleGoods(getRedGoods)}
       >
         Load red goods
       </button>
 
-      {goods.length !== 0
-        ? <GoodsList goods={goods} />
-        : <div>No products found</div>}
+      {isLoading
+        ? (
+          <svg viewBox="25 25 50 50">
+            <circle r="20" cy="50" cx="50" />
+          </svg>
+        )
+        : <GoodsList goods={goods} hasError={hasError} />}
 
     </div>
   );
