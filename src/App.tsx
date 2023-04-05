@@ -52,17 +52,17 @@ export const App: React.FC = () => {
           <div className="buttons is-centered">
             <LoadingButton
               text="all goods"
-              data-cy="all-button"
+              dataCy="all-button"
               onDataLoad={handleGoodsLoad(goodsAPI.getAll)}
             />
             <LoadingButton
               text="5 first goods"
-              data-cy="first-five-button"
+              dataCy="first-five-button"
               onDataLoad={handleGoodsLoad(goodsAPI.get5First)}
             />
             <LoadingButton
               text="red goods"
-              data-cy="red-button"
+              dataCy="red-button"
               onDataLoad={handleGoodsLoad(goodsAPI.getRedGoods)}
             />
           </div>

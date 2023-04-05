@@ -1,15 +1,8 @@
 import React from 'react';
 import './ColorPalette.scss';
-import { Color } from '../../types/Color';
 import { ColorItem } from '../ColorItem';
 
-const colors: Color[] = [
-  { id: 1, keyword: 'red' },
-  { id: 2, keyword: 'green' },
-  { id: 3, keyword: 'blue' },
-  // { id: 4, keyword: 'aqua' },
-  // { id: 5, keyword: 'orange' },
-];
+import { PALETTE_COLORS as colors } from '../../shared/constants';
 
 type Props = {
   selectedColor: string;
