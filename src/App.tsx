@@ -14,14 +14,14 @@ enum SortBy {
 }
 
 const sortByOption = (sortType: SortBy) => {
-  const sortByType = {
+  const sortTypes = {
     [SortBy.None]: '',
     [SortBy.ALL]: 'Load all goods',
     [SortBy.FirstFive]: 'Load 5 first goods',
     [SortBy.RED]: 'Load red goods',
   };
 
-  return sortByType[sortType];
+  return sortTypes[sortType];
 };
 
 export const App: React.FC = () => {
