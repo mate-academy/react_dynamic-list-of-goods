@@ -7,27 +7,32 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRed } from './api/goods';
 import { Good } from './types/Good';
 
+enum Sort {
+  Default = '',
+  All = 'all',
+  FiveFirst = 'fiveFirst',
+  OnlyRed = 'onlyRed',
+}
+
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [isChoosedType, setIsChoosedType] = useState({
-    all: false,
-    fiveFirst: false,
-    onlyRed: false,
-  });
-  const [getError, setGetError] = useState(false);
+  const [isChoosedType, setIsChoosedType] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
-  const handleGetGoods = useCallback(async (sortType: string) => {
-    let goodsFromServer: React.SetStateAction<Good[]> = [];
+  const handleGetGoods = useCallback(async (loadType: string) => {
+    let goodsFromServer: Good[] = [];
+
+    setIsChoosedType(true);
 
     try {
-      switch (sortType) {
-        case 'all':
+      switch (loadType) {
+        case Sort.All:
           goodsFromServer = await getAll();
           break;
-        case 'fiveFirst':
+        case Sort.FiveFirst:
           goodsFromServer = await get5First();
           break;
-        case 'onlyRed':
+        case Sort.OnlyRed:
           goodsFromServer = await getRed();
           break;
         default:
@@ -37,12 +42,9 @@ export const App: React.FC = () => {
 
       setGoods(goodsFromServer);
     } catch {
-      setGetError(true);
+      setHasError(true);
     } finally {
-      setIsChoosedType(prev => ({
-        ...prev,
-        [sortType]: false,
-      }));
+      setIsChoosedType(false);
     }
   }, []);
 
@@ -54,7 +56,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         className={classNames('button',
-          { 'is-loading': isChoosedType.all })}
+          { 'is-loading': isChoosedType })}
         onClick={() => handleGetGoods('all')}
       >
         Load all goods
@@ -64,7 +66,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         className={classNames('button',
-          { 'is-loading': isChoosedType.fiveFirst })}
+          { 'is-loading': isChoosedType })}
         onClick={() => handleGetGoods('fiveFirst')}
       >
         Load 5 first goods
@@ -74,16 +76,16 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         className={classNames('button',
-          { 'is-loading': isChoosedType.onlyRed })}
+          { 'is-loading': isChoosedType })}
         onClick={() => handleGetGoods('onlyRed')}
       >
         Load red goods
       </button>
 
-      {getError
+      {hasError
         ? (
-          <h1 className="is-danger">
-            404 Error
+          <h1 className="notification is-danger is-light">
+            Oops, something went wrong!
           </h1>
         ) : (
           <GoodsList goods={goods} />
