@@ -22,7 +22,8 @@ export const Button: React.FC<Props> = ({
       data-cy={dataCy}
       onClick={onClick}
       className={classNames(
-        'button is-light', {
+        'button is-light',
+        {
           'is-warning': isButtonActive,
         },
       )}
