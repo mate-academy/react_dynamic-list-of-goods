@@ -90,10 +90,10 @@ export const App: React.FC = () => {
 
       {loading
         ? (
-          <p>
-            Loading
-            <div className="lds-ring" />
-          </p>
+          <div className="LoadingItem">
+            <p>Loading</p>
+            <span className="loader" />
+          </div>
         )
         : (
           <>
