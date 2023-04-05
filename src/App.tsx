@@ -6,15 +6,15 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
 enum Tab {
-  NULL,
-  ALL,
-  FIRST5,
-  RED,
+  Null = 'null',
+  All = 'all',
+  First5 = 'first5',
+  Red = 'Red',
 }
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [currentTab, setCurrentTab] = useState(Tab.NULL);
+  const [currentTab, setCurrentTab] = useState(Tab.Null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
@@ -49,10 +49,15 @@ export const App: React.FC = () => {
         <p className="panel-tabs p-2 has-background-primary">
           <button
             type="button"
-            className={classnames('button is-light is-outlined mr-5',
-              { 'is-loading': isLoading && currentTab === Tab.ALL })}
+            className={classnames(
+              'button',
+              'is-light',
+              'is-outlined',
+              'mr-5',
+              { 'is-loading': isLoading && currentTab === Tab.All },
+            )}
             data-cy="all-button"
-            onClick={handleGoodsLoad(getAll, Tab.ALL)}
+            onClick={handleGoodsLoad(getAll, Tab.All)}
           >
             Load all goods
           </button>
@@ -60,9 +65,9 @@ export const App: React.FC = () => {
           <button
             type="button"
             className={classnames('button is-light is-outlined mr-5',
-              { 'is-loading': isLoading && currentTab === Tab.FIRST5 })}
+              { 'is-loading': isLoading && currentTab === Tab.First5 })}
             data-cy="first-five-button"
-            onClick={handleGoodsLoad(get5First, Tab.FIRST5)}
+            onClick={handleGoodsLoad(get5First, Tab.First5)}
           >
             Load 5 first goods
           </button>
@@ -70,9 +75,9 @@ export const App: React.FC = () => {
           <button
             type="button"
             className={classnames('button is-light is-outlined',
-              { 'is-loading': isLoading && currentTab === Tab.RED })}
+              { 'is-loading': isLoading && currentTab === Tab.Red })}
             data-cy="red-button"
-            onClick={handleGoodsLoad(getRedGoods, Tab.RED)}
+            onClick={handleGoodsLoad(getRedGoods, Tab.Red)}
           >
             Load red goods
           </button>
