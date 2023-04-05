@@ -8,10 +8,10 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 enum GoodsType {
-  Default,
-  All,
-  FirstFive,
-  OnlyRed,
+  Default = 'default',
+  All = 'getAll',
+  FirstFive = 'firstFive',
+  OnlyRed = 'onlyRedColor',
 }
 
 export const App: React.FC = () => {
@@ -24,17 +24,19 @@ export const App: React.FC = () => {
     getGoods: () => Promise<Good[]>,
     goodsType = GoodsType.Default,
   ) => {
-    if (goodsType !== currentGoodsType) {
-      setLoading(true);
-      setHasLoadingError(false);
-
-      getGoods()
-        .then((loadedGoods) => setGoods(loadedGoods))
-        .catch(() => setHasLoadingError(true))
-        .finally(() => setLoading(false));
-
-      setcurrentGoodsType(goodsType);
+    if (goodsType === currentGoodsType) {
+      return;
     }
+
+    setLoading(true);
+    setHasLoadingError(false);
+
+    getGoods()
+      .then((loadedGoods) => setGoods(loadedGoods))
+      .catch(() => setHasLoadingError(true))
+      .finally(() => setLoading(false));
+
+    setcurrentGoodsType(goodsType);
   };
 
   return (
