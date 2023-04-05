@@ -1,27 +1,109 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import classNames from 'classnames';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { GoodsList } from './api/components/GoodsList/GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+enum SortBy {
+  None = '',
+  ALL = 'all-goods',
+  FirstFive = 'first-five-goods',
+  RED = 'red-goods',
+}
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+const sortByOption = (sortType: SortBy) => {
+  const sortByType = {
+    [SortBy.None]: '',
+    [SortBy.ALL]: 'Load all goods',
+    [SortBy.FirstFive]: 'Load 5 first goods',
+    [SortBy.RED]: 'Load red goods',
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return sortByType[sortType];
+};
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [sortBy, setSortBy] = useState<SortBy>(SortBy.None);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const getGoods = useCallback(async (promise: Promise<Good[]>) => {
+    setLoading(true);
+
+    try {
+      setGoods(await promise);
+    } catch {
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  const handleClick = useCallback((sortType: SortBy) => {
+    if (sortBy === sortType) {
+      return;
+    }
+
+    switch (sortType) {
+      case SortBy.ALL:
+        getGoods(getAll());
+        break;
+
+      case SortBy.FirstFive:
+        getGoods(get5First());
+        break;
+
+      case SortBy.RED:
+        getGoods(getRedGoods());
+        break;
+
+      default:
+        break;
+    }
+
+    setSortBy(sortType);
+  }, []);
+
+  return (
+    <div className="App">
+      <h1 className="title">Dynamic list of Goods</h1>
+
+      {Object.values(SortBy).filter(value => value).map(currentValue => (
+        <button
+          className={classNames(
+            'button',
+            'mb-4',
+            'mr-4',
+            'is-success',
+            { 'is-light': currentValue !== sortBy },
+          )}
+          type="button"
+          data-cy={currentValue}
+          onClick={() => handleClick(currentValue)}
+        >
+          {sortByOption(currentValue)}
+        </button>
+      ))}
+
+      {loading
+        ? (
+          <p>
+            Loading
+            <div className="lds-ring" />
+          </p>
+        )
+        : (
+          <>
+            {error && (
+              <p>Something went wrong</p>
+            )}
+          </>
+        )}
+
+      {!loading && <GoodsList goods={goods} />}
+    </div>
+  );
+};
