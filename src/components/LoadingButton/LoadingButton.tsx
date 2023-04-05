@@ -3,14 +3,14 @@ import classNames from 'classnames';
 
 type Props = {
   text: string;
-  'data-cy': string;
+  dataCy: string;
   onDataLoad: (stopButtonLoading: () => void, goodsGroupText: string) => void;
 };
 
 export const LoadingButton: React.FC<Props> = (props) => {
   const {
     text,
-    'data-cy': dataCy,
+    dataCy,
     onDataLoad,
   } = props;
 
