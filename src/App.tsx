@@ -15,19 +15,14 @@ export const App: React.FC = () => {
   const [hasError, setHasError] = useState(false);
 
   const handleGoodsLoading = useCallback(
-    async (
-      getGoods: () => Promise<Good[]>,
-    ) => {
+    (getGoods: () => Promise<Good[]>) => {
       setHasError(false);
       setIsLoading(true);
 
-      const goodsFromServer = await getGoods()
-        .catch(() => {
-          setHasError(true);
-        })
+      getGoods()
+        .then(setGoods)
+        .catch(() => setHasError(true))
         .finally(() => setIsLoading(false));
-
-      setGoods(goodsFromServer || []);
     },
     [],
   );
