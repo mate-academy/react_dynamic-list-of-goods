@@ -1,0 +1,16 @@
+// OPTIONAL EDIT:
+// set opener size and color items size (not direct but thorugh paddings)
+$colorOpenerWidth: 40px;
+$colorOpenerHeight: 40px;
+
+$colorsListPaddingY: 0.2 * $colorOpenerHeight;
+$colorsListPaddingX: 0.1 * $colorOpenerWidth;
+$colorsInterval: 0.1 * $colorOpenerHeight;
+
+$colorItemSize: $colorOpenerWidth - 2 * $colorsListPaddingX; // square
+
+$animationDuration: 0.25s;
+
+// NEVER EDIT
+// icon size depends on opener size
+$openerIconRatio: 40 / 32; // 40px Opener - 2em icon size (16 * 2 px)

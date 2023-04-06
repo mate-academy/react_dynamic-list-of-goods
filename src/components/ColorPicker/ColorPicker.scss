@@ -1,0 +1,56 @@
+@import "../../shared/variables.scss";
+
+.ColorPicker {
+  &__opener {
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: $colorOpenerWidth;
+    height: $colorOpenerHeight;
+
+    background-color: white;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.12);
+
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2), 0 1px 1px rgba(0, 0, 0, 0.12);
+    }
+  }
+
+  // define icon size based on the smallest side
+  &__icon {
+    font-size: $colorOpenerWidth / $openerIconRatio;
+
+    @if $colorOpenerWidth < $colorOpenerHeight {
+      font-size: $colorOpenerWidth / $openerIconRatio;
+    }
+    @else {
+      font-size: $colorOpenerHeight / $openerIconRatio;
+    }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    overflow: hidden;
+
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+
+    transition: transform $animationDuration ease-out,
+      opacity $animationDuration ease-out;
+
+    &--opened {
+      opacity: 1;
+      transform: scaleY(1);
+    }
+  }
+}
