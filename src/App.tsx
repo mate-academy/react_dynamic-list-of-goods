@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Loader from 'react-loaders';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -8,37 +9,21 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
   const [hasLoadingError, setHasLoadingError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const getAllGoods = async () => {
+  const fetchData = async (getData: { (): Promise<Good[]>; }) => {
+    setIsLoading(true);
+    setVisibleGoods([]);
+
     try {
-      const allGoods = await getAll();
+      const data = await getData();
 
-      setVisibleGoods(allGoods);
+      setVisibleGoods(data);
     } catch (error) {
       setHasLoadingError(true);
       throw new Error('No data was found');
-    }
-  };
-
-  const getFirstFiveGoods = async () => {
-    try {
-      const firstFiveGoods = await getFirst5();
-
-      setVisibleGoods(firstFiveGoods);
-    } catch (error) {
-      setHasLoadingError(true);
-      throw new Error('No data was found');
-    }
-  };
-
-  const getAllRedGoods = async () => {
-    try {
-      const redGoods = await getRedGoods();
-
-      setVisibleGoods(redGoods);
-    } catch (error) {
-      setHasLoadingError(true);
-      throw new Error('No data was found');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -50,7 +35,9 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="all-button"
-          onClick={getAllGoods}
+          onClick={async () => {
+            await fetchData(getAll);
+          }}
           className="App__button App__button-all"
         >
           Load all goods
@@ -58,7 +45,9 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="first-five-button"
-          onClick={getFirstFiveGoods}
+          onClick={async () => {
+            await fetchData(getFirst5);
+          }}
           className="App__button App__button-five"
         >
           Load 5 first goods
@@ -66,23 +55,28 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="red-button"
-          onClick={getAllRedGoods}
+          onClick={async () => {
+            await fetchData(getRedGoods);
+          }}
           className="App__button App__button-red"
         >
           Load red goods
         </button>
       </div>
-      {
-        hasLoadingError
-          ? (
-            <h3>No data was found</h3>
-          )
-          : (
-            <GoodsList
-              goods={visibleGoods}
-            />
-          )
-      }
+
+      {isLoading && (
+        <Loader type="ball-pulse" active />
+      )}
+
+      {hasLoadingError
+        ? (
+          <h3>No data was found</h3>
+        )
+        : (
+          <GoodsList
+            goods={visibleGoods}
+          />
+        )}
     </div>
   );
 };
