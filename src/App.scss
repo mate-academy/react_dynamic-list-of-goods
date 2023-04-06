@@ -1,1 +1,23 @@
-// styles go here
+.page {
+  &__container {
+    margin: 25px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 600px;
+    padding: 20px;
+
+    background: #fff;
+    border-radius: 10px;
+  }
+
+  &__title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  &__error {
+    color: red;
+  }
+}
