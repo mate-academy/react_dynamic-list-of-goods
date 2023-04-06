@@ -4,32 +4,41 @@ import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
+import { Loader } from './components/Loader';
 // or
 // import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = useCallback((buttonName: string) => {
+    setIsLoading(true);
+
+    let promise: Promise<Good[]>;
+
     switch (buttonName) {
       case 'all-button':
-        getAll()
-          .then(apiGoods => setGoods(apiGoods));
+        promise = getAll();
         break;
 
       case 'first-five-button':
-        get5First()
-          .then(apiGoods => setGoods(apiGoods));
+        promise = get5First();
         break;
 
       case 'red-button':
-        getRedGoods()
-          .then(apiGoods => setGoods(apiGoods));
+        promise = getRedGoods();
         break;
 
       default:
+        promise = Promise.reject(new Error('Unexpected case in switch'));
         break;
     }
+
+    promise
+      .then(setGoods)
+      .catch(err => window.console.warn(err))
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
@@ -42,6 +51,7 @@ export const App: React.FC = () => {
         onClick={() => {
           handleClick('all-button');
         }}
+        disabled={isLoading}
       >
         Load all goods
       </button>
@@ -52,6 +62,7 @@ export const App: React.FC = () => {
         onClick={() => {
           handleClick('first-five-button');
         }}
+        disabled={isLoading}
       >
         Load 5 first goods
       </button>
@@ -62,11 +73,14 @@ export const App: React.FC = () => {
         onClick={() => {
           handleClick('red-button');
         }}
+        disabled={isLoading}
       >
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {isLoading
+        ? (<Loader />)
+        : (<GoodsList goods={goods} />)}
     </div>
   );
 };
