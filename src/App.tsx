@@ -15,7 +15,7 @@ export const App: React.FC = () => {
   const [hasError, setHasError] = useState(false);
 
   const handleClick = useCallback(
-    async (sortedGoods: () => Promise<Good[]>, buttonName: string) => {
+    async (loadGoods: () => Promise<Good[]>, buttonName: string) => {
       if (clickedButton === buttonName) {
         return;
       }
@@ -23,14 +23,13 @@ export const App: React.FC = () => {
       setIsLoading(true);
 
       try {
-        setGoods(await sortedGoods());
+        setGoods(await loadGoods());
         setClickedButton(buttonName);
-        setIsLoading(false);
       } catch {
         setHasError(true);
-      } finally {
-        setIsLoading(false);
       }
+
+      setIsLoading(false);
     }, [clickedButton],
   );
 
@@ -81,13 +80,13 @@ export const App: React.FC = () => {
         )
         : (
           <>
-            {hasError && (
+            {hasError ? (
               <p className="page page__error">
                 Sorry, something went wrong
               </p>
+            ) : (
+              <GoodsList goods={goods} />
             )}
-
-            <GoodsList goods={goods} />
           </>
         )}
     </div>
