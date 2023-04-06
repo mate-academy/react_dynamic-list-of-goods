@@ -22,6 +22,7 @@ export const GoodInfo: React.FC<Props> = ({ good, zIndex }) => {
         style={{ zIndex }}
       >
         <p>{good.name}</p>
+
         <div className="is-absolute is-x-right-y-center">
           <ColorPicker
             selectedColor={selectedColor}

@@ -27,6 +27,7 @@ export const ColorPicker: React.FC<Props> = (props) => {
           <i className="ColorPicker__icon fas fa-2x fa-palette" />
         </span>
       </div>
+
       <div
         className={classNames(
           'ColorPicker__dropdown',

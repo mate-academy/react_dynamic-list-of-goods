@@ -49,17 +49,20 @@ export const App: React.FC = () => {
           <h1 className="title is-1 has-text-weight-bold">
             Dynamic list of Goods
           </h1>
+
           <div className="buttons is-centered">
             <LoadingButton
               text="all goods"
               dataCy="all-button"
               onDataLoad={handleGoodsLoad(goodsAPI.getAll)}
             />
+
             <LoadingButton
               text="5 first goods"
               dataCy="first-five-button"
               onDataLoad={handleGoodsLoad(goodsAPI.get5First)}
             />
+
             <LoadingButton
               text="red goods"
               dataCy="red-button"
@@ -81,7 +84,7 @@ export const App: React.FC = () => {
             </p>
           )}
 
-          {isSuccessLoad && Boolean(goods.length)
+          {isSuccessLoad && goods.length > 0
             && (
               <GoodsList goods={goods} />
             )}
