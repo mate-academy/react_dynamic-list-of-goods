@@ -1,14 +1,7 @@
-$margin10: 10px;
-
-@mixin flex-cloumn-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-body {
-  background-color: lightsteelblue;
-}
+@import "./normalize.scss";
+@import "./mixins.scss";
+@import "./variables.scss";
+@import "./list-of-goods.scss";
 
 .App {
   @include flex-cloumn-center;
@@ -24,21 +17,4 @@ body {
 
 .load-button {
   margin: $margin10;
-}
-
-.list-of-goods {
-  width: 400px;
-  margin-bottom: $margin10;
-
-  &__item {
-    transition: transform 0.3s linear;
-    background-color: rgba(255, 255, 255, 0.7);
-
-    &:hover {
-      transform: scale(1.05);
-      background-color: rgba(255, 255, 255, 0.85);
-      border: 1px solid grey;
-      z-index: 1;
-    }
-  }
 }

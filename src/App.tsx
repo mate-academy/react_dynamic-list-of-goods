@@ -13,6 +13,7 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [lastButton, setLastButton] = useState('');
 
   const handleGoodsLoading = useCallback(
     (getGoods: () => Promise<Good[]>) => {
@@ -38,8 +39,11 @@ export const App: React.FC = () => {
             data-cy="all-button"
             variant="info"
             className="load-button"
-            onClick={() => handleGoodsLoading(getAll)}
-            disabled={isLoading}
+            onClick={() => {
+              setLastButton('all');
+              handleGoodsLoading(getAll);
+            }}
+            disabled={isLoading || lastButton === 'all'}
           >
             Load all goods
           </Button>
@@ -49,8 +53,11 @@ export const App: React.FC = () => {
             data-cy="first-five-button"
             variant="success"
             className="load-button"
-            onClick={() => handleGoodsLoading(get5First)}
-            disabled={isLoading}
+            onClick={() => {
+              setLastButton('first-five');
+              handleGoodsLoading(get5First);
+            }}
+            disabled={isLoading || lastButton === 'first-five'}
           >
             Load 5 first goods
           </Button>
@@ -60,8 +67,11 @@ export const App: React.FC = () => {
             data-cy="red-button"
             variant="danger"
             className="load-button"
-            onClick={() => handleGoodsLoading(getRedGoods)}
-            disabled={isLoading}
+            onClick={() => {
+              setLastButton('red-goods');
+              handleGoodsLoading(getRedGoods);
+            }}
+            disabled={isLoading || lastButton === 'red-goods'}
           >
             Load red goods
           </Button>
@@ -69,13 +79,12 @@ export const App: React.FC = () => {
       </div>
 
       {
-        hasError
-          && (
-            <h3>Error occured when data loaded</h3>
-          )
+        hasError && (
+          <h3>Error occured when data loaded</h3>
+        )
       }
 
-      {isLoading
+      {!hasError && isLoading
         ? <Spinner animation="border" role="status" />
         : <GoodsList goods={goods} />}
     </div>
