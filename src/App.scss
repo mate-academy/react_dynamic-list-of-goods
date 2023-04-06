@@ -1,11 +1,6 @@
-$c-font: #c5c5c5;
-$c-background: #3f3f3f;
-$font-color: #363333;
-$radius: 8px;
-
-body {
-  margin: 0;
-}
+@import "./styles/variables/reset";
+@import "./styles/variables/spacing";
+@import "./styles/variables/color";
 
 .App {
   min-height: 100vh;
@@ -14,25 +9,25 @@ body {
   flex-direction: column;
   align-items: center;
 
-  color: $font-color;
+  color: $main-color;
   font-family: Arial, sans-serif;
-  background-color: $c-background;
+  background-color: $bgd-color;
 
   .container {
     width: 600px;
 
-    background-color: $font-color;
-    padding: 20px;
+    background-color: $main-color;
+    padding: $title-margin;
     border-radius: $radius;
     box-shadow: 0 10px 10px rgba(0, 0, 0, 0.5);
 
     .title {
-      margin-bottom: 30px;
+      margin-bottom: $title-margin;
       text-align: center;
 
       font-size: 40px;
       font-weight: bold;
-      color: $c-font;
+      color: $font-color;
     }
 
     .buttons {
@@ -41,14 +36,14 @@ body {
     }
 
     .button {
-      padding: 10px 20px;
+      padding: 10px $title-margin;
 
       font-family: Arial, sans-serif;
       font-size: 16px;
 
-      color: $font-color;
+      color: $main-color;
 
-      background-color: $c-font;
+      background-color: $font-color;
       border: none;
       border-radius: $radius;
 
@@ -65,15 +60,11 @@ body {
     }
 
     .is-active {
-      background-color: #3498db;
+      background-color: $accent-color;
     }
 
     .error {
-      color: #f00;
-    }
-
-    .goods-list {
-      margin-top: 20px;
+      color: $error-color;
     }
   }
 }

@@ -8,7 +8,7 @@ import { Good } from './types/Good';
 import { LoadType } from './types/LoadType';
 
 import { GoodsList } from './components/GoodList';
-import { Loader } from './components/GoodList/Loader';
+import { Loader } from './components/Loader';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
@@ -16,12 +16,13 @@ export const App: React.FC = () => {
   const [
     isSelectedLoadType,
     setIsSelectedLoadType,
-  ] = useState<LoadType | null>(null);
+  ] = useState<LoadType>(LoadType.NONE);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [dataLoadedAll, setDataLoadedAll] = useState(false);
+  const [dataLoadedFirst5, setDataLoadedFirst5] = useState(false);
+  const [dataLoadedOnlyRed, setDataLoadedOnlyRed] = useState(false);
   const [loadingError, setLoadingError] = useState('');
-
-  // console.log('loadingError:', loadingError);
 
   const handleLoadData = useCallback(async (loadType: LoadType) => {
     setIsLoading(true);
@@ -34,28 +35,42 @@ export const App: React.FC = () => {
       switch (loadType) {
         case LoadType.FIRST5:
           goodsFromServer = await get5First();
+
+          setDataLoadedFirst5(true);
+          setDataLoadedOnlyRed(false);
+          setDataLoadedAll(false);
+
           break;
 
         case LoadType.ONLYRED:
           goodsFromServer = await getRedGoods();
+
+          setDataLoadedOnlyRed(true);
+          setDataLoadedFirst5(false);
+          setDataLoadedAll(false);
+
           break;
 
         default:
           goodsFromServer = await getAll();
+
+          setDataLoadedAll(true);
+          setDataLoadedOnlyRed(false);
+          setDataLoadedFirst5(false);
+
+          break;
       }
 
       setGoods(goodsFromServer);
       setLoadingError('');
     } catch (error) {
       setLoadingError('Failed to load data. Please try again later.');
-
+    } finally {
       setIsLoading(false);
-
-      throw new Error(`Something go wrong, the error is - ${error}`);
     }
-
-    setIsLoading(false);
   }, []);
+
+  const loadingComplete = !loadingError && !isLoading;
 
   return (
     <div className="App">
@@ -73,6 +88,7 @@ export const App: React.FC = () => {
             type="button"
             data-cy="all-button"
             onClick={() => handleLoadData(LoadType.ALL)}
+            disabled={dataLoadedAll}
           >
             Load all goods
           </button>
@@ -87,6 +103,7 @@ export const App: React.FC = () => {
             type="button"
             data-cy="first-five-button"
             onClick={() => handleLoadData(LoadType.FIRST5)}
+            disabled={dataLoadedFirst5}
           >
             Load 5 first goods
           </button>
@@ -101,6 +118,7 @@ export const App: React.FC = () => {
             type="button"
             data-cy="red-button"
             onClick={() => handleLoadData(LoadType.ONLYRED)}
+            disabled={dataLoadedOnlyRed}
           >
             Load red goods
           </button>
@@ -114,7 +132,9 @@ export const App: React.FC = () => {
 
         {isLoading && <Loader />}
 
-        {!loadingError && !isLoading && <GoodsList goods={goods} />}
+        {loadingComplete && (
+          <GoodsList goods={goods} />
+        )}
       </div>
     </div>
   );
