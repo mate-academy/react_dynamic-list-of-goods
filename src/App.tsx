@@ -1,10 +1,16 @@
 import React, { useCallback, useState } from 'react';
 import 'bulma/css/bulma.min.css';
 import { Vortex } from 'react-loader-spinner';
+
 import './App.scss';
+import './reset.scss';
+import './normalize.scss';
+
 import { GoodsList } from './components/GoodList';
 import { Button } from './components/Button';
+
 import { Good } from './types/Good';
+import { ButtonType } from './types/ButtonType';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
@@ -21,6 +27,7 @@ export const App: React.FC = () => {
       }
 
       setIsLoading(true);
+      setHasError(false);
 
       try {
         setGoods(await loadGoods());
@@ -42,7 +49,7 @@ export const App: React.FC = () => {
       <div className="buttons">
         <Button
           dataCy="all-button"
-          onClick={() => handleClick(getAll, 'all-button')}
+          onClick={() => handleClick(getAll, ButtonType.ALL)}
           clickedButton={clickedButton}
         >
           Load all goods
@@ -50,7 +57,7 @@ export const App: React.FC = () => {
 
         <Button
           dataCy="first-five-button"
-          onClick={() => handleClick(get5First, 'first-five-button')}
+          onClick={() => handleClick(get5First, ButtonType.FIVE)}
           clickedButton={clickedButton}
         >
           Load 5 first goods
@@ -58,7 +65,7 @@ export const App: React.FC = () => {
 
         <Button
           dataCy="red-button"
-          onClick={() => handleClick(getRedGoods, 'red-button')}
+          onClick={() => handleClick(getRedGoods, ButtonType.RED)}
           clickedButton={clickedButton}
         >
           Load red goods
@@ -80,7 +87,7 @@ export const App: React.FC = () => {
         )
         : (
           <>
-            {hasError ? (
+            {hasError && !isLoading ? (
               <p className="page page__error">
                 Sorry, something went wrong
               </p>
