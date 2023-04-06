@@ -1,1 +1,20 @@
-// styles go here
+@import "./normalize.scss";
+@import "./mixins.scss";
+@import "./variables.scss";
+@import "./list-of-goods.scss";
+
+.App {
+  @include flex-cloumn-center;
+}
+
+.header {
+  @include flex-cloumn-center;
+  margin: $margin10;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.load-button {
+  margin: $margin10;
+}
