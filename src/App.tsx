@@ -16,13 +16,13 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [clickedButton, setClickedButton] = useState('');
+  const [clickedButton, setClickedButton] = useState(ButtonType.NONE);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   const handleClick = useCallback(
-    async (loadGoods: () => Promise<Good[]>, buttonName: string) => {
-      if (clickedButton === buttonName) {
+    async (loadGoods: () => Promise<Good[]>, buttonName: ButtonType) => {
+      if (clickedButton === buttonName && !hasError) {
         return;
       }
 
@@ -48,7 +48,7 @@ export const App: React.FC = () => {
 
       <div className="buttons">
         <Button
-          dataCy="all-button"
+          dataCy={ButtonType.ALL}
           onClick={() => handleClick(getAll, ButtonType.ALL)}
           clickedButton={clickedButton}
         >
@@ -56,7 +56,7 @@ export const App: React.FC = () => {
         </Button>
 
         <Button
-          dataCy="first-five-button"
+          dataCy={ButtonType.FIVE}
           onClick={() => handleClick(get5First, ButtonType.FIVE)}
           clickedButton={clickedButton}
         >
@@ -64,7 +64,7 @@ export const App: React.FC = () => {
         </Button>
 
         <Button
-          dataCy="red-button"
+          dataCy={ButtonType.RED}
           onClick={() => handleClick(getRedGoods, ButtonType.RED)}
           clickedButton={clickedButton}
         >
@@ -87,7 +87,7 @@ export const App: React.FC = () => {
         )
         : (
           <>
-            {hasError && !isLoading ? (
+            {hasError ? (
               <p className="page page__error">
                 Sorry, something went wrong
               </p>

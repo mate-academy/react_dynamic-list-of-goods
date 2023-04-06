@@ -1,10 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
+import { ButtonType } from '../../types/ButtonType';
 
 type Props = {
-  dataCy: string,
+  dataCy: ButtonType,
   onClick: () => Promise<void>,
-  clickedButton: string,
+  clickedButton: ButtonType,
   children: React.ReactNode,
 };
 
