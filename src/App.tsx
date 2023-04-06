@@ -86,9 +86,12 @@ export const App: React.FC = () => {
         <h3>Error occured when data loaded</h3>
       )}
 
-      {!hasError && (isLoading
-        ? <Spinner animation="border" role="status" />
-        : <GoodsList goods={goods} />)}
+      {(!hasError && isLoading) && (
+        <Spinner animation="border" role="status" />
+      ) }
+
+      {(!hasError && !isLoading) && (
+        <GoodsList goods={goods} />)}
     </div>
   );
 };
