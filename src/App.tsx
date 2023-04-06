@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 import './App.scss';
 import 'bulma';
 
@@ -17,9 +17,32 @@ export const App: React.FC = () => {
 
   const [loadedGoodsGroupText, setLoadedGoodsGroupText] = useState('');
 
+  const prevGetGoodsFromServer = useRef<() => Promise<Good[]>>();
+  const shouldSkipLoading = useCallback(
+    (newGetGoodsFromServer: () => Promise<Good[]>) => {
+      if (
+        prevGetGoodsFromServer.current === newGetGoodsFromServer
+        && !hasLoadingError
+      ) {
+        return true;
+      }
+
+      prevGetGoodsFromServer.current = newGetGoodsFromServer;
+
+      return false;
+    },
+    [hasLoadingError],
+  );
+
   const handleGoodsLoad = useCallback(
     (getGoodsFromServer: () => Promise<Good[]>) => (
       async (stopButtonLoading: () => void, goodsGroupText: string) => {
+        if (shouldSkipLoading(getGoodsFromServer)) {
+          stopButtonLoading();
+
+          return;
+        }
+
         setIsLoading(true);
         setHasLoadingError(false);
         setLoadedGoodsGroupText(goodsGroupText);
@@ -37,7 +60,7 @@ export const App: React.FC = () => {
         stopButtonLoading();
       }
     ),
-    [],
+    [shouldSkipLoading],
   );
 
   const isSuccessLoad = !hasLoadingError && !isLoading && isInitialized;
