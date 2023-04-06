@@ -5,7 +5,9 @@ import Spinner from 'react-bootstrap/Spinner';
 
 import './App.scss';
 import { GoodsList } from './GoodsList';
+
 import { Good } from './types/Good';
+import { ButtonsNames } from './types/ButtonsNames';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
@@ -13,19 +15,30 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const [lastButton, setLastButton] = useState('');
+  const [lastButton, setLastButton] = useState(ButtonsNames.NONE);
 
   const handleGoodsLoading = useCallback(
-    (getGoods: () => Promise<Good[]>) => {
+    (
+      getGoods: () => Promise<Good[]>,
+      buttonName: ButtonsNames,
+    ) => {
+      if (buttonName === lastButton) {
+        return;
+      }
+
       setHasError(false);
       setIsLoading(true);
+      setLastButton(buttonName);
 
       getGoods()
         .then(setGoods)
-        .catch(() => setHasError(true))
+        .catch(() => {
+          setLastButton(ButtonsNames.NONE);
+          setHasError(true);
+        })
         .finally(() => setIsLoading(false));
     },
-    [],
+    [lastButton],
   );
 
   return (
@@ -39,11 +52,8 @@ export const App: React.FC = () => {
             data-cy="all-button"
             variant="info"
             className="load-button"
-            onClick={() => {
-              setLastButton('all');
-              handleGoodsLoading(getAll);
-            }}
-            disabled={isLoading || lastButton === 'all'}
+            onClick={() => handleGoodsLoading(getAll, ButtonsNames.ALL)}
+            disabled={isLoading}
           >
             Load all goods
           </Button>
@@ -53,11 +63,8 @@ export const App: React.FC = () => {
             data-cy="first-five-button"
             variant="success"
             className="load-button"
-            onClick={() => {
-              setLastButton('first-five');
-              handleGoodsLoading(get5First);
-            }}
-            disabled={isLoading || lastButton === 'first-five'}
+            onClick={() => handleGoodsLoading(get5First, ButtonsNames.FIRST5)}
+            disabled={isLoading}
           >
             Load 5 first goods
           </Button>
@@ -67,26 +74,21 @@ export const App: React.FC = () => {
             data-cy="red-button"
             variant="danger"
             className="load-button"
-            onClick={() => {
-              setLastButton('red-goods');
-              handleGoodsLoading(getRedGoods);
-            }}
-            disabled={isLoading || lastButton === 'red-goods'}
+            onClick={() => handleGoodsLoading(getRedGoods, ButtonsNames.RED)}
+            disabled={isLoading}
           >
             Load red goods
           </Button>
         </div>
       </div>
 
-      {
-        hasError && (
-          <h3>Error occured when data loaded</h3>
-        )
-      }
+      {hasError && (
+        <h3>Error occured when data loaded</h3>
+      )}
 
-      {!hasError && isLoading
+      {!hasError && (isLoading
         ? <Spinner animation="border" role="status" />
-        : <GoodsList goods={goods} />}
+        : <GoodsList goods={goods} />)}
     </div>
   );
 };
