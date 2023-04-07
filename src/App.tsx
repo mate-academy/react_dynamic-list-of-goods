@@ -26,20 +26,20 @@ export const App: React.FC = () => {
 
   const handleListType = (listType: string) => {
     setList(listType);
-
-    switch (listTypes) {
-      case 'all':
-        goodsToShow = allGoods;
-        break;
-      case '5First':
-        goodsToShow = first5;
-        break;
-      case 'red':
-        goodsToShow = redGoods;
-        break;
-      default:
-    }
   };
+
+  switch (listTypes) {
+    case 'all':
+      goodsToShow = allGoods;
+      break;
+    case '5First':
+      goodsToShow = first5;
+      break;
+    case 'red':
+      goodsToShow = redGoods;
+      break;
+    default:
+  }
 
   return (
     <div className="App">
