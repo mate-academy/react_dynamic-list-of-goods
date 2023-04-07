@@ -1,0 +1,28 @@
+@import "../../styles/variables/spacing";
+@import "../../styles/variables/color";
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+
+  border: $radius solid $font-color;
+  border-top: $radius solid $accent-color;
+  border-radius: 50%;
+
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
