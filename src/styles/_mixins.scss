@@ -1,4 +1,4 @@
-@mixin absolute-bottom-right-z {
+@mixin absolutelyPositionedTransition {
   content: "";
   position: absolute;
   -webkit-transition: all 0.4s;
@@ -8,7 +8,7 @@
   z-index: -1;
 }
 
-@mixin before-settings {
+@mixin fullScreenTransform {
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);

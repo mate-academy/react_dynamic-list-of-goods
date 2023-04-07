@@ -1,7 +1,8 @@
 @import "styles/reset";
+@import "styles/normalize";
 @import "styles/variables";
 
-.app {
+.App {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -21,7 +22,7 @@
 
   &__error {
     font-family: $fontFamily;
-    color: darkred;
+    color: $colorErrorFont;
     font-size: 20px;
   }
 

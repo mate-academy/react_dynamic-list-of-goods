@@ -12,8 +12,6 @@ export const Loader: FC = () => {
         <div className="loader__shadow" />
         <div className="loader__shadow" />
       </div>
-
-      <hr className="loader__line" />
     </>
   );
 };

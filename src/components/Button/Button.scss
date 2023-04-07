@@ -12,7 +12,7 @@
   z-index: 1;
 
   &::after {
-    @include absolute-bottom-right-z;
+    @include absolutelyPositionedTransition;
     -webkit-transform: translate(10px, 10px);
     -ms-transform: translate(10px, 10px);
     transform: translate(10px, 10px);
@@ -25,8 +25,8 @@
   }
 
   &::before {
-    @include absolute-bottom-right-z;
-    @include before-settings;
+    @include absolutelyPositionedTransition;
+    @include fullScreenTransform;
     background: $colorBtnBg;
     border-radius: 10px;
   }
@@ -42,7 +42,7 @@
 
     &::after {
       border-radius: 10px;
-      @include before-settings;
+      @include fullScreenTransform;
     }
   }
 

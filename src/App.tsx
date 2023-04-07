@@ -6,24 +6,25 @@ import { Good } from './types/Good';
 import { Button } from './components/Button';
 import { GoodsList } from './components/GoodsList';
 import { Loader } from './components/Loader';
+import { SortType } from './types/Sort';
 
-export const App: React.FC = () => {
+const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [currentClickedButton, setCurrentClickedButton] = useState('');
 
   const handleFetchData = useCallback(
     async (callback: () => Promise<Good[]>, type: string) => {
-      if (currentClickedButton !== type) {
+      if (currentClickedButton !== type && !isError) {
         setIsLoading(true);
 
         try {
           setGoods(await callback());
           setCurrentClickedButton(type);
-          setError(false);
+          setIsError(false);
         } catch {
-          setError(true);
+          setIsError(true);
         } finally {
           setIsLoading(false);
         }
@@ -32,25 +33,25 @@ export const App: React.FC = () => {
   );
 
   return (
-    <div className="app">
-      <h1 className="app__title">Dynamic list of Goods</h1>
+    <div className="App">
+      <h1 className="App__title">Dynamic list of Goods</h1>
 
-      <div className="app__buttons-wrapper">
+      <div className="App__buttons-wrapper">
         <Button
           data-cy="all-button"
-          onClick={() => handleFetchData(getAll, 'all')}
+          onClick={() => handleFetchData(getAll, SortType.ALL)}
           title="Load all goods"
         />
 
         <Button
           data-cy="first-five-button"
-          onClick={() => handleFetchData(get5First, 'firstFive')}
+          onClick={() => handleFetchData(get5First, SortType.FIRST_FIVE)}
           title="Load 5 first goods"
         />
 
         <Button
           data-cy="red-button"
-          onClick={() => handleFetchData(getRed, 'red')}
+          onClick={() => handleFetchData(getRed, SortType.RED_ONLY)}
           title="Load red goods"
         />
       </div>
@@ -59,17 +60,23 @@ export const App: React.FC = () => {
         ? <Loader />
         : (
           <>
-            {error && (
-              <p className="app__error">
-                Error: Unable to establish a connection with the server.
-              </p>
-            )}
+            {isError
+              ? (
+                <p className="App__error">
+                  Error: Unable to establish a connection with the server.
+                </p>
+              )
+              : (
+                <>
+                  <hr className="App__line" />
 
-            <hr className="app__line" />
-
-            <GoodsList goods={goods} />
+                  <GoodsList goods={goods} />
+                </>
+              )}
           </>
         )}
     </div>
   );
 };
+
+export default App;

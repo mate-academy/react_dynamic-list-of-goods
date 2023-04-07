@@ -14,11 +14,12 @@ export const getAll = (): Promise<Good[]> => fetch(API_URL)
 
 export const get5First = () => {
   return getAll()
-    .then(goods => [...goods]
-      .sort((previous, current) => {
-        return previous.name.localeCompare(current.name);
-      })
-      .slice(0, 5));
+    .then(goods => (
+      [...goods]
+        .sort((previous, current) => (
+          previous.name.localeCompare(current.name)
+        ))
+        .slice(0, 5)));
 };
 
 export const getRed = () => {
