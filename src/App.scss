@@ -1,1 +1,22 @@
-// styles go here
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: italic small-caps;
+}
+
+.buttons-box {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.button {
+  min-width: 33%;
+  height: 50px;
+}
+
+.title {
+  text-align: center;
+}
