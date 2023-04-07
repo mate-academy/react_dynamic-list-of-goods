@@ -55,7 +55,7 @@ export const App: React.FC = () => {
   return (
     <div className="App content">
       <div className="box content-container">
-        <h1 className="">Dynamic list of Goods</h1>
+        <h1>Dynamic list of Goods</h1>
 
         {Object.values(RequestType).map(requestType => {
           const { onClick, content, dataInfo } = buttonsData[requestType];
@@ -79,13 +79,15 @@ export const App: React.FC = () => {
           </div>
         )}
 
-        {hasError && !isLoading && (
+        {!isLoading && hasError && (
           <div className="card-header-title has-text-danger">
             An error occurred, please try again...
           </div>
         )}
 
-        {!isLoading && !hasError && <GoodsList goods={goods} />}
+        {!isLoading && !hasError && (
+          <GoodsList goods={goods} />
+        )}
       </div>
     </div>
   );
