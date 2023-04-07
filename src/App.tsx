@@ -4,17 +4,12 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
-  type StateSetter<T> = React.Dispatch<React.SetStateAction<T>>;
-
-  function usePromiseState<T>(
-    promise: Promise<T>,
-    initialState: T,
-  ): [T, StateSetter<T>] {
-    const [state, setState] = useState<T>(initialState);
+  function usePromiseState(
+    promise: Promise<Good[]>,
+  ): [Good[], React.Dispatch<React.SetStateAction<Good[]>>] {
+    const [state, setState] = useState<Good[]>([]);
 
     useEffect(() => {
       promise.then(result => setState(result));
@@ -23,9 +18,9 @@ export const App: React.FC = () => {
     return [state, setState];
   }
 
-  const [first5] = usePromiseState(get5First(), []);
-  const [allGoods] = usePromiseState(getAll(), []);
-  const [redGoods] = usePromiseState(getRedGoods(), []);
+  const [first5] = usePromiseState(get5First());
+  const [allGoods] = usePromiseState(getAll());
+  const [redGoods] = usePromiseState(getRedGoods());
   const [listTypes, setList] = useState('');
   let goodsToShow: Good[] = [];
 
