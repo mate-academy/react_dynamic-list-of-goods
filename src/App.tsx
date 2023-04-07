@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import { Loader } from './Loader';
-
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
@@ -13,17 +12,19 @@ export const App: React.FC = () => {
 
   const handleLoadGoods = async (getGood: () => Promise<Good[]>) => {
     setIsLoading(true);
+    setError(null);
     try {
-      setIsLoading(true);
       const goodsFromServer = await getGood();
 
       setGoods(goodsFromServer);
     } catch (error) {
-      setError('An error occurred while loading the goods.');
+      setError((error as Error).message);
     } finally {
       setIsLoading(false);
     }
   };
+
+  const shouldShowContent = !isLoading && !loadingError;
 
   return (
     <div className="App container-sm mt-4">
@@ -58,16 +59,17 @@ export const App: React.FC = () => {
         </button>
       </div>
 
-      {loadingError
-        && (
-          <div className="alert alert-danger" role="alert">
-            {`Error: ${loadingError}`}
-          </div>
-        )}
+      {loadingError && (
+        <div className="alert alert-danger" role="alert">
+          {`Error: ${loadingError}`}
+        </div>
+      )}
 
       {isLoading && <Loader />}
 
-      {!isLoading && !loadingError && <GoodsList goods={goods} />}
+      {shouldShowContent && (
+        <GoodsList goods={goods} />
+      )}
     </div>
   );
 };
