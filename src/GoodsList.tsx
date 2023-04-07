@@ -9,7 +9,7 @@ export const GoodsList: React.FC<Props> = React.memo(({ goods }) => (
   <div className="content">
     <ul>
       {goods.map(good => (
-        <div className="">
+        <div>
           <li
             key={good.id}
             data-cy="good"

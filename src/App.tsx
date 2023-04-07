@@ -2,42 +2,51 @@ import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
-import { getAll, get5First, getRedGoods } from './api/goods';
+import { get5First, getAll, getRedGoods } from './api/goods';
 import { RequestType } from './types/RequestType';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [currGoodsType, setCurrGoodsType] = useState<RequestType | null>(null);
 
-  const handleClick = async (request: () => Promise<Good[]>) => {
+  const handleClick = async (
+    request: () => Promise<Good[]>,
+    requestType: RequestType,
+  ) => {
+    if (requestType === currGoodsType) {
+      return;
+    }
+
     setHasError(false);
     setIsLoading(true);
 
     try {
-      const response = await request();
+      const allGoods = await request();
 
-      setIsLoading(false);
-      setGoods(response);
+      setCurrGoodsType(requestType);
+      setGoods(allGoods);
     } catch (error) {
-      setIsLoading(false);
       setHasError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const buttonsData = {
     [RequestType.GetAll]: {
-      onClick: () => handleClick(getAll),
+      onClick: () => handleClick(getAll, RequestType.GetAll),
       content: 'all goods',
       dataInfo: 'all-button',
     },
     [RequestType.Get5First]: {
-      onClick: () => handleClick(get5First),
+      onClick: () => handleClick(get5First, RequestType.Get5First),
       content: '5 first goods',
       dataInfo: 'first-five-button',
     },
     [RequestType.GetRedGoods]: {
-      onClick: () => handleClick(getRedGoods),
+      onClick: () => handleClick(getRedGoods, RequestType.GetRedGoods),
       content: 'red goods',
       dataInfo: 'red-button',
     },
