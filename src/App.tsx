@@ -19,48 +19,14 @@ export const App: React.FC = () => {
   ] = useState<LoadType>(LoadType.NONE);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [dataLoadedAll, setDataLoadedAll] = useState(false);
-  const [dataLoadedFirst5, setDataLoadedFirst5] = useState(false);
-  const [dataLoadedOnlyRed, setDataLoadedOnlyRed] = useState(false);
   const [loadingError, setLoadingError] = useState('');
 
-  const handleLoadData = useCallback(async (loadType: LoadType) => {
+  const handleLoadData = useCallback(async (loadCallback) => {
     setIsLoading(true);
 
-    setIsSelectedLoadType(loadType);
-
-    let goodsFromServer: Good[] = [];
+    const goodsFromServer: Good[] = await loadCallback();
 
     try {
-      switch (loadType) {
-        case LoadType.FIRST5:
-          goodsFromServer = await get5First();
-
-          setDataLoadedFirst5(true);
-          setDataLoadedOnlyRed(false);
-          setDataLoadedAll(false);
-
-          break;
-
-        case LoadType.ONLYRED:
-          goodsFromServer = await getRedGoods();
-
-          setDataLoadedOnlyRed(true);
-          setDataLoadedFirst5(false);
-          setDataLoadedAll(false);
-
-          break;
-
-        default:
-          goodsFromServer = await getAll();
-
-          setDataLoadedAll(true);
-          setDataLoadedOnlyRed(false);
-          setDataLoadedFirst5(false);
-
-          break;
-      }
-
       setGoods(goodsFromServer);
       setLoadingError('');
     } catch (error) {
@@ -72,6 +38,18 @@ export const App: React.FC = () => {
 
   const loadingComplete = !loadingError && !isLoading;
 
+  const handleButtonClick = (
+    loadFunction: () => Promise<Good[]>,
+    loadType: LoadType,
+  ) => {
+    setIsSelectedLoadType(loadType);
+    handleLoadData(loadFunction);
+  };
+
+  const isButtonActive = (loadType: LoadType) => {
+    return isSelectedLoadType === loadType;
+  };
+
   return (
     <div className="App">
       <div className="container">
@@ -82,13 +60,13 @@ export const App: React.FC = () => {
             className={classNames(
               'button is-primary is-outlined',
               {
-                'is-active': isSelectedLoadType === LoadType.ALL,
+                'is-active': isButtonActive(LoadType.ALL),
               },
             )}
             type="button"
             data-cy="all-button"
-            onClick={() => handleLoadData(LoadType.ALL)}
-            disabled={dataLoadedAll}
+            onClick={() => handleButtonClick(getAll, LoadType.ALL)}
+            disabled={isButtonActive(LoadType.ALL)}
           >
             Load all goods
           </button>
@@ -97,13 +75,17 @@ export const App: React.FC = () => {
             className={classNames(
               'button is-primary is-outlined',
               {
-                'is-active': isSelectedLoadType === LoadType.FIRST5,
+                'is-active': isButtonActive(LoadType.FIRST5),
               },
             )}
             type="button"
+            name="first5"
             data-cy="first-five-button"
-            onClick={() => handleLoadData(LoadType.FIRST5)}
-            disabled={dataLoadedFirst5}
+            onClick={() => {
+              setIsSelectedLoadType(LoadType.FIRST5);
+              handleLoadData(get5First);
+            }}
+            disabled={isButtonActive(LoadType.FIRST5)}
           >
             Load 5 first goods
           </button>
@@ -112,13 +94,17 @@ export const App: React.FC = () => {
             className={classNames(
               'button is-primary is-outlined',
               {
-                'is-active': isSelectedLoadType === LoadType.ONLYRED,
+                'is-active': isButtonActive(LoadType.ONLYRED),
               },
             )}
             type="button"
+            name="onlyRed"
             data-cy="red-button"
-            onClick={() => handleLoadData(LoadType.ONLYRED)}
-            disabled={dataLoadedOnlyRed}
+            onClick={() => {
+              setIsSelectedLoadType(LoadType.ONLYRED);
+              handleLoadData(getRedGoods);
+            }}
+            disabled={isButtonActive(LoadType.ONLYRED)}
           >
             Load red goods
           </button>
