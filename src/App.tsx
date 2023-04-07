@@ -4,24 +4,31 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
+import { Loader } from './components/Loader';
+
+enum GoodsType {
+  Default = '',
+  All = 'all',
+  FirstFive = 'firstFive',
+  OnlyRed = 'onlyRed',
+}
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const [currentGoodsType, setCurrentGoodsType] = useState(GoodsType.Default);
 
-  const getCallback = async (callBackFunc: () => Promise<Good[]>) => {
-    const goodsFromApi = await callBackFunc();
-
-    return goodsFromApi;
-  };
-
-  const handleGoods = async (promiseFunc: () => Promise<Good[]>) => {
+  const handleGoods = async (
+    promiseFunc: () => Promise<Good[]>,
+    goodsType = GoodsType.Default,
+  ) => {
     try {
       setHasError(false);
       setIsLoading(true);
-      const goodsFromApi = await getCallback(promiseFunc);
+      const goodsFromApi = await promiseFunc();
 
+      setCurrentGoodsType(goodsType);
       setGoods(goodsFromApi);
     } catch (error) {
       setHasError(true);
@@ -33,37 +40,44 @@ export const App: React.FC = () => {
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={() => handleGoods(getAll)}
-      >
-        Load all goods
-      </button>
-
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={() => handleGoods(get5First)}
-      >
-        Load 5 first goods
-      </button>
-
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={() => handleGoods(getRedGoods)}
-      >
-        Load red goods
-      </button>
 
       {isLoading
         ? (
-          <svg viewBox="25 25 50 50">
-            <circle r="20" cy="50" cx="50" />
-          </svg>
+          <Loader />
         )
-        : <GoodsList goods={goods} hasError={hasError} />}
+        : (
+          <>
+            <button
+              type="button"
+              data-cy="all-button"
+              onClick={() => handleGoods(getAll, GoodsType.All)}
+              disabled={currentGoodsType === 'all'}
+            >
+              Load all goods
+            </button>
+
+            <button
+              type="button"
+              data-cy="first-five-button"
+              onClick={() => handleGoods(get5First, GoodsType.FirstFive)}
+              disabled={currentGoodsType === 'firstFive'}
+            >
+              Load 5 first goods
+            </button>
+
+            <button
+              type="button"
+              data-cy="red-button"
+              onClick={() => handleGoods(getRedGoods, GoodsType.OnlyRed)}
+              disabled={currentGoodsType === 'onlyRed'}
+            >
+              Load red goods
+            </button>
+            { hasError
+              ? (<p>Error, server is unavailable</p>)
+              : (<GoodsList goods={goods} />)}
+          </>
+        )}
 
     </div>
   );
