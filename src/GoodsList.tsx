@@ -12,7 +12,7 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
         key={good.id}
         data-cy="good"
         style={{
-          color: good.color.toString(),
+          color: good.color,
         }}
       >
         {good.name}
