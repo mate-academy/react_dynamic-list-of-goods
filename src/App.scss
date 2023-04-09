@@ -1,3 +1,7 @@
+@import "./styles/Loader.scss";
+@import "./styles/Good.scss";
+@import "./styles/GoodList.scss";
+
 .App {
   padding: 5px;
   font-family: "Gill Sans", "Gill Sans MT", "Trebuchet MS", sans-serif;
@@ -8,16 +12,4 @@
 
 .title {
   text-align: center;
-}
-
-.goodsList {
-  list-style-type: none;
-  font-size: 20px;
-  padding: 20px;
-}
-
-.good::before {
-  content: "\1F468\200D\1F373";
-  display: inline-block;
-  margin-right: 5px;
 }

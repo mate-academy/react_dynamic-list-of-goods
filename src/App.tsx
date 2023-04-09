@@ -10,31 +10,41 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good[] | null>(null);
   const [isError, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
 
-  const dataLoading = async (data: Promise<Good[]>) => {
+  const loadGoodsFromServer = async (data: Promise<Good[]>) => {
     setError(false);
+    setLoading(true);
+    setButtonDisabled(true);
     try {
       const currentGoods = await data;
 
-      setGoods(currentGoods);
+      setTimeout(() => {
+        setLoading(false);
+        setGoods(currentGoods);
+        setButtonDisabled(false);
+      }, 1500);
     } catch (err) {
       setError(true);
     }
   };
 
-  const handleGetAll = () => {
-    dataLoading(getAll());
-  };
+  let displayElement;
 
-  const handleGet5First = () => {
-    dataLoading(get5First());
-  };
-
-  const handleGetRedGoods = () => {
-    dataLoading(getRedGoods());
-  };
+  if (isError) {
+    displayElement = (
+      <Alert severity="error">
+        Error loading data. Please try again later.
+      </Alert>
+    );
+  } else if (loading) {
+    displayElement = <span className="loader" />;
+  } else {
+    displayElement = <GoodsList goods={goods} />;
+  }
 
   return (
     <div className="App">
@@ -47,9 +57,10 @@ export const App: React.FC = () => {
         <Button
           type="button"
           data-cy="all-button"
-          onClick={handleGetAll}
+          onClick={() => loadGoodsFromServer(getAll())}
           className="button2"
           variant="contained"
+          disabled={buttonDisabled}
         >
           Load all goods
         </Button>
@@ -57,9 +68,10 @@ export const App: React.FC = () => {
         <Button
           type="button"
           data-cy="first-five-button"
-          onClick={handleGet5First}
+          onClick={() => loadGoodsFromServer(get5First())}
           className="button2"
           variant="contained"
+          disabled={buttonDisabled}
         >
           Load 5 first goods
         </Button>
@@ -67,21 +79,16 @@ export const App: React.FC = () => {
         <Button
           type="button"
           data-cy="red-button"
-          onClick={handleGetRedGoods}
+          onClick={() => loadGoodsFromServer(getRedGoods())}
           className="button2"
           variant="contained"
+          disabled={buttonDisabled}
         >
           Load red goods
         </Button>
       </ButtonGroup>
 
-      {isError
-        && (
-          <Alert severity="error">
-            Error loading data. Please try again later.
-          </Alert>
-        )}
-      <GoodsList goods={goods} />
+      {displayElement}
     </div>
   );
 };
