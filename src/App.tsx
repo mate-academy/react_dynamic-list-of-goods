@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.scss';
 import classNames from 'classnames';
 import 'bulma';
-import '@fortawesome/fontawesome';
+import 'font-awesome';
 import { GoodsList } from './components/GoodsList';
 import { Loader } from './components/Loader';
 

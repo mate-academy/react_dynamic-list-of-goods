@@ -1,6 +1,6 @@
 import React from 'react';
 import { Good } from '../../types/Good';
-import '@fortawesome/fontawesome';
+import 'font-awesome';
 import 'bulma';
 
 type Props = {
