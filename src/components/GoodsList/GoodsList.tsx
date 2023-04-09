@@ -1,7 +1,5 @@
 import React from 'react';
 import { Good } from '../../types/Good';
-import 'font-awesome';
-import 'bulma';
 
 type Props = {
   goods: Good[];
@@ -36,7 +34,7 @@ export const GoodsList: React.FC<Props> = ({
                 key={id}
                 data-cy="good"
                 style={{ color }}
-                className="m-1 is-size-5 good"
+                className="is-size-5 good"
               >
                 {name}
               </li>

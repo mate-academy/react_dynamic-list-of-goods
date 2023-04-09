@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
 import classNames from 'classnames';
-import 'bulma';
-import 'font-awesome';
 import { GoodsList } from './components/GoodsList';
 import { Loader } from './components/Loader';
 
@@ -16,7 +14,7 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goodsToShow, setGoodsToShow] = useState<Good[]>([]);
   const [loading, setLoading] = useState(false);
-  const [loadingError, setLoadingError] = useState(false);
+  const [loadingError, setLoadingError] = useState(true);
 
   type Loaded = 'all' | 'five' | 'red' | 'none';
 
@@ -112,7 +110,7 @@ export const App: React.FC = () => {
         onClick={loadRedGoods}
         disabled={loadedState === 'red' || loadingError}
         className={classNames(
-          'button is-danger m-1',
+          'button is-danger',
           { 'is-loading': buttonClicked === 'red' },
         )}
       >

@@ -3,6 +3,8 @@
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+
+  border: none;
 }
 
 .title {
@@ -13,13 +15,24 @@
 
 .error {
   text-align: center;
-  width: 100%;
+  width: 50%;
+  flex-shrink: 50%;
+  position: relative;
+  margin: 0.5rem auto;
 }
 
 .button {
   flex-grow: 1;
-  width: 32%;
+  width: 30%;
   font-family: inherit;
+}
+
+
+.title,
+.button,
+.list,
+.good {
+  margin: 0.5rem;
 }
 
 @keyframes appear {
@@ -36,6 +49,8 @@ $appearanceTime: 300ms;
 .list {
   width: 100%;
   text-align: center;
+
+  box-shadow: none;
 
   .good {
     opacity: 0;
