@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './App.scss';
-import classNames from 'classnames';
 import { GoodsList } from './components/GoodsList';
 import { Loader } from './components/Loader';
 
@@ -83,10 +82,9 @@ export const App: React.FC = () => {
         data-cy="all-button"
         onClick={loadAllGoods}
         disabled={loadedState === 'all' || loadingError}
-        className={classNames(
-          'button is-warning m-1',
-          { 'is-loading': buttonClicked === 'all' },
-        )}
+        className={
+          `button is-warning ${buttonClicked === 'all' ? 'is-loading' : ''}`
+        }
       >
         Load all goods
       </button>
@@ -96,10 +94,9 @@ export const App: React.FC = () => {
         data-cy="first-five-button"
         onClick={loadFiveFirstGoods}
         disabled={loadedState === 'five' || loadingError}
-        className={classNames(
-          'button is-success m-1',
-          { 'is-loading': buttonClicked === 'five' },
-        )}
+        className={
+          `button is-success ${buttonClicked === 'five' ? 'is-loading' : ''}`
+        }
       >
         Load 5 first goods
       </button>
@@ -109,10 +106,9 @@ export const App: React.FC = () => {
         data-cy="red-button"
         onClick={loadRedGoods}
         disabled={loadedState === 'red' || loadingError}
-        className={classNames(
-          'button is-danger',
-          { 'is-loading': buttonClicked === 'red' },
-        )}
+        className={
+          `button is-danger ${buttonClicked === 'red' ? 'is-loading' : ''}`
+        }
       >
         Load red goods
       </button>
