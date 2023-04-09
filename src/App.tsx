@@ -14,7 +14,7 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goodsToShow, setGoodsToShow] = useState<Good[]>([]);
   const [loading, setLoading] = useState(false);
-  const [loadingError, setLoadingError] = useState(true);
+  const [loadingError, setLoadingError] = useState(false);
 
   type Loaded = 'all' | 'five' | 'red' | 'none';
 
