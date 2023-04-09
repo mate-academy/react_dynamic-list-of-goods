@@ -1,7 +1,10 @@
-// styles go here
-
 .App {
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.error {
+  color: red;
+  font-size: 20px;
 }

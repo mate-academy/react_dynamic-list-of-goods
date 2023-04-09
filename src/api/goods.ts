@@ -8,7 +8,7 @@ export function getAll(): Promise<Good[]> {
     .then(response => {
       if (!response.ok) {
         return Promise.reject(
-          new Error(`${response.status} - ${response.text}`),
+          new Error(`Error - ${response.status}`),
         );
       }
 
@@ -19,11 +19,6 @@ export function getAll(): Promise<Good[]> {
       }
 
       return response.json();
-    })
-    .catch(error => {
-      window.console.warn(error);
-
-      return [];
     });
 }
 

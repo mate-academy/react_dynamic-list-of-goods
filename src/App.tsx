@@ -5,39 +5,23 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 import { Loader } from './components/Loader';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleClick = useCallback((buttonName: string) => {
+  const handleClick = useCallback((loaderFunction: () => Promise<Good[]>) => {
+    setHasError(false);
     setIsLoading(true);
 
-    let promise: Promise<Good[]>;
-
-    switch (buttonName) {
-      case 'all-button':
-        promise = getAll();
-        break;
-
-      case 'first-five-button':
-        promise = get5First();
-        break;
-
-      case 'red-button':
-        promise = getRedGoods();
-        break;
-
-      default:
-        promise = Promise.reject(new Error('Unexpected case in switch'));
-        break;
-    }
-
-    promise
+    loaderFunction()
       .then(setGoods)
-      .catch(err => window.console.warn(err))
+      .catch((err: Error) => {
+        setErrorMessage(err.message);
+        setHasError(true);
+      })
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -49,7 +33,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          handleClick('all-button');
+          handleClick(getAll);
         }}
         disabled={isLoading}
       >
@@ -60,7 +44,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          handleClick('first-five-button');
+          handleClick(get5First);
         }}
         disabled={isLoading}
       >
@@ -71,16 +55,17 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          handleClick('red-button');
+          handleClick(getRedGoods);
         }}
         disabled={isLoading}
       >
         Load red goods
       </button>
 
-      {isLoading
+      {isLoading && !hasError
         ? (<Loader />)
         : (<GoodsList goods={goods} />)}
+      {hasError && (<p className="error">{errorMessage}</p>)}
     </div>
   );
 };
