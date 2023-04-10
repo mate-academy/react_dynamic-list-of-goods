@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
+import { FilterParam } from './types/FilterParam';
 
 import { get5First, getAll, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-
-  type FilterParam = 'all-button' | 'first-five-button' | 'red-button';
 
   const setFilterParam = async (param: FilterParam) => {
     let filteredArray: Good[];
