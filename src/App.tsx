@@ -12,18 +12,20 @@ export const App: React.FC = () => {
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleClick = useCallback((loaderFunction: () => Promise<Good[]>) => {
-    setHasError(false);
-    setIsLoading(true);
+  const handleGoodsLoad = useCallback(
+    (loaderFunction: () => Promise<Good[]>) => {
+      setHasError(false);
+      setIsLoading(true);
 
-    loaderFunction()
-      .then(setGoods)
-      .catch((err: Error) => {
-        setErrorMessage(err.message);
-        setHasError(true);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
+      loaderFunction()
+        .then(setGoods)
+        .catch((err: Error) => {
+          setErrorMessage(err.message);
+          setHasError(true);
+        })
+        .finally(() => setIsLoading(false));
+    }, [],
+  );
 
   return (
     <div className="App">
@@ -33,7 +35,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          handleClick(getAll);
+          handleGoodsLoad(getAll);
         }}
         disabled={isLoading}
       >
@@ -44,7 +46,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          handleClick(get5First);
+          handleGoodsLoad(get5First);
         }}
         disabled={isLoading}
       >
@@ -55,7 +57,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          handleClick(getRedGoods);
+          handleGoodsLoad(getRedGoods);
         }}
         disabled={isLoading}
       >
