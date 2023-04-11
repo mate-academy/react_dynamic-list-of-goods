@@ -1,10 +1,10 @@
-import './LoadingError.scss';
+import './ErrorMessage.scss';
 
 type Props = {
   text: string;
 };
 
-export const LoadingError: React.FC<Props> = (props) => (
+export const ErrorMessage: React.FC<Props> = (props) => (
   <div className="error">
     <p className="error-text">
       {props.text}

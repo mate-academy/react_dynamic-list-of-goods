@@ -3,33 +3,34 @@ import './App.scss';
 import 'bulma/css/bulma.min.css';
 
 import { GoodsList } from './components/GoodsList/GoodsList';
-import { LoadingError } from './components/LoadingError/LoadingError';
+import { ErrorMessage } from './components/ErrorMessage/ErrorMessage';
 
 import { get5First, getAll, getRedGoods } from './api/goods';
-import { Good, GoodsType, LoadError } from './types/Good';
+import { Good } from './types/Good';
 import { Loader } from './components/Loader/Loader';
+import { GoodsType, LoadError } from './types';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [loadingError, setLoadingError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingError, setIsLoadingError] = useState(false);
   const [currentGoodsType, setCurrentGoodsType] = useState(GoodsType.Default);
 
   const loadGoods = (
     getGoods: () => Promise<Good[]>,
     goodsType = GoodsType.Default,
   ) => {
-    if (goodsType === currentGoodsType) {
-      return;
-    }
-
-    setLoading(true);
+    setIsLoading(true);
     getGoods()
       .then((loadedGoods) => setGoods(loadedGoods))
-      .catch(() => setLoadingError(true))
-      .finally(() => setLoading(false));
+      .catch(() => setIsLoadingError(true))
+      .finally(() => setIsLoading(false));
 
-    setCurrentGoodsType(goodsType);
+    setIsLoadingError(false);
+
+    if (goodsType !== currentGoodsType) {
+      setCurrentGoodsType(goodsType);
+    }
   };
 
   return (
@@ -39,7 +40,7 @@ export const App: React.FC = () => {
 
         <div className="button-container">
           <button
-            disabled={loading}
+            disabled={isLoading}
             className="button is-link"
             type="button"
             data-cy="all-button"
@@ -49,7 +50,7 @@ export const App: React.FC = () => {
           </button>
 
           <button
-            disabled={loading}
+            disabled={isLoading}
             type="button"
             className="button is-link"
             data-cy="first-five-button"
@@ -59,7 +60,7 @@ export const App: React.FC = () => {
           </button>
 
           <button
-            disabled={loading}
+            disabled={isLoading}
             type="button"
             className="button is-link"
             data-cy="red-button"
@@ -69,11 +70,15 @@ export const App: React.FC = () => {
           </button>
         </div>
 
-        {!loading
-          ? <GoodsList goods={goods} />
-          : <Loader />}
-
-        {loadingError && <LoadingError text={LoadError.LoadingError} />}
+        {isLoading
+          ? <Loader />
+          : (
+            <>
+              {isLoadingError
+                ? <ErrorMessage text={LoadError.LoadingError} />
+                : <GoodsList goods={goods} />}
+            </>
+          )}
       </div>
     </div>
   );
