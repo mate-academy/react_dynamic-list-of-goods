@@ -9,32 +9,26 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const getAlls = async () => {
-    const good = await getAll();
-
     try {
-      setGoods(good);
-    } catch {
+      setGoods(await getAll());
+    } catch (error) {
       throw new Error('Not found');
     }
   };
 
   const getFive = async () => {
-    const good = await get5First();
-
     try {
-      setGoods(good);
+      setGoods(await get5First());
     } catch {
-      throw new Error('');
+      throw new Error('Not found');
     }
   };
 
   const getRed = async () => {
-    const good = await getRedGoods();
-
     try {
-      setGoods(good);
+      setGoods(await getRedGoods());
     } catch {
-      throw new Error('');
+      throw new Error('Not found');
     }
   };
 
