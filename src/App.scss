@@ -1,1 +1,24 @@
-// styles go here
+.App {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.button-container {
+  margin-bottom: 40px;
+}
+
+.button {
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+}
