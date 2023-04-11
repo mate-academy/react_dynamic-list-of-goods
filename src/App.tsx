@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 import { Loader } from './Loader';
 
-enum SortBy {
+enum FilterOptions {
   ALL = 'all-button',
   FIRST5 = 'first-five-button',
   RED = 'red-button',
 }
 
 type ButtonNames = {
-  [key in SortBy]: string;
+  [key in FilterOptions]: string;
 };
 
 const buttonNames: ButtonNames = {
-  [SortBy.ALL]: 'Load all goods',
-  [SortBy.FIRST5]: 'Load 5 first goods',
-  [SortBy.RED]: 'Load red goods',
+  [FilterOptions.ALL]: 'Load all goods',
+  [FilterOptions.FIRST5]: 'Load 5 first goods',
+  [FilterOptions.RED]: 'Load red goods',
 };
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [sortBy, setSortBy] = useState('');
+  const [filterOptions, setFilterOptions] = useState('');
   const [errorText, setErrorText] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getGoods = async (promise: Promise<Good[]>): Promise<void> => {
-    setLoading(true);
+    setIsLoading(true);
     setErrorText('');
 
     try {
@@ -38,38 +38,38 @@ export const App: React.FC = () => {
     } catch (error) {
       setErrorText(String(error));
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
-  const handleButtonClick = (sort: SortBy) => {
-    if (sortBy === sort) {
+  const handleButtonClick = useCallback((sort: FilterOptions) => {
+    if (filterOptions === sort) {
       return;
     }
 
-    setSortBy(sort);
+    setFilterOptions(sort);
 
     switch (sort) {
-      case SortBy.ALL:
-        getGoods(goodsAPI.getAll());
+      case FilterOptions.ALL:
+        getGoods(getAll());
         break;
-      case SortBy.FIRST5:
-        getGoods(goodsAPI.get5First());
+      case FilterOptions.FIRST5:
+        getGoods(get5First());
         break;
-      case SortBy.RED:
-        getGoods(goodsAPI.getRedGoods());
+      case FilterOptions.RED:
+        getGoods(getRedGoods());
         break;
       default:
         break;
     }
-  };
+  }, []);
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
       <div className="field is-grouped">
-        {Object.values(SortBy).map((currentSortType) => (
+        {Object.values(FilterOptions).map((currentSortType) => (
           <button
             className="button is-light mr-3 is-medium"
             type="button"
@@ -83,7 +83,7 @@ export const App: React.FC = () => {
         ))}
       </div>
 
-      {loading && (
+      {isLoading && (
         <Loader />
       )}
 

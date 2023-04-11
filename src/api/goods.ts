@@ -7,11 +7,15 @@ export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
     .then(response => {
       if (!response.ok) {
-        return Promise.reject(Error);
+        return Promise.reject(
+          new Error(response.statusText),
+        );
       }
 
       if (!response.headers.get('content-type')?.includes('application/json')) {
-        return Promise.reject(Error);
+        return Promise.reject(
+          new Error(response.statusText),
+        );
       }
 
       return response.json();
