@@ -51,7 +51,7 @@ export const App: React.FC = () => {
               type="button"
               data-cy="all-button"
               onClick={() => handleGoods(getAll, GoodsType.All)}
-              disabled={currentGoodsType === 'all'}
+              disabled={currentGoodsType === GoodsType.All}
             >
               Load all goods
             </button>
@@ -60,7 +60,7 @@ export const App: React.FC = () => {
               type="button"
               data-cy="first-five-button"
               onClick={() => handleGoods(get5First, GoodsType.FirstFive)}
-              disabled={currentGoodsType === 'firstFive'}
+              disabled={currentGoodsType === GoodsType.FirstFive}
             >
               Load 5 first goods
             </button>
@@ -69,7 +69,7 @@ export const App: React.FC = () => {
               type="button"
               data-cy="red-button"
               onClick={() => handleGoods(getRedGoods, GoodsType.OnlyRed)}
-              disabled={currentGoodsType === 'onlyRed'}
+              disabled={currentGoodsType === GoodsType.OnlyRed}
             >
               Load red goods
             </button>
