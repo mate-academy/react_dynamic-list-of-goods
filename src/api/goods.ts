@@ -3,17 +3,35 @@ import { Good } from '../types/Good';
 // eslint-disable-next-line
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
-export function getAll(): Promise<Good[]> {
-  return fetch(API_URL)
-    .then(response => response.json());
+function sortFiveFirst(array: Good[]) {
+  const sorted = [...array]
+    .sort((firstItem, secondItem) => (
+      firstItem.name.localeCompare(secondItem.name)
+    ));
+
+  sorted.slice(0, 5);
+
+  return sorted;
+}
+
+function filterByColor(array: Good[], color: string) {
+  const filtered = array.filter(item => item.color === color);
+
+  return filtered;
+}
+
+export async function getAll(): Promise<Good[]> {
+  const result = await fetch(API_URL);
+
+  return result.json();
 }
 
 export const get5First = () => {
   return getAll()
-    .then(goods => goods); // sort and get the first 5
+    .then(goods => sortFiveFirst(goods));
 };
 
 export const getRedGoods = () => {
   return getAll()
-    .then(goods => goods); // get only red
+    .then(goods => filterByColor(goods, 'red'));
 };
