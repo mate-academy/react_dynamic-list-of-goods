@@ -9,13 +9,13 @@ function sortFiveFirst(array: Good[]) {
       firstItem.name.localeCompare(secondItem.name)
     ));
 
-  sorted.length = 5;
+  sorted.slice(0, 5);
 
   return sorted;
 }
 
 function filterByColor(array: Good[], color: string) {
-  const filtered = [...array].filter(item => item.color === color);
+  const filtered = array.filter(item => item.color === color);
 
   return filtered;
 }

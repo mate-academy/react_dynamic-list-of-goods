@@ -6,7 +6,7 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 enum TypeOfGoods {
-  None = '',
+  None = 'none',
   AllGoods = 'all-button',
   FirstFiveGoods = 'first-five-button',
   RedGoods = 'red-button',
@@ -15,8 +15,8 @@ enum TypeOfGoods {
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [currentType, setCurrentType] = useState(TypeOfGoods.None);
-  const [isLoading, setLoading] = useState(false);
-  const [hasLoadingError, setLoadingError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasLoadingError, setHasLoadingError] = useState(false);
 
   const handleClickButton = (
     getGoods: () => Promise<Good[]>,
@@ -24,13 +24,12 @@ export const App: React.FC = () => {
   ) => {
     return () => {
       if (currentType !== typeOfGoods) {
-        setLoading(true);
+        setIsLoading(true);
         getGoods()
           .then(setGoods)
-          .catch(() => (setLoadingError(true)))
+          .catch(() => (setHasLoadingError(true)))
           .finally(() => {
-            setLoading(false);
-            setLoading(false);
+            setIsLoading(false);
           });
         setCurrentType(typeOfGoods);
       }
@@ -94,9 +93,12 @@ export const App: React.FC = () => {
           </div>
         )
         : (
-          <GoodsList goods={goods} />
+          <>
+            {!isLoading && (
+              <GoodsList goods={goods} />
+            )}
+          </>
         )}
-
     </div>
   );
 };
