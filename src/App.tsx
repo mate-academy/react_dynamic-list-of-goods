@@ -13,15 +13,15 @@ export const App: React.FC = () => {
     let filteredArray: Good[];
 
     switch (param) {
-      case 'all-button':
+      case FilterParam.all:
         filteredArray = await getAll();
         break;
 
-      case 'first-five-button':
+      case FilterParam.first5:
         filteredArray = await get5First();
         break;
 
-      case 'red-button':
+      case FilterParam.red:
         filteredArray = await getRedGoods();
         break;
 
