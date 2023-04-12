@@ -30,7 +30,6 @@ export const App: React.FC = () => {
   const getGoods = async (promise: Promise<Good[]>): Promise<void> => {
     setIsLoading(true);
     setErrorText('');
-
     try {
       const goodsFromServer = await promise;
 
@@ -62,7 +61,7 @@ export const App: React.FC = () => {
       default:
         break;
     }
-  }, []);
+  }, [filterOptions]);
 
   return (
     <div className="App">

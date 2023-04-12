@@ -1,3 +1,3 @@
-export const Loader = () => (
+export const Loader: React.FC = () => (
   <div>Loading...</div>
 );
