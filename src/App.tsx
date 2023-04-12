@@ -1,27 +1,72 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
+import { FilterParam } from './types/FilterParam';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { get5First, getAll, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const setFilterParam = async (param: FilterParam) => {
+    let filteredArray: Good[];
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    switch (param) {
+      case FilterParam.all:
+        filteredArray = await getAll();
+        break;
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      case FilterParam.first5:
+        filteredArray = await get5First();
+        break;
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      case FilterParam.red:
+        filteredArray = await getRedGoods();
+        break;
+
+      default:
+        filteredArray = [];
+    }
+
+    setGoods(filteredArray);
+  };
+
+  const handleFilterParam = (event:React.MouseEvent<HTMLButtonElement>) => {
+    const { dataset } = event.currentTarget;
+
+    setFilterParam(dataset.cy as FilterParam);
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={handleFilterParam}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleFilterParam}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={handleFilterParam}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
