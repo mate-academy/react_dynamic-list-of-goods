@@ -1,27 +1,80 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+enum SortType {
+  None = '',
+  All = 'all-button',
+  FirstFive = 'first-five-buttons',
+  Red = 'red-buttons',
+}
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [sort, setSort] = useState<SortType>(SortType.None);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const handleClick = useCallback((sortType: SortType) => {
+    if (sort === sortType) {
+      return;
+    }
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    switch (sortType) {
+      case SortType.All:
+        getAll()
+          .then(setGoods);
+        break;
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      case SortType.FirstFive:
+        get5First()
+          .then(setGoods);
+        break;
+
+      case SortType.Red:
+        getRedGoods()
+          .then(setGoods);
+        break;
+
+      default:
+        break;
+    }
+
+    setSort(sortType);
+  }, [sort]);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => {
+          handleClick(SortType.All);
+        }}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => handleClick(SortType.FirstFive)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => handleClick(SortType.Red)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
