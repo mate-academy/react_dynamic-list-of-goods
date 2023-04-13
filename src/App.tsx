@@ -1,27 +1,100 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+enum Sort {
+  None = '',
+  All = 'all-button',
+  FirstFive = 'first-five-button',
+  Red = 'red-button',
+}
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+const getButtonName = (sortType: Sort) => {
+  const contentBySortType = {
+    [Sort.All]: 'Load all goods',
+    [Sort.FirstFive]: 'Load 5 first goods',
+    [Sort.Red]: 'Load red goods',
+    [Sort.None]: '',
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return contentBySortType[sortType];
+};
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [sort, setSort] = useState<Sort>(Sort.None);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const getGoods = useCallback(async (promise: Promise<Good[]>) => {
+    setIsLoading(true);
+
+    try {
+      setGoods(await promise);
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const handleClick = useCallback((sortType: Sort) => {
+    if (sort === sortType) {
+      return;
+    }
+
+    switch (sortType) {
+      case Sort.All:
+        getGoods(getAll());
+        break;
+
+      case Sort.FirstFive:
+        getGoods(get5First());
+        break;
+
+      case Sort.Red:
+        getGoods(getRedGoods());
+        break;
+
+      default:
+        break;
+    }
+
+    setSort(sortType);
+  }, [sort]);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      {Object.values(Sort)
+        .filter(value => value)
+        .map(current => (
+          <button
+            type="button"
+            data-cy={current}
+            onClick={() => {
+              handleClick(current);
+            }}
+          >
+            {getButtonName(current)}
+          </button>
+        ))}
+
+      {isLoading
+        ? <p>Is Loading...</p>
+        : (
+          <>
+            {isError && (
+              <p>Something went wrong</p>
+            )}
+
+            <GoodsList goods={goods} />
+          </>
+        )}
+    </div>
+  );
+};
