@@ -5,7 +5,7 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
-enum Sort {
+enum SortType {
   None = '',
   All = 'all-button',
   FirstFive = 'first-five-buttons',
@@ -14,25 +14,25 @@ enum Sort {
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [sort, setSort] = useState<Sort>(Sort.None);
+  const [sort, setSort] = useState<SortType>(SortType.None);
 
-  const handleClick = useCallback((sortType: Sort) => {
+  const handleClick = useCallback((sortType: SortType) => {
     if (sort === sortType) {
       return;
     }
 
     switch (sortType) {
-      case Sort.All:
+      case SortType.All:
         getAll()
           .then(setGoods);
         break;
 
-      case Sort.FirstFive:
+      case SortType.FirstFive:
         get5First()
           .then(setGoods);
         break;
 
-      case Sort.Red:
+      case SortType.Red:
         getRedGoods()
           .then(setGoods);
         break;
@@ -42,7 +42,7 @@ export const App: React.FC = () => {
     }
 
     setSort(sortType);
-  }, []);
+  }, [sort]);
 
   return (
     <div className="App">
@@ -52,7 +52,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          handleClick(Sort.All);
+          handleClick(SortType.All);
         }}
       >
         Load all goods
@@ -61,7 +61,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => handleClick(Sort.FirstFive)}
+        onClick={() => handleClick(SortType.FirstFive)}
       >
         Load 5 first goods
       </button>
@@ -69,7 +69,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => handleClick(Sort.Red)}
+        onClick={() => handleClick(SortType.Red)}
       >
         Load red goods
       </button>
@@ -78,7 +78,3 @@ export const App: React.FC = () => {
     </div>
   );
 };
-
-// function fiveGoodsHandler() {
-//   throw new Error('Function not implemented.');
-// }
