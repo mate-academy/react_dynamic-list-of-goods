@@ -64,7 +64,7 @@ export const App: React.FC = () => {
     }
 
     setSort(sortType);
-  }, []);
+  }, [sort]);
 
   return (
     <div className="App">
