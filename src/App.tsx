@@ -6,6 +6,12 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
+  const [hasLoadingError, setHasLoadingError] = useState(false);
+
+  const errorMesageStyle = {
+    color: 'red',
+    marginLeft: '10px',
+  };
 
   const handleClick = useCallback(
     async (goodsType: () => Promise<Good[]>) => {
@@ -14,8 +20,7 @@ export const App: React.FC = () => {
 
         setVisibleGoods(goods);
       } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
+        setHasLoadingError(true);
       }
     }, [],
   );
@@ -47,6 +52,8 @@ export const App: React.FC = () => {
       >
         Load red goods
       </button>
+      {hasLoadingError
+        && <span style={errorMesageStyle}>Error - failed to load goods</span>}
 
       {visibleGoods.length > 0 && <GoodsList goods={visibleGoods} />}
     </div>
