@@ -5,19 +5,19 @@ import { Good } from './types/Good';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
-enum Sort {
-  None = '',
+enum GoodsFilter {
+  None = 'none',
   All = 'all-button',
   FirstFive = 'first-five-button',
   Red = 'red-button',
 }
 
-const getButtonName = (sortType: Sort) => {
+const getButtonName = (sortType: GoodsFilter) => {
   const contentBySortType = {
-    [Sort.All]: 'Load all goods',
-    [Sort.FirstFive]: 'Load 5 first goods',
-    [Sort.Red]: 'Load red goods',
-    [Sort.None]: '',
+    [GoodsFilter.All]: 'Load all goods',
+    [GoodsFilter.FirstFive]: 'Load 5 first goods',
+    [GoodsFilter.Red]: 'Load red goods',
+    [GoodsFilter.None]: '',
   };
 
   return contentBySortType[sortType];
@@ -25,7 +25,7 @@ const getButtonName = (sortType: Sort) => {
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [sort, setSort] = useState<Sort>(Sort.None);
+  const [sort, setSort] = useState<GoodsFilter>(GoodsFilter.None);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,7 +33,9 @@ export const App: React.FC = () => {
     setIsLoading(true);
 
     try {
-      setGoods(await promise);
+      const loadedGoods = await promise;
+
+      setGoods(loadedGoods);
     } catch {
       setIsError(true);
     } finally {
@@ -41,21 +43,21 @@ export const App: React.FC = () => {
     }
   }, []);
 
-  const handleClick = useCallback((sortType: Sort) => {
+  const handleClick = useCallback((sortType: GoodsFilter) => {
     if (sort === sortType) {
       return;
     }
 
     switch (sortType) {
-      case Sort.All:
+      case GoodsFilter.All:
         getGoods(getAll());
         break;
 
-      case Sort.FirstFive:
+      case GoodsFilter.FirstFive:
         getGoods(get5First());
         break;
 
-      case Sort.Red:
+      case GoodsFilter.Red:
         getGoods(getRedGoods());
         break;
 
@@ -64,13 +66,13 @@ export const App: React.FC = () => {
     }
 
     setSort(sortType);
-  }, []);
+  }, [getGoods, sort]);
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      {Object.values(Sort)
+      {Object.values(GoodsFilter)
         .filter(value => value)
         .map(current => (
           <button
@@ -84,17 +86,11 @@ export const App: React.FC = () => {
           </button>
         ))}
 
-      {isLoading
-        ? <p>Is Loading...</p>
-        : (
-          <>
-            {isError && (
-              <p>Something went wrong</p>
-            )}
+      {isLoading && <p>Is Loading...</p>}
 
-            <GoodsList goods={goods} />
-          </>
-        )}
+      {isError && <p>Something went wrong</p>}
+
+      {!isLoading && !isError && <GoodsList goods={goods} />}
     </div>
   );
 };
