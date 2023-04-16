@@ -1,1 +1,34 @@
-// styles go here
+.App {
+  font-family: "Roboto Light", Arial, Helvetica, sans-serif;
+  margin-left: 20px;
+}
+
+.list {
+  list-style-type: circle;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-weight: 450;
+  font-size: 20px;
+}
+
+.button {
+  color: rgb(0, 65, 139);
+  background-color: rgb(206, 255, 239);
+  border-radius: 5px;
+  border-color: lightblue;
+  margin-right: 20px;
+
+  font-weight: 550;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-size: 15px;
+}
+
+.dropdown {
+  color: rgb(0, 65, 139);
+  border-radius: 5px;
+  margin-right: 5px;
+  margin-top: 10px;
+
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+  font-weight: 550;
+  font-size: 15px;
+}
