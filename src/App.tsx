@@ -1,27 +1,77 @@
 import React from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
+import * as goodsAPI from './api/goods';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+type State = {
+  goods: Good[];
+};
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export class App extends React.Component<{}, State> {
+  state = {
+    goods: [],
+  };
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  async componentDidMount() {
+    goodsAPI.getAll()
+      .then(items => {
+        this.setState({ goods: items });
+      });
+  }
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  render() {
+    const handleGetAll = () => {
+      goodsAPI.getAll()
+        .then(items => {
+          this.setState({ goods: items });
+        });
+    };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    const handleGet5First = () => {
+      goodsAPI.get5First()
+        .then(items => {
+          this.setState({ goods: items });
+        });
+    };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+    const handleGetRedGoods = () => {
+      goodsAPI.getRedGoods()
+        .then(items => {
+          this.setState({ goods: items });
+        });
+    };
+
+    return (
+      <div className="App">
+        <h1>Dynamic list of Goods</h1>
+
+        <button
+          type="button"
+          data-cy="all-button"
+          onClick={handleGetAll}
+        >
+          Load all goods
+        </button>
+
+        <button
+          type="button"
+          data-cy="first-five-button"
+          onClick={handleGet5First}
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          type="button"
+          data-cy="red-button"
+          onClick={handleGetRedGoods}
+        >
+          Load red goods
+        </button>
+
+        <GoodsList goods={this.state.goods} />
+      </div>
+    );
+  }
+}
