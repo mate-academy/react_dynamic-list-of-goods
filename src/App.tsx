@@ -21,6 +21,27 @@ export class App extends React.Component<{}, State> {
   }
 
   render() {
+    const handleGetAll = () => {
+      goodsAPI.getAll()
+        .then(items => {
+          this.setState({ goods: items });
+        });
+    };
+
+    const handleGet5First = () => {
+      goodsAPI.get5First()
+        .then(items => {
+          this.setState({ goods: items });
+        });
+    };
+
+    const handleGetRedGoods = () => {
+      goodsAPI.getRedGoods()
+        .then(items => {
+          this.setState({ goods: items });
+        });
+    };
+
     return (
       <div className="App">
         <h1>Dynamic list of Goods</h1>
@@ -28,12 +49,7 @@ export class App extends React.Component<{}, State> {
         <button
           type="button"
           data-cy="all-button"
-          onClick={() => {
-            goodsAPI.getAll()
-              .then(items => {
-                this.setState({ goods: items });
-              });
-          }}
+          onClick={handleGetAll}
         >
           Load all goods
         </button>
@@ -41,12 +57,7 @@ export class App extends React.Component<{}, State> {
         <button
           type="button"
           data-cy="first-five-button"
-          onClick={() => {
-            goodsAPI.get5First()
-              .then(items => {
-                this.setState({ goods: items });
-              });
-          }}
+          onClick={handleGet5First}
         >
           Load 5 first goods
         </button>
@@ -54,12 +65,7 @@ export class App extends React.Component<{}, State> {
         <button
           type="button"
           data-cy="red-button"
-          onClick={() => {
-            goodsAPI.getRedGoods()
-              .then(items => {
-                this.setState({ goods: items });
-              });
-          }}
+          onClick={handleGetRedGoods}
         >
           Load red goods
         </button>
