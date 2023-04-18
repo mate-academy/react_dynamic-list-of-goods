@@ -1,1 +1,69 @@
-// styles go here
+.App {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+
+  border: none;
+}
+
+.title {
+  text-align: center;
+  width: 100%;
+  font-variant: small-caps;
+}
+
+.error {
+  text-align: center;
+  width: 50%;
+  flex-shrink: 50%;
+  position: relative;
+  margin: 0.5rem auto;
+}
+
+.button {
+  flex-grow: 1;
+  width: 30%;
+  font-family: inherit;
+}
+
+.title,
+.button,
+.list,
+.good {
+  margin: 0.5rem;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+$appearanceTime: 300ms;
+
+.list {
+  width: 100%;
+  text-align: center;
+
+  box-shadow: none;
+
+  .good {
+    opacity: 0;
+    animation-fill-mode: forwards;
+
+    @for $i from 1 to 13 {
+      &:nth-child(#{$i}) {
+        animation: appear #{$appearanceTime};
+        animation-delay: calc(#{$i - 1} * #{$appearanceTime});
+        animation-fill-mode: forwards;
+        animation-timing-function: cubic-bezier(1, 0, 0, 1);
+      }
+    }
+
+  }
+
+}
