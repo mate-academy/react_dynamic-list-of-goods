@@ -6,24 +6,22 @@ import { Good } from './types/Good';
 import { Loader } from './Loader';
 
 enum FilterOptions {
-  ALL = 'all-button',
-  FIRST5 = 'first-five-button',
-  RED = 'red-button',
+  LOAD_ALL = 'all-button',
+  LOAD_FIRST_5 = 'first-five-button',
+  LOAD_RED = 'red-button',
 }
 
-type ButtonNames = {
-  [key in FilterOptions]: string;
-};
+type ButtonNames = Record<FilterOptions, string>;
 
 const buttonNames: ButtonNames = {
-  [FilterOptions.ALL]: 'Load all goods',
-  [FilterOptions.FIRST5]: 'Load 5 first goods',
-  [FilterOptions.RED]: 'Load red goods',
+  [FilterOptions.LOAD_ALL]: 'Load all goods',
+  [FilterOptions.LOAD_FIRST_5]: 'Load 5 first goods',
+  [FilterOptions.LOAD_RED]: 'Load red goods',
 };
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [filterOptions, setFilterOptions] = useState('');
+  const [currentFilter, setCurrentFilter] = useState('');
   const [errorText, setErrorText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -41,27 +39,27 @@ export const App: React.FC = () => {
     }
   };
 
-  const handleButtonClick = useCallback((sort: FilterOptions) => {
-    if (filterOptions === sort) {
+  const handleButtonClick = useCallback((filterOption: FilterOptions) => {
+    if (currentFilter === filterOption) {
       return;
     }
 
-    setFilterOptions(sort);
+    setCurrentFilter(filterOption);
 
-    switch (sort) {
-      case FilterOptions.ALL:
+    switch (filterOption) {
+      case FilterOptions.LOAD_ALL:
         getGoods(getAll());
         break;
-      case FilterOptions.FIRST5:
+      case FilterOptions.LOAD_FIRST_5:
         getGoods(get5First());
         break;
-      case FilterOptions.RED:
+      case FilterOptions.LOAD_RED:
         getGoods(getRedGoods());
         break;
       default:
         break;
     }
-  }, [filterOptions]);
+  }, [currentFilter]);
 
   return (
     <div className="App">
@@ -76,6 +74,8 @@ export const App: React.FC = () => {
             onClick={() => {
               handleButtonClick(currentSortType);
             }}
+            key={currentSortType}
+            disabled={currentFilter === currentSortType}
           >
             {buttonNames[currentSortType]}
           </button>
