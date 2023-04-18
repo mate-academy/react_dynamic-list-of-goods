@@ -27,6 +27,9 @@ export const App: React.FC = () => {
 
   const handleThanAndCatch = (buttonString: Loaded) => {
     return () => {
+      // This code uses an immediately invoked function expression (IIFE)
+      // to execute the switch statement and
+      // return the appropriate function based on the value of `buttonString`.
       const getterFunction = (() => {
         switch (buttonString) {
           case 'all':
@@ -38,7 +41,7 @@ export const App: React.FC = () => {
           default:
             return getAll;
         }
-      })();
+      })(); // The returned function is then assigned to `getterFunction` using const.
 
       setLoading(true);
       setButtonClicked(buttonString);
