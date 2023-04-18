@@ -25,53 +25,42 @@ export const App: React.FC = () => {
     setButtonClicked('none');
   };
 
-  const loadAllGoods = () => {
-    setLoading(true);
-    setButtonClicked('all');
+  const handleThanAndCatch = (buttonString: Loaded) => {
+    return () => {
+      const getterFunction = (() => {
+        switch (buttonString) {
+          case 'all':
+            return getAll;
+          case 'five':
+            return get5First;
+          case 'red':
+            return getRedGoods;
+          default:
+            return getAll;
+        }
+      })();
 
-    getAll()
-      .then((goods) => {
-        setGoodsToShow([...goods]);
-        setLoadedState('all');
-        reset();
-      })
-      .catch(() => {
-        setLoadingError(true);
-        reset();
-      });
+      setLoading(true);
+      setButtonClicked(buttonString);
+
+      getterFunction()
+        .then((goods) => {
+          setGoodsToShow([...goods]);
+          setLoadedState(buttonString);
+          reset();
+        })
+        .catch(() => {
+          setLoadingError(true);
+          reset();
+        });
+    };
   };
 
-  const loadFiveFirstGoods = () => {
-    setLoading(true);
-    setButtonClicked('five');
+  const loadAllGoods = handleThanAndCatch('all');
 
-    return get5First()
-      .then((goods) => {
-        setGoodsToShow([...goods]);
-        setLoadedState('five');
-        reset();
-      })
-      .catch(() => {
-        setLoadingError(true);
-        reset();
-      });
-  };
+  const load5FirstGoods = handleThanAndCatch('five');
 
-  const loadRedGoods = () => {
-    setLoading(true);
-    setButtonClicked('red');
-
-    return getRedGoods()
-      .then((goods) => {
-        setGoodsToShow([...goods]);
-        setLoadedState('red');
-        reset();
-      })
-      .catch(() => {
-        setLoadingError(true);
-        reset();
-      });
-  };
+  const loadRedGoods = handleThanAndCatch('red');
 
   return (
     <div className="App is-family-monospace">
@@ -92,7 +81,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={loadFiveFirstGoods}
+        onClick={load5FirstGoods}
         disabled={loadedState === 'five' || loadingError}
         className={
           `button is-success ${buttonClicked === 'five' ? 'is-loading' : ''}`
