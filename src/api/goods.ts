@@ -10,7 +10,7 @@ export function getAll(): Promise<Good[]> {
         throw new Error(`${response.status} - ${response.statusText}`);
       }
 
-      if (response.headers.get('content-type')?.includes('aplication/json')) {
+      if (!response.headers.get('content-type')?.includes('application/json')) {
         throw new Error('Content type is not supported');
       }
 
