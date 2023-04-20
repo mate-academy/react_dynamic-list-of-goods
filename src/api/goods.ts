@@ -21,6 +21,5 @@ export const get5First = () => {
 
 export const getRedGoods = () => {
   return getAll()
-    .then(goods => goods.sort((a, b) => a.name.localeCompare(b.name)))
     .then(goods => goods.filter((el) => el.color === 'red'));
 };
