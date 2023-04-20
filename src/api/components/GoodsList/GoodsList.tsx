@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { Good } from '../../../types/Good';
 import './GoodsList.scss';
 
@@ -8,23 +7,24 @@ type Props = {
 };
 
 export const GoodsList: React.FC<Props> = React.memo(
-  ({ goods }) => (
-
-    <ul className={classNames({ GoodsList: goods.length > 0 })}>
-      {goods.map((good) => {
-        const { id, name, color } = good;
-
-        return (
-          <li
-            key={id}
-            data-cy="good"
-            className="GoodsList__item"
-            style={{ color }}
-          >
-            {name}
-          </li>
-        );
-      })}
-    </ul>
-  ),
+  ({ goods }) => {
+    return goods.length > 0 ? (
+      <ul className="GoodsList">
+        {goods.map(({ id, name, color }) => {
+          return (
+            <li
+              key={id}
+              data-cy="good"
+              className="GoodsList__item"
+              style={{ color }}
+            >
+              {name}
+            </li>
+          );
+        })}
+      </ul>
+    ) : (
+      <p>Filter does not selected</p>
+    );
+  },
 );

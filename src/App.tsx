@@ -5,106 +5,98 @@ import classNames from 'classnames';
 import { GoodsList } from './api/components/GoodsList/GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
+import { Loader } from './api/components/Loader';
 
-enum SortBy {
-  None = '',
+enum FilterBy {
   ALL = 'all-button',
   FirstFive = 'first-five-button',
   RED = 'red-button',
 }
 
-const sortByOption = (sortType: SortBy) => {
-  const sortTypes = {
-    [SortBy.None]: '',
-    [SortBy.ALL]: 'Load all goods',
-    [SortBy.FirstFive]: 'Load 5 first goods',
-    [SortBy.RED]: 'Load red goods',
+const FilterByOption = (filterType: FilterBy) => {
+  const filterButtons = {
+    [FilterBy.ALL]: 'Load all goods',
+    [FilterBy.FirstFive]: 'Load 5 first goods',
+    [FilterBy.RED]: 'Load red goods',
   };
 
-  return sortTypes[sortType];
+  return filterButtons[filterType];
 };
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [sortBy, setSortBy] = useState<SortBy>(SortBy.None);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [filterBy, setFilterBy] = useState<FilterBy>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-  const getGoods = async (promise: Promise<Good[]>) => {
-    setLoading(true);
+  const getGoods = async (callback: () => Promise<Good[]>) => {
+    setIsLoading(true);
 
     try {
-      setGoods(await promise);
+      setGoods(await callback());
     } catch {
-      setError(true);
+      setIsError(true);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
+      setIsError(false);
     }
   };
 
-  const handleClick = (sortType: SortBy) => {
-    if (sortBy === sortType) {
+  const handleClick = (filterType: FilterBy) => {
+    if (filterBy === filterType) {
       return;
     }
 
-    switch (sortType) {
-      case SortBy.ALL:
-        getGoods(getAll());
+    switch (filterType) {
+      case FilterBy.ALL:
+        getGoods(getAll);
         break;
 
-      case SortBy.FirstFive:
-        getGoods(get5First());
+      case FilterBy.FirstFive:
+        getGoods(get5First);
         break;
 
-      case SortBy.RED:
-        getGoods(getRedGoods());
+      case FilterBy.RED:
+        getGoods(getRedGoods);
         break;
 
       default:
         break;
     }
 
-    setSortBy(sortType);
+    setFilterBy(filterType);
   };
 
   return (
     <div className="App">
       <h1 className="title">Dynamic list of Goods</h1>
 
-      {Object.values(SortBy).filter(value => value).map(currentValue => (
+      {Object.values(FilterBy).filter(value => value).map(currentValue => (
         <button
           className={classNames(
             'button',
             'mb-4',
             'mr-4',
             'is-success',
-            { 'is-light': currentValue !== sortBy },
+            { 'is-light': currentValue !== filterBy },
           )}
           type="button"
           data-cy={currentValue}
           key={currentValue}
           onClick={() => handleClick(currentValue)}
         >
-          {sortByOption(currentValue)}
+          {FilterByOption(currentValue)}
         </button>
       ))}
 
-      {loading
-        ? (
-          <div className="LoadingItem">
-            <p>Loading</p>
-            <span className="loader" />
-          </div>
-        )
-        : (
-          <>
-            {error && (
-              <p>Something went wrong</p>
-            )}
-          </>
-        )}
+      {isLoading
+      && <Loader />}
 
-      {!loading && <GoodsList goods={goods} />}
+      {isError && !isLoading && (
+        <p>Something went wrong</p>
+      )}
+
+      {!isLoading && !isError && <GoodsList goods={goods} />}
     </div>
   );
 };
