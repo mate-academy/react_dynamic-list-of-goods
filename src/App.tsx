@@ -1,27 +1,102 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import classNames from 'classnames';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { GoodsList } from './api/components/GoodsList/GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
+import { Loader } from './api/components/Loader';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+enum FilterBy {
+  ALL = 'all-button',
+  FirstFive = 'first-five-button',
+  RED = 'red-button',
+}
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+const FilterByOption = (filterType: FilterBy) => {
+  const filterButtons = {
+    [FilterBy.ALL]: 'Load all goods',
+    [FilterBy.FirstFive]: 'Load 5 first goods',
+    [FilterBy.RED]: 'Load red goods',
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return filterButtons[filterType];
+};
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [filterBy, setFilterBy] = useState<FilterBy>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const getGoods = async (callback: () => Promise<Good[]>) => {
+    setIsLoading(true);
+
+    try {
+      setGoods(await callback());
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+      setIsError(false);
+    }
+  };
+
+  const handleClick = (filterType: FilterBy) => {
+    if (filterBy === filterType) {
+      return;
+    }
+
+    switch (filterType) {
+      case FilterBy.ALL:
+        getGoods(getAll);
+        break;
+
+      case FilterBy.FirstFive:
+        getGoods(get5First);
+        break;
+
+      case FilterBy.RED:
+        getGoods(getRedGoods);
+        break;
+
+      default:
+        break;
+    }
+
+    setFilterBy(filterType);
+  };
+
+  return (
+    <div className="App">
+      <h1 className="title">Dynamic list of Goods</h1>
+
+      {Object.values(FilterBy).filter(value => value).map(currentValue => (
+        <button
+          className={classNames(
+            'button',
+            'mb-4',
+            'mr-4',
+            'is-success',
+            { 'is-light': currentValue !== filterBy },
+          )}
+          type="button"
+          data-cy={currentValue}
+          key={currentValue}
+          onClick={() => handleClick(currentValue)}
+        >
+          {FilterByOption(currentValue)}
+        </button>
+      ))}
+
+      {isLoading
+      && <Loader />}
+
+      {isError && !isLoading && (
+        <p>Something went wrong</p>
+      )}
+
+      {!isLoading && !isError && <GoodsList goods={goods} />}
+    </div>
+  );
+};
