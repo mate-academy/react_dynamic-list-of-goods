@@ -10,18 +10,18 @@ export const App: React.FC = () => {
   const handleClick = async (
     { currentTarget }: React.MouseEvent<HTMLButtonElement>,
   ) => {
-    const { textContent } = currentTarget;
+    const { name } = currentTarget;
 
-    switch (textContent) {
-      case 'Load all goods':
+    switch (name) {
+      case 'Load-all-goods':
         getAll()
           .then((result: Good[]) => setGoods(result));
         break;
-      case 'Load 5 first goods':
+      case 'first-five-goods':
         get5First()
           .then((result: Good[]) => setGoods(result));
         break;
-      case 'Load red goods':
+      case 'load-red-goods':
         getRedGoods()
           .then((result: Good[]) => setGoods(result));
         break;
@@ -37,6 +37,7 @@ export const App: React.FC = () => {
 
       <button
         type="button"
+        name="Load-all-goods"
         data-cy="all-button"
         onClick={handleClick}
       >
@@ -45,6 +46,7 @@ export const App: React.FC = () => {
 
       <button
         type="button"
+        name="first-five-goods"
         data-cy="first-five-button"
         onClick={handleClick}
       >
@@ -53,6 +55,7 @@ export const App: React.FC = () => {
 
       <button
         type="button"
+        name="load-red-goods"
         data-cy="red-button"
         onClick={handleClick}
       >
