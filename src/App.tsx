@@ -16,39 +16,39 @@ enum GoodsType {
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [hasLoadingError, setHasLoadingError] = useState(false);
-  const [currentGoodsType, setcurrentGoodsType] = useState(GoodsType.Default);
+  const [currentGoodsType, setCurrentGoodsType] = useState(GoodsType.Default);
 
   const loadGoods = (
     getGoods: () => Promise<Good[]>,
     goodsType = GoodsType.Default,
   ) => {
-    if (goodsType === currentGoodsType) {
-      return;
-    }
-
-    setLoading(true);
+    setIsLoading(true);
     setHasLoadingError(false);
 
     getGoods()
       .then((loadedGoods) => setGoods(loadedGoods))
       .catch(() => setHasLoadingError(true))
-      .finally(() => setLoading(false));
+      .finally(() => setIsLoading(false));
 
-    setcurrentGoodsType(goodsType);
+    setCurrentGoodsType(goodsType);
   };
+
+  const checkIsButtonDisabled = (buttonType: GoodsType) => (
+    buttonType === currentGoodsType && !hasLoadingError
+  );
 
   return (
     <div className="App">
       <h1 className="title is-2">Dynamic list of Goods</h1>
 
       <button
-        disabled={loading}
+        disabled={checkIsButtonDisabled(GoodsType.All)}
         className={classNames(
           'button',
           'is-link',
-          { 'is-loading': loading },
+          { 'is-loading': isLoading },
         )}
         type="button"
         data-cy="all-button"
@@ -58,11 +58,11 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        disabled={loading}
+        disabled={checkIsButtonDisabled(GoodsType.FirstFive)}
         className={classNames(
           'button',
           'is-link',
-          { 'is-loading': loading },
+          { 'is-loading': isLoading },
         )}
         type="button"
         data-cy="first-five-button"
@@ -72,11 +72,11 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        disabled={loading}
+        disabled={checkIsButtonDisabled(GoodsType.OnlyRed)}
         className={classNames(
           'button',
           'is-link',
-          { 'is-loading': loading },
+          { 'is-loading': isLoading },
         )}
         type="button"
         data-cy="red-button"
@@ -84,7 +84,10 @@ export const App: React.FC = () => {
       >
         Load red goods
       </button>
-      <GoodsList goods={goods} />
+
+      {!isLoading && !hasLoadingError && (
+        <GoodsList goods={goods} />
+      )}
 
       {hasLoadingError && (
         <div className="notification is-danger">
