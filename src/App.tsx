@@ -1,11 +1,11 @@
 import classnames from 'classnames';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { get5First, getAll, getRedGoods } from './api/goods';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
-enum Tab {
+enum ListType {
   None = 'none',
   All = 'all',
   First5 = 'first5',
@@ -14,28 +14,26 @@ enum Tab {
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [currentTab, setCurrentTab] = useState(Tab.None);
+  const [currentListType, setCurrentListType] = useState(ListType.None);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const handleGoodsLoad = (
-    getGoods: () => Promise<Good[]>,
-    tab: Tab,
-  ) => {
-    return () => {
-      if (tab !== currentTab) {
-        setIsLoading(true);
-        setIsError(false);
+  const handleGoodsLoad = useCallback(
+    (
+      getGoods: () => Promise<Good[]>,
+      listType: ListType,
+    ) => {
+      setIsLoading(true);
+      setIsError(false);
 
-        getGoods()
-          .then(setGoods)
-          .catch(() => setIsError(true))
-          .finally(() => setIsLoading(false));
+      getGoods()
+        .then(setGoods)
+        .catch(() => setIsError(true))
+        .finally(() => setIsLoading(false));
 
-        setCurrentTab(tab);
-      }
-    };
-  };
+      setCurrentListType(listType);
+    }, [currentListType],
+  );
 
   return (
     <div className="App">
@@ -50,15 +48,12 @@ export const App: React.FC = () => {
         <p className="panel-tabs p-2 has-background-primary">
           <button
             type="button"
-            className={classnames(
-              'button',
-              'is-light',
-              'is-outlined',
-              'mr-5',
-              { 'is-loading': isLoading && currentTab === Tab.All },
-            )}
+            className={classnames('button is-light is-outlined mr-5', {
+              'is-loading': isLoading,
+            })}
             data-cy="all-button"
-            onClick={handleGoodsLoad(getAll, Tab.All)}
+            onClick={() => handleGoodsLoad(getAll, ListType.All)}
+            disabled={isLoading || currentListType === ListType.All}
           >
             Load all goods
           </button>
@@ -66,10 +61,11 @@ export const App: React.FC = () => {
           <button
             type="button"
             className={classnames('button is-light is-outlined mr-5', {
-              'is-loading': isLoading && currentTab === Tab.First5,
+              'is-loading': isLoading,
             })}
             data-cy="first-five-button"
-            onClick={handleGoodsLoad(get5First, Tab.First5)}
+            onClick={() => handleGoodsLoad(get5First, ListType.First5)}
+            disabled={isLoading || currentListType === ListType.First5}
           >
             Load 5 first goods
           </button>
@@ -77,24 +73,26 @@ export const App: React.FC = () => {
           <button
             type="button"
             className={classnames('button is-light is-outlined', {
-              'is-loading': isLoading && currentTab === Tab.Red,
+              'is-loading': isLoading,
             })}
             data-cy="red-button"
-            onClick={handleGoodsLoad(getRedGoods, Tab.Red)}
+            onClick={() => handleGoodsLoad(getRedGoods, ListType.Red)}
+            disabled={isLoading || currentListType === ListType.Red}
           >
             Load red goods
           </button>
         </p>
       </div>
 
-      <p className="">
-        {isError ? (
-          <p>!!!Loading Error!!!</p>
-        ) : (
-          <GoodsList goods={goods} />
-        )}
-      </p>
+      {isLoading
+        ? <p>List is loading...</p>
+        : (
+          <>
+            {isError && <p>!!!Loading Error!!!</p>}
 
+            {!isError && <GoodsList goods={goods} />}
+          </>
+        )}
     </div>
   );
 };
