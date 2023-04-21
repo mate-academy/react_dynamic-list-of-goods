@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
+
+import { ColorRing } from 'react-loader-spinner';
 import 'bulma/css/bulma.min.css';
 import './App.scss';
 
@@ -7,80 +9,131 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 import { GoodsList } from './GoodsList';
 
+enum FilterBy {
+  ALL = 'all-button',
+  FirstFive = 'first-five-button',
+  RED = 'red-button',
+}
+
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [filterBy, setFilterBy] = useState<FilterBy | null>();
 
-  const throwError = () => {
+  const handleError = () => {
     setIsError(true);
     setIsLoading(false);
   };
 
-  const getAllGoods = () => {
+  const getGoods = useCallback(async (
+    callback: () => Promise<Good[]>,
+  ): Promise<void> => {
+    setIsError(false);
     setIsLoading(true);
-    getAll()
+
+    callback()
       .then(result => {
         setGoods(result);
-        setIsLoading(false);
       })
-      .catch(throwError);
-  };
+      .catch(handleError)
+      .finally(() => setIsLoading(false));
+  }, []);
 
-  const get5Goods = () => {
-    get5First()
-      .then(result => setGoods(result))
-      .catch(throwError);
-  };
+  const handleButtonClick = (filterType: FilterBy) => {
+    if (filterBy === filterType) {
+      return;
+    }
 
-  const getOnlyRedGoods = () => {
-    getRedGoods()
-      .then(result => setGoods(result))
-      .catch(throwError);
-  };
+    switch (filterType) {
+      case FilterBy.ALL:
+        getGoods(getAll);
+        break;
 
-  if (isError) {
-    return (
-      <p className="notification is-danger">
-        Oops! Something went wrong!
-      </p>
-    );
-  }
+      case FilterBy.FirstFive:
+        getGoods(get5First);
+        break;
+
+      case FilterBy.RED:
+        getGoods(getRedGoods);
+        break;
+
+      default:
+        break;
+    }
+
+    setFilterBy(filterType);
+  };
 
   return (
     <div className="App">
       <h1 className="title is-3">Dynamic list of Goods</h1>
 
-      <button
-        type="button"
-        className={isLoading
-          ? ('button is-primary is-loading')
-          : ('button is-primary')}
-        data-cy="all-button"
-        onClick={getAllGoods}
-      >
-        Load all goods
-      </button>
+      {isError
+        ? (
+          <>
+            <p>Oops! Something went wrong!</p>
+            <button
+              type="button"
+              className="button is-primary"
+              onClick={() => {
+                setIsError(false);
+                setFilterBy(null);
+              }}
+            >
+              Try again
+            </button>
+          </>
+        )
+        : (
+          <>
+            <div className="buttons">
+              <button
+                type="button"
+                className="button is-primary"
+                data-cy="all-button"
+                onClick={() => handleButtonClick(FilterBy.ALL)}
+              >
+                Load all goods
+              </button>
 
-      <button
-        type="button"
-        className="button is-warning"
-        data-cy="first-five-button"
-        onClick={get5Goods}
-      >
-        Load 5 first goods
-      </button>
+              <button
+                type="button"
+                className="button is-warning"
+                data-cy="first-five-button"
+                onClick={() => handleButtonClick(FilterBy.FirstFive)}
+              >
+                Load 5 first goods
+              </button>
 
-      <button
-        type="button"
-        className="button is-danger"
-        data-cy="red-button"
-        onClick={getOnlyRedGoods}
-      >
-        Load red goods
-      </button>
+              <button
+                type="button"
+                className="button is-danger"
+                data-cy="red-button"
+                onClick={() => handleButtonClick(FilterBy.RED)}
+              >
+                Load red goods
+              </button>
+            </div>
 
-      <GoodsList goods={goods} />
+            {isLoading
+              ? (
+                <ColorRing
+                  height="50"
+                  width="50"
+                  ariaLabel="blocks-loading"
+                  wrapperStyle={{}}
+                  wrapperClass="blocks-wrapper"
+                  colors={
+                    ['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']
+                  }
+                />
+              )
+              : (
+                <GoodsList goods={goods} />
+              )}
+          </>
+        )}
     </div>
   );
 };
