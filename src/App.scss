@@ -1,11 +1,16 @@
+$red-color: #C24646;
+$blue-color: #4040B6;
+$green-color: #398D39;
+
+
 .red {
-  color: rgb(194, 70, 70);
+  color: $red-color;
 }
 
 .green {
-  color: rgb(57, 141, 57);
+  color: $green-color;
 }
 
 .blue {
-  color: rgb(64, 64, 182);
+  color: $blue-color;
 }
