@@ -13,14 +13,14 @@ enum GoodsFilter {
 }
 
 const getButtonName = (sortType: GoodsFilter) => {
-  const contentBySortType = {
+  const contentByGoodsFilter = {
     [GoodsFilter.All]: 'Load all goods',
     [GoodsFilter.FirstFive]: 'Load 5 first goods',
     [GoodsFilter.Red]: 'Load red goods',
     [GoodsFilter.None]: '',
   };
 
-  return contentBySortType[sortType];
+  return contentByGoodsFilter[sortType];
 };
 
 export const App: React.FC = () => {
@@ -29,11 +29,11 @@ export const App: React.FC = () => {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const getGoods = useCallback(async (promise: Promise<Good[]>) => {
+  const getGoods = useCallback(async (promise: () => Promise<Good[]>) => {
     setIsLoading(true);
-
+    setIsError(false);
     try {
-      const loadedGoods = await promise;
+      const loadedGoods = await promise();
 
       setGoods(loadedGoods);
     } catch {
@@ -50,15 +50,15 @@ export const App: React.FC = () => {
 
     switch (sortType) {
       case GoodsFilter.All:
-        getGoods(getAll());
+        getGoods(getAll);
         break;
 
       case GoodsFilter.FirstFive:
-        getGoods(get5First());
+        getGoods(get5First);
         break;
 
       case GoodsFilter.Red:
-        getGoods(getRedGoods());
+        getGoods(getRedGoods);
         break;
 
       default:
@@ -74,15 +74,15 @@ export const App: React.FC = () => {
 
       {Object.values(GoodsFilter)
         .filter(value => value)
-        .map(current => (
+        .map(sortingOption => (
           <button
             type="button"
-            data-cy={current}
+            data-cy={sortingOption}
             onClick={() => {
-              handleClick(current);
+              handleClick(sortingOption);
             }}
           >
-            {getButtonName(current)}
+            {getButtonName(sortingOption)}
           </button>
         ))}
 
