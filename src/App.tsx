@@ -4,10 +4,6 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
-const allGoods = getAll();
-const firstFiveGoods = get5First();
-const redGoods = getRedGoods();
-
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isError, setIsError] = useState(false);
@@ -31,7 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => loadAvailableGoods(allGoods)}
+        onClick={() => loadAvailableGoods(getAll())}
       >
         Load all goods
       </button>
@@ -39,7 +35,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => loadAvailableGoods(firstFiveGoods)}
+        onClick={() => loadAvailableGoods(get5First())}
       >
         Load 5 first goods
       </button>
@@ -47,7 +43,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => loadAvailableGoods(redGoods)}
+        onClick={() => loadAvailableGoods(getRedGoods())}
       >
         Load red goods
       </button>
