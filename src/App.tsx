@@ -7,10 +7,16 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [isError, setError] = useState(false);
   const onClick = async (handleFunc: () => Promise<Good[]>) => {
-    const visibleGoods = await handleFunc();
+    try {
+      const visibleGoods = await handleFunc();
 
-    setGoods(visibleGoods);
+      setGoods(visibleGoods);
+      setError(false);
+    } catch {
+      setError(true);
+    }
   };
 
   return (
@@ -41,7 +47,9 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {isError
+        ? <div>Oops, something went wrong</div>
+        : <GoodsList goods={goods} />}
     </div>
   );
 };
