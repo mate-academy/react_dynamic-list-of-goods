@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Loader from 'react-loaders';
 import './App.scss';
+import { isEqual } from 'lodash';
 import { GoodsList } from './GoodsList';
 
 import { getAll, getFirst5, getRedGoods } from './api/goods';
@@ -8,24 +9,24 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
-  const [hasLoadingError, setHasLoadingError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const fetchData = async (getData: { (): Promise<Good[]>; }) => {
+  const fetchData = useCallback(async (getData: () => Promise<Good[]>) => {
     setIsLoading(true);
-    setVisibleGoods([]);
 
     try {
-      const data = await getData();
+      const fetchedData = await getData();
 
-      setVisibleGoods(data);
+      if (!isEqual(visibleGoods, fetchedData)) {
+        setVisibleGoods(fetchedData);
+      }
     } catch (error) {
-      setHasLoadingError(true);
-      throw new Error('No data was found');
+      setErrorMessage('Failed to fetch data. Please try again later.');
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [visibleGoods]);
 
   return (
     <div className="App">
@@ -35,9 +36,7 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="all-button"
-          onClick={async () => {
-            await fetchData(getAll);
-          }}
+          onClick={() => fetchData(getAll)}
           className="App__button App__button-all"
         >
           Load all goods
@@ -68,9 +67,9 @@ export const App: React.FC = () => {
         <Loader type="ball-pulse" active />
       )}
 
-      {hasLoadingError
+      {errorMessage
         ? (
-          <h3>No data was found</h3>
+          <h3>{errorMessage}</h3>
         )
         : (
           <GoodsList
