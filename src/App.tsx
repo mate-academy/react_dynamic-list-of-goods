@@ -6,9 +6,12 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
+  const [loadingError, setLoadingError] = useState('');
 
   const handleGoodsLoad = (callback: () => Promise<Good[]>) => {
-    callback().then(goods => setVisibleGoods(goods));
+    callback()
+      .then(goods => setVisibleGoods(goods))
+      .catch(error => setLoadingError(error));
   };
 
   return (
@@ -38,8 +41,20 @@ export const App: React.FC = () => {
       >
         Load red goods
       </button>
+      {loadingError.length > 0 && (
+        <p>
+          {`Error on loading - ${loadingError}`}
+        </p>
+      )}
 
-      <GoodsList goods={visibleGoods} />
+      {visibleGoods.length > 0
+        ? <GoodsList goods={visibleGoods} />
+        : (
+          <p>
+            No goods
+          </p>
+        )}
+
     </div>
   );
 };
