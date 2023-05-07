@@ -16,7 +16,7 @@ export const App: React.FC = () => {
 
   const getRed = async () => setGoods(await getRedGoods());
 
-  const visibleGoods = useMemo(() => goods, [goods]);
+  const visibleGoods = useMemo(() => goods, [JSON.stringify(goods)]);
 
   return (
     <div className="App">
