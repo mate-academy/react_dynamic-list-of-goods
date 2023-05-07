@@ -7,10 +7,13 @@ import { Good } from './types/Good';
 
 export const App = React.memo(() => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
-  const handleLoadGoods = (goodsList: Good[]) => {
-    setGoods(goodsList);
-  };
+  const handleGetGoods = (getGoods: () => Promise<Good[]>) => (
+    getGoods()
+      .then(setGoods)
+      .catch(() => setErrorMessage('An error occurred while loading goods!'))
+  );
 
   return (
     <div className="App">
@@ -19,7 +22,7 @@ export const App = React.memo(() => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getAll().then(handleLoadGoods)}
+        onClick={() => handleGetGoods(getAll)}
       >
         Load all goods
       </button>
@@ -27,7 +30,7 @@ export const App = React.memo(() => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => get5First().then(handleLoadGoods)}
+        onClick={() => handleGetGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -35,10 +38,11 @@ export const App = React.memo(() => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => getRedGoods().then(handleLoadGoods)}
+        onClick={() => handleGetGoods(getRedGoods)}
       >
         Load red goods
       </button>
+      {errorMessage && <p>{errorMessage}</p>}
 
       <GoodsList goods={goods} />
     </div>
