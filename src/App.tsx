@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
 import { fetchData, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [data, setData]
-   = useState<Array<{ id: number, name: string, color: string }>>([]);
+   = useState<Good[]>([]);
   const [name, setName] = useState('');
 
   async function getData(value: string) {
