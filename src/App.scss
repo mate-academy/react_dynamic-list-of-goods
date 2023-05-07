@@ -1,1 +1,10 @@
-// styles go here
+.button {
+  width: 160px;
+
+  transition: background-color 0.3s;
+}
+
+.item {
+  border-left: 5px solid rgb(224, 224, 224);
+  border-radius: 3px;
+}
