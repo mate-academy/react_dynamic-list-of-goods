@@ -5,23 +5,16 @@ import { Good } from './types/Good';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
-const initialGoods: Good[] = [];
-
 export const App: React.FC = () => {
-  const [preparedGoods, setPreparedGoods] = useState(initialGoods);
+  const [preparedGoods, setPreparedGoods] = useState<Good[]>([]);
 
   const handleGoodsPrepare = async (goodsPreparator: () => Promise<Good[]>) => {
     const newGoods = await goodsPreparator();
 
-    const prevStr = JSON.stringify(preparedGoods);
-    const newStr = JSON.stringify(newGoods);
-
-    if (prevStr !== newStr) {
-      setPreparedGoods(newGoods);
-    }
+    setPreparedGoods(newGoods);
   };
 
-  const goods = useMemo(() => preparedGoods, [preparedGoods]);
+  const goods = useMemo(() => preparedGoods, [JSON.stringify(preparedGoods)]);
 
   return (
     <div className="App">
