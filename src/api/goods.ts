@@ -22,11 +22,9 @@ export async function getAll(): Promise<Good[]> {
 export const get5First = async () => {
   const goods = await getAll();
 
-  return (
-    goods
-      .sort((good1, good2) => good1.name.localeCompare(good2.name))
-      .slice(0, 5)
-  );
+  return goods
+    .sort((good1, good2) => good1.name.localeCompare(good2.name))
+    .slice(0, 5);
 };
 
 export const getRedGoods = async () => {

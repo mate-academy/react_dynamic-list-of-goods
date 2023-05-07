@@ -12,11 +12,10 @@ export const App: React.FC = () => {
     try {
       const goodsFromServer: Good[] = await func();
 
-      setGoods((prevGoods) => {
-        return JSON.stringify(prevGoods) !== JSON.stringify(goodsFromServer)
+      setGoods((prevGoods) => (
+        JSON.stringify(prevGoods) !== JSON.stringify(goodsFromServer)
           ? goodsFromServer
-          : prevGoods;
-      });
+          : prevGoods));
     } catch {
       throw new Error('Failed to load data');
     }
