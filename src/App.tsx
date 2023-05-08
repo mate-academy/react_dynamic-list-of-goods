@@ -11,7 +11,11 @@ export const App: React.FC = () => {
   const handleGoods = async (getGoods: () => Promise<Good[]>) => {
     const allGoodsFromServer: Good[] = await getGoods();
 
-    setGoods(allGoodsFromServer);
+    try {
+      setGoods(allGoodsFromServer);
+    } catch (error) {
+      throw new Error(`Error: ${error}`);
+    }
   };
 
   return (
