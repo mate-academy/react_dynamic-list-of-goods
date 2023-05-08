@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
@@ -8,27 +8,17 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleLoadingAllGoods = () => {
-    getAll()
+  const handleLoading = (loadingTypeFunction: () => Promise<Good[]>) => {
+    loadingTypeFunction()
       .then(setGoods)
       .catch(error => setErrorMessage(error.message));
   };
 
-  const handleLoading5First = () => {
-    get5First()
-      .then(setGoods)
-      .catch(error => setErrorMessage(error.message));
-  };
-
-  const handleLoadingRed = () => {
-    getRedGoods()
-      .then(setGoods)
-      .catch(error => setErrorMessage(error.message));
-  };
-
-  const visibleGoods = useMemo(() => {
-    return goods;
-  }, [goods]);
+  const errorText = errorMessage && (
+    <p style={{ color: 'red' }}>
+      {errorMessage}
+    </p>
+  );
 
   return (
     <div className="App">
@@ -37,31 +27,31 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={handleLoadingAllGoods}
+        onClick={() => handleLoading(getAll)}
       >
         Load all goods
       </button>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {errorText}
 
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handleLoading5First}
+        onClick={() => handleLoading(get5First)}
       >
         Load 5 first goods
       </button>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {errorText}
 
       <button
         type="button"
         data-cy="red-button"
-        onClick={handleLoadingRed}
+        onClick={() => handleLoading(getRedGoods)}
       >
         Load red goods
       </button>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+      {errorText}
 
-      <GoodsList goods={visibleGoods} />
+      <GoodsList goods={goods} />
     </div>
   );
 };
