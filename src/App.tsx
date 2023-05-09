@@ -9,20 +9,8 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleGetAll = () => {
-    getAll()
-      .then(setGoods)
-      .catch(error => setErrorMessage(error.message));
-  };
-
-  const handleGet5First = () => {
-    get5First()
-      .then(setGoods)
-      .catch(error => setErrorMessage(error.message));
-  };
-
-  const handleGetRedGoods = () => {
-    getRedGoods()
+  const handleGoodsLoad = (callback: () => Promise<Good[]>) => {
+    callback()
       .then(setGoods)
       .catch(error => setErrorMessage(error.message));
   };
@@ -38,31 +26,34 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={handleGetAll}
+        onClick={() => handleGoodsLoad(getAll)}
       >
         Load all goods
       </button>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handleGet5First}
+        onClick={() => handleGoodsLoad(get5First)}
       >
         Load 5 first goods
       </button>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
       <button
         type="button"
         data-cy="red-button"
-        onClick={handleGetRedGoods}
+        onClick={() => handleGoodsLoad(getRedGoods)}
       >
         Load red goods
       </button>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
-      <GoodsList goods={visibleGoods} />
+      {visibleGoods && <GoodsList goods={visibleGoods} />}
+
+      {errorMessage && (
+        <p style={{ color: 'red' }}>
+          {errorMessage}
+        </p>
+      )}
     </div>
   );
 };
