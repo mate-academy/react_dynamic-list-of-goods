@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -8,13 +8,9 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const visibleGoods = useMemo(() => {
-    return goods;
-  }, [JSON.stringify(goods)]);
-
-  const getAllGoods = async () => setGoods(await getAll());
-  const getFirstFive = async () => setGoods(await get5First());
-  const getRed = async () => setGoods(await getRedGoods());
+  const handleGetAllGoods = async () => setGoods(await getAll());
+  const handleGetFirstFive = async () => setGoods(await get5First());
+  const handleGetRed = async () => setGoods(await getRedGoods());
 
   return (
     <div className="App">
@@ -23,7 +19,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={getAllGoods}
+        onClick={handleGetAllGoods}
       >
         Load all goods
       </button>
@@ -31,7 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={getFirstFive}
+        onClick={handleGetFirstFive}
       >
         Load 5 first goods
       </button>
@@ -39,12 +35,12 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={getRed}
+        onClick={handleGetRed}
       >
         Load red goods
       </button>
 
-      <GoodsList goods={visibleGoods} />
+      <GoodsList goods={goods} />
     </div>
   );
 };

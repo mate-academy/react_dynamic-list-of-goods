@@ -15,16 +15,10 @@ export const get5First = () => {
   return getAll()
     .then(goods => goods
       .sort((currGood, nextGood) => currGood.name.localeCompare(nextGood.name))
-      .slice(0, 5))
-    .catch(error => {
-      throw new Error(error);
-    });
+      .slice(0, 5));
 };
 
 export const getRedGoods = () => {
   return getAll()
-    .then(goods => goods.filter(({ color }) => color === 'red'))
-    .catch(error => {
-      throw new Error(error);
-    });
+    .then(goods => goods.filter(({ color }) => color === 'red'));
 };
