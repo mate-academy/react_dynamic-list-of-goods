@@ -4,11 +4,14 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => {
+export const App = React.memo(() => {
   const [visibleGoods, setGoods] = useState<Good[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleClick = (getGoods: () => Promise<Good[]>) => {
-    getGoods().then((goods) => setGoods(goods));
+    getGoods()
+      .then(setGoods)
+      .catch((error) => setErrorMessage(error.message));
   };
 
   return (
@@ -40,6 +43,8 @@ export const App: React.FC = () => {
       </button>
 
       <GoodsList goods={visibleGoods} />
+
+      {errorMessage && <p className="error">{`Something happened: ${errorMessage}`}</p>}
     </div>
   );
-};
+});
