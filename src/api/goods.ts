@@ -8,15 +8,18 @@ export function getAll(): Promise<Good[]> {
 }
 
 export const get5First = () => {
-  return getAll().then((goods) => {
-    return goods
-      .sort(({ name: firstName }, { name: secondName }) => {
-        return firstName.localeCompare(secondName);
-      })
-      .slice(0, 5);
-  });
+  return getAll().then((goods) => (
+    goods
+      .sort(({ name: firstName }, { name: secondName }) => (
+        firstName.localeCompare(secondName)
+      ))
+      .slice(0, 5)
+  ));
 };
 
 export const getRedGoods = () => {
-  return getAll().then((goods) => goods.filter((good) => good.color === 'red'));
+  return getAll()
+    .then((goods) => (
+      goods.filter(({ color }) => color === 'red')
+    ));
 };
