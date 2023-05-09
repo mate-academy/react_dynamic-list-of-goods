@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import './App.scss';
-import GoodsList from './GoodsList';
+import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState(null);
 
   const handleFetchGoods = (getGoodsCallback: () => Promise<Good[]>) => {
-    getGoodsCallback().then((fetchedGoods: Good[]) => {
-      setGoods(fetchedGoods);
-    });
+    getGoodsCallback()
+      .then((fetchedGoods) => {
+        setGoods(fetchedGoods);
+        setError(null);
+      })
+      .catch(setError);
   };
 
   return (
@@ -43,6 +47,8 @@ export const App: React.FC = () => {
       </button>
 
       <GoodsList goods={goods} />
+
+      {error && <p>{`Error: ${error}`}</p>}
     </div>
   );
 };
