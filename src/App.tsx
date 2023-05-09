@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import GoodsList from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
@@ -8,7 +8,7 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const fetchGoodsHandler = (getGoodsCallback: () => Promise<Good[]>) => {
+  const handleFetchGoods = (getGoodsCallback: () => Promise<Good[]>) => {
     getGoodsCallback().then((fetchedGoods: Good[]) => {
       setGoods(fetchedGoods);
     });
@@ -21,7 +21,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => fetchGoodsHandler(getAll)}
+        onClick={() => handleFetchGoods(getAll)}
       >
         Load all goods
       </button>
@@ -29,7 +29,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => fetchGoodsHandler(get5First)}
+        onClick={() => handleFetchGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -37,7 +37,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => fetchGoodsHandler(getRedGoods)}
+        onClick={() => handleFetchGoods(getRedGoods)}
       >
         Load red goods
       </button>
