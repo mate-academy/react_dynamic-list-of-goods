@@ -9,7 +9,9 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleRequest = (getGoods: () => Promise<Good[]>) => {
-    getGoods().then(good => setGoods(good));
+    getGoods()
+      .then(good => setGoods(good))
+      .catch(error => (`Something went wrong: ${error.message}`));
   };
 
   return (
