@@ -9,7 +9,7 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleRequest = (getGoods: () => Promise<Good[]>) => {
-    getGoods().then(god => setGoods(god));
+    getGoods().then(good => setGoods(good));
   };
 
   return (
