@@ -10,9 +10,18 @@ You have 3 button that should load [the goods](https://mate-academy.github.io/re
 1. Server has only 1 endpoint returning all the goods, so you should do all the preparations in corresponding methods in `/api/goods`.
 1. `GoodsList` is almost finished, you just need to use corresponding colors for `li`s;
 
+1. `Load All goods` має завантажити та показати всі `goods`;
+1. `Load 5 first goods` має виконати наступне:
+     - завантажити весь товар;
+     - сортувати їх за назвою;
+     - і покажіть перші 5;
+1. `Load red goods` має завантажити всі товари, які показують лише `red`;
+1. Сервер має лише один endpoint, який повертає всі товари, тому ви повинні виконати всі приготування у відповідних методах у `/api/goods`.
+1. `GoodsList` майже готовий, вам просто потрібно використовувати відповідні кольори для `li`s;
+
 ## Instructions
 
 - Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).
 - Use the [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript).
 - Open one more terminal and run tests with `npm test` to ensure your solution is correct.
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_dynamic-list-of-goods/) and add it to the PR description.
+- Replace `<your_account>` with your Github username in the [DEMO LINK](https://emxm.github.io/react_dynamic-list-of-goods/) and add it to the PR description.
