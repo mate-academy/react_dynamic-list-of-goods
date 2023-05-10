@@ -12,8 +12,13 @@ import {
 export const App: React.FC = () => {
   const [displayedGoods, setDisplayedGoods] = useState<Good[]>([]);
 
-  const loadAll = async (goods: Promise<Good[]>) => {
-    setDisplayedGoods(await goods);
+  const handleGetGoods = async (goods: Promise<Good[]>) => {
+    try {
+      setDisplayedGoods(await goods);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
   };
 
   return (
@@ -24,7 +29,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          loadAll(getAll());
+          handleGetGoods(getAll());
         }}
       >
         Load all goods
@@ -34,7 +39,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          loadAll(get5First());
+          handleGetGoods(get5First());
         }}
       >
         Load 5 first goods
@@ -44,7 +49,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          loadAll(getRedGoods());
+          handleGetGoods(getRedGoods());
         }}
       >
         Load red goods
