@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import './App.scss';
-
-// eslint-disable-next-line import/no-extraneous-dependencies
 import _ from 'lodash';
 import { GoodsList } from './GoodsList';
 

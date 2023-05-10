@@ -4,13 +4,18 @@ import { Good } from '../types/Good';
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
 export async function getAll(): Promise<Good[]> {
-  const allGoods = await fetch(API_URL);
+  // eslint-disable-next-line no-useless-catch
+  try {
+    const allGoods = await fetch(API_URL);
 
-  if (!allGoods.ok) {
-    throw new Error('Cannot fetch goods');
+    if (!allGoods.ok) {
+      throw new Error('Cannot fetch goods');
+    }
+
+    return await allGoods.json();
+  } catch (error) {
+    throw error;
   }
-
-  return allGoods.json();
 }
 
 export const get5First = async () => {
@@ -25,5 +30,5 @@ export const get5First = async () => {
 export const getRedGoods = async () => {
   const allGoods = await getAll();
 
-  return allGoods.filter((good) => good.color === 'red');
+  return allGoods.filter(({ color }) => color === 'red');
 };
