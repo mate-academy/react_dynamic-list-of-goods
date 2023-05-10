@@ -5,16 +5,16 @@ type Props = {
   goods: Good[]
 };
 
-export const GoodsList: React.FC<Props> = ({ goods }) => (
+export const GoodsList: React.FC<Props> = React.memo(({ goods }) => (
   <ul>
-    {goods.map(good => (
+    {goods.map(({ id, color, name }) => (
       <li
-        key={good.id}
+        key={id}
         data-cy="good"
-        style={{ color: good.color }}
+        style={{ color }}
       >
-        {good.name}
+        {name}
       </li>
     ))}
   </ul>
-);
+));
