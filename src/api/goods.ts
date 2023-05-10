@@ -5,13 +5,7 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-
-      return (`${response.status} - ${response.statusText}}`);
-    });
+    .then(response => response.json());
 }
 
 export const get5First = () => {
@@ -24,5 +18,5 @@ export const get5First = () => {
 export const getRedGoods = () => {
   return getAll()
     .then(goods => goods
-      .filter(good => good.color === 'red'));
+      .filter(({ color }) => color === 'red'));
 };

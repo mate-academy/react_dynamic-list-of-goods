@@ -8,17 +8,13 @@ import { Good } from './types/Good';
 export const App: FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const showAllGoods = useCallback(() => {
-    getAll().then(setGoods);
-  }, [goods]);
-
-  const showFiveFirstGoods = useCallback(() => {
-    get5First().then(setGoods);
-  }, [goods]);
-
-  const showRedGoods = useCallback(() => {
-    getRedGoods().then(setGoods);
-  }, [goods]);
+  const handleClickLoadGoods = useCallback(
+    (goodsGetter: () => Promise<Good[]>) => {
+      goodsGetter()
+        .then(setGoods)
+        .catch(error => `Error: ${error}`);
+    }, [goods],
+  );
 
   return (
     <div className="App content box">
@@ -28,7 +24,7 @@ export const App: FC = () => {
         type="button"
         className="button is-primary is-light m-1"
         data-cy="all-button"
-        onClick={showAllGoods}
+        onClick={() => handleClickLoadGoods(getAll)}
       >
         Load all goods
       </button>
@@ -37,7 +33,7 @@ export const App: FC = () => {
         type="button"
         className="button is-light m-1"
         data-cy="first-five-button"
-        onClick={showFiveFirstGoods}
+        onClick={() => handleClickLoadGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -46,7 +42,7 @@ export const App: FC = () => {
         type="button"
         className="button is-danger is-light m-1"
         data-cy="red-button"
-        onClick={showRedGoods}
+        onClick={() => handleClickLoadGoods(getRedGoods)}
       >
         Load red goods
       </button>
