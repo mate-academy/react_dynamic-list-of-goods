@@ -8,7 +8,7 @@ export async function getAll(): Promise<Good[]> {
 
   return response.ok
     ? response.json()
-    : Promise.reject(new Error('url is broken'));
+    : Promise.reject(new Error('Server is not answering, Please try later'));
 }
 
 export const get5First = async () => {
@@ -16,11 +16,11 @@ export const get5First = async () => {
 
   return goods
     .sort((goodA, goodB) => goodA.name.localeCompare(goodB.name))
-    .slice(0, 5); // sort and get the first 5
+    .slice(0, 5);
 };
 
 export const getRedGoods = async () => {
   const goods = await getAll();
 
-  return goods.filter(good => good.color === 'red'); // get only red
+  return goods.filter(({ color }) => color === 'red');
 };
