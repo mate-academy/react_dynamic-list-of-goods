@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -8,13 +8,11 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const getAllGoods = async () => setGoods(await getAll());
+  const getAllGoods = () => getAll().then(setGoods);
 
-  const getFiveFirst = async () => setGoods(await get5First());
+  const getFiveFirst = () => get5First().then(setGoods);
 
-  const getRed = async () => setGoods(await getRedGoods());
-
-  const visibleGoods = useMemo(() => goods, [JSON.stringify(goods)]);
+  const getRed = () => getRedGoods().then(setGoods);
 
   return (
     <div className="App">
@@ -44,7 +42,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={visibleGoods} />
+      <GoodsList goods={goods} />
     </div>
   );
 };

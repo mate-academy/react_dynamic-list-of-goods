@@ -10,7 +10,10 @@ export function getAll(): Promise<Good[]> {
         throw new Error(`${response.status} - ${response.statusText}`);
       }
 
-      return response.json();
+      return response.json()
+        .catch(() => {
+          throw new Error('it is catch Error');
+        });
     });
 }
 
