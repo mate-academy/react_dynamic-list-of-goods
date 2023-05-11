@@ -8,10 +8,10 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goodsFromServer, setGoodsFromServer] = useState<Good[]>([]);
 
-  const createGoodsList = (data: any) => {
-    data.then((goods: Good[]) => {
-      setGoodsFromServer(goods);
-    });
+  const createGoodsList = (getGoodsCallback: () => Promise<Good[]>) => {
+    getGoodsCallback()
+      .then(goods => setGoodsFromServer(goods))
+      .catch(error => `Oops, error - ${error}`);
   };
 
   return (
@@ -21,7 +21,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => createGoodsList(getAll())}
+        onClick={() => createGoodsList(getAll)}
       >
         Load all goods
       </button>
@@ -29,7 +29,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => createGoodsList(get5First())}
+        onClick={() => createGoodsList(get5First)}
       >
         Load 5 first goods
       </button>
@@ -37,7 +37,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => createGoodsList(getRedGoods())}
+        onClick={() => createGoodsList(getRedGoods)}
       >
         Load red goods
       </button>
