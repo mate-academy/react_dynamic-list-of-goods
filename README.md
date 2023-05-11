@@ -18,10 +18,10 @@ You have 3 button that should load [the goods](https://mate-academy.github.io/re
 - Replace `<your_account>` with your Github username in the [DEMO LINK](https://emxm.github.io/react_dynamic-list-of-goods/) and add it to the PR description.
 
 1. `Load All goods` має завантажити та показати всі `goods`;
-1. `Load 5 first goods` має виконати наступне:
+2. `Load 5 first goods` має виконати наступне:
      - завантажити весь товар;
      - сортувати їх за назвою;
      - і покажіть перші 5;
-1. `Load red goods` має завантажити всі товари, які показують лише `red`;
-1. Сервер має лише один endpoint, який повертає всі товари, тому ви повинні виконати всі приготування у відповідних методах у `/api/goods`.
-1. `GoodsList` майже готовий, вам просто потрібно використовувати відповідні кольори для `li`s;
+3. `Load red goods` має завантажити всі товари, які показують лише `red`;
+4. Сервер має лише один endpoint, який повертає всі товари, тому ви повинні виконати всі приготування у відповідних методах у `/api/goods`.
+5. `GoodsList` майже готовий, вам просто потрібно використовувати відповідні кольори для `li`s;
