@@ -8,9 +8,9 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [displayGoods, setDisplayGoods] = useState<Good[]>([]);
 
-  const LoadAll = async (goods: Promise<Good[]>) => {
-    setDisplayGoods(await goods);
-  };
+  const handleGetGoods = async () => setDisplayGoods(await getAll());
+  const handleFiveGoods = async () => setDisplayGoods(await get5First());
+  const handleRedGoods = async () => setDisplayGoods(await getRedGoods());
 
   return (
     <div className="App">
@@ -19,9 +19,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => {
-          LoadAll(getAll());
-        }}
+        onClick={handleGetGoods}
       >
         Load all goods
       </button>
@@ -29,9 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => {
-          LoadAll(get5First());
-        }}
+        onClick={handleFiveGoods}
       >
         Load 5 first goods
       </button>
@@ -39,9 +35,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => {
-          LoadAll(getRedGoods());
-        }}
+        onClick={handleRedGoods}
       >
         Load red goods
       </button>
