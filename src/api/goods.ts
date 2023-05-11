@@ -18,10 +18,10 @@ export const get5First = () => {
   return getAll()
     .then(goods => goods.sort((prevGood: Good, currentGood: Good) => (
       prevGood.name.localeCompare(currentGood.name)
-    )).filter((_, i) => i < 5)); // sort and get the first 5
+    )).slice(0, 5));
 };
 
 export const getRedGoods = () => {
   return getAll()
-    .then(goods => goods.filter(good => good.color === 'red')); // get only red
+    .then(goods => goods.filter(({ color }) => color === 'red'));
 };
