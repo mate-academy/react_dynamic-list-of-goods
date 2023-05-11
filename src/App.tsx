@@ -6,8 +6,10 @@ import { getAll, get5First, getRed } from './api/goods';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
+
   const getAllGoods = () => {
-    getAll().then(data => setVisibleGoods(data));
+    getAll()
+      .then(data => setVisibleGoods(data));
   };
 
   const getFiveFirst = () => {
