@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -11,10 +11,10 @@ export const App: React.FC = () => {
   const handleGoodsPrepare = async (goodsPreparator: () => Promise<Good[]>) => {
     const newGoods = await goodsPreparator();
 
-    setPreparedGoods(newGoods);
+    if (JSON.stringify(preparedGoods) !== JSON.stringify(newGoods)) {
+      setPreparedGoods(newGoods);
+    }
   };
-
-  const goods = useMemo(() => preparedGoods, [JSON.stringify(preparedGoods)]);
 
   return (
     <div className="App">
@@ -44,7 +44,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      <GoodsList goods={preparedGoods} />
     </div>
   );
 };

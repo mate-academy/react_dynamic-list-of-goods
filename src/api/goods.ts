@@ -5,19 +5,9 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
-    .then(response => {
-      if (!response.ok) {
-        return Promise.reject(new Error(`${response.status} - ${response.statusText}`));
-      }
-
-      const contentType = response.headers.get('content-type');
-
-      if (contentType !== null
-        && !contentType.includes('application/json')) {
-        return Promise.reject(new Error('Content-type in bot supported'));
-      }
-
-      return response.json();
+    .then(response => response.json())
+    .catch(() => {
+      throw new Error('Response error');
     });
 }
 
@@ -30,6 +20,5 @@ export const get5First = () => {
 
 export const getRedGoods = () => {
   return getAll()
-    .then(goods => goods
-      .filter(good => good.color === 'red'));
+    .then(goods => goods.filter(({ color }) => color === 'red'));
 };
