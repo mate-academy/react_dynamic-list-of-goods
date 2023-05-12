@@ -2,34 +2,28 @@ import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
-
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleFiveFirstGoods = () => {
-    get5First()
+  const handleGoodsPromise = (promise: Promise<Good[]>) => {
+    promise
       .then((data) => {
         setGoods(data);
-      })
-      .catch((error) => {
-        throw new Error(error);
       });
+  };
+
+  const handleFiveFirstGoods = () => {
+    handleGoodsPromise(get5First());
   };
 
   const allGoods = () => {
-    getAll()
-      .then((data) => {
-        setGoods(data);
-      });
+    handleGoodsPromise(getAll());
   };
 
   const redGoods = () => {
-    getRedGoods()
-      .then((data) => {
-        setGoods(data);
-      });
+    handleGoodsPromise(getRedGoods());
   };
 
   return (
