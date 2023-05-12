@@ -1,27 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
+  const { getAll, get5First, getRedGoods } = goodsAPI;
+  const [error, setError] = useState('');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handlingGetGoods = async (apiMethod: () => Promise<Good[]>) => {
+    try {
+      const goods = await apiMethod();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      setVisibleGoods(goods);
+    } catch (fail) {
+      setError('Failed to fetch goods');
+    }
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const handlingGetAllGoods = async () => {
+    await handlingGetGoods(getAll);
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const handlingGetFirstFiveGoods = async () => {
+    await handlingGetGoods(get5First);
+  };
+
+  const handlingGetRedGoods = async () => {
+    await handlingGetGoods(getRedGoods);
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={handlingGetAllGoods}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handlingGetFirstFiveGoods}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={handlingGetRedGoods}
+      >
+        Load red goods
+      </button>
+
+      {error && <p>{error}</p>}
+
+      <GoodsList goods={visibleGoods} />
+    </div>
+  );
+};
