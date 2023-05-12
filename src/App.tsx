@@ -8,23 +8,28 @@ import * as goodsAPI from './api/goods';
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
   const { getAll, get5First, getRedGoods } = goodsAPI;
+  const [error, setError] = useState('');
 
-  const handlingAllGoods = async () => {
-    const goods = await getAll();
+  const handlingGetGoods = async (apiMethod: () => Promise<Good[]>) => {
+    try {
+      const goods = await apiMethod();
 
-    setVisibleGoods(goods);
+      setVisibleGoods(goods);
+    } catch (fail) {
+      setError('Failed to fetch goods');
+    }
   };
 
-  const handlingFirstFiveGoods = async () => {
-    const goods = await get5First();
-
-    setVisibleGoods(goods);
+  const handlingGetAllGoods = async () => {
+    await handlingGetGoods(getAll);
   };
 
-  const handlingRedGoods = async () => {
-    const goods = await getRedGoods();
+  const handlingGetFirstFiveGoods = async () => {
+    await handlingGetGoods(get5First);
+  };
 
-    setVisibleGoods(goods);
+  const handlingGetRedGoods = async () => {
+    await handlingGetGoods(getRedGoods);
   };
 
   return (
@@ -34,7 +39,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={handlingAllGoods}
+        onClick={handlingGetAllGoods}
       >
         Load all goods
       </button>
@@ -42,7 +47,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handlingFirstFiveGoods}
+        onClick={handlingGetFirstFiveGoods}
       >
         Load 5 first goods
       </button>
@@ -50,10 +55,12 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={handlingRedGoods}
+        onClick={handlingGetRedGoods}
       >
         Load red goods
       </button>
+
+      {error && <p>{error}</p>}
 
       <GoodsList goods={visibleGoods} />
     </div>

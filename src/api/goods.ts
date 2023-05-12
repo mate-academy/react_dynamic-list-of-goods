@@ -8,14 +8,14 @@ export function getAll(): Promise<Good[]> {
     .then(response => {
       if (!response.ok) {
         // eslint-disable-next-line prefer-promise-reject-errors
-        return Promise.reject(
+        throw new Error(
           `${response.status} - ${response.text}`,
         );
       }
 
       if (!response.headers.get('content-type')?.includes('application/json')) {
         // eslint-disable-next-line prefer-promise-reject-errors
-        return Promise.reject(
+        throw new Error(
           'Content-type is not supported',
         );
       }
@@ -26,14 +26,16 @@ export function getAll(): Promise<Good[]> {
 
 export const get5First = () => {
   return getAll()
-    .then(goods => goods.sort((prev, next) => (
-      prev.name.localeCompare(next.name)
-    )).slice(0, 5));
+    .then(goods => (
+      [...goods]
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .slice(0, 5)
+    ));
 };
 
 export const getRedGoods = () => {
   return getAll()
-    .then(goods => goods.filter(good => {
-      return good.color === 'red';
-    }));
+    .then(goods => (
+      goods.filter(({ color }) => color === 'red')
+    ));
 };
