@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -6,7 +6,19 @@ import { Good } from './types/Good';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
-  const [arr, setArr] = useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
+
+  const getAllGoods = useCallback(() => {
+    getAll().then((allGoods: Good[]) => setGoods(allGoods));
+  }, []);
+
+  const getFirst5Goods = useCallback(() => {
+    get5First().then((allGoods: Good[]) => setGoods(allGoods));
+  }, []);
+
+  const getJustRedGoods = useCallback(() => {
+    getRedGoods().then((allGoods: Good[]) => setGoods(allGoods));
+  }, []);
 
   return (
     <div className="App">
@@ -15,9 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => {
-          getAll().then(allGoods => setArr(allGoods));
-        }}
+        onClick={getAllGoods}
       >
         Load all goods
       </button>
@@ -25,9 +35,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => {
-          get5First().then(first5Goods => setArr(first5Goods));
-        }}
+        onClick={getFirst5Goods}
       >
         Load 5 first goods
       </button>
@@ -35,14 +43,12 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => {
-          getRedGoods().then(redGoods => setArr(redGoods));
-        }}
+        onClick={getJustRedGoods}
       >
         Load red goods
       </button>
 
-      <GoodsList goods={arr} />
+      <GoodsList goods={goods} />
     </div>
   );
 };
