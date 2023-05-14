@@ -4,23 +4,22 @@ import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-  const handleGetAll = useCallback(() => {
-    getAll().then(data => setVisibleGoods(data));
-  }, []);
+  const getGoods = (filterFunction: () => Promise<Good[]>) => {
+    try {
+      filterFunction()
+        .then(goods => setVisibleGoods(goods));
+    } catch (error) {
+      throw new Error();
+    }
+  };
 
-  const handleGet5First = useCallback(() => {
-    get5First().then(data => setVisibleGoods(data));
-  }, []);
-
-  const handleGetRedGoods = useCallback(() => {
-    getRedGoods().then(data => setVisibleGoods(data));
-  }, []);
+  const handleGetAll = useCallback(() => getGoods(getAll), []);
+  const handleGet5First = useCallback(() => getGoods(get5First), []);
+  const handleGetRedGoods = useCallback(() => getGoods(getRedGoods), []);
 
   return (
     <div className="App">
