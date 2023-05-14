@@ -7,17 +7,12 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [isError, setIsError] = useState(false);
 
-  const handlerSetGoods = () => {
-    getAll().then(newGoods => setGoods(newGoods));
-  };
-
-  const handlerSet5Goods = () => {
-    get5First().then(newGoods => setGoods(newGoods));
-  };
-
-  const handlerSetRedGoods = () => {
-    getRedGoods().then(newGoods => setGoods(newGoods));
+  const handlerSetGoods = (getFunction: () => Promise<Good[]>) => {
+    getFunction()
+      .then(newGoods => setGoods(newGoods))
+      .catch(() => setIsError(true));
   };
 
   return (
@@ -27,7 +22,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={handlerSetGoods}
+        onClick={() => handlerSetGoods(getAll)}
       >
         Load all goods
       </button>
@@ -35,7 +30,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handlerSet5Goods}
+        onClick={() => handlerSetGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -43,10 +38,16 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={handlerSetRedGoods}
+        onClick={() => handlerSetGoods(getRedGoods)}
       >
         Load red goods
       </button>
+
+      {isError && (
+        <div style={{ color: 'red' }}>
+          ERROR
+        </div>
+      )}
 
       <GoodsList goods={goods} />
     </div>
