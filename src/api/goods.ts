@@ -8,13 +8,17 @@ export function getAll(): Promise<Good[]> {
 }
 
 export const get5First = () => {
-  return getAll().then((goods) => (
-    goods
-      .sort(({ name: firstName }, { name: secondName }) => (
-        firstName.localeCompare(secondName)
-      ))
-      .slice(0, 5)
-  ));
+  try {
+    return getAll().then((goods) => (
+      goods
+        .sort(({ name: firstName }, { name: secondName }) => (
+          firstName.localeCompare(secondName)
+        ))
+        .slice(0, 5)
+    ));
+  } catch (error) {
+    throw new Error(`Error ${error}`);
+  }
 };
 
 export const getRedGoods = () => {

@@ -10,11 +10,15 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const handleFetchGoods = (getGoodsCallback: () => Promise<Good[]>) => {
-    getGoodsCallback()
-      .then((fetchedGoods: Good[]) => {
-        setGoods(fetchedGoods);
-      });
+
+  const handleFetchGoods = async (getGoodsCallback: () => Promise<Good[]>) => {
+    try {
+      const fetchedGoods = await getGoodsCallback();
+
+      setGoods(fetchedGoods);
+    } catch (error) {
+      throw new Error(`Error: ${error}`);
+    }
   };
 
   return (
