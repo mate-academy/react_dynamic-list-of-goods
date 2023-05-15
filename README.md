@@ -17,6 +17,8 @@ You have 3 button that should load [the goods](https://mate-academy.github.io/re
 - Open one more terminal and run tests with `npm test` to ensure your solution is correct.
 - Replace `<your_account>` with your Github username in the [DEMO LINK](https://emxm.github.io/react_dynamic-list-of-goods/) and add it to the PR description.
 
+## Переклад
+
 1. `Load All goods` має завантажити та показати всі `goods`;
 2. `Load 5 first goods` має виконати наступне:
      - завантажити весь товар;
