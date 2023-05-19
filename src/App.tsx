@@ -9,18 +9,18 @@ export const App: React.FC = () => {
 
   const fetchAll = () => (
     getAll()
-      .then((goods => setVisibleGoods(goods)))
-      .catch(() => 'There no goods'));
+      .then((setVisibleGoods))
+      .catch(() => 'An error occured when loading goods'));
 
   const fetch5First = () => (
     get5First()
-      .then((goods => setVisibleGoods(goods)))
-      .catch(() => 'There no goods'));
+      .then((setVisibleGoods))
+      .catch(() => 'An error occured when loading goods'));
 
   const fetchRed = () => (
     getRedGoods()
-      .then(goods => setVisibleGoods(goods))
-      .catch(() => 'There no red goods'));
+      .then(setVisibleGoods)
+      .catch(() => 'An error occured when loading goods'));
 
   return (
     <div className="App">
