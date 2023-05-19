@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -7,28 +7,35 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [funcGoods, setFuncGoods] = useState(getAll());
 
-  useEffect(() => {
+  const handleClickAll = () => {
     const loadGoods = async () => {
-      const goodsData = await funcGoods;
+      const goodsData = await getAll();
 
       setGoods(goodsData);
     };
 
     loadGoods();
-  }, [funcGoods]);
-
-  const handleClickAll = () => {
-    setFuncGoods(getAll());
   };
 
   const handleClickFirst5 = () => {
-    setFuncGoods(get5First());
+    const loadGoods = async () => {
+      const goodsData = await get5First();
+
+      setGoods(goodsData);
+    };
+
+    loadGoods();
   };
 
   const handleClickReds = () => {
-    setFuncGoods(getRedGoods());
+    const loadGoods = async () => {
+      const goodsData = await getRedGoods();
+
+      setGoods(goodsData);
+    };
+
+    loadGoods();
   };
 
   return (
