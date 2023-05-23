@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -8,7 +8,7 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleClickAll = () => {
+  const handleClickAll = useCallback(() => {
     const loadGoods = async () => {
       const goodsData = await getAll();
 
@@ -16,9 +16,9 @@ export const App: React.FC = () => {
     };
 
     loadGoods();
-  };
+  }, []);
 
-  const handleClickFirst5 = () => {
+  const handleClickFirst5 = useCallback(() => {
     const loadGoods = async () => {
       const goodsData = await get5First();
 
@@ -26,9 +26,9 @@ export const App: React.FC = () => {
     };
 
     loadGoods();
-  };
+  }, []);
 
-  const handleClickReds = () => {
+  const handleClickReds = useCallback(() => {
     const loadGoods = async () => {
       const goodsData = await getRedGoods();
 
@@ -36,7 +36,7 @@ export const App: React.FC = () => {
     };
 
     loadGoods();
-  };
+  }, []);
 
   return (
     <div className="App">

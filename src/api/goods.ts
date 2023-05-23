@@ -12,7 +12,7 @@ export const get5First = () => {
   return getAll()
     .then(goods => goods
       .sort((a, b) => a.name.localeCompare(b.name))
-      .filter((good, index) => (index < 5) && good)); // sort and get the first 5
+      .slice(0, 5)); // sort and get the first 5
 };
 
 export const getRedGoods = () => {
