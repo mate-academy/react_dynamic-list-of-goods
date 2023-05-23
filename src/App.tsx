@@ -9,21 +9,24 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[] | []>([]);
-  const [error, setError] = useState<null | string>(null);
+  const [error, setError] = useState('');
 
   const renderAll = () => {
+    setError('');
     getAll()
       .then(setGoods)
       .catch(dataError => setError(dataError.message));
   };
 
   const render5First = () => {
+    setError('');
     get5First()
       .then(setGoods)
       .catch(dataError => setError(dataError.message));
   };
 
   const renderRedGoods = () => {
+    setError('');
     getRedGoods()
       .then(setGoods)
       .catch(dataError => setError(dataError.message));
