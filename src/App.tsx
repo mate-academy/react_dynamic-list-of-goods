@@ -8,34 +8,22 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleClickAll = useCallback(() => {
-    const loadGoods = async () => {
-      const goodsData = await getAll();
+  const handleClickAll = useCallback(async () => {
+    const goodsData = await getAll();
 
-      setGoods(goodsData);
-    };
-
-    loadGoods();
+    setGoods(goodsData);
   }, []);
 
-  const handleClickFirst5 = useCallback(() => {
-    const loadGoods = async () => {
-      const goodsData = await get5First();
+  const handleClickFirst5 = useCallback(async () => {
+    const goodsData = await get5First();
 
-      setGoods(goodsData);
-    };
-
-    loadGoods();
+    setGoods(goodsData);
   }, []);
 
-  const handleClickReds = useCallback(() => {
-    const loadGoods = async () => {
-      const goodsData = await getRedGoods();
+  const handleClickReds = useCallback(async () => {
+    const goodsData = await getRedGoods();
 
-      setGoods(goodsData);
-    };
-
-    loadGoods();
+    setGoods(goodsData);
   }, []);
 
   return (
