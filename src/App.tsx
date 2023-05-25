@@ -8,6 +8,7 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<null | string>(null);
 
   const handleClick = () => getAll()
     .then((receivedGoods) => setGoods(receivedGoods));
@@ -16,11 +17,14 @@ export const App: React.FC = () => {
     .then((receivedGoods) => setGoods(receivedGoods));
 
   const handleRedClick = () => getRedGoods()
-    .then((receivedGoods) => setGoods(receivedGoods));
+    .then((receivedGoods) => setGoods(receivedGoods))
+    .catch(() => setError('Something went wrong'));
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
+
+      {error && <p>{error}</p>}
 
       <button type="button" data-cy="all-button" onClick={handleClick}>
         Load all goods
