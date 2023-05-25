@@ -8,17 +8,24 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [error, setError] = useState<null | string>(null);
+  const [error, setError] = useState('');
 
-  const handleClick = () => getAll()
-    .then((receivedGoods) => setGoods(receivedGoods));
+  const handleClick = () => {
+    setError('');
+    getAll().then((receivedGoods) => setGoods(receivedGoods));
+  };
 
-  const handle5FirstClick = () => get5First()
-    .then((receivedGoods) => setGoods(receivedGoods));
+  const handle5FirstClick = () => {
+    setError('');
+    get5First().then((receivedGoods) => setGoods(receivedGoods))
+      .catch(() => setError('Something went wrong'));
+  };
 
-  const handleRedClick = () => getRedGoods()
-    .then((receivedGoods) => setGoods(receivedGoods))
-    .catch(() => setError('Something went wrong'));
+  const handleRedClick = () => {
+    setError('');
+    getRedGoods().then((receivedGoods) => setGoods(receivedGoods))
+      .catch(() => setError('Something went wrong'));
+  };
 
   return (
     <div className="App">
