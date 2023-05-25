@@ -1,25 +1,30 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
-// import * as goodsAPI from './api/goods';
-
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const loadAllGoods = () => {
-    return getAll().then(setGoods);
-  };
+  const loadAllGoods = useCallback(() => {
+    return getAll()
+      .then(setGoods)
+      .catch((error) => setErrorMessage(error.message));
+  }, []);
 
-  const load5FirstGoods = () => {
-    return get5First().then(setGoods);
-  };
+  const load5FirstGoods = useCallback(() => {
+    return get5First()
+      .then(setGoods)
+      .catch((error) => setErrorMessage(error.message));
+  }, []);
 
-  const loadOnlyRedGoods = () => {
-    return getRedGoods().then(setGoods);
-  };
+  const loadOnlyRedGoods = useCallback(() => {
+    return getRedGoods()
+      .then(setGoods)
+      .catch((error) => setErrorMessage(error.message));
+  }, []);
 
   return (
     <div className="App">
@@ -48,8 +53,9 @@ export const App: React.FC = () => {
       >
         Load red goods
       </button>
-
-      <GoodsList goods={goods} />
+      {errorMessage
+        ? <p>{errorMessage}</p>
+        : <GoodsList goods={goods} />}
     </div>
   );
 };
