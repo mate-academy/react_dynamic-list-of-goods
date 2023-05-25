@@ -15,7 +15,6 @@ export const GoodsList: React.FC<GoodProps> = ({ goods }) => (
         style={{ color: `${good.color}` }}
       >
         {good.name}
-        {good.name}
       </li>
     ))}
   </ul>
