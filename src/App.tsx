@@ -5,27 +5,11 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
-enum GoodFilter {
-  all = 'all',
-  firs5 = 'firs5',
-  red = 'red',
-}
-
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState(():Good[] => []);
+  const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadGoods = async (typeOfSort: string) => {
-    switch (typeOfSort) {
-      case GoodFilter.all:
-      default:
-        return setGoods(await getAll());
-
-      case GoodFilter.firs5:
-        return setGoods(await get5First());
-
-      case GoodFilter.red:
-        return setGoods(await getRedGoods());
-    }
+  const loadGoods = async (getGoods: Promise<Good[]>) => {
+    return setGoods(await getGoods);
   };
 
   return (
@@ -35,7 +19,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => loadGoods(GoodFilter.all)}
+        onClick={() => loadGoods(getAll())}
       >
         Load all goods
       </button>
@@ -43,7 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => loadGoods(GoodFilter.firs5)}
+        onClick={() => loadGoods(get5First())}
       >
         Load 5 first goods
       </button>
@@ -51,7 +35,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => loadGoods(GoodFilter.red)}
+        onClick={() => loadGoods(getRedGoods())}
       >
         Load red goods
       </button>
