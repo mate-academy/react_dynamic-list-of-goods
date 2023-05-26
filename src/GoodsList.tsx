@@ -9,7 +9,7 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
   <ul>
     {goods.map(good => (
       <li
-        className={good.color}
+        className={`good-${good.color}`}
         key={good.id}
         data-cy="good"
       >

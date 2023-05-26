@@ -8,10 +8,10 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadAll = () => {
-    getAll().then((data: Good[]) => {
-      setGoods(data);
-    });
+  const loadAll = async () => {
+    const allData = await getAll();
+
+    setGoods(allData);
   };
 
   const load5First = async () => {

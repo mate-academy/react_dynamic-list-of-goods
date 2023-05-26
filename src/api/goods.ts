@@ -10,12 +10,12 @@ export function getAll(): Promise<Good[]> {
 
 export const get5First = () => {
   return getAll()
-    .then(goods => goods.sort((a, b) => {
-      if (a.name < b.name) {
+    .then(goods => goods.sort((goodA, goodB) => {
+      if (goodA.name < goodB.name) {
         return -1;
       }
 
-      if (a.name > b.name) {
+      if (goodA.name > goodB.name) {
         return 1;
       }
 
