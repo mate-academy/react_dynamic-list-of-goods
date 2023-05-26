@@ -20,10 +20,10 @@ export const get5First = () => {
       }
 
       return 0;
-    }).filter((_, index) => index <= 4)); // sort and get the first 5
+    }).filter((_, index) => index <= 4));
 };
 
 export const getRedGoods = () => {
   return getAll()
-    .then(goods => goods.filter((obj) => obj.color === 'red')); // get only red
+    .then(goods => goods.filter((obj) => obj.color === 'red'));
 };
