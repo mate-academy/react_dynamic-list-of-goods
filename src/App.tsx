@@ -16,9 +16,6 @@ export const App: React.FC = () => {
     setGoods(result);
   }
 
-  // eslint-disable-next-line no-console
-  console.log([goods]);
-
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -42,7 +39,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={async () => handlerLoadGood(getRedGoods)}
+        onClick={() => handlerLoadGood(getRedGoods)}
       >
         Load red goods
       </button>
