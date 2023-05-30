@@ -11,7 +11,8 @@ export function getAllGoods(): Promise<Good[]> {
 export const get5FirstGoods = () => {
   return getAllGoods()
     .then(goods => goods
-      .sort((a, b) => a.name.localeCompare(b.name))
+      .sort((firstGood, secondGood) => firstGood.name
+        .localeCompare(secondGood.name))
       .slice(0, 5));
 };
 
