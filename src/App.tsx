@@ -60,5 +60,5 @@ export const App: React.FC = () => {
 
       <GoodsList goods={list} />
     </div>
-  )
+  );
 };
