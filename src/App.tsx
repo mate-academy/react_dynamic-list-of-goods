@@ -13,7 +13,8 @@ export const App: React.FC = () => {
 
   const handleClick = () => {
     setError('');
-    getAll().then((receivedGoods) => setList(receivedGoods));
+    getAll().then((receivedGoods) => setList(receivedGoods))
+      .catch(() => setError('Could not load goods'));
   };
 
   const handle5FirstClick = () => {
