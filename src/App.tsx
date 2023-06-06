@@ -7,29 +7,49 @@ import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
 
+enum FilterTypes {
+  All = 'all',
+  Get5First = 'first5',
+  GetRed = 'red',
+}
+
 export const App: React.FC = () => {
   const [currentGoods, setCurrentGoods] = useState<Good[]>([]);
 
   async function handleButton(option?: string) {
     switch (option) {
-      case 'first5': {
-        const data = await get5First();
+      case FilterTypes.Get5First: {
+        try {
+          const data = await get5First();
 
-        setCurrentGoods(data);
+          setCurrentGoods(data);
+        } catch {
+          throw new Error('There was an error downloading data.');
+        }
+
         break;
       }
 
-      case 'red': {
-        const data = await getRedGoods();
+      case FilterTypes.GetRed: {
+        try {
+          const data = await getRedGoods();
 
-        setCurrentGoods(data);
+          setCurrentGoods(data);
+        } catch {
+          throw new Error('There was an error downloading data.');
+        }
+
         break;
       }
 
       default: {
-        const data = await getAll();
+        try {
+          const data = await getAll();
 
-        setCurrentGoods(data);
+          setCurrentGoods(data);
+        } catch {
+          throw new Error('There was an error downloading data.');
+        }
       }
     }
   }
@@ -49,7 +69,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => (handleButton('first5'))}
+        onClick={() => (handleButton(FilterTypes.Get5First))}
       >
         Load 5 first goods
       </button>
@@ -57,7 +77,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => (handleButton('red'))}
+        onClick={() => (handleButton(FilterTypes.GetRed))}
       >
         Load red goods
       </button>
