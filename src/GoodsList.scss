@@ -1,0 +1,11 @@
+.GoodsList {
+  padding-inline: 20px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+
+  &__item {
+    padding: 10px;
+    font-size: 16px;
+  }
+}
