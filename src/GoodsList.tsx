@@ -1,4 +1,5 @@
 import React from 'react';
+import './GoodsList.scss';
 import { Good } from './types/Good';
 
 type Props = {
@@ -6,11 +7,12 @@ type Props = {
 };
 
 export const GoodsList: React.FC<Props> = React.memo(({ goods }) => (
-  <ul>
+  <ul className="GoodsList">
     {goods.map(good => (
       <li
         key={good.id}
         data-cy="good"
+        className="GoodsList__item"
         style={{ color: good.color }}
       >
         {good.name}

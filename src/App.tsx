@@ -1,7 +1,9 @@
 import React, { useCallback, useState } from 'react';
+import './reset.scss';
 import './App.scss';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import Button from '@mui/material/Button';
 import { GoodsList } from './GoodsList';
-
 import { getAll, get5First, getRed } from './api/goods';
 import { Good } from './types/Good';
 
@@ -22,33 +24,43 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
+      <div className="App__container">
+        <h1 className="App__title">
+          Dynamic list of Goods
+        </h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={handleClickGetAllGoods}
-      >
-        Load all goods
-      </button>
+        <ButtonGroup
+          className="App__button-group"
+          variant="text"
+          size="large"
+        >
+          <Button
+            type="button"
+            data-cy="all-button"
+            onClick={handleClickGetAllGoods}
+          >
+            Load all goods
+          </Button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={handleClickGetFirstFiveGoods}
-      >
-        Load 5 first goods
-      </button>
+          <Button
+            type="button"
+            data-cy="first-five-button"
+            onClick={handleClickGetFirstFiveGoods}
+          >
+            Load 5 first goods
+          </Button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={handleClickGetRedGoods}
-      >
-        Load red goods
-      </button>
+          <Button
+            type="button"
+            data-cy="red-button"
+            onClick={handleClickGetRedGoods}
+          >
+            Load red goods
+          </Button>
+        </ButtonGroup>
 
-      <GoodsList goods={goods} />
+        {Boolean(goods.length) && <GoodsList goods={goods} />}
+      </div>
     </div>
   );
 };
