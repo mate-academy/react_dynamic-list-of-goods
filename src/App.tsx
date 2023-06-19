@@ -13,6 +13,17 @@ export const App: React.FC = () => {
 
     setGoods(selectedGoods);
   }, []);
+  const handleGetAll = () => {
+    setFetchFunction(getAll);
+  };
+
+  const handleGet5First = () => {
+    setFetchFunction(get5First);
+  };
+
+  const handleGetRed = () => {
+    setFetchFunction(getRedGoods);
+  };
 
   return (
     <div className="App">
@@ -21,7 +32,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setFetchFunction(getAll)}
+        onClick={handleGetAll}
       >
         Load all goods
       </button>
@@ -29,7 +40,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setFetchFunction(get5First)}
+        onClick={handleGet5First}
       >
         Load 5 first goods
       </button>
@@ -37,7 +48,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setFetchFunction(getRedGoods)}
+        onClick={handleGetRed}
       >
         Load red goods
       </button>
