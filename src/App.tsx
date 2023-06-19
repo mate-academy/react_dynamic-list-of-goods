@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
@@ -6,13 +6,14 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const setFetchFunction = useCallback(async (
+  const setFetchFunction = async (
     fetchFunction: () => Promise<Good[]>,
   ) => {
     const selectedGoods = await fetchFunction();
 
     setGoods(selectedGoods);
-  }, []);
+  };
+
   const handleGetAll = () => {
     setFetchFunction(getAll);
   };
