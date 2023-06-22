@@ -1,1 +1,26 @@
-// styles go here
+$color: aqua;
+$color2: skyblue;
+
+.good {
+  border: 2px solid $color2;
+  border-radius: 5px;
+  list-style-type: none;
+  width: 280px;
+  padding: 5px;
+
+  &:hover {
+    background-color: $color;
+  }
+}
+
+.button {
+  background-color: $color2;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+
+  &:hover {
+    background-color: $color;
+  }
+}
