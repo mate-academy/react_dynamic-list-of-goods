@@ -8,15 +8,15 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const loadAllGoods = () => {
-    getAll().then(goodsList => setGoods(goodsList)); // Rename the parameter to `goodsList`
+    getAll().then(goodsList => setGoods(goodsList));
   };
 
   const loadFirstFiveGoods = () => {
-    get5First().then(goodsList => setGoods(goodsList)); // Rename the parameter to `goodsList`
+    get5First().then(goodsList => setGoods(goodsList));
   };
 
   const loadRedGoods = () => {
-    getRedGoods().then(goodsList => setGoods(goodsList)); // Rename the parameter to `goodsList`
+    getRedGoods().then(goodsList => setGoods(goodsList));
   };
 
   return (
