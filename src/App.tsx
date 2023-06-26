@@ -1,27 +1,49 @@
-import React from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const memoizedGoodsList = useMemo(() => <GoodsList goods={goods} />, [goods]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  return ((
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => (
+          getAll()
+            .then(goodsFromServer => setGoods(goodsFromServer)))}
+      >
+        Load all goods
+      </button>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => (
+          get5First()
+            .then(goodsFromServer => setGoods(goodsFromServer)))}
+      >
+        Load 5 first goods
+      </button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => (
+          getRedGoods()
+            .then(goodsFromServer => setGoods(goodsFromServer)))}
+      >
+        Load red goods
+      </button>
+
+      {memoizedGoodsList}
+    </div>
+  ));
+};
