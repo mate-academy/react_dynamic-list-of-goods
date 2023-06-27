@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { Button } from '@mui/material';
+import Box from '@mui/material/Box';
+
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -9,44 +12,62 @@ export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
   const loadAllGoods = async () => {
-    await getAll().then(response => setVisibleGoods(response));
+    const response = await getAll();
+
+    setVisibleGoods(response);
   };
 
   const loadFirst5SortedGoods = async () => {
-    await get5First().then(response => setVisibleGoods(response));
+    const response = await get5First();
+
+    setVisibleGoods(response);
   };
 
   const LoadRedColoredGoods = async () => {
-    await getRedGoods().then(response => setVisibleGoods(response));
+    const response = await getRedGoods();
+
+    setVisibleGoods(response);
   };
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
+      <h1 className="App__title">Dynamic list of Goods</h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={loadAllGoods}
-      >
-        Load all goods
-      </button>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button
+          type="button"
+          variant="outlined"
+          data-cy="all-button"
+          onClick={loadAllGoods}
+          sx={{ margin: '10px' }}
+          color="secondary"
+        >
+          Load all goods
+        </Button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={loadFirst5SortedGoods}
-      >
-        Load 5 first goods
-      </button>
+        <Button
+          type="button"
+          variant="outlined"
+          data-cy="first-five-button"
+          onClick={loadFirst5SortedGoods}
+          sx={{ margin: '10px' }}
+          color="secondary"
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={LoadRedColoredGoods}
-      >
-        Load red goods
-      </button>
+        >
+          Load 5 first goods
+        </Button>
+
+        <Button
+          type="button"
+          variant="outlined"
+          data-cy="red-button"
+          onClick={LoadRedColoredGoods}
+          sx={{ margin: '10px' }}
+          color="secondary"
+        >
+          Load red goods
+        </Button>
+      </Box>
 
       <GoodsList goods={visibleGoods} />
     </div>
