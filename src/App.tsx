@@ -19,6 +19,10 @@ export const App: React.FC = () => {
     }
   };
 
+  const handleAllGoods = () => loadGoods(getAll);
+  const handle5FirstGoods = () => loadGoods(get5First);
+  const handleRedGoods = () => loadGoods(getRedGoods);
+
   return (
     <div className="App block p-5" style={{ width: '550px' }}>
       <h1 className="is-size-2 px-5">Dynamic list of Goods</h1>
@@ -27,7 +31,7 @@ export const App: React.FC = () => {
         className="button is-rounded is-outlined is-info"
         type="button"
         data-cy="all-button"
-        onClick={() => loadGoods(getAll)}
+        onClick={handleAllGoods}
       >
         Load all goods
       </button>
@@ -35,8 +39,8 @@ export const App: React.FC = () => {
       <button
         className="button is-rounded is-outlined is-info"
         type="button"
-        data-cy="all-button"
-        onClick={() => loadGoods(get5First)}
+        data-cy="first-five-button"
+        onClick={handle5FirstGoods}
       >
         Load 5 first goods
       </button>
@@ -44,8 +48,8 @@ export const App: React.FC = () => {
       <button
         className="button is-rounded is-outlined is-danger"
         type="button"
-        data-cy="all-button"
-        onClick={() => loadGoods(getRedGoods)}
+        data-cy="red-button"
+        onClick={handleRedGoods}
       >
         Load red goods
       </button>

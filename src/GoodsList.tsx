@@ -14,9 +14,9 @@ export const GoodsList: React.FC<Props> = React.memo(({ goods }) => (
         key={good.id}
         data-cy="good"
         className={classNames({
-          'has-text-link': good.color === 'blue',
-          'has-text-danger': good.color === 'red',
-          'has-text-success': good.color === 'green',
+          blue: good.color === 'blue',
+          red: good.color === 'red',
+          green: good.color === 'green',
         })}
       >
         {good.name}
