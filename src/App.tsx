@@ -61,7 +61,7 @@ export const App: React.FC = () => {
 
       <Button
         variant="contained"
-        data-cy="all-button"
+        data-cy="red-button"
         onClick={onAddRed}
       >
         Load red goods
