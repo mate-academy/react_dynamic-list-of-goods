@@ -1,27 +1,55 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [filteredGoods, setFilteredGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const loadGoods = (callback: () => Promise<Good[]>) => {
+    try {
+      callback()
+        .then(goods => setFilteredGoods(goods));
+    } catch (error) {
+      throw new Error();
+    }
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const handleGetAll = useCallback(() => loadGoods(getAll), []);
+  const handleGet5First = useCallback(() => loadGoods(get5First), []);
+  const handleGetRedGoods = useCallback(() => loadGoods(getRedGoods), []);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={handleGetAll}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleGet5First}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={handleGetRedGoods}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={filteredGoods} />
+    </div>
+  );
+};
