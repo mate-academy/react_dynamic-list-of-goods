@@ -44,6 +44,7 @@ export const App: React.FC = () => {
       <h1>Dynamic list of Goods</h1>
 
       <Button
+        type="button"
         variant="contained"
         data-cy="all-button"
         onClick={onAddAll}
@@ -52,6 +53,7 @@ export const App: React.FC = () => {
       </Button>
 
       <Button
+        type="button"
         variant="contained"
         data-cy="first-five-button"
         onClick={onAddFive}
@@ -60,6 +62,7 @@ export const App: React.FC = () => {
       </Button>
 
       <Button
+        type="button"
         variant="contained"
         data-cy="red-button"
         onClick={onAddRed}
@@ -68,6 +71,7 @@ export const App: React.FC = () => {
       </Button>
 
       <Button
+        type="button"
         variant="contained"
         onClick={onReset}
       >
