@@ -9,6 +9,18 @@ export const App: React.FC = () => {
 
   const memoizedGoodsList = useMemo(() => <GoodsList goods={goods} />, [goods]);
 
+  const handleClickAllGoods = async () => {
+    setGoods(await getAll());
+  };
+
+  const handleClickFiveFirst = async () => {
+    setGoods(await get5First());
+  };
+
+  const handleClickRedGoods = async () => {
+    setGoods(await getRedGoods());
+  };
+
   return ((
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -16,9 +28,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => (
-          getAll()
-            .then(goodsFromServer => setGoods(goodsFromServer)))}
+        onClick={handleClickAllGoods}
       >
         Load all goods
       </button>
@@ -26,9 +36,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => (
-          get5First()
-            .then(goodsFromServer => setGoods(goodsFromServer)))}
+        onClick={handleClickFiveFirst}
       >
         Load 5 first goods
       </button>
@@ -36,9 +44,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => (
-          getRedGoods()
-            .then(goodsFromServer => setGoods(goodsFromServer)))}
+        onClick={handleClickRedGoods}
       >
         Load red goods
       </button>
