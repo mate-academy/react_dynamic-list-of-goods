@@ -17,3 +17,11 @@ export const getRedGoods = () => {
   return getAll()
     .then(goods => goods); // get only red
 };
+
+export const sortByName = (data: Good[]) => {
+  return data.sort((a: Good, b:Good) => a.name.localeCompare(b.name));
+};
+
+export const getRedColor = (data: Good[]) => {
+  return data.filter(elem => elem.color === 'red');
+};

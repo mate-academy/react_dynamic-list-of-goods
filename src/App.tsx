@@ -1,27 +1,80 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+import { Button } from '@mui/material';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import {
+  getAll,
+  get5First,
+  getRedGoods,
+  sortByName,
+  getRedColor,
+} from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const onAddAll = async () => {
+    const data = await getAll();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    setGoods(data);
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const onAddFive = async () => {
+    const data = await get5First();
+    const sortedData = sortByName(data);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+    setGoods(sortedData.slice(0, 5));
+  };
+
+  const onAddRed = async () => {
+    const data = await getRedGoods();
+    const redGoods = getRedColor(data);
+
+    setGoods(redGoods);
+  };
+
+  const onReset = () => {
+    setGoods([]);
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <Button
+        variant="contained"
+        data-cy="all-button"
+        onClick={onAddAll}
+      >
+        Load all goods
+      </Button>
+
+      <Button
+        variant="contained"
+        data-cy="first-five-button"
+        onClick={onAddFive}
+      >
+        Load 5 first goods
+      </Button>
+
+      <Button
+        variant="contained"
+        data-cy="all-button"
+        onClick={onAddRed}
+      >
+        Load red goods
+      </Button>
+
+      <Button
+        variant="contained"
+        onClick={onReset}
+      >
+        Reset goods
+      </Button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
