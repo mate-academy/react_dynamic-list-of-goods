@@ -1,27 +1,76 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { GoodsList } from './components/GoodsList';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import './global.css';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, getRedOnly, get5First } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+enum SelectionType {
+  getAllGoods,
+  getRedGoods,
+  get5FisrtGoods,
+}
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const isEmptyGoods = goods.length === 0;
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const handleGoodsSelection = async (selectionType: SelectionType) => {
+    switch (selectionType) {
+      case SelectionType.getAllGoods:
+        setGoods(await getAll());
+        break;
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      case SelectionType.getRedGoods:
+        setGoods(await getRedOnly());
+        break;
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      case SelectionType.get5FisrtGoods:
+        setGoods(await get5First());
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1 className="title">
+        Dynamic list of Goods
+      </h1>
+
+      <button
+        className="button"
+        type="button"
+        data-cy="all-button"
+        onClick={() => handleGoodsSelection(SelectionType.getAllGoods)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        className="button"
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => handleGoodsSelection(SelectionType.get5FisrtGoods)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        className="button"
+        type="button"
+        data-cy="red-button"
+        onClick={() => handleGoodsSelection(SelectionType.getRedGoods)}
+      >
+        Load red goods
+      </button>
+
+      {!isEmptyGoods && (
+        <GoodsList goods={goods} />
+      )}
+    </div>
+  );
+};

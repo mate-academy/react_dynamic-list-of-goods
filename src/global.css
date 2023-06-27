@@ -1,0 +1,18 @@
+iframe {
+  display: none;
+}
+
+* {
+  font-family: Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+body,
+ul {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
