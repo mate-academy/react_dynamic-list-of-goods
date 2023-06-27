@@ -3,12 +3,13 @@ import './App.scss';
 import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [availableGoods, setAvailableGoods] = useState([]);
+  const [availableGoods, setAvailableGoods] = useState<Good[]>([]);
 
   const showAllClick = () => getAll()
-    .then(goods => {
+    .then((goods: Good[]) => {
       setAvailableGoods(goods);
     });
 
