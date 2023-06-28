@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
@@ -6,8 +6,6 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-
-  const memoizedGoodsList = useMemo(() => <GoodsList goods={goods} />, [goods]);
 
   const handleClickAllGoods = async () => {
     setGoods(await getAll());
@@ -49,7 +47,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      {memoizedGoodsList}
+      <GoodsList goods={goods} />
     </div>
   ));
 };
