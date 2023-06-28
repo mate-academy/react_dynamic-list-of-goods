@@ -1,6 +1,5 @@
 import React, { memo } from 'react';
 import './GoodsList.scss';
-import classNames from 'classnames';
 import { Good } from '../../types/Good';
 
 type Props = {
@@ -13,9 +12,7 @@ export const GoodsList: React.FC<Props> = memo(({ goods }) => (
       <li
         key={good.id}
         data-cy="good"
-        className={classNames('GoodsList__element', {
-          [`GoodsList__element--${good.color}`]: true,
-        })}
+        className={`GoodsList__element GoodsList__element--${good.color}`}
       >
         {good.name}
       </li>
