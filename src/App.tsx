@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
+import { Button, ButtonGroup } from '@mui/material';
 import { GoodsList } from './GoodsList';
-
 import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
@@ -44,30 +44,31 @@ export const App: React.FC = () => {
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
+      <ButtonGroup variant="outlined" aria-label="outlined button group">
+        <Button
+          type="button"
+          data-cy="all-button"
+          onClick={allGoodsHandler}
+        >
+          Load all goods
+        </Button>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={allGoodsHandler}
-      >
-        Load all goods
-      </button>
+        <Button
+          type="button"
+          data-cy="first-five-button"
+          onClick={firstFiveGoodsHandler}
+        >
+          Load 5 first goods
+        </Button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={firstFiveGoodsHandler}
-      >
-        Load 5 first goods
-      </button>
-
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={onlyRedGoodsHandler}
-      >
-        Load red goods
-      </button>
+        <Button
+          type="button"
+          data-cy="red-button"
+          onClick={onlyRedGoodsHandler}
+        >
+          Load red goods
+        </Button>
+      </ButtonGroup>
 
       <GoodsList goods={goodsList} />
     </div>
