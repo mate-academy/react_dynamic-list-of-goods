@@ -8,12 +8,38 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goodsList, setGoodsList] = useState<Good[]>([]);
 
-  const allGoodsHandler = () => getAll()
-    .then(goods => setGoodsList(goods));
-  const firstFiveGoodsHandler = () => get5First()
-    .then(goods => setGoodsList(goods));
-  const onlyRedGoodsHandler = () => getRedGoods()
-    .then(goods => setGoodsList(goods));
+  const allGoodsHandler = async () => {
+    try {
+      const goods = await getAll();
+
+      setGoodsList(goods);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Goods not found!', error);
+    }
+  };
+
+  const firstFiveGoodsHandler = async () => {
+    try {
+      const goods = await get5First();
+
+      setGoodsList(goods);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Goods not found!', error);
+    }
+  };
+
+  const onlyRedGoodsHandler = async () => {
+    try {
+      const goods = await getRedGoods();
+
+      setGoodsList(goods);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Goods not found!', error);
+    }
+  };
 
   return (
     <div className="App">
