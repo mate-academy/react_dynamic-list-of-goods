@@ -7,16 +7,16 @@ type Props = {
   goods: Good[]
 };
 
-export const GoodsList: React.FC<Props> = React.memo(({ goods }) => {
-  const classes = (good: Good) => (
-    cn(
-      {
-        'has-text-link': good.color === 'blue',
-        'has-text-danger': good.color === 'red',
-        'has-text-success': good.color === 'green',
-      },
-    ));
+const getClasses = (good: Good) => (
+  cn(
+    {
+      'has-text-link': good.color === 'blue',
+      'has-text-danger': good.color === 'red',
+      'has-text-success': good.color === 'green',
+    },
+  ));
 
+export const GoodsList: React.FC<Props> = React.memo(({ goods }) => {
   return (
     <div className="box table-container">
       <table
@@ -47,15 +47,15 @@ export const GoodsList: React.FC<Props> = React.memo(({ goods }) => {
         <tbody>
           {goods.map(good => (
             <tr key={good.id}>
-              <td className={`has-text-weight-bold ${classes(good)}`}>
+              <td className={`has-text-weight-bold ${getClasses(good)}`}>
                 {good.id}
               </td>
 
-              <td className={classes(good)}>
+              <td className={getClasses(good)}>
                 {good.name}
               </td>
 
-              <td className={classes(good)}>
+              <td className={getClasses(good)}>
                 {good.color}
               </td>
             </tr>

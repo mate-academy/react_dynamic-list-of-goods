@@ -23,6 +23,5 @@ export const get5First = () => {
 
 export const getRedGoods = () => {
   return getAll()
-    .then(goods => goods
-      .filter(good => good.color === 'red'));
+    .then(goods => goods.filter(good => good.color === 'red'));
 };
