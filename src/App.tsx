@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
@@ -27,33 +29,44 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
+      <h1 className="title">Dynamic list of Goods</h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={handleAllGoods}
-      >
-        Load all goods
-      </button>
+      <div className="buttons-wrap">
+        <Button
+          type="button"
+          className="button"
+          variant="outlined"
+          data-cy="all-button"
+          onClick={handleAllGoods}
+        >
+          Load all goods
+        </Button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={handleFirstFiveGoods}
-      >
-        Load 5 first goods
-      </button>
+        <Button
+          type="button"
+          className="button"
+          variant="outlined"
+          data-cy="first-five-button"
+          onClick={handleFirstFiveGoods}
+        >
+          Load 5 first goods
+        </Button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={handleRedGoods}
-      >
-        Load red goods
-      </button>
+        <Button
+          type="button"
+          className="button"
+          variant="outlined"
+          data-cy="red-button"
+          onClick={handleRedGoods}
+        >
+          Load red goods
+        </Button>
+      </div>
 
-      <GoodsList goods={goods} />
+      <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
+        <GoodsList goods={goods} />
+      </Typography>
+
     </div>
   );
 };
