@@ -28,8 +28,6 @@ export const get5First = () => {
     .catch(error => {
       // eslint-disable-next-line no-console
       console.error('Cannot fetch 5 first goods', error);
-
-      return [];
     });
 };
 
@@ -39,7 +37,5 @@ export const getRedGoods = () => {
     .catch(error => {
       // eslint-disable-next-line no-console
       console.error('Cannot fetch red goods', error);
-
-      return [];
     });
 };

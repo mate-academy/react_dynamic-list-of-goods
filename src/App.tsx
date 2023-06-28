@@ -32,9 +32,8 @@ export const App: React.FC = () => {
 
     setGoods(await getAll());
     setButtonVariants({
+      ...initialButtonVariants,
       all: ButtonVariant.contained,
-      firstFive: ButtonVariant.outlined,
-      red: ButtonVariant.outlined,
     });
   };
 
@@ -48,9 +47,8 @@ export const App: React.FC = () => {
 
     setGoods(await get5First());
     setButtonVariants({
-      all: ButtonVariant.outlined,
+      ...initialButtonVariants,
       firstFive: ButtonVariant.contained,
-      red: ButtonVariant.outlined,
     });
   };
 
@@ -64,8 +62,7 @@ export const App: React.FC = () => {
 
     setGoods(await getRedGoods());
     setButtonVariants({
-      all: ButtonVariant.outlined,
-      firstFive: ButtonVariant.outlined,
+      ...initialButtonVariants,
       red: ButtonVariant.contained,
     });
   };
