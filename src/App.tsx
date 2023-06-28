@@ -1,27 +1,120 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+import {
+  Container,
+  Stack,
+  Button,
+  Typography,
+} from '@mui/material';
+
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
+import { ButtonVariant } from './enums/ButtonVariant';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+const initialButtonVariants = {
+  all: ButtonVariant.outlined,
+  firstFive: ButtonVariant.outlined,
+  red: ButtonVariant.outlined,
+};
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [buttonVariants, setButtonVariants] = useState(initialButtonVariants);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleLoadAll = async () => {
+    if (buttonVariants.all !== ButtonVariant.outlined) {
+      setGoods([]);
+      setButtonVariants(initialButtonVariants);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      return;
+    }
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    setGoods(await getAll());
+    setButtonVariants({
+      ...initialButtonVariants,
+      all: ButtonVariant.contained,
+    });
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const handle5First = async () => {
+    if (buttonVariants.firstFive !== ButtonVariant.outlined) {
+      setGoods([]);
+      setButtonVariants(initialButtonVariants);
+
+      return;
+    }
+
+    setGoods(await get5First());
+    setButtonVariants({
+      ...initialButtonVariants,
+      firstFive: ButtonVariant.contained,
+    });
+  };
+
+  const handleRed = async () => {
+    if (buttonVariants.red !== ButtonVariant.outlined) {
+      setGoods([]);
+      setButtonVariants(initialButtonVariants);
+
+      return;
+    }
+
+    setGoods(await getRedGoods());
+    setButtonVariants({
+      ...initialButtonVariants,
+      red: ButtonVariant.contained,
+    });
+  };
+
+  return (
+    <div className="App">
+      <Container maxWidth="sm">
+
+        <Typography
+          variant="h3"
+          component="h1"
+          align="center"
+          sx={{
+            margin: '30px 0',
+          }}
+        >
+          Dynamic list of Goods
+        </Typography>
+
+        <Stack
+          spacing={2}
+          direction="row"
+          sx={{
+            justifyContent: 'center',
+            marginBottom: '30px',
+          }}
+        >
+          <Button
+            variant={buttonVariants.all}
+            type="button"
+            onClick={handleLoadAll}
+          >
+            Load all goods
+          </Button>
+          <Button
+            variant={buttonVariants.firstFive}
+            type="button"
+            onClick={handle5First}
+          >
+            Load 5 first goods
+          </Button>
+          <Button
+            variant={buttonVariants.red}
+            type="button"
+            onClick={handleRed}
+          >
+            Load red goods
+          </Button>
+        </Stack>
+
+        {goods.length > 0 && <GoodsList goods={goods} />}
+      </Container>
+    </div>
+  );
+};
