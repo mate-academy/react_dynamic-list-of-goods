@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import { GoodsList } from './components/GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
@@ -8,11 +8,7 @@ export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
   const onClickAllButton = useCallback(async () => {
-    const goodsFromServer = await getAll()
-      .then(goods => goods)
-      .catch(() => {
-        throw new Error('No goods loaded');
-      });
+    const goodsFromServer = await getAll();
 
     setVisibleGoods(goodsFromServer);
   }, []);
