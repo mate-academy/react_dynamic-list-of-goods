@@ -8,20 +8,23 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [availableGoods, setAvailableGoods] = useState<Good[]>([]);
 
-  const showAllClick = () => getAll()
-    .then((goods: Good[]) => {
-      setAvailableGoods(goods);
-    });
+  const showAllClick = async () => {
+    const allGoods = await getAll()
 
-  const showFirstFiveSortedGoods = () => get5First()
-    .then(goods => {
-      setAvailableGoods(goods);
-    });
+    setAvailableGoods(allGoods);
+  }
 
-  const showRedGoods = () => getRedGoods()
-    .then(goods => {
-      setAvailableGoods(goods);
-    });
+  const showFirstFiveSortedGoods = async () => {
+    const firstFive = await get5First()
+
+    setAvailableGoods(firstFive);
+  }
+
+  const showRedGoods = async () => {
+    const allRed = await getRedGoods()
+
+    setAvailableGoods(allRed);
+  }
 
   return (
     <div className="App">

@@ -7,8 +7,7 @@ export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
     .then(response => {
       if (!response.ok) {
-        // eslint-disable-next-line @typescript-eslint/no-throw-literal
-        throw `${response.status} - ${response.statusText}`;
+        throw new Error `${response.status} - ${response.statusText}`;
       }
 
       return response.json();
