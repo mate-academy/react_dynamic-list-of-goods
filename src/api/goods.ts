@@ -7,7 +7,10 @@ export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
     .then(response => {
       if (!response.ok) {
-        throw new Error('Cannot fetch goods');
+        // eslint-disable-next-line no-console
+        console.error('Cannot fetch goods');
+
+        return [];
       }
 
       return response.json();
@@ -23,7 +26,10 @@ export const get5First = () => {
       return first5Goods;
     })
     .catch(error => {
-      throw new Error('Cannot fetch 5 first goods', error);
+      // eslint-disable-next-line no-console
+      console.error('Cannot fetch 5 first goods', error);
+
+      return [];
     });
 };
 
@@ -31,6 +37,9 @@ export const getRedGoods = () => {
   return getAll()
     .then(goods => goods.filter(good => good.color === 'red'))
     .catch(error => {
-      throw new Error('Cannot fetch red goods', error);
+      // eslint-disable-next-line no-console
+      console.error('Cannot fetch red goods', error);
+
+      return [];
     });
 };

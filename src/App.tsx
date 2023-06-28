@@ -8,32 +8,24 @@ import {
 } from '@mui/material';
 
 import { GoodsList } from './GoodsList';
-
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
+import { ButtonVariant } from './enums/ButtonVariant';
+
+const initialButtonVariants = {
+  all: ButtonVariant.outlined,
+  firstFive: ButtonVariant.outlined,
+  red: ButtonVariant.outlined,
+};
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-
-  enum ButtonVariant {
-    outlined = 'outlined',
-    contained = 'contained',
-  }
-
-  const [buttonVariants, setButtonVariants] = useState({
-    all: ButtonVariant.outlined,
-    firstFive: ButtonVariant.outlined,
-    red: ButtonVariant.outlined,
-  });
+  const [buttonVariants, setButtonVariants] = useState(initialButtonVariants);
 
   const handleLoadAll = async () => {
     if (buttonVariants.all !== ButtonVariant.outlined) {
       setGoods([]);
-      setButtonVariants({
-        all: ButtonVariant.outlined,
-        firstFive: ButtonVariant.outlined,
-        red: ButtonVariant.outlined,
-      });
+      setButtonVariants(initialButtonVariants);
 
       return;
     }
@@ -49,11 +41,7 @@ export const App: React.FC = () => {
   const handle5First = async () => {
     if (buttonVariants.firstFive !== ButtonVariant.outlined) {
       setGoods([]);
-      setButtonVariants({
-        all: ButtonVariant.outlined,
-        firstFive: ButtonVariant.outlined,
-        red: ButtonVariant.outlined,
-      });
+      setButtonVariants(initialButtonVariants);
 
       return;
     }
@@ -69,11 +57,7 @@ export const App: React.FC = () => {
   const handleRed = async () => {
     if (buttonVariants.red !== ButtonVariant.outlined) {
       setGoods([]);
-      setButtonVariants({
-        all: ButtonVariant.outlined,
-        firstFive: ButtonVariant.outlined,
-        red: ButtonVariant.outlined,
-      });
+      setButtonVariants(initialButtonVariants);
 
       return;
     }
