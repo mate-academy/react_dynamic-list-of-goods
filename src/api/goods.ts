@@ -21,10 +21,16 @@ export const get5First = () => {
       const first5Goods = sortedGoods.slice(0, 5);
 
       return first5Goods;
+    })
+    .catch(error => {
+      throw new Error('Cannot fetch 5 first goods', error);
     });
 };
 
 export const getRedGoods = () => {
   return getAll()
-    .then(goods => goods.filter(good => good.color === 'red'));
+    .then(goods => goods.filter(good => good.color === 'red'))
+    .catch(error => {
+      throw new Error('Cannot fetch red goods', error);
+    });
 };

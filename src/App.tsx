@@ -14,55 +14,76 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [
-    allButtonVariant,
-    setAllButtonVariant,
-  ] = useState<'outlined' | 'contained'>('outlined');
 
-  const [
-    firstFiveButtonVariant,
-    setFirstFiveButtonVariant,
-  ] = useState<'outlined' | 'contained'>('outlined');
+  enum ButtonVariant {
+    outlined = 'outlined',
+    contained = 'contained',
+  }
 
-  const [
-    redButtonVariant,
-    setRedButtonVariant,
-  ] = useState<'outlined' | 'contained'>('outlined');
+  const [buttonVariants, setButtonVariants] = useState({
+    all: ButtonVariant.outlined,
+    firstFive: ButtonVariant.outlined,
+    red: ButtonVariant.outlined,
+  });
 
   const handleLoadAll = async () => {
-    if (allButtonVariant === 'outlined') {
-      setGoods(await getAll());
-      setAllButtonVariant('contained');
-      setFirstFiveButtonVariant('outlined');
-      setRedButtonVariant('outlined');
-    } else {
+    if (buttonVariants.all !== ButtonVariant.outlined) {
       setGoods([]);
-      setAllButtonVariant('outlined');
+      setButtonVariants({
+        all: ButtonVariant.outlined,
+        firstFive: ButtonVariant.outlined,
+        red: ButtonVariant.outlined,
+      });
+
+      return;
     }
+
+    setGoods(await getAll());
+    setButtonVariants({
+      all: ButtonVariant.contained,
+      firstFive: ButtonVariant.outlined,
+      red: ButtonVariant.outlined,
+    });
   };
 
   const handle5First = async () => {
-    if (firstFiveButtonVariant === 'outlined') {
-      setGoods(await get5First());
-      setAllButtonVariant('outlined');
-      setFirstFiveButtonVariant('contained');
-      setRedButtonVariant('outlined');
-    } else {
+    if (buttonVariants.firstFive !== ButtonVariant.outlined) {
       setGoods([]);
-      setFirstFiveButtonVariant('outlined');
+      setButtonVariants({
+        all: ButtonVariant.outlined,
+        firstFive: ButtonVariant.outlined,
+        red: ButtonVariant.outlined,
+      });
+
+      return;
     }
+
+    setGoods(await get5First());
+    setButtonVariants({
+      all: ButtonVariant.outlined,
+      firstFive: ButtonVariant.contained,
+      red: ButtonVariant.outlined,
+    });
   };
 
   const handleRed = async () => {
-    if (redButtonVariant === 'outlined') {
-      setGoods(await getRedGoods());
-      setAllButtonVariant('outlined');
-      setFirstFiveButtonVariant('outlined');
-      setRedButtonVariant('contained');
-    } else {
+    if (buttonVariants.red !== ButtonVariant.outlined) {
       setGoods([]);
-      setRedButtonVariant('outlined');
+      setButtonVariants({
+        all: ButtonVariant.outlined,
+        firstFive: ButtonVariant.outlined,
+        red: ButtonVariant.outlined,
+      });
+
+      return;
     }
+
+    setGoods(await getRedGoods());
+    setButtonVariants({
+      all: ButtonVariant.outlined,
+      firstFive: ButtonVariant.outlined,
+      red: ButtonVariant.contained,
+    });
   };
 
   return (
@@ -89,21 +110,21 @@ export const App: React.FC = () => {
           }}
         >
           <Button
-            variant={allButtonVariant}
+            variant={buttonVariants.all}
             type="button"
             onClick={handleLoadAll}
           >
             Load all goods
           </Button>
           <Button
-            variant={firstFiveButtonVariant}
+            variant={buttonVariants.firstFive}
             type="button"
             onClick={handle5First}
           >
             Load 5 first goods
           </Button>
           <Button
-            variant={redButtonVariant}
+            variant={buttonVariants.red}
             type="button"
             onClick={handleRed}
           >
