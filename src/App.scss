@@ -1,1 +1,56 @@
-// styles go here
+iframe {
+  display: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #f5f0cc;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.App {
+  width: 400px;
+  margin: 100px auto 0;
+  padding: 20px;
+  min-height: 250px;
+  background-color: #ffd93d;
+  border-radius: 10px;
+
+  &__heading {
+    margin: 0 0 20px;
+    text-align: center;
+  }
+
+  &__buttonsGroup {
+    display: flex;
+    justify-content: space-evenly;
+  }
+
+  &__button {
+    padding: 10px;
+    background-color: #4d96ff;
+    border: none;
+    border-radius: 5px;
+    font-family: inherit;
+
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #005fe8;
+    }
+  }
+
+  &__error {
+    display: block;
+    margin: 20px auto;
+    width: 200px;
+    padding: 20px;
+    background-color: #ff6b6b;
+    border-radius: 10px;
+    text-align: center;
+  }
+}
