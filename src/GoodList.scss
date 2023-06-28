@@ -4,5 +4,17 @@
     padding: 5px;
     font-family: "Open Sans", sans-serif;
     font-weight: 400;
+
+    &--red {
+      color: red;
+    }
+
+    &--green {
+      color: green;
+    }
+
+    &--blue {
+      color: blue;
+    }
   }
 }

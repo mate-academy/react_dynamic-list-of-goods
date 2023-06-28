@@ -10,10 +10,9 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
   <ul className="GoodList">
     {goods.map(good => (
       <li
-        className="GoodList__item"
+        className={`GoodList__item GoodList__item--${good.color}`}
         key={good.id}
         data-cy="good"
-        style={{ color: good.color }}
       >
         {good.name}
       </li>
