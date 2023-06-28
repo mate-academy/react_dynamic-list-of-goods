@@ -10,18 +10,16 @@ export function getAll(): Promise<Good[]> {
 
 export const get5First = () => {
   return getAll()
-    .then(goods => goods); // sort and get the first 5
+    .then(goods => goods)
+    .then(data => (
+      data
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .slice(0, 5)));
 };
 
 export const getRedGoods = () => {
   return getAll()
-    .then(goods => goods); // get only red
-};
-
-export const sortByName = (data: Good[]) => {
-  return data.sort((a: Good, b:Good) => a.name.localeCompare(b.name));
-};
-
-export const getRedColor = (data: Good[]) => {
-  return data.filter(elem => elem.color === 'red');
+    .then(goods => goods)
+    .then(data => (
+      data.filter(item => item.color === 'red')));
 };

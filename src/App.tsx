@@ -7,8 +7,6 @@ import {
   getAll,
   get5First,
   getRedGoods,
-  sortByName,
-  getRedColor,
 } from './api/goods';
 import { Good } from './types/Good';
 
@@ -23,16 +21,14 @@ export const App: React.FC = () => {
 
   const onAddFive = async () => {
     const data = await get5First();
-    const sortedData = sortByName(data);
 
-    setGoods(sortedData.slice(0, 5));
+    setGoods(data);
   };
 
   const onAddRed = async () => {
     const data = await getRedGoods();
-    const redGoods = getRedColor(data);
 
-    setGoods(redGoods);
+    setGoods(data);
   };
 
   const onReset = () => {
