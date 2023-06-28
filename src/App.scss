@@ -1,1 +1,28 @@
-// styles go here
+$color: rgb(194, 201, 92);
+$color2: rgb(92, 201, 116);
+
+.good {
+  border: 2px solid $color2;
+  border-radius: 5px;
+  list-style-type: none;
+  width: 280px;
+  padding: 5px;
+  transition: background-color 1.3s ease;
+
+  &:hover {
+    background-color: $color;
+  }
+}
+
+.button {
+  background-color: $color2;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+  transition: background-color 1.3s ease;
+
+  &:hover {
+    background-color: $color;
+  }
+}
