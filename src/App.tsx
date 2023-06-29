@@ -8,36 +8,33 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goodsList, setGoodsList] = useState<Good[]>([]);
 
-  const allGoodsHandler = async () => {
+  const handleClickAllGoods = async () => {
     try {
       const goods = await getAll();
 
       setGoodsList(goods);
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Goods not found!', error);
+      throw new Error('No data was found!');
     }
   };
 
-  const firstFiveGoodsHandler = async () => {
+  const handleClickFirstFiveGoods = async () => {
     try {
       const goods = await get5First();
 
       setGoodsList(goods);
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Goods not found!', error);
+      throw new Error('No data was found!');
     }
   };
 
-  const onlyRedGoodsHandler = async () => {
+  const handleClickRedGoods  = async () => {
     try {
       const goods = await getRedGoods();
 
       setGoodsList(goods);
     } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('Goods not found!', error);
+      throw new Error('No data was found!');
     }
   };
 
@@ -48,7 +45,7 @@ export const App: React.FC = () => {
         <Button
           type="button"
           data-cy="all-button"
-          onClick={allGoodsHandler}
+          onClick={handleClickAllGoods}
         >
           Load all goods
         </Button>
@@ -56,7 +53,7 @@ export const App: React.FC = () => {
         <Button
           type="button"
           data-cy="first-five-button"
-          onClick={firstFiveGoodsHandler}
+          onClick={handleClickFirstFiveGoods}
         >
           Load 5 first goods
         </Button>
@@ -64,7 +61,7 @@ export const App: React.FC = () => {
         <Button
           type="button"
           data-cy="red-button"
-          onClick={onlyRedGoodsHandler}
+          onClick={handleClickRedGoods}
         >
           Load red goods
         </Button>
