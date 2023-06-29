@@ -19,7 +19,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getAllGoods()}
+        onClick={getAllGoods}
       >
         Load all goods
       </button>
@@ -27,7 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => get5FirstGoods()}
+        onClick={get5FirstGoods}
       >
         Load 5 first goods
       </button>
@@ -35,7 +35,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => getRed()}
+        onClick={getRed}
       >
         Load red goods
       </button>
