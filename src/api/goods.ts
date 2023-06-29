@@ -12,12 +12,12 @@ export const get5First = () => {
   return getAll()
     .then(goods => {
       return goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5);
-    }); // sort and get the first 5
+    });
 };
 
 export const getRedGoods = () => {
   return getAll()
     .then(goods => {
       return goods.filter(item => item.color === 'red');
-    }); // get only red
+    });
 };
