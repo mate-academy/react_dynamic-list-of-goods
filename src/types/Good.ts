@@ -3,3 +3,5 @@ export interface Good {
   name: string;
   color: string;
 }
+
+export type ApiCall = () => Promise<Good[]>;
