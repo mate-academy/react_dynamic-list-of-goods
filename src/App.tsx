@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import './App.scss';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { GoodsList } from './GoodsList/GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
+import { transform } from 'cypress/types/lodash';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
@@ -27,31 +30,50 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
-
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={handleAllGoodsClick}
+      <Typography
+        variant="h4"
+        noWrap
+        component="div"
+        sx={{
+          margin: '30px',
+          textTransform: 'uppercase',
+          color: '#3688D8',
+        }}
       >
-        Load all goods
-      </button>
+        Dynamic list of Goods
+      </Typography>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={handle5FirstGoodsClick}
-      >
-        Load 5 first goods
-      </button>
+      <div className="App_btn-container">
+        <Button
+          variant="outlined"
+          sx={{ margin: '10px' }}
+          type="button"
+          data-cy="all-button"
+          onClick={handleAllGoodsClick}
+        >
+          Load all goods
+        </Button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={handleRedGoodsClick}
-      >
-        Load red goods
-      </button>
+        <Button
+          variant="outlined"
+          sx={{ margin: '10px' }}
+          type="button"
+          data-cy="first-five-button"
+          onClick={handle5FirstGoodsClick}
+        >
+          Load 5 first goods
+        </Button>
+
+        <Button
+          variant="outlined"
+          sx={{ margin: '10px' }}
+          type="button"
+          data-cy="red-button"
+          onClick={handleRedGoodsClick}
+        >
+          Load red goods
+        </Button>
+      </div>
 
       <GoodsList goods={visibleGoods} />
     </div>
