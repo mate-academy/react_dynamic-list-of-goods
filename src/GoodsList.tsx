@@ -1,4 +1,9 @@
 import React from 'react';
+
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+
 import { Good } from './types/Good';
 
 type Props = {
@@ -6,11 +11,11 @@ type Props = {
 };
 
 export const GoodsList: React.FC<Props> = ({ goods }) => (
-  <ul>
+  <List>
     {goods.map(good => (
-      <li key={good.id} data-cy="good">
-        {good.name}
-      </li>
+      <ListItem key={good.id} data-cy="good" className={good.color}>
+        <ListItemText primary={good.name} />
+      </ListItem>
     ))}
-  </ul>
+  </List>
 );
