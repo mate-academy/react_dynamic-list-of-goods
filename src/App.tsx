@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './components/GoodsList/GoodsList';
 
@@ -7,16 +7,18 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [listName, setListName] = useState<null | string>(null);
   const [isFetchError, setIsFetchError] = useState(false);
 
-  const passedGoods = useMemo(() => (goods), [goods]);
+  useEffect(() => {
+    if (!listName) {
+      // eslint-disable-next-line no-useless-return
+      return;
+    }
 
-  const handleClick = (event: React.MouseEvent) => {
-    const button = event.target as HTMLElement;
-    const buttonType = button.getAttribute('data-cy');
     let fetchFunction;
 
-    switch (buttonType) {
+    switch (listName) {
       default:
       case 'all-button':
         fetchFunction = getAll;
@@ -29,9 +31,7 @@ export const App: React.FC = () => {
         break;
     }
 
-    if (isFetchError) {
-      setIsFetchError(false);
-    }
+    setIsFetchError(false);
 
     fetchFunction()
       .then(response => setGoods(response))
@@ -39,6 +39,19 @@ export const App: React.FC = () => {
         setIsFetchError(true);
         setGoods([]);
       });
+  }, [listName]);
+
+  const passedGoods = useMemo(() => (
+    goods
+  ), [goods]);
+
+  const handleClick = (event: React.MouseEvent) => {
+    const button = event.target as HTMLElement;
+    const buttonType = button.getAttribute('data-cy');
+
+    if (listName !== buttonType) {
+      setListName(buttonType);
+    }
   };
 
   return (
