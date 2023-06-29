@@ -1,0 +1,27 @@
+.GoodsList {
+  margin: 20px 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+
+  &__element {
+    margin: 10px auto;
+    padding: 5px 10px;
+    width: 150px;
+    border-radius: 5px;
+    background-color: #f5f0cc;
+
+    &--red {
+      color: red;
+    }
+
+    &--green {
+      color: green;
+    }
+
+    &--blue {
+      color: blue;
+    }
+
+  }
+}
