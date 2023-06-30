@@ -1,4 +1,10 @@
 import React from 'react';
+import {
+  List,
+  ListItem,
+  Divider,
+  ListItemText,
+} from '@mui/material';
 import { Good } from './types/Good';
 
 type Props = {
@@ -6,15 +12,23 @@ type Props = {
 };
 
 export const GoodsList: React.FC<Props> = ({ goods }) => (
-  <ul>
+  <List
+    component="nav"
+    aria-label="mailbox folders"
+  >
     {goods.map(good => (
-      <li
-        className={`${good.color}`}
-        key={good.id}
-        data-cy="good"
-      >
-        {good.name}
-      </li>
+      <>
+        <ListItem
+          className={`${good.color}`}
+          key={good.id}
+          data-cy="good"
+        >
+          <ListItemText
+            primary={good.name}
+          />
+        </ListItem>
+        <Divider />
+      </>
     ))}
-  </ul>
+  </List>
 );
