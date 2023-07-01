@@ -5,24 +5,23 @@ import Typography from '@mui/material/Typography';
 import { GoodsList } from './GoodsList/GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-import { transform } from 'cypress/types/lodash';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-  const handleAllGoodsClick = async () => {
+  const handleClickAllGoods = async () => {
     const response = await getAll();
 
     setVisibleGoods(response);
   };
 
-  const handle5FirstGoodsClick = async () => {
+  const handleClick5FirstGoods = async () => {
     const response = await get5First();
 
     setVisibleGoods(response);
   };
 
-  const handleRedGoodsClick = async () => {
+  const handleClickRedGoods = async () => {
     const response = await getRedGoods();
 
     setVisibleGoods(response);
@@ -49,7 +48,7 @@ export const App: React.FC = () => {
           sx={{ margin: '10px' }}
           type="button"
           data-cy="all-button"
-          onClick={handleAllGoodsClick}
+          onClick={handleClickAllGoods}
         >
           Load all goods
         </Button>
@@ -59,7 +58,7 @@ export const App: React.FC = () => {
           sx={{ margin: '10px' }}
           type="button"
           data-cy="first-five-button"
-          onClick={handle5FirstGoodsClick}
+          onClick={handleClick5FirstGoods}
         >
           Load 5 first goods
         </Button>
@@ -69,7 +68,7 @@ export const App: React.FC = () => {
           sx={{ margin: '10px' }}
           type="button"
           data-cy="red-button"
-          onClick={handleRedGoodsClick}
+          onClick={handleClickRedGoods}
         >
           Load red goods
         </Button>
