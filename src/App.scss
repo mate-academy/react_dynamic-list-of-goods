@@ -1,1 +1,37 @@
-// styles go here
+iframe {
+  display: none;
+}
+
+body {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  background: linear-gradient(#e7d8d8, #9198e5);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.title {
+  color: #1976d2;
+}
+
+.buttons-wrap {
+  display: flex;
+  gap: 10px;
+}
+
+.button {
+  color: white;
+  border: solid 1px white;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+.green {
+  color: green;
+}

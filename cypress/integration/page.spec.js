@@ -53,7 +53,7 @@ describe('Page', () => {
 
     page.goods()
       .should('have.length', 5);
-    
+
     page.goods().eq(0).should('have.text', 'Potato');
     page.goods().eq(1).should('have.text', 'Ice cream');
     page.goods().eq(2).should('have.text', 'Fish');
