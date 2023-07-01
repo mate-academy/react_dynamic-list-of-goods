@@ -1,27 +1,80 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { GoodsList } from './GoodsList/GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleClickAllGoods = async () => {
+    const response = await getAll();
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+    setVisibleGoods(response);
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const handleClick5FirstGoods = async () => {
+    const response = await get5First();
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    setVisibleGoods(response);
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const handleClickRedGoods = async () => {
+    const response = await getRedGoods();
+
+    setVisibleGoods(response);
+  };
+
+  return (
+    <div className="App">
+      <Typography
+        variant="h4"
+        noWrap
+        component="div"
+        sx={{
+          margin: '30px',
+          textTransform: 'uppercase',
+          color: '#3688D8',
+        }}
+      >
+        Dynamic list of Goods
+      </Typography>
+
+      <div className="App_btn-container">
+        <Button
+          variant="outlined"
+          sx={{ margin: '10px' }}
+          type="button"
+          data-cy="all-button"
+          onClick={handleClickAllGoods}
+        >
+          Load all goods
+        </Button>
+
+        <Button
+          variant="outlined"
+          sx={{ margin: '10px' }}
+          type="button"
+          data-cy="first-five-button"
+          onClick={handleClick5FirstGoods}
+        >
+          Load 5 first goods
+        </Button>
+
+        <Button
+          variant="outlined"
+          sx={{ margin: '10px' }}
+          type="button"
+          data-cy="red-button"
+          onClick={handleClickRedGoods}
+        >
+          Load red goods
+        </Button>
+      </div>
+
+      <GoodsList goods={visibleGoods} />
+    </div>
+  );
+};

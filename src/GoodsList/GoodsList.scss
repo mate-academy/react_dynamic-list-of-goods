@@ -1,0 +1,24 @@
+.GoodsList {
+  margin: 0, auto;
+
+  &__item {
+    margin: 10px 0;
+
+    list-style: none;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-size: medium;
+
+    &--red {
+      color: red;
+    }
+
+    &--green {
+      color: green;
+    }
+
+    &--blue {
+      color: blue;
+    }
+  }
+}
