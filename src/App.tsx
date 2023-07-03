@@ -8,19 +8,22 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleLoadAllGoods = () => {
-    getAll()
-      .then(result => setGoods(result));
+  const handleClickAllGoods = async () => {
+    const result = await getAll();
+
+    setGoods(result);
   };
 
-  const handleLoadFirst5 = () => {
-    get5First()
-      .then(result => setGoods(result));
+  const handleClickFirst5 = async () => {
+    const result = await get5First();
+
+    setGoods(result);
   };
 
-  const handleLoadReds = () => {
-    getRedGoods()
-      .then(result => setGoods(result));
+  const handleClickReds = async () => {
+    const result = await getRedGoods();
+
+    setGoods(result);
   };
 
   return (
@@ -30,7 +33,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={handleLoadAllGoods}
+        onClick={handleClickAllGoods}
       >
         Load all goods
       </button>
@@ -38,7 +41,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handleLoadFirst5}
+        onClick={handleClickFirst5}
       >
         Load 5 first goods
       </button>
@@ -46,7 +49,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={handleLoadReds}
+        onClick={handleClickReds}
       >
         Load red goods
       </button>
