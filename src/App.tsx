@@ -10,23 +10,41 @@ export const App: FC = () => {
   const quaryType = useRef<QueryType | null>(null);
 
   const getAllGoods = async () => {
-    if (quaryType.current !== QueryType.ALL) {
+    if (quaryType.current === QueryType.ALL) {
+      return;
+    }
+
+    try {
       setGoods(await getAll());
       quaryType.current = QueryType.ALL;
+    } catch {
+      throw Error('Error message');
     }
   };
 
   const getFiveGoods = async () => {
-    if (quaryType.current !== QueryType.SOME) {
+    if (quaryType.current === QueryType.SOME) {
+      return;
+    }
+
+    try {
       setGoods(await getSomeGoods(5));
       quaryType.current = QueryType.SOME;
+    } catch {
+      throw Error('Error message');
     }
   };
 
   const getRedGoods = async () => {
-    if (quaryType.current !== QueryType.COLOR) {
+    if (quaryType.current === QueryType.COLOR) {
+      return;
+    }
+
+    try {
       setGoods(await getGoodsSortedByColor('red'));
       quaryType.current = QueryType.COLOR;
+    } catch {
+      throw Error('Error message');
     }
   };
 

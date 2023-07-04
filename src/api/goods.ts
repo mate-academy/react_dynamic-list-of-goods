@@ -10,10 +10,9 @@ export function getAll(): Promise<Good[]> {
 
 export const getSomeGoods = (numOfGoods: number): Promise<Good[]> => {
   return getAll()
-    .then(goods => goods.sort(
-      (good, nextGood) => good.name.localeCompare(nextGood.name),
-    ))
-    .then(goods => goods.splice(0, numOfGoods));
+    .then(goods => goods
+      .sort((good, nextGood) => good.name.localeCompare(nextGood.name))
+      .splice(0, numOfGoods));
 };
 
 export const getGoodsSortedByColor = (color: string) => {
