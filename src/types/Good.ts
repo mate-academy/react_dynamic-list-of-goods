@@ -3,3 +3,9 @@ export interface Good {
   name: string;
   color: string;
 }
+
+export enum QueryType {
+  ALL,
+  SOME,
+  COLOR,
+}
