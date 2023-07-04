@@ -17,6 +17,8 @@ export const App: React.FC = () => {
     setVisibleGoods(goods);
   };
 
+  const makeGetGoods = (callback: Callback) => () => getGoods(callback);
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -24,7 +26,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getGoods(getAll)}
+        onClick={makeGetGoods(getAll)}
       >
         Load all goods
       </button>
@@ -32,7 +34,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => getGoods(get5First)}
+        onClick={makeGetGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -40,7 +42,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => getGoods(getRedGoods)}
+        onClick={makeGetGoods(getRedGoods)}
       >
         Load red goods
       </button>
