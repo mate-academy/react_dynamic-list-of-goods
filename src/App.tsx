@@ -3,26 +3,25 @@ import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
-import { getAll, get5First, getRedGoods } from './api/goods';
+import { getAll } from './api/goods';
 
 export const App: React.FC = () => {
-  const [goodsList, setGoodsList] = useState<{
-    all: Good[],
-    getFirst: Good[],
-    getRed: Good[],
-  }>({
-    all: [],
-    getFirst: [],
-    getRed: [],
-  });
+  const [goodsList, setGoodsList] = useState<Good[]>([]);
   const [visibleGoodsList, setVisibleGoodsList] = useState<Good[]>([]);
-
   const loadData = async () => {
     const all = await getAll();
-    const getFirst = await get5First();
-    const getRed = await getRedGoods();
 
-    setGoodsList({ all, getFirst, getRed });
+    setGoodsList(all);
+  };
+
+  const getFirst = () => {
+    return [...goodsList]
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .slice(0, 5);
+  };
+
+  const getRed = () => {
+    return [...goodsList].filter(el => el.color === 'red');
   };
 
   useEffect(() => {
@@ -36,7 +35,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setVisibleGoodsList(goodsList.all)}
+        onClick={() => setVisibleGoodsList(goodsList)}
       >
         Load all goods
       </button>
@@ -44,7 +43,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setVisibleGoodsList(goodsList.getFirst)}
+        onClick={() => setVisibleGoodsList(getFirst)}
       >
         Load 5 first goods
       </button>
@@ -52,7 +51,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setVisibleGoodsList(goodsList.getRed)}
+        onClick={() => setVisibleGoodsList(getRed)}
       >
         Load red goods
       </button>
