@@ -8,7 +8,9 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import './App.scss';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[] | null>(null);
+  const [goods, setGoods] = useState<Good[]>([]);
+  const makeSetGoods
+    = (callback: () => any) => async () => setGoods(await callback());
 
   return (
     <div className="App">
@@ -17,7 +19,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={async () => setGoods(await getAll())}
+        onClick={makeSetGoods(getAll)}
       >
         Load all goods
       </button>
@@ -25,7 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={async () => setGoods(await get5First())}
+        onClick={makeSetGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -33,12 +35,12 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={async () => setGoods(await getRedGoods())}
+        onClick={makeSetGoods(getRedGoods)}
       >
         Load red goods
       </button>
 
-      {goods && (
+      {!!goods.length && (
         <GoodsList
           goods={goods}
         />
