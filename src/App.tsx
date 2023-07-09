@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useState, useCallback } from 'react';
 import { Good } from './types/Good';
 import { GoodsList } from './components/GoodsList/GoodsList';
 import { Buttons } from './components/Buttons';
@@ -11,27 +11,29 @@ export const App: FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const getGoodsFromServer = (callback: () => Promise<Good[]>) => {
-    setGoods([]);
     setIsLoading(true);
 
     callback()
       .then(data => {
         setGoods(data);
         setIsLoading(false);
+      })
+      .catch(error => {
+        throw new Error(error);
       });
   };
 
-  const getAllGoods = () => {
+  const getAllGoods = useCallback(() => {
     getGoodsFromServer(getAll);
-  };
+  }, []);
 
-  const getFirstFiveGoods = () => {
+  const getFirstFiveGoods = useCallback(() => {
     getGoodsFromServer(get5First);
-  };
+  }, []);
 
-  const getRedGoods = () => {
+  const getRedGoods = useCallback(() => {
     getGoodsFromServer(getRed);
-  };
+  }, []);
 
   return (
     <div className="App container box">

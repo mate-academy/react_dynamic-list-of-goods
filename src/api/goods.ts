@@ -13,8 +13,19 @@ const wait = (data: Good[], delay: number): Promise<Good[]> => {
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
-    .then(response => response.json())
-    .then(data => wait(data, 1000));
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(
+          `${response.status} - ${response.statusText}`,
+        );
+      }
+
+      return response.json();
+    })
+    .then(data => wait(data, 1000))
+    .catch(error => {
+      throw new Error(error);
+    });
 }
 
 export const get5First = () => {

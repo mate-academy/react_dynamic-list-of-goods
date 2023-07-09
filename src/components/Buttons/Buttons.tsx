@@ -1,4 +1,6 @@
-import { FC, useState } from 'react';
+import {
+  FC, useState, memo, useCallback,
+} from 'react';
 import classNames from 'classnames';
 import { ButtonsEnum } from '../../enums/ButtonsEnum';
 
@@ -9,7 +11,7 @@ type Props = {
   isLoading: boolean;
 };
 
-export const Buttons: FC<Props> = (props) => {
+export const Buttons: FC<Props> = memo((props) => {
   const {
     getAllGoods,
     getFirstFiveGoods,
@@ -20,10 +22,13 @@ export const Buttons: FC<Props> = (props) => {
   // eslint-disable-next-line max-len
   const [selectedButton, setSelectedButton] = useState<ButtonsEnum | null>(null);
 
-  const handleLoadGoods = (callback: () => void, currButton: ButtonsEnum) => {
+  const handleLoadGoods = useCallback((
+    callback: () => void,
+    currButton: ButtonsEnum,
+  ) => {
     callback();
     setSelectedButton(currButton);
-  };
+  }, []);
 
   return (
     <div className="is-flex is-justify-content-center" style={{ gap: 30 }}>
@@ -70,4 +75,9 @@ export const Buttons: FC<Props> = (props) => {
       </button>
     </div>
   );
-};
+}, (prevProps, currProps) => {
+  const { isLoading: prevLoader } = prevProps;
+  const { isLoading: currLoader } = currProps;
+
+  return prevLoader === currLoader;
+});
