@@ -1,5 +1,5 @@
-import React from 'react';
 import cn from 'classnames';
+import React from 'react';
 import { Good } from './types/Good';
 
 type Props = {
