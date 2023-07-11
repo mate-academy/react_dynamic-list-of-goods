@@ -14,16 +14,16 @@ export function getData<T>(): Promise<T> {
     });
 }
 
-export const getRedGoods = () => {
-  return getData<Good[]>()
-    .then(goods => goods.filter(({ color }) => color === 'red'));
-};
-
 export const get5First = () => {
   return getData<Good[]>()
     .then(goods => goods
       .sort((g1, g2) => g1.name.localeCompare(g2.name))
       .slice(0, 5));
+};
+
+export const getRedGoods = () => {
+  return getData<Good[]>()
+    .then(goods => goods.filter(({ color }) => color === 'red'));
 };
 
 export const getAll = () => {

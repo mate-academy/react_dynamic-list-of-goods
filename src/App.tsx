@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import './App.scss';
-import { Good } from './types/Good';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
