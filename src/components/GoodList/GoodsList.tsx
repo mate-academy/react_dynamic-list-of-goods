@@ -1,5 +1,7 @@
 import React from 'react';
-import { Good } from './types/Good';
+
+import './GoodList.scss';
+import { Good } from '../../types/Good';
 
 type Props = {
   goods: Good[]
@@ -8,7 +10,11 @@ type Props = {
 export const GoodsList: React.FC<Props> = ({ goods }) => (
   <ul>
     {goods.map(good => (
-      <li key={good.id} data-cy="good" style={{ color: good.color }}>
+      <li
+        key={good.id}
+        data-cy="good"
+        className={`list-color--${good.color}`}
+      >
         {good.name}
       </li>
     ))}

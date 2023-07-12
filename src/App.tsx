@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import { GoodsList } from './components/GoodList/GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
+import { Loader } from './components/Loader/Loader';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleGoods = (getGoods: Promise<Good[]>) => {
-    getGoods
+  const handleGoods = (getGoods: () => Promise<Good[]>) => {
+    setIsLoading(true);
+
+    getGoods()
       .then(setGoods)
-      .catch(() => setErrorMessage('Try again later'));
+      .catch(() => setErrorMessage('Try again later'))
+      .finally(() => setIsLoading(false));
   };
 
   return (
@@ -22,7 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => handleGoods(getAll())}
+        onClick={() => handleGoods(() => getAll())}
       >
         Load all goods
       </button>
@@ -30,7 +35,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => handleGoods(get5First())}
+        onClick={() => handleGoods(() => get5First())}
       >
         Load 5 first goods
       </button>
@@ -38,20 +43,21 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => handleGoods(getRedGoods())}
+        onClick={() => handleGoods(() => getRedGoods())}
       >
         Load red goods
       </button>
 
-      {errorMessage
-        ? (
-          <p>
-            {errorMessage}
-          </p>
-        )
+      {isLoading && <Loader />}
+
+      {!isLoading && (errorMessage ? (
+        <p>
+          {errorMessage}
+        </p>
+      )
         : (
           <GoodsList goods={goods} />
-        )}
+        ))}
     </div>
   );
 };
