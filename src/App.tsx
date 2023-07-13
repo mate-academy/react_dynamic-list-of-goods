@@ -20,6 +20,22 @@ export const App: React.FC = () => {
       .finally(() => setIsLoading(false));
   };
 
+  const renderContent = () => {
+    if (isLoading) {
+      return <></>;
+    }
+
+    if (errorMessage) {
+      return (
+        <p>
+          {errorMessage}
+        </p>
+      );
+    }
+
+    return <GoodsList goods={goods} />;
+  };
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -50,14 +66,7 @@ export const App: React.FC = () => {
 
       {isLoading && <Loader />}
 
-      {!isLoading && (errorMessage ? (
-        <p>
-          {errorMessage}
-        </p>
-      )
-        : (
-          <GoodsList goods={goods} />
-        ))}
+      {renderContent()}
     </div>
   );
 };
