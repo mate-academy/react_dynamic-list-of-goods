@@ -7,27 +7,20 @@ import { get5First, getAll, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [color, setColor] = useState('');
 
   useEffect(() => {
     getAll().then();
-  });
+  }, []);
 
   const handleAll = () => {
-    setColor('black');
-
     return getAll().then((goodsData) => setGoods(goodsData));
   };
 
-  const handle5 = () => {
-    setColor('black');
-
+  const handleFive = () => {
     return get5First().then((goodsData) => setGoods(goodsData));
   };
 
   const handleRed = () => {
-    setColor('red');
-
     return getRedGoods().then((goodsData) => setGoods(goodsData));
   };
 
@@ -46,7 +39,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handle5}
+        onClick={handleFive}
       >
         Load 5 first goods
       </button>
@@ -59,7 +52,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} color={color} />
+      <GoodsList goods={goods} />
     </div>
   );
 };
