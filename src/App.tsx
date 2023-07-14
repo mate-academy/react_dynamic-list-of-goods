@@ -22,7 +22,7 @@ export const App: React.FC = () => {
 
   const renderContent = () => {
     if (isLoading) {
-      return <></>;
+      return <Loader />;
     }
 
     if (errorMessage) {
@@ -63,8 +63,6 @@ export const App: React.FC = () => {
       >
         Load red goods
       </button>
-
-      {isLoading && <Loader />}
 
       {renderContent()}
     </div>
