@@ -2,41 +2,49 @@ import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
-
 import { getAll, get5First, getRedGoods } from './api/goods';
+
+enum Filter {
+  All = 'all',
+  Five = 'five',
+  Red = 'red',
+  Nothing = '',
+}
+
+function getGoods(filter: Filter): Promise<Good[]> | null {
+  switch (filter) {
+    case Filter.All:
+      return getAll();
+
+    case Filter.Five:
+      return get5First();
+
+    case Filter.Red:
+      return getRedGoods();
+
+    default:
+      return null;
+  }
+}
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [isFive, setIsFive] = useState(false);
-  const [isRed, setIsRed] = useState(false);
+  const [filter, setFilter] = useState<Filter>(Filter.Nothing);
 
   useEffect(() => {
-    if (isFive) {
-      get5First().then(products => setGoods(products));
-    }
-
-    if (isRed) {
-      getRedGoods().then(products => setGoods(products));
-    }
-
-    if (!isFive && !isRed) {
-      getAll().then(products => setGoods(products));
-    }
-  }, [isFive, isRed]);
+    getGoods(filter)?.then(products => setGoods(products));
+  }, [filter]);
 
   const allGoodsHandler = () => {
-    setIsRed(false);
-    setIsFive(false);
+    setFilter(Filter.All);
   };
 
   const FirstFiveGoodsHandler = () => {
-    setIsRed(false);
-    setIsFive(true);
+    setFilter(Filter.Five);
   };
 
   const redGoodsHandler = () => {
-    setIsFive(false);
-    setIsRed(true);
+    setFilter(Filter.Red);
   };
 
   return (
