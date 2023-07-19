@@ -33,7 +33,12 @@ export const App: React.FC = () => {
       }
     }
 
-    dataPromise.then(setGoods);
+    dataPromise
+      .then(setGoods)
+      .catch(() => {
+        setGoods([]);
+        throw new Error('Data is not valid');
+      });
   }, [toFetch]);
 
   return (
