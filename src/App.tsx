@@ -1,27 +1,72 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
+import { get5First, getAll, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+enum FetchingGoods {
+  ALL, FIRST_FIVE, RED_ONLY,
+}
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [toFetch, setToFetch] = useState<FetchingGoods>(FetchingGoods.ALL);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  useEffect(() => {
+    let dataPromise: Promise<Good[]>;
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    switch (toFetch) {
+      case FetchingGoods.FIRST_FIVE: {
+        dataPromise = get5First();
+        break;
+      }
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      case FetchingGoods.RED_ONLY: {
+        dataPromise = getRedGoods();
+        break;
+      }
+
+      default: {
+        dataPromise = getAll();
+        break;
+      }
+    }
+
+    dataPromise.then((goodsData: Good[]) => setGoods(goodsData));
+  }, [toFetch]);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setToFetch(FetchingGoods.ALL)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setToFetch(FetchingGoods.FIRST_FIVE)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setToFetch(FetchingGoods.RED_ONLY)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
