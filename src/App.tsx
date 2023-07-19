@@ -4,8 +4,6 @@ import { GoodsList } from './GoodsList';
 
 import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 enum FetchingGoods {
   ALL, FIRST_FIVE, RED_ONLY,
@@ -35,7 +33,7 @@ export const App: React.FC = () => {
       }
     }
 
-    dataPromise.then((goodsData: Good[]) => setGoods(goodsData));
+    dataPromise.then(setGoods);
   }, [toFetch]);
 
   return (
