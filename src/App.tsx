@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -6,17 +6,16 @@ import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 enum FetchingGoods {
-  ALL, FIRST_FIVE, RED_ONLY,
+  DEFAULT, ALL, FIRST_FIVE, RED_ONLY,
 }
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [toFetch, setToFetch] = useState<FetchingGoods>(FetchingGoods.ALL);
 
-  useEffect(() => {
+  const handleOnFetch = (fetchingQuery: FetchingGoods) => {
     let dataPromise: Promise<Good[]>;
 
-    switch (toFetch) {
+    switch (fetchingQuery) {
       case FetchingGoods.FIRST_FIVE: {
         dataPromise = get5First();
         break;
@@ -39,7 +38,7 @@ export const App: React.FC = () => {
         setGoods([]);
         throw new Error('Data is not valid');
       });
-  }, [toFetch]);
+  };
 
   return (
     <div className="App">
@@ -48,7 +47,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setToFetch(FetchingGoods.ALL)}
+        onClick={() => handleOnFetch(FetchingGoods.ALL)}
       >
         Load all goods
       </button>
@@ -56,7 +55,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setToFetch(FetchingGoods.FIRST_FIVE)}
+        onClick={() => handleOnFetch(FetchingGoods.FIRST_FIVE)}
       >
         Load 5 first goods
       </button>
@@ -64,7 +63,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setToFetch(FetchingGoods.RED_ONLY)}
+        onClick={() => handleOnFetch(FetchingGoods.RED_ONLY)}
       >
         Load red goods
       </button>
