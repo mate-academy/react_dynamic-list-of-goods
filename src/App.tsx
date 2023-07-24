@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -12,7 +12,7 @@ enum FetchingGoods {
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleOnFetch = (fetchingQuery: FetchingGoods) => {
+  const handleOnFetch = useCallback((fetchingQuery: FetchingGoods) => {
     let dataPromise: Promise<Good[]>;
 
     switch (fetchingQuery) {
@@ -38,7 +38,7 @@ export const App: React.FC = () => {
         setGoods([]);
         throw new Error('Data is not valid');
       });
-  };
+  }, []);
 
   return (
     <div className="App">
