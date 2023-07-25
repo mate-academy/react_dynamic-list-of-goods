@@ -12,10 +12,8 @@ export const App: React.FC = () => {
     getAll().then(setVisibleGoods);
   };
 
-  const handleGet5First = async () => {
-    const goods = await get5First();
-
-    return setVisibleGoods(goods);
+  const handleGet5First = () => {
+    get5First().then(setVisibleGoods);
   };
 
   const handleGetRedGoods = () => {
