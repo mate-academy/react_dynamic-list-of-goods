@@ -1,5 +1,6 @@
 import React from 'react';
 import { Good } from './types/Good';
+import { arePropsEqual } from './utils';
 
 type Props = {
   goods: Good[]
@@ -17,12 +18,4 @@ export const GoodsList: React.FC<Props> = React.memo(({ goods }) => (
       </li>
     ))}
   </ul>
-), (prevProps, nextProps) => {
-  if (prevProps.goods.length !== nextProps.goods.length) {
-    return false;
-  }
-
-  return prevProps.goods.every(
-    (good, index) => good.id === nextProps.goods[index].id,
-  );
-});
+), arePropsEqual);

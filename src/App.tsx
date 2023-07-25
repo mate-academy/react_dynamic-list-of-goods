@@ -8,7 +8,7 @@ export const App: React.FC = () => {
   const [currentGoods, setCurrentGoods] = useState<Good[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const hadleClick = (fetchFromServer: () => Promise<Good[]>) => {
+  const handleClick = (fetchFromServer: () => Promise<Good[]>) => {
     fetchFromServer()
       .then(goods => {
         setCurrentGoods(goods);
@@ -26,7 +26,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => hadleClick(getAll)}
+        onClick={() => handleClick(getAll)}
       >
         Load all goods
       </button>
@@ -34,7 +34,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => hadleClick(get5First)}
+        onClick={() => handleClick(get5First)}
       >
         Load 5 first goods
       </button>
@@ -42,7 +42,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => hadleClick(getRedGoods)}
+        onClick={() => handleClick(getRedGoods)}
       >
         Load red goods
       </button>
