@@ -1,4 +1,4 @@
-export interface Good {
+declare interface Good {
   id: number;
   name: string;
   color: string;
