@@ -7,12 +7,18 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
+  const showAll = async () => setGoods(await goodsAPI.getAll());
+
+  const showFive = async () => setGoods(await goodsAPI.get5First());
+
+  const showRed = async () => setGoods(await goodsAPI.getRedGoods());
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
       <button
-        onClick={async () => setGoods(await goodsAPI.getAll())}
+        onClick={showAll}
         type="button"
         data-cy="all-button"
       >
@@ -20,7 +26,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={async () => setGoods(await goodsAPI.get5First())}
+        onClick={showFive}
         type="button"
         data-cy="first-five-button"
       >
@@ -28,7 +34,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={async () => setGoods(await goodsAPI.getRedGoods())}
+        onClick={showRed}
         type="button"
         data-cy="red-button"
       >
