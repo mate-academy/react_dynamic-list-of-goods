@@ -7,7 +7,7 @@ import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   const [prepareList, setPrepareList] = useState<Good[]>([]);
 
   return (
@@ -42,5 +42,3 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-export default React.memo(App);
