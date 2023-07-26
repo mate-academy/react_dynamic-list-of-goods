@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import { MemorizedGoodList } from './GoodsList';
 import { Good } from './types/Good';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
@@ -8,11 +8,17 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[] | []>([]);
 
-  const loadAll = () => getAll().then(setGoods);
+  const allGoods = useMemo(() => getAll(), []);
 
-  const loadFirstFive = () => get5First().then(setGoods);
+  const firstFiveGoods = useMemo(() => get5First(), []);
 
-  const loadOnlyRed = () => getRedGoods().then(setGoods);
+  const onlyRedGoods = useMemo(() => getRedGoods(), []);
+
+  const loadAll = () => allGoods.then(setGoods);
+
+  const loadFirstFive = () => firstFiveGoods.then(setGoods);
+
+  const loadOnlyRed = () => onlyRedGoods.then(setGoods);
 
   return (
     <div className="App">
@@ -42,7 +48,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      <MemorizedGoodList goods={goods} />
     </div>
   );
 };
