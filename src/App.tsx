@@ -8,12 +8,6 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [currentGoods, setCurrentGoods] = useState<Good[]>([]);
 
-  const handleClick = (
-    getData: () => Promise<Good[]>,
-  ) => {
-    getData().then(setCurrentGoods);
-  };
-
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -21,7 +15,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => handleClick(getAll)}
+        onClick={() => getAll().then(setCurrentGoods)}
       >
         Load all goods
       </button>
@@ -29,7 +23,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => handleClick(get5First)}
+        onClick={() => get5First().then(setCurrentGoods)}
       >
         Load 5 first goods
       </button>
@@ -37,7 +31,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => handleClick(getRedGoods)}
+        onClick={() => getRedGoods().then(setCurrentGoods)}
       >
         Load red goods
       </button>
