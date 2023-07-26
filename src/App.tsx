@@ -1,27 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+enum LoadOptions {
+  All = 'all',
+  First5 = 'first5',
+  LoadByRedColor = 'red',
+}
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [good, setGood] = useState<Good[]>([]);
+  const [loadOption, setLoadOption] = useState<LoadOptions | null>(null);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  useEffect(() => {
+    switch (loadOption) {
+      case LoadOptions.All:
+        goodsAPI.getAll().then(setGood);
+        break;
+      case LoadOptions.First5:
+        goodsAPI.get5First().then(setGood);
+        break;
+      case LoadOptions.LoadByRedColor:
+        goodsAPI.getRedGoods().then(setGood);
+        break;
+      default:
+        setLoadOption(null);
+    }
+  }, [loadOption]);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setLoadOption(LoadOptions.All)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setLoadOption(LoadOptions.First5)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setLoadOption(LoadOptions.LoadByRedColor)}
+      >
+        Load red goods
+      </button>
+
+      {loadOption && (
+        <GoodsList goods={good} />
+      )}
+    </div>
+  );
+};
