@@ -4,22 +4,22 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
-enum Goods {
+enum GoodsFilters {
   ALL = 'all',
   FIVE = 'five',
   RED = 'red',
   NOTHING = '',
 }
 
-function getVisibleGoods(good: Goods): Promise<Good[]> | null {
+function getVisibleGoods(good: GoodsFilters): Promise<Good[]> | null {
   switch (good) {
-    case Goods.ALL:
+    case GoodsFilters.ALL:
       return getAll();
 
-    case Goods.FIVE:
+    case GoodsFilters.FIVE:
       return get5First();
 
-    case Goods.RED:
+    case GoodsFilters.RED:
       return getRedGoods();
 
     default:
@@ -29,7 +29,7 @@ function getVisibleGoods(good: Goods): Promise<Good[]> | null {
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [visibleGoods, setVisibleGoods] = useState(Goods.NOTHING);
+  const [visibleGoods, setVisibleGoods] = useState(GoodsFilters.NOTHING);
 
   useEffect(() => {
     getVisibleGoods(visibleGoods)?.then(setGoods);
@@ -42,7 +42,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          setVisibleGoods(Goods.ALL);
+          setVisibleGoods(GoodsFilters.ALL);
         }}
       >
         Load all goods
@@ -52,7 +52,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          setVisibleGoods(Goods.FIVE);
+          setVisibleGoods(GoodsFilters.FIVE);
         }}
       >
         Load 5 first goods
@@ -62,7 +62,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          setVisibleGoods(Goods.RED);
+          setVisibleGoods(GoodsFilters.RED);
         }}
       >
         Load red goods
