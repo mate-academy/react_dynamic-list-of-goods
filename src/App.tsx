@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -8,9 +8,9 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleClick = (getGoods: () => Promise<Good[]>) => {
+  const handleClick = useCallback((getGoods: () => Promise<Good[]>) => {
     getGoods().then(setGoods);
-  };
+  }, []);
 
   return (
     <div className="App">
