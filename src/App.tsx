@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable implicit-arrow-linebreak */
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -10,7 +10,9 @@ import { Good } from './types/Good';
 // import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
-  const [preparedGoods, setPreparedGoods] = useState([] as Good[]);
+  const [preparedGoods, setPreparedGoods] = useState<Good[]>([]);
+
+  const onLoad = useMemo(() => () => getAll().then(setPreparedGoods), []);
 
   return (
     <div className="App">
@@ -19,7 +21,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getAll().then(setPreparedGoods)}
+        onClick={onLoad}
       >
         Load all goods
       </button>
