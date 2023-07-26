@@ -17,7 +17,9 @@ export const App: React.FC = () => {
 
     setTimeout(() => {
       clb()
-        .then(data => setGoods(data))
+        .then(data => {
+          setGoods(data);
+        })
         .catch(() => {
           setErrorMessage('Something went wrong');
           setGoods([]);
