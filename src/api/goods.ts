@@ -3,6 +3,9 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
+    .catch(() => {
+      throw new Error('Something went wrong');
+    })
     .then(response => response.json());
 }
 
