@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-
-import { getGoods } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-import { Color } from './types/Color';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = React.memo(() => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [amount, setAmount] = useState(0);
-  const [color, setColor] = useState('');
+  const [selected5First, setSelected5First] = useState(false);
+  const [selectedRed, setSelectedRed] = useState(false);
 
   useEffect(() => {
-    getGoods(amount, color)
-      .then(setGoods);
-  }, [amount, color]);
+    if (selected5First) {
+      get5First()
+        .then(setGoods);
+    } else if (selectedRed) {
+      getRedGoods()
+        .then(setGoods);
+    } else {
+      getAll()
+        .then(setGoods);
+    }
+  }, [goods]);
 
   return (
     <div className="App">
@@ -26,8 +30,8 @@ export const App: React.FC = React.memo(() => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          setAmount(0);
-          setColor('');
+          setSelected5First(false);
+          setSelectedRed(false);
         }}
       >
         Load all goods
@@ -37,8 +41,8 @@ export const App: React.FC = React.memo(() => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          setAmount(5);
-          setColor('');
+          setSelected5First(true);
+          setSelectedRed(false);
         }}
       >
         Load 5 first goods
@@ -48,8 +52,8 @@ export const App: React.FC = React.memo(() => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          setAmount(0);
-          setColor(Color.Red);
+          setSelected5First(false);
+          setSelectedRed(true);
         }}
       >
         Load red goods
