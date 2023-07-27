@@ -1,39 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
-const enum ListFilterType {
-  All,
-  First5,
-  Red,
-  None,
-}
-
-function getFiltredList(filrer: ListFilterType) {
-  switch (filrer) {
-    case ListFilterType.All:
-      return getAll();
-
-    case ListFilterType.First5:
-      return get5First();
-
-    case ListFilterType.Red:
-      return getRedGoods();
-
-    default:
-      return null;
-  }
-}
-
 export const App: React.FC = () => {
   const [goodList, setGoodList] = useState<Good[]>([]);
-  const [filter, setFilter] = useState<ListFilterType>(ListFilterType.None);
 
-  useEffect(() => {
-    getFiltredList(filter)?.then(products => setGoodList(products));
-  }, [filter]);
+  const handleGetAll = () => {
+    return getAll().then(setGoodList);
+  };
+
+  const handleGet5First = () => {
+    return get5First().then(setGoodList);
+  };
+
+  const handleGetRedGoods = () => {
+    return getRedGoods().then(setGoodList);
+  };
 
   return (
     <div className="App">
@@ -42,9 +26,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => {
-          setFilter(ListFilterType.All);
-        }}
+        onClick={handleGetAll}
       >
         Load all goods
       </button>
@@ -52,9 +34,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => {
-          setFilter(ListFilterType.First5);
-        }}
+        onClick={handleGet5First}
       >
         Load 5 first goods
       </button>
@@ -62,9 +42,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => {
-          setFilter(ListFilterType.Red);
-        }}
+        onClick={handleGetRedGoods}
       >
         Load red goods
       </button>
