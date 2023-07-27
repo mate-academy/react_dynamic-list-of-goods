@@ -8,7 +8,7 @@ export function getAll(): Promise<Good[]> {
     .then(response => {
       if (!response.ok) {
         throw new Error(
-          'Something went wrong with data loading',
+          `${response.status} ${response.statusText}`,
         );
       }
 
