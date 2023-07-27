@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [prepareList, setPrepareList] = useState<Good[]>([]);
+
+  const onLoadAll = useCallback(() => {
+    getAll()
+      .then(setPrepareList);
+  }, []);
+
+  const onLoad5First = useCallback(() => {
+    get5First()
+      .then(setPrepareList);
+  }, []);
 
   return (
     <div className="App">
@@ -17,7 +25,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={async () => setPrepareList(await getAll())}
+        onClick={onLoadAll}
       >
         Load all goods
       </button>
@@ -25,7 +33,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={async () => setPrepareList(await get5First())}
+        onClick={onLoad5First}
       >
         Load 5 first goods
       </button>
