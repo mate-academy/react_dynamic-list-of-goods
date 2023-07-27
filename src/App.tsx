@@ -1,39 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
-enum GoodsFilters {
-  ALL = 'all',
-  FIVE = 'five',
-  RED = 'red',
-  NOTHING = '',
-}
-
-function getVisibleGoods(good: GoodsFilters): Promise<Good[]> | null {
-  switch (good) {
-    case GoodsFilters.ALL:
-      return getAll();
-
-    case GoodsFilters.FIVE:
-      return get5First();
-
-    case GoodsFilters.RED:
-      return getRedGoods();
-
-    default:
-      return null;
-  }
-}
-
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [visibleGoods, setVisibleGoods] = useState(GoodsFilters.NOTHING);
 
-  useEffect(() => {
-    getVisibleGoods(visibleGoods)?.then(setGoods);
-  }, [visibleGoods]);
+  const allGoods = useCallback(() => {
+    getAll().then(setGoods);
+  }, []);
+
+  const firstFiveGoods = useCallback(() => {
+    get5First().then(setGoods);
+  }, []);
+
+  const allRedGoods = useCallback(() => {
+    getRedGoods().then(setGoods);
+  }, []);
 
   return (
     <div className="App">
@@ -41,9 +25,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => {
-          setVisibleGoods(GoodsFilters.ALL);
-        }}
+        onClick={allGoods}
       >
         Load all goods
       </button>
@@ -51,9 +33,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => {
-          setVisibleGoods(GoodsFilters.FIVE);
-        }}
+        onClick={firstFiveGoods}
       >
         Load 5 first goods
       </button>
@@ -61,9 +41,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => {
-          setVisibleGoods(GoodsFilters.RED);
-        }}
+        onClick={allRedGoods}
       >
         Load red goods
       </button>
