@@ -9,10 +9,10 @@ export const App: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleClick = (fetchFromServer: () => Promise<Good[]>) => {
+    setErrorMessage('');
     fetchFromServer()
       .then(goods => {
         setCurrentGoods(goods);
-        setErrorMessage('');
       })
       .catch(() => {
         setErrorMessage('Something went wrong... Try again later!');
