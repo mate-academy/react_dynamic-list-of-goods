@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
@@ -6,21 +6,21 @@ import { Good } from './types/Good';
 
 export const App: React.FC = React.memo(() => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [selected5First, setSelected5First] = useState(false);
-  const [selectedRed, setSelectedRed] = useState(false);
 
-  useEffect(() => {
-    if (selected5First) {
-      get5First()
-        .then(setGoods);
-    } else if (selectedRed) {
-      getRedGoods()
-        .then(setGoods);
-    } else {
-      getAll()
-        .then(setGoods);
-    }
-  }, [goods]);
+  const loadAll = useCallback(() => {
+    getAll()
+      .then(setGoods);
+  }, []);
+
+  const load5First = useCallback(() => {
+    get5First()
+      .then(setGoods);
+  }, []);
+
+  const loadRed = useCallback(() => {
+    getRedGoods()
+      .then(setGoods);
+  }, []);
 
   return (
     <div className="App">
@@ -29,10 +29,7 @@ export const App: React.FC = React.memo(() => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => {
-          setSelected5First(false);
-          setSelectedRed(false);
-        }}
+        onClick={loadAll}
       >
         Load all goods
       </button>
@@ -40,10 +37,7 @@ export const App: React.FC = React.memo(() => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => {
-          setSelected5First(true);
-          setSelectedRed(false);
-        }}
+        onClick={load5First}
       >
         Load 5 first goods
       </button>
@@ -51,10 +45,7 @@ export const App: React.FC = React.memo(() => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => {
-          setSelected5First(false);
-          setSelectedRed(true);
-        }}
+        onClick={loadRed}
       >
         Load red goods
       </button>
