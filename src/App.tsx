@@ -4,46 +4,31 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
-const enum Action {
-  AllGoods = 'all-goods',
-  FirstFive = 'first-five',
-  OnlyRed = 'red',
-}
-
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
-  const [handleAction, setHandleAction] = useState(Action.AllGoods);
 
-  const listOfGoods = useCallback(() => getAll(), []);
-  const listOfFiveGoods = useCallback(() => get5First(), []);
-  const listOfRedGoods = useCallback(() => getRedGoods(), []);
+  const listOfGoods = useCallback(() => {
+    getAll()
+      .then(goodsFromServer => {
+        setVisibleGoods(goodsFromServer);
+      });
+  }, []);
+  const listOfFiveGoods = useCallback(() => {
+    get5First()
+      .then(goodsFromServer => {
+        setVisibleGoods(goodsFromServer);
+      });
+  }, []);
+  const listOfRedGoods = useCallback(() => {
+    getRedGoods()
+      .then(goodsFromServer => {
+        setVisibleGoods(goodsFromServer);
+      });
+  }, []);
 
   useEffect(() => {
-    // eslint-disable-next-line default-case
-    switch (handleAction) {
-      case Action.AllGoods:
-        listOfGoods()
-          .then(goodsFromServer => {
-            setVisibleGoods(goodsFromServer);
-          });
-        break;
-      case Action.FirstFive:
-        listOfFiveGoods()
-          .then(goodsFromServer => {
-            setVisibleGoods(goodsFromServer);
-          });
-
-        break;
-
-      case Action.OnlyRed:
-        listOfRedGoods()
-          .then(goodsFromServer => {
-            setVisibleGoods(goodsFromServer);
-          });
-
-        break;
-    }
-  }, [handleAction]);
+    setVisibleGoods([]);
+  }, []);
 
   return (
     <div className="App">
@@ -52,7 +37,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setHandleAction(Action.AllGoods)}
+        onClick={() => listOfGoods()}
       >
         Load all goods
       </button>
@@ -60,7 +45,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setHandleAction(Action.FirstFive)}
+        onClick={() => listOfFiveGoods()}
       >
         Load 5 first goods
       </button>
@@ -68,7 +53,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setHandleAction(Action.OnlyRed)}
+        onClick={() => listOfRedGoods()}
       >
         Load red goods
       </button>
