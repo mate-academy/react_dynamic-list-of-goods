@@ -14,10 +14,10 @@ export const get5First = () => {
       const sorted = [...goods].sort((a, b) => a.name.localeCompare(b.name));
 
       return sorted.slice(0, 5);
-    }); // sort and get the first 5
+    });
 };
 
 export const getRed = () => {
   return getAll()
-    .then(goods => goods.filter(good => good.color === 'red')); // get only red
+    .then(goods => goods.filter(good => good.color === 'red'));
 };
