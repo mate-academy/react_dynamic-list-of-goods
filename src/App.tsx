@@ -2,26 +2,75 @@ import React from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { get5First, getAll, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [allGoods, setAllGoods] = React.useState<Good[]>([]);
+  const [error, setError] = React.useState('');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const successfulLoading = React.useCallback((goods: Good[]) => {
+    setAllGoods(goods);
+    setError('');
+  }, []);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const loadAll = React.useCallback(() => {
+    getAll()
+      .then((goods) => {
+        successfulLoading(goods);
+      })
+      .catch(() => {
+        setError('Error loading all goods');
+      });
+  }, []);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const loadFiveGoods = React.useCallback(() => {
+    get5First()
+      .then((goods) => {
+        successfulLoading(goods);
+      })
+      .catch(() => {
+        setError('Error loading first 5 goods');
+      });
+  }, []);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const loadRedGoods = React.useCallback(() => {
+    getRedGoods()
+      .then((goods) => {
+        successfulLoading(goods);
+      })
+      .catch(() => {
+        setError('Error loading red goods');
+      });
+  }, []);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={loadAll}>
+        Load all goods
+      </button>
+
+      <button type="button" data-cy="first-five-button" onClick={loadFiveGoods}>
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={loadRedGoods}>
+        Load red goods
+      </button>
+
+      {
+        error
+          ? (
+            <p>
+              {error}
+            </p>
+
+          ) : (
+            <GoodsList goods={allGoods} />
+          )
+      }
+    </div>
+  );
+};
