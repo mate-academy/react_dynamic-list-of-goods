@@ -18,22 +18,18 @@ export const App: React.FC = () => {
   ] = useState<ServerRequest | null>(null);
 
   useEffect(() => {
-    if (serverReqeust === ServerRequest.AllGoods) {
-      getAll().then((goodsRequest: Good[]) => {
-        setGoods(goodsRequest);
-      });
-    }
-
-    if (serverReqeust === ServerRequest.FiveFirst) {
-      get5First().then((goodsRequest: Good[]) => {
-        setGoods(goodsRequest);
-      });
-    }
-
-    if (serverReqeust === ServerRequest.OnlyRed) {
-      getRedGoods().then((goodsRequest: Good[]) => {
-        setGoods(goodsRequest);
-      });
+    switch (serverReqeust) {
+      case (ServerRequest.AllGoods):
+        getAll().then(setGoods);
+        break;
+      case (ServerRequest.FiveFirst):
+        get5First().then(setGoods);
+        break;
+      case (ServerRequest.OnlyRed):
+        getRedGoods().then(setGoods);
+        break;
+      default:
+        break;
     }
   }, [serverReqeust]);
 
