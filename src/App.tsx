@@ -15,7 +15,7 @@ export const App: React.FC = () => {
 
       setGoods(allGoods);
     } catch (error) {
-      console.error('Can\'t get All Goods');
+      console.error('Can\'t get all goods');
     }
   }, []);
 
@@ -25,7 +25,7 @@ export const App: React.FC = () => {
 
       setGoods(firstFiveGoods);
     } catch (error) {
-      console.error('Can\'t get first five Goods');
+      console.error('Can\'t get first five goods');
     }
   }, []);
 
@@ -35,7 +35,7 @@ export const App: React.FC = () => {
 
       setGoods(redGoods);
     } catch (error) {
-      console.error('Can\'t get red Goods');
+      console.error('Can\'t get red goods');
     }
   }, []);
 
