@@ -1,27 +1,73 @@
-import React from 'react';
+/* eslint-disable no-console */
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRed } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const getAllHandler = useCallback(async () => {
+    try {
+      const allGoods = await getAll();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      setGoods(allGoods);
+    } catch (error) {
+      console.error('Can\'t get all goods');
+    }
+  }, []);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const get5FirstClick = useCallback(async () => {
+    try {
+      const firstFiveGoods = await get5First();
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      setGoods(firstFiveGoods);
+    } catch (error) {
+      console.error('Can\'t get first five goods');
+    }
+  }, []);
+
+  const getRedHandler = useCallback(async () => {
+    try {
+      const redGoods = await getRed();
+
+      setGoods(redGoods);
+    } catch (error) {
+      console.error('Can\'t get red goods');
+    }
+  }, []);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={getAllHandler}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={get5FirstClick}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={getRedHandler}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
