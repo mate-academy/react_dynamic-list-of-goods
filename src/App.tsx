@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable no-console */
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -8,17 +9,35 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  function getAllHandler() {
-    return async () => setGoods(await getAll());
-  }
+  const getAllHandler = useCallback(async () => {
+    try {
+      const allGoods = await getAll();
 
-  function get5FirstClick() {
-    return async () => setGoods(await get5First());
-  }
+      setGoods(allGoods);
+    } catch (error) {
+      console.error('Can\'t get All Goods');
+    }
+  }, []);
 
-  function getRedHandler() {
-    return async () => setGoods(await getRed());
-  }
+  const get5FirstClick = useCallback(async () => {
+    try {
+      const firstFiveGoods = await get5First();
+
+      setGoods(firstFiveGoods);
+    } catch (error) {
+      console.error('Can\'t get first five Goods');
+    }
+  }, []);
+
+  const getRedHandler = useCallback(async () => {
+    try {
+      const redGoods = await getRed();
+
+      setGoods(redGoods);
+    } catch (error) {
+      console.error('Can\'t get red Goods');
+    }
+  }, []);
 
   return (
     <div className="App">
