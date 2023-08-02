@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import './App.scss';
 
-import { GoodsList } from './GoodsList';
+import { GoodsList } from './types/components/GoodsList';
 
 import {
   get5First,
