@@ -8,12 +8,16 @@ export function getAll(): Promise<Good[]> {
     .then(response => response.json());
 }
 
-export const get5First = () => {
+export const get5First = (): Promise<Good[]> => {
   return getAll()
-    .then(goods => goods); // sort and get the first 5
+    .then(goods => {
+      goods.sort((a, b) => a.name.localeCompare(b.name));
+
+      return goods.slice(0, 5);
+    });
 };
 
-export const getRedGoods = () => {
+export const getRedGoods = (): Promise<Good[]> => {
   return getAll()
-    .then(goods => goods); // get only red
+    .then(goods => goods.filter(item => item.color === 'red'));
 };
