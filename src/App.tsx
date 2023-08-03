@@ -15,23 +15,17 @@ export const App: React.FC = () => {
 
   const goodsAll = () => {
     getAll()
-      .then(goodsFromServer => {
-        setGoods(goodsFromServer);
-      });
+      .then(setGoods);
   };
 
   const goodsChooseFive = () => {
     get5First()
-      .then(goodsFromServer => {
-        setGoods(goodsFromServer);
-      });
+      .then(setGoods);
   };
 
   const goodsChooseRed = () => {
     getRedGoods()
-      .then(goodsFromServer => {
-        setGoods(goodsFromServer);
-      });
+      .then(setGoods);
   };
 
   return (
