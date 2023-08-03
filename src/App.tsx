@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable no-console */
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -7,17 +8,23 @@ import * as goodsAPI from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleAllGoods = () => {
-    goodsAPI.getAll().then(setGoods);
-  };
+  const handleAllGoods = useCallback(() => {
+    goodsAPI.getAll()
+      .then(data => setGoods(data))
+      .catch((err) => console.log(`Something went wrong ${err}`));
+  }, [goods]);
 
-  const handleGet5First = () => {
-    goodsAPI.get5First().then(setGoods);
-  };
+  const handleGet5First = useCallback(() => {
+    goodsAPI.get5First()
+      .then(setGoods)
+      .catch((err) => console.log(`Something went wrong ${err}`));
+  }, [goods]);
 
-  const handleGetRedGoods = () => {
-    goodsAPI.getRedGoods().then(setGoods);
-  };
+  const handleGetRedGoods = useCallback(() => {
+    goodsAPI.getRedGoods()
+      .then(setGoods)
+      .catch((err) => console.log(`Something went wrong ${err}`));
+  }, [goods]);
 
   return (
     <div className="App">
