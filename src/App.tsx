@@ -1,27 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { get5First, getAll, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [users, setUsers] = useState<Good[]>([]);
+  const [isSendRequest, setIsSendRequest] = useState(false);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  useEffect(() => {
+    if (isSendRequest) {
+      getAll()
+        .then((user) => {
+          setUsers(user);
+          setIsSendRequest(false);
+        });
+    }
+  }, [isSendRequest]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handlerAllUsers = () => {
+    getAll().then(user => setUsers(user));
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const handlerFirstFiveUsers = () => {
+    get5First().then(user => setUsers(user));
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const handlerOnlyRed = () => {
+    getRedGoods().then(user => setUsers(user));
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={handlerAllUsers}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handlerFirstFiveUsers}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={handlerOnlyRed}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={users} />
+    </div>
+  );
+};
