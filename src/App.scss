@@ -1,1 +1,9 @@
-// styles go here
+.error {
+  font-size: 18px;
+  width: max-content;
+  padding: 7px;
+  
+  background-color: red;
+  border: 1px solid darkred;
+  border-radius: 5px;
+}
