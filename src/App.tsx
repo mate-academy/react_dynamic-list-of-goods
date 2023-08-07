@@ -18,11 +18,11 @@ export const App: React.FC = () => {
     }
   }, [isSendRequest]);
 
-  const handlerAllUsers = () => {
+  const handlerAllGoods = () => {
     getAll().then(user => setGoods(user));
   };
 
-  const handlerFirstFiveUsers = () => {
+  const handlerFirstFiveGoods = () => {
     get5First().then(user => setGoods(user));
   };
 
@@ -37,7 +37,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={handlerAllUsers}
+        onClick={handlerAllGoods}
       >
         Load all goods
       </button>
@@ -45,7 +45,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handlerFirstFiveUsers}
+        onClick={handlerFirstFiveGoods}
       >
         Load 5 first goods
       </button>
