@@ -5,29 +5,29 @@ import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [users, setUsers] = useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
   const [isSendRequest, setIsSendRequest] = useState(false);
 
   useEffect(() => {
     if (isSendRequest) {
       getAll()
-        .then((user) => {
-          setUsers(user);
+        .then((good) => {
+          setGoods(good);
           setIsSendRequest(false);
         });
     }
   }, [isSendRequest]);
 
   const handlerAllUsers = () => {
-    getAll().then(user => setUsers(user));
+    getAll().then(user => setGoods(user));
   };
 
   const handlerFirstFiveUsers = () => {
-    get5First().then(user => setUsers(user));
+    get5First().then(user => setGoods(user));
   };
 
   const handlerOnlyRed = () => {
-    getRedGoods().then(user => setUsers(user));
+    getRedGoods().then(user => setGoods(user));
   };
 
   return (
@@ -58,7 +58,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={users} />
+      <GoodsList goods={goods} />
     </div>
   );
 };
