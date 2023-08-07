@@ -19,15 +19,15 @@ export const App: React.FC = () => {
   }, [isSendRequest]);
 
   const handlerAllGoods = () => {
-    getAll().then(user => setGoods(user));
+    getAll().then(good => setGoods(good));
   };
 
   const handlerFirstFiveGoods = () => {
-    get5First().then(user => setGoods(user));
+    get5First().then(good => setGoods(good));
   };
 
   const handlerOnlyRed = () => {
-    getRedGoods().then(user => setGoods(user));
+    getRedGoods().then(good => setGoods(good));
   };
 
   return (
