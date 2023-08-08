@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -11,28 +11,41 @@ import {
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const loadGoods = async () => {
-    const good = await getAll();
+  const loadGoods = useCallback(async () => {
+    try {
+      const good = await getAll();
 
-    setGoods(good);
-  };
+      setGoods(good);
+    } catch (error) {
+      setErrorMessage('Something is wrong');
+    }
+  }, []);
 
-  const loadGoodsFive = async () => {
-    const good = await get5First();
+  const loadGoodsFive = useCallback(async () => {
+    try {
+      const good = await get5First();
 
-    setGoods(good);
-  };
+      setGoods(good);
+    } catch (error) {
+      setErrorMessage('Something is wrong');
+    }
+  }, []);
 
-  const loadGoodsRed = async () => {
-    const good = await getRedGoods();
+  const loadGoodsRed = useCallback(async () => {
+    try {
+      const good = await getRedGoods();
 
-    setGoods(good);
-  };
+      setGoods(good);
+    } catch (error) {
+      setErrorMessage('Something is wrong');
+    }
+  }, []);
 
   return (
     <div className="App">
-      <h1>Dynamic list of Goods</h1>
+      <h1>{errorMessage || 'Dynamic list of Goods'}</h1>
 
       <button
         type="button"
