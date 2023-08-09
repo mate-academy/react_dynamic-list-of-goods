@@ -59,8 +59,9 @@ export const App: React.FC = () => {
       </button>
 
       {!error
-        ? (<GoodsList goods={goods} />)
-        : <p>{error}</p>}
+        ? (<GoodsList goods={goods} />
+        ) : (<p>{error}</p>
+        )}
     </div>
   );
 };
