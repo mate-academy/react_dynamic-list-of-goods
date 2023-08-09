@@ -10,10 +10,20 @@ export function getAll(): Promise<Good[]> {
 
 export const get5First = () => {
   return getAll()
-    .then(goods => goods); // sort and get the first 5
+    .then(goods => {
+      const normalizedGoods = goods
+        .sort((good1, good2) => good1.name.localeCompare(good2.name))
+        .splice(0, 5);
+
+      return normalizedGoods;
+    });
 };
 
 export const getRedGoods = () => {
   return getAll()
-    .then(goods => goods); // get only red
+    .then(goods => {
+      const normalizedGoods = goods.filter(good => good.color === 'red');
+
+      return normalizedGoods;
+    });
 };
