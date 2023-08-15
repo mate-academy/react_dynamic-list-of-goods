@@ -8,14 +8,17 @@ import { Good } from './types/Good';
 // import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
-  const [filteredGoods, setfilteredGoods] = useState<Good[]>([]);
+  const [filteredGoods, setFilteredGoods] = useState<Good[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
       <button
-        onClick={() => getAll().then(setfilteredGoods)}
+        onClick={() => getAll()
+          .then(setFilteredGoods)
+          .catch(error => setErrorMessage(error.message))}
         type="button"
         data-cy="all-button"
       >
@@ -23,7 +26,9 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => get5First().then(setfilteredGoods)}
+        onClick={() => get5First()
+          .then(setFilteredGoods)
+          .catch(error => setErrorMessage(error.message))}
         type="button"
         data-cy="first-five-button"
       >
@@ -31,14 +36,20 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => getRedGoods().then(setfilteredGoods)}
+        onClick={() => getRedGoods()
+          .then(setFilteredGoods)
+          .catch(error => setErrorMessage(error.message))}
         type="button"
         data-cy="red-button"
       >
         Load red goods
       </button>
 
-      <GoodsList goods={filteredGoods} />
+      {errorMessage ? (
+        <p>{errorMessage}</p>
+      ) : (
+        <GoodsList goods={filteredGoods} />
+      )}
     </div>
   );
 };
