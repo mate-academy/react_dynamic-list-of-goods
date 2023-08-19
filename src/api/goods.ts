@@ -26,6 +26,5 @@ export const get5First = (): Promise<Good[]> => {
 
 export const getRedGoods = (): Promise<Good[]> => {
   return getAll()
-    .then(goods => goods)
     .then(response => response.filter(good => good.color === 'red'));
 };
