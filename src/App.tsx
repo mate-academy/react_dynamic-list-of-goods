@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import classNames from 'classnames';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -8,23 +9,27 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [filteredGoods, setFilteredGoods] = useState<Good[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
+  const [activeButton, setActiveButton] = useState<string>(''); // Додали стан для активної кнопки
 
   const handleAllGoods = () => {
     getAll()
       .then(setFilteredGoods)
       .catch(error => setErrorMessage(error.message));
+    setActiveButton('all');
   };
 
   const handleFiveFirst = () => {
     get5First()
       .then(setFilteredGoods)
       .catch(error => setErrorMessage(error.message));
+    setActiveButton('five');
   };
 
   const handleRedGoods = () => {
     getRedGoods()
       .then(setFilteredGoods)
       .catch(error => setErrorMessage(error.message));
+    setActiveButton('red');
   };
 
   return (
@@ -35,7 +40,8 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="all-button"
-          className="button is-primary"
+          className={classNames('button', 'is-primary',
+            { 'is-warning': activeButton === 'all' })}
           onClick={handleAllGoods}
         >
           Load all goods
@@ -44,7 +50,8 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="first-five-button"
-          className="button is-primary"
+          className={classNames('button', 'is-primary',
+            { 'is-warning': activeButton === 'five' })}
           onClick={handleFiveFirst}
         >
           Load 5 first goods
@@ -53,7 +60,8 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="red-button"
-          className="button is-primary"
+          className={classNames('button', 'is-primary',
+            { 'is-warning': activeButton === 'red' })}
           onClick={handleRedGoods}
         >
           Load red goods
