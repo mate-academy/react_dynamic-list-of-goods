@@ -27,7 +27,6 @@ export const App: React.FC = () => {
     getRedGoods()
       .then(setGoods)
       .catch(() => setError('Error while getting data'));
-
   };
 
   useEffect(() => {
