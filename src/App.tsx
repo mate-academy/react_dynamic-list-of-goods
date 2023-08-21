@@ -9,7 +9,7 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<string>('');
 
   const fetchAllGoods = () => {
     getAll()
