@@ -11,6 +11,7 @@ export const App: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const getGoods = (callback: () => Promise<Good[]>) => {
+    setIsLoading(true);
     callback()
       .then(setGoods)
       .catch((error: Error) => setErrorMessage(error.message))
@@ -18,7 +19,6 @@ export const App: React.FC = () => {
   };
 
   useEffect(() => {
-    setIsLoading(true);
     getGoods(getAll);
   }, []);
 
