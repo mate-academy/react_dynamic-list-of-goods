@@ -22,7 +22,7 @@ export function getAll(): Promise<Good[]> {
 
 export const get5First = () => {
   return getAll()
-    .then(goods => goods.sort(compare).splice(0, 5)); // sort and get the first 5
+    .then(goods => goods.sort(compare).slice(0, 5)); // sort and get the first 5
 };
 
 export const getRedGoods = () => {

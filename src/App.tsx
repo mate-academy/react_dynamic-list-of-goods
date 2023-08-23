@@ -8,12 +8,15 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState([] as Good[]);
-  /* eslint-disable */
-  function setVisibleGoods(callback: any) {
-    callback().then((res: Good[]) => { setGoods(res) }
-    )
+  const [errorMessage, setErrorMessage] = useState('');
+
+  function setVisibleGoods(callback: () => Promise<Good[]>) {
+    callback()
+      .then((res: Good[]) => {
+        setGoods(res);
+      })
+      .catch(() => setErrorMessage('some error has occured'));
   }
-  /* eslint-enable */
 
   return (
     <div className="App">
@@ -44,6 +47,8 @@ export const App: React.FC = () => {
       </button>
 
       <GoodsList goods={goods} />
+
+      {errorMessage && (errorMessage)}
     </div>
   );
 };
