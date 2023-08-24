@@ -35,8 +35,12 @@ export const App: React.FC = () => {
   }, [filter]);
 
   return (
-    // eslint-disable-next-line max-len
-    <div className="App section is-flex is-flex-direction-column is-align-items-center">
+    <div
+      className={
+        'App section is-flex '
+        + 'is-flex-direction-column is-align-items-center'
+      }
+    >
       <h1 className="title is-2 block">Dynamic list of Goods</h1>
 
       <div className="block columns">
