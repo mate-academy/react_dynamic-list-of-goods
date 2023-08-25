@@ -22,7 +22,7 @@ export const App: React.FC = () => {
     setAllGoods(goods);
   };
 
-  const handleColorGoods = async () => {
+  const handleRedGoods = async () => {
     const goods = await getRedGoods();
 
     setAllGoods(goods);
@@ -51,7 +51,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={handleColorGoods}
+        onClick={handleRedGoods}
       >
         Load red goods
       </button>
