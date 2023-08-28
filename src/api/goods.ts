@@ -20,9 +20,5 @@ export const getRedGoods = async () => {
   const goods = await getAll();
 
   return goods
-    .filter(good => good.color === 'red')
-    .map(good => ({
-      ...good,
-      name: `${good.name} (${good.color})`,
-    })); // get only red
+    .filter(good => good.color === 'red'); // get only red
 };

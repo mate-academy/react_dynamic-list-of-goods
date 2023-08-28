@@ -10,10 +10,15 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [allGoods, setAllGoods] = useState<Good[]>([]);
 
-  const handleAllGoods = async () => {
-    const goods = await getAll();
+  const handleAllGoods = async (): Promise<void> => {
+    try {
+      const goods = await getAll();
 
-    setAllGoods(goods);
+      setAllGoods(goods);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('No gooods', error);
+    }
   };
 
   const handle5Goods = async () => {
