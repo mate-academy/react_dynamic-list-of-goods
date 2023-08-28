@@ -5,34 +5,16 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
-enum FUNCS {
-  GET_ALL = 'getAll',
-  GET_FIRST_5 = 'getFirstFive',
-  GET_RED = 'getRed',
-}
-
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [functionGetData, setFunctionGetData] = useState(FUNCS.GET_ALL);
+
+  const loadGoods = (callback: () => Promise<Good[]>) => {
+    callback().then(setGoods);
+  };
 
   useEffect(() => {
-    if (functionGetData === FUNCS.GET_RED) {
-      getRedGoods()
-        .then(goodsFromServer => {
-          setGoods(goodsFromServer);
-        });
-    } else if (functionGetData === FUNCS.GET_FIRST_5) {
-      get5First()
-        .then(goodsFromServer => {
-          setGoods(goodsFromServer);
-        });
-    } else {
-      getAll()
-        .then(goodsFromServer => {
-          setGoods(goodsFromServer);
-        });
-    }
-  }, [functionGetData]);
+    loadGoods(getAll);
+  }, []);
 
   return (
     <div className="App">
@@ -41,7 +23,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setFunctionGetData(FUNCS.GET_ALL)}
+        onClick={() => loadGoods(getAll)}
       >
         Load all goods
       </button>
@@ -49,7 +31,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setFunctionGetData(FUNCS.GET_FIRST_5)}
+        onClick={() => loadGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -57,7 +39,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setFunctionGetData(FUNCS.GET_RED)}
+        onClick={() => loadGoods(getRedGoods)}
       >
         Load red goods
       </button>
