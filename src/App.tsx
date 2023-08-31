@@ -1,33 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import { get5First, getAll, getRedGoods } from './api/goods';
-import { Button } from './types/Button';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [button, setButton] = useState('');
-
-  useEffect(() => {
-    switch (button) {
-      case Button.all:
-        getAll().then(setGoods);
-        break;
-
-      case Button.five:
-        get5First().then(setGoods);
-        break;
-
-      case Button.red:
-        getRedGoods().then(setGoods);
-        break;
-
-      default:
-        setGoods([]);
-        break;
-    }
-  }, [button]);
 
   return (
     <div className="App">
@@ -36,7 +14,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setButton(Button.all)}
+        onClick={() => getAll().then(setGoods)}
       >
         Load all goods
       </button>
@@ -44,7 +22,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setButton(Button.five)}
+        onClick={() => get5First().then(setGoods)}
       >
         Load 5 first goods
       </button>
@@ -52,7 +30,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setButton(Button.red)}
+        onClick={() => getRedGoods().then(setGoods)}
       >
         Load red goods
       </button>
