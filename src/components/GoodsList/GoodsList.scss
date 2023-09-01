@@ -1,0 +1,7 @@
+$colors: red, green, blue;
+
+@each $color in $colors {
+  .good--color--#{$color} {
+    color: $color;
+  }
+}
