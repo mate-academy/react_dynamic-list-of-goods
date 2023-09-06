@@ -5,25 +5,23 @@ import { Good } from './types/Good';
 import { get5First, getAll, getRedGoods } from './api/goods';
 import { Status } from './types/Status';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
-
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [status, setStatus] = useState('');
 
   useEffect(() => {
-    if (status === Status.All) {
-      getAll().then(setGoods);
-    }
-
-    if (status === Status.First5) {
-      get5First().then(setGoods);
-    }
-
-    if (status === Status.OnlyRed) {
-      getRedGoods().then(setGoods);
+    switch (status) {
+      case (Status.All):
+        getAll().then(setGoods);
+        break;
+      case (Status.First5):
+        get5First().then(setGoods);
+        break;
+      case (Status.OnlyRed):
+        getRedGoods().then(setGoods);
+        break;
+      default:
+        break;
     }
   }, [status]);
 
