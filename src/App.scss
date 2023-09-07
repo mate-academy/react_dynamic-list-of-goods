@@ -1,1 +1,39 @@
-// styles go here
+body {
+  font-family: Helvetica, sans-serif;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+button {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+
+  background-color: #461479;
+  color: #fff;
+
+  transition: background-color 0.5s ease-out;
+
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
+
+  &:hover {
+    background-color: #9072ae;
+  }
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+.green {
+  color: green;
+}
