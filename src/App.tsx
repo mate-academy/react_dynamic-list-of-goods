@@ -1,5 +1,4 @@
 import React, {
-  // useEffect,
   useState,
 } from 'react';
 import './App.scss';
@@ -12,15 +11,15 @@ export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
   const handleAllGoods = () => {
-    getAll().then(goods => setVisibleGoods(goods));
+    getAll().then(setVisibleGoods);
   };
 
   const handleFirst5Goods = () => {
-    get5First().then(goods => setVisibleGoods(goods));
+    get5First().then(setVisibleGoods);
   };
 
   const handleRedGoods = () => {
-    getRedGoods().then(goods => setVisibleGoods(goods));
+    getRedGoods().then(setVisibleGoods);
   };
 
   return (
