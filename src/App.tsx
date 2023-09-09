@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [selectedGoods, setSelectedGoods] = useState<Good[]>([]);
@@ -15,34 +12,30 @@ export const App: React.FC = () => {
     if (!currentButton) {
       setSelectedGoods([]);
     } else {
-      
+      switch (currentButton) {
+        case 'all-button':
+          getAll().then(setSelectedGoods);
+          break;
+
+        case 'first-five-button':
+          get5First().then(setSelectedGoods);
+          break;
+
+        case 'red-button':
+          getRedGoods().then(setSelectedGoods);
+          break;
+
+        default:
+          setSelectedGoods([]);
+      }
     }
   }, [currentButton]);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(event.currentTarget.dataset.cy);
+    const pressedButton = event.currentTarget.dataset.cy || '';
+
+    setCurrentButton(pressedButton);
   };
-
-  // const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-  //   const buttonText = event.currentTarget.textContent;
-
-  //   switch (buttonText) {
-  //     case 'Load all goods':
-  //       setCurrentButton(getAll());
-  //       break;
-
-  //     case 'Load 5 first goods':
-  //       setCurrentButton(get5First);
-  //       break;
-
-  //     case 'Load red goods':
-  //       setCurrentButton(getRedGoods);
-  //       break;
-
-  //     default:
-  //       setCurrentButton([]);
-  //   }
-  // };
 
   return (
     <div className="App">
@@ -50,9 +43,6 @@ export const App: React.FC = () => {
 
       <button
         onClick={handleClick}
-        // onClick={(event) => {
-        //   setCurrentButton(event.currentTarget.textContent || '')
-        // }}
         type="button"
         data-cy="all-button"
       >
@@ -61,7 +51,6 @@ export const App: React.FC = () => {
 
       <button
         onClick={handleClick}
-        // onClick={(event) => setCurrentButton(event.currentTarget.textContent || '')}
         type="button"
         data-cy="first-five-button"
       >
@@ -70,7 +59,6 @@ export const App: React.FC = () => {
 
       <button
         onClick={handleClick}
-        // onClick={(event) => setCurrentButton(event.currentTarget.textContent || '')}
         type="button"
         data-cy="red-button"
       >
