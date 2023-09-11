@@ -4,11 +4,34 @@ import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+
+  const loadAll = () => {
+    getAll()
+      .then(listOfGoods => {
+        setGoods(listOfGoods);
+      })
+      // eslint-disable-next-line no-console
+      .catch(error => console.error('Something bad happened!', error));
+  };
+
+  const load5First = () => {
+    get5First().then(listOfGoods => {
+      setGoods(listOfGoods);
+    })
+      // eslint-disable-next-line no-console
+      .catch(error => console.error('Something bad happened!', error));
+  };
+
+  const loadRed = () => {
+    getRedGoods().then(listOfGoods => {
+      setGoods(listOfGoods);
+    })
+      // eslint-disable-next-line no-console
+      .catch(error => console.error('Something bad happened!', error));
+  };
 
   return (
     <div className="App">
@@ -17,7 +40,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={async () => setGoods(await getAll())}
+        onClick={loadAll}
       >
         Load all goods
       </button>
@@ -25,7 +48,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={async () => setGoods(await get5First())}
+        onClick={load5First}
       >
         Load 5 first goods
       </button>
@@ -33,7 +56,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={async () => setGoods(await getRedGoods())}
+        onClick={loadRed}
       >
         Load red goods
       </button>
