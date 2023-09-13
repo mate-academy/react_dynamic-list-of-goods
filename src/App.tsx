@@ -22,7 +22,7 @@ export const App: React.FC = () => {
 
     if (isShowFiveGoods) {
       get5First()
-        .then(setGoods).catch()
+        .then(setGoods)
         .catch((e) => {
           throw new Error(e);
         });
