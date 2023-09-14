@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
@@ -8,21 +9,33 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const loadAllGoods = () => {
-    getAll().then((data) => {
-      return setGoods(data);
-    });
+    getAll()
+      .then((data) => {
+        setGoods(data);
+      })
+      .catch((error) => {
+        console.error('Something went wrong! Please reload page!', error);
+      });
   };
 
   const loadFirstFive = () => {
-    get5First().then((data) => {
-      return setGoods(data);
-    });
+    get5First()
+      .then((data) => {
+        setGoods(data);
+      })
+      .catch((error) => {
+        console.error('Something went wrong! Please reload page!', error);
+      });
   };
 
   const loadRed = () => {
-    getRedGoods().then((data) => {
-      return setGoods(data);
-    });
+    getRedGoods()
+      .then((data) => {
+        return setGoods(data);
+      })
+      .catch((error) => {
+        console.error('Something went wrong! Please reload page!', error);
+      });
   };
 
   return (
