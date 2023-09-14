@@ -1,27 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
+import { get5First, getAll, getRedGoods } from './api/goods';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+enum GoodsFilter {
+  All = 'all',
+  FiveFirst = 'five-first',
+  Red = 'red',
+}
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [filter, setFilter] = useState<GoodsFilter>(GoodsFilter.All);
+  const [filteredGoods, setFilteredGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  useEffect(() => {
+    let promise;
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    switch (filter) {
+      case GoodsFilter.FiveFirst:
+        promise = get5First();
+        break;
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      case GoodsFilter.Red:
+        promise = getRedGoods();
+        break;
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      default:
+        promise = getAll();
+    }
+
+    promise.then((response) => setFilteredGoods(response));
+  }, [filter]);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setFilter(GoodsFilter.All)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setFilter(GoodsFilter.FiveFirst)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setFilter(GoodsFilter.Red)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={filteredGoods} />
+    </div>
+  );
+};
