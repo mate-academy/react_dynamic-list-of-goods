@@ -7,18 +7,8 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-
-  const getAllGoods = () => {
-    getAll().then(goodsList => setGoods(goodsList));
-  };
-
-  const getFirstGoods = () => {
-    get5First().then(goodsList => setGoods(goodsList));
-  };
-
-  const getRedColor = () => {
-    getRedGoods().then(goodsList => setGoods(goodsList));
-  };
+  const getGoods = (callback: () => Promise<Good[]>) => () => callback()
+    .then((goodsList: Good[]) => setGoods(goodsList));
 
   return (
     <div className="App">
@@ -27,7 +17,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={getAllGoods}
+        onClick={getGoods(getAll)}
       >
         Load all goods
       </button>
@@ -35,7 +25,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={getFirstGoods}
+        onClick={getGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -43,7 +33,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={getRedColor}
+        onClick={getGoods(getRedGoods)}
       >
         Load red goods
       </button>
