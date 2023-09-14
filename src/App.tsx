@@ -1,27 +1,60 @@
-import React from 'react';
+/* eslint-disable no-console */
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const loadAllGoods = () => {
+    getAll()
+      .then((data) => {
+        setGoods(data);
+      })
+      .catch((error) => {
+        console.error('Something went wrong! Please reload page!', error);
+      });
+  };
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const loadFirstFive = () => {
+    get5First()
+      .then((data) => {
+        setGoods(data);
+      })
+      .catch((error) => {
+        console.error('Something went wrong! Please reload page!', error);
+      });
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const loadRed = () => {
+    getRedGoods()
+      .then((data) => {
+        return setGoods(data);
+      })
+      .catch((error) => {
+        console.error('Something went wrong! Please reload page!', error);
+      });
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button type="button" data-cy="all-button" onClick={loadAllGoods}>
+        Load all goods
+      </button>
+
+      <button type="button" data-cy="first-five-button" onClick={loadFirstFive}>
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={loadRed}>
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
