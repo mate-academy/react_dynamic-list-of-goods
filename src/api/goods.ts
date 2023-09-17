@@ -9,11 +9,20 @@ export function getAll(): Promise<Good[]> {
 }
 
 export const get5First = () => {
+  function sortGoods(goods: Good[]) {
+    return goods.sort((good1: Good, good2: Good) => good1.name
+      .localeCompare(good2.name));
+  }
+
   return getAll()
-    .then(goods => goods); // sort and get the first 5
+    .then(goods => sortGoods(goods)); // sort and get the first 5
 };
 
 export const getRedGoods = () => {
+  function filterByColor(goods: Good[]) {
+    return goods.filter((good: Good) => good.color === 'red');
+  }
+
   return getAll()
-    .then(goods => goods); // get only red
+    .then(goods => filterByColor(goods)); // get only red
 };
