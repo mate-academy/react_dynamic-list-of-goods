@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import "./App.scss";
-import { GoodsList } from "./GoodsList";
+import React, { useState } from 'react';
+import './App.scss';
+import { GoodsList } from './GoodsList';
 
-import { getAll, get5First, getRed } from "./api/goods";
-import { Good } from "./types/Good";
+import { getAll, get5First, getRed } from './api/goods';
+import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [good, setGood] = useState<Good[]>([]);
