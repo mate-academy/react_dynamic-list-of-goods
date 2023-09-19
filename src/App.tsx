@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Good, LoadOption } from './types';
-import { GoodsList } from './GoodsList';
 import './App.scss';
 
+import { Good, LoadOption } from './types';
 import { getAllGoods, getFirst5Goods, getRedGoods } from './api/goods';
+import { GoodsList } from './GoodsList';
 
 export const App: React.FC = React.memo(() => {
   const [goods, setGoods] = useState<Good[]>([]);

@@ -1,4 +1,4 @@
-import { Good } from '../types/Good';
+import { Good } from '../types';
 
 // eslint-disable-next-line max-len
 const API_URL = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
