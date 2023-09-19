@@ -22,6 +22,5 @@ export const getRedGoods = () => {
   return getAll()
     .then(goods => goods) // get only red
     .then(goods => goods
-      .sort((a, b) => a.name.localeCompare(b.name))
       .filter(good => good.color === 'red'));
 };
