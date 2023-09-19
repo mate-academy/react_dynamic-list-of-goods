@@ -6,45 +6,45 @@ $red: tomato;
 $blue: blue;
 $body-bg-clr: #212121;
 
-body{
-    display: grid;
-    place-items: center;
-    background-color: $body-bg-clr;
-    font-family: sans-serif;
+body {
+  display: grid;
+  place-items: center;
+  background-color: $body-bg-clr;
+  font-family: sans-serif;
 }
 
 h1 {
-    text-align: center;
-    color: $main-clr;
+  text-align: center;
+  color: $main-clr;
 }
 
 button {
-    margin-left: 1rem;
-    padding: 1rem 2rem;
-    border: 1px solid $main-clr;
-    border-radius: 16px;
-    background-color: transparent;
-    color: #eee;
-    cursor: pointer;
-    transition: all .35s ease-in;
+  margin-left: 1rem;
+  padding: 1rem 2rem;
+  border: 1px solid $main-clr;
+  border-radius: 16px;
+  background-color: transparent;
+  color: #eee;
+  cursor: pointer;
+  transition: all 0.35s ease-in;
 
-    &:hover:not(:nth-child(4)) {
-        transform: scale(0.98);
-        color: $hero-clr;
-        border-color: $hero-clr;
-    }
+  &:hover:not(:nth-child(4)) {
+    transform: scale(0.98);
+    color: $hero-clr;
+    border-color: $hero-clr;
+  }
 
-    &:nth-child(4):hover {
-        border-color: $red;
-        color:$red;
-    }
+  &:nth-child(4):hover {
+    border-color: $red;
+    color: $red;
+  }
 }
 
 ul {
-    list-style: none;
+  list-style: none;
 
-    li {
-        padding: 0.2rem 0;
-        border-bottom: 1px solid darken($main-clr,70);
-    }
+  li {
+    padding: 0.2rem 0;
+    border-bottom: 1px solid darken($main-clr,70);
+  }
 }
