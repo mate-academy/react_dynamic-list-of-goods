@@ -1,1 +1,17 @@
-// styles go here
+body {
+  display: flex;
+  justify-content: center;
+  background: #e9c0db;
+}
+
+h1 {
+  text-align: center;
+}
+
+.button {
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
+}
