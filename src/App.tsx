@@ -1,27 +1,87 @@
-import React from 'react';
-import './App.scss';
-import { GoodsList } from './GoodsList';
+import React, { useEffect, useState } from 'react';
+import './styles/index.scss';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
+import { GoodsList } from './components/GoodsList';
+import { Loader } from './components/Loader';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goodsFromServer, setGoodsFromServer] = useState<Good[] | null>(null);
+  const [requestedGoods, setRequestedGoods] = useState<Promise<Good[]>>(getAll);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleBtnClick = (requestBy: Promise<Good[]>) => {
+    setIsLoading(true);
+    setTimeout(() => setRequestedGoods(requestBy), 2000);
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  useEffect(() => {
+    requestedGoods
+      .then(goods => {
+        setGoodsFromServer(goods);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+        if (errorMessage.length > 0) {
+          setErrorMessage('');
+        }
+      })
+      .catch(setErrorMessage)
+      .finally(() => setIsLoading(false));
+  }, [requestedGoods]);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => handleBtnClick(getAll())}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => handleBtnClick(get5First())}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => handleBtnClick(getRedGoods())}
+      >
+        Load red goods
+      </button>
+
+      {
+        isLoading && (
+          <Loader />
+        )
+      }
+
+      {
+        !isLoading && errorMessage && (
+          <p>
+            {errorMessage}
+          </p>
+        )
+      }
+
+      {
+        !isLoading && !errorMessage && goodsFromServer?.length === 0
+          && <p>There are no goods!</p>
+      }
+
+      {
+        !isLoading && !errorMessage && goodsFromServer
+          && goodsFromServer.length > 0
+            && <GoodsList goods={goodsFromServer} />
+      }
+    </div>
+  );
+};
