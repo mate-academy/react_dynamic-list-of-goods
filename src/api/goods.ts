@@ -5,11 +5,7 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
-    .then(response => {
-      return response.ok
-        ? response.json()
-        : Promise.reject((`${response.status}: Can't request goods`));
-    });
+    .then(response => response.json());
 }
 
 export const get5First = () => {
