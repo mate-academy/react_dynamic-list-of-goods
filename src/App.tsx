@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import './styles/index.scss';
+import './styles/App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 import { GoodsList } from './components/GoodsList';
-import { Loader } from './components/Loader';
 
 export const App: React.FC = () => {
   const [goodsFromServer, setGoodsFromServer] = useState<Good[] | null>(null);
   const [requestedGoods, setRequestedGoods] = useState<Promise<Good[]>>(getAll);
-  const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');
-
-  const handleBtnClick = (requestBy: Promise<Good[]>) => {
-    setIsLoading(true);
-    setTimeout(() => setRequestedGoods(requestBy), 2000);
-  };
 
   useEffect(() => {
     requestedGoods
@@ -26,8 +19,7 @@ export const App: React.FC = () => {
           setErrorMessage('');
         }
       })
-      .catch(setErrorMessage)
-      .finally(() => setIsLoading(false));
+      .catch(setErrorMessage);
   }, [requestedGoods]);
 
   return (
@@ -37,7 +29,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => handleBtnClick(getAll())}
+        onClick={() => setRequestedGoods(getAll)}
       >
         Load all goods
       </button>
@@ -45,7 +37,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => handleBtnClick(get5First())}
+        onClick={() => setRequestedGoods(get5First)}
       >
         Load 5 first goods
       </button>
@@ -53,19 +45,13 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => handleBtnClick(getRedGoods())}
+        onClick={() => setRequestedGoods(getRedGoods)}
       >
         Load red goods
       </button>
 
       {
-        isLoading && (
-          <Loader />
-        )
-      }
-
-      {
-        !isLoading && errorMessage && (
+        errorMessage && (
           <p>
             {errorMessage}
           </p>
@@ -73,14 +59,13 @@ export const App: React.FC = () => {
       }
 
       {
-        !isLoading && !errorMessage && goodsFromServer?.length === 0
+        !errorMessage && goodsFromServer?.length === 0
           && <p>There are no goods!</p>
       }
 
       {
-        !isLoading && !errorMessage && goodsFromServer
-          && goodsFromServer.length > 0
-            && <GoodsList goods={goodsFromServer} />
+        !errorMessage && goodsFromServer && goodsFromServer.length > 0
+          && <GoodsList goods={goodsFromServer} />
       }
     </div>
   );
