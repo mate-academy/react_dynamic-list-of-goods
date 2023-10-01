@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './styles/App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
@@ -6,21 +6,22 @@ import { Good } from './types/Good';
 import { GoodsList } from './components/GoodsList';
 
 export const App: React.FC = () => {
-  const [goodsFromServer, setGoodsFromServer] = useState<Good[] | null>(null);
-  const [requestedGoods, setRequestedGoods] = useState<Promise<Good[]>>(getAll);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [goodsFromServer, setGoodsFromServer] = useState<Good[]>([]);
 
-  useEffect(() => {
-    requestedGoods
-      .then(goods => {
-        setGoodsFromServer(goods);
+  const handleGetAll = () => {
+    getAll()
+      .then(setGoodsFromServer);
+  };
 
-        if (errorMessage.length > 0) {
-          setErrorMessage('');
-        }
-      })
-      .catch(setErrorMessage);
-  }, [requestedGoods]);
+  const handleGet5First = () => {
+    get5First()
+      .then(setGoodsFromServer);
+  };
+
+  const handleGetRedOnly = () => {
+    getRedGoods()
+      .then(setGoodsFromServer);
+  };
 
   return (
     <div className="App">
@@ -29,7 +30,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setRequestedGoods(getAll)}
+        onClick={handleGetAll}
       >
         Load all goods
       </button>
@@ -37,7 +38,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setRequestedGoods(get5First)}
+        onClick={handleGet5First}
       >
         Load 5 first goods
       </button>
@@ -45,28 +46,12 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setRequestedGoods(getRedGoods)}
+        onClick={handleGetRedOnly}
       >
         Load red goods
       </button>
 
-      {
-        errorMessage && (
-          <p>
-            {errorMessage}
-          </p>
-        )
-      }
-
-      {
-        !errorMessage && goodsFromServer?.length === 0
-          && <p>There are no goods!</p>
-      }
-
-      {
-        !errorMessage && goodsFromServer && goodsFromServer.length > 0
-          && <GoodsList goods={goodsFromServer} />
-      }
+      <GoodsList goods={goodsFromServer} />
     </div>
   );
 };
