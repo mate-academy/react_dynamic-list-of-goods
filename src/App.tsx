@@ -39,7 +39,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        type="button" 
+        type="button"
         data-cy="first-five-button"
         onClick={load5FirstGoods}
       >
@@ -47,7 +47,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        type="button" 
+        type="button"
         data-cy="red-button"
         onClick={loadRedGoods}
       >

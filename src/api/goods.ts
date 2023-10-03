@@ -11,10 +11,9 @@ export function getAll(): Promise<Good[]> {
 export const get5First = () => {
   return getAll()
     .then(goods => {
-      goods.sort((a, b) => (a.name > b.name) 
-        ? 1 
-        : -1
-      );
+      goods.sort((a, b) => ((a.name > b.name)
+        ? 1
+        : -1));
 
       return goods.slice(0, 5);
     });
@@ -23,7 +22,6 @@ export const get5First = () => {
 export const getRed = () => {
   return getAll()
     .then(goods => {
-
       return goods.filter(good => good.color === 'red');
     });
 };
