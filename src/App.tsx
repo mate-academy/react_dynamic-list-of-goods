@@ -1,15 +1,36 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
-
 export const App: React.FC = () => {
   const [preparedGoods, setPreparedGoods] = useState<Good[]>([]);
+
+  const handleLoadAllGoods = () => {
+    getAll()
+      .then(setPreparedGoods)
+      .catch((error) => {
+        console.error('Error loading all goods:', error);
+      });
+  };
+
+  const handleLoad5FirstGoods = () => {
+    get5First()
+      .then(setPreparedGoods)
+      .catch((error) => {
+        console.error('Error loading 5 first goods:', error);
+      });
+  };
+
+  const handleLoadRedGoods = () => {
+    getRedGoods()
+      .then((goods) => setPreparedGoods(goods))
+      .catch((error) => {
+        console.error('Error loading red goods:', error);
+      });
+  };
 
   return (
     <div className="App">
@@ -18,7 +39,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getAll().then(setPreparedGoods)}
+        onClick={handleLoadAllGoods}
       >
         Load all goods
       </button>
@@ -26,7 +47,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => get5First().then(goods => setPreparedGoods(goods))}
+        onClick={handleLoad5FirstGoods}
       >
         Load 5 first goods
       </button>
@@ -34,7 +55,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => getRedGoods().then(goods => setPreparedGoods(goods))}
+        onClick={handleLoadRedGoods}
       >
         Load red goods
       </button>
