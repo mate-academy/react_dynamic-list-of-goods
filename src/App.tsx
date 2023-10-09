@@ -4,32 +4,12 @@ import './App.scss';
 import { GoodsList } from './GoodsList';
 import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-import { LoadParameter } from './types/LoadParameter';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-  const handleClick = (loadParameter: LoadParameter) => {
-    let promise: Promise<Good[]>;
-
-    switch (loadParameter) {
-      case LoadParameter.All:
-        promise = getAll();
-        break;
-
-      case LoadParameter.FiveFirst:
-        promise = get5First();
-        break;
-
-      case LoadParameter.Red:
-        promise = getRedGoods();
-        break;
-
-      default:
-        throw new Error('Wrong load parameter!');
-    }
-
-    promise.then(setVisibleGoods);
+  const handleClick = (callback: () => Promise<Good[]>) => {
+    callback().then(setVisibleGoods);
   };
 
   return (
@@ -39,7 +19,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => handleClick(LoadParameter.All)}
+        onClick={() => handleClick(getAll)}
       >
         Load all goods
       </button>
@@ -47,7 +27,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => handleClick(LoadParameter.FiveFirst)}
+        onClick={() => handleClick(get5First)}
       >
         Load 5 first goods
       </button>
@@ -55,7 +35,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => handleClick(LoadParameter.Red)}
+        onClick={() => handleClick(getRedGoods)}
       >
         Load red goods
       </button>
