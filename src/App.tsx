@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -11,13 +11,6 @@ export const App: React.FC = () => {
   const handleClick = (filter: () => Promise<Good[]>) => {
     filter().then(items => setGoods(items));
   };
-
-  useEffect(() => {
-    getAll()
-      .then((items) => {
-        setGoods(items);
-      });
-  }, []);
 
   return (
     <div className="App">
