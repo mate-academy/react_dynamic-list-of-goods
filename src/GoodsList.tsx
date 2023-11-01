@@ -12,7 +12,6 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
       <li
         key={good.id}
         data-cy="good"
-        // eslint-disable-next-line
         className={cn({
           redButton: good.color === 'red',
           blueButton: good.color === 'blue',
