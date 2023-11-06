@@ -7,6 +7,7 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  //Comment to poke tests
 
   return (
     <div className="App">
