@@ -1,27 +1,84 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRed } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+enum Filter {
+  Five,
+  Red,
+  All,
+}
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [filter, setFilter] = useState<Filter | null>(null);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  useEffect(() => {
+    switch (filter) {
+      case Filter.Five:
+        get5First().then(setGoods);
+        break;
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      case Filter.Red:
+        getRed().then(setGoods);
+        break;
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      case Filter.All:
+        getAll().then(setGoods);
+        break;
+
+      default:
+        setGoods([]);
+    }
+  }, [filter]);
+
+  return (
+    <div
+      className={
+        'App section is-flex '
+        + 'is-flex-direction-column is-align-items-center'
+      }
+    >
+      <h1 className="title is-2 block">Dynamic list of Goods</h1>
+
+      <div className="block columns">
+        <div className="column">
+          <button
+            type="button"
+            data-cy="all-button"
+            className="button is-info"
+            onClick={() => setFilter(Filter.All)}
+          >
+            Load all goods
+          </button>
+        </div>
+
+        <div className="column">
+          <button
+            type="button"
+            data-cy="first-five-button"
+            className="button is-link"
+            onClick={() => setFilter(Filter.Five)}
+          >
+            Load 5 first goods
+          </button>
+        </div>
+
+        <div className="column">
+          <button
+            type="button"
+            data-cy="red-button"
+            className="button is-danger"
+            onClick={() => setFilter(Filter.Red)}
+          >
+            Load red goods
+          </button>
+        </div>
+      </div>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
