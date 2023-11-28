@@ -1,1 +1,13 @@
-// styles go here
+.good {
+  &-red {
+    color: rgb(255, 0, 0);
+  }
+
+  &-blue {
+    color: rgb(0, 0, 255);
+  }
+
+  &-green {
+    color: rgb(0, 128, 0);
+  }
+}
