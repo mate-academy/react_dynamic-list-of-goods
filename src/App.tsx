@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -9,31 +9,25 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [value, setValue] = useState('');
 
-  useEffect(() => {
-    if (value === 'allGoods') {
-      getAll()
-        .then(setGoods);
-    }
+  const handleAll = () => {
+    return getAll().then(setGoods);
+  };
 
-    if (value === 'first5') {
-      get5First()
-        .then(setGoods);
-    }
+  const handle5 = () => {
+    return get5First().then(setGoods);
+  };
 
-    if (value === 'red') {
-      getRedGoods()
-        .then(setGoods);
-    }
-  }, [value]);
+  const handleRed = () => {
+    return getRedGoods().then(setGoods);
+  };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
       <button
-        onClick={() => setValue('allGoods')}
+        onClick={handleAll}
         type="button"
         data-cy="all-button"
       >
@@ -41,7 +35,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => setValue('first5')}
+        onClick={handle5}
         type="button"
         data-cy="first-five-button"
       >
@@ -49,7 +43,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => setValue('red')}
+        onClick={handleRed}
         type="button"
         data-cy="red-button"
       >
