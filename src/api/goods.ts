@@ -10,7 +10,8 @@ export function getAll(): Promise<Good[]> {
 
 export const get5First = (limit: number) => {
   return getAll()
-    .then(goods => goods.slice(0, limit));
+    .then(goods => goods.sort((a, b) => (a.name).localeCompare(b.name))
+      .slice(0, limit));
 };
 
 export const getRedGoods = (color: string) => {
