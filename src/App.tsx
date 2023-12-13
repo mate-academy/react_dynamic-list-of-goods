@@ -1,27 +1,68 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
+
+import { getAll, get5First, getRedGoods } from './api/goods';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+enum SortType {
+  All,
+  FirstFive,
+  RedGoods,
+  Defolt = '',
+}
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [sortType, setSortType] = useState(SortType.Defolt);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  useEffect(() => {
+    switch (sortType) {
+      case SortType.All:
+        getAll().then(setGoods);
+        break;
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      case SortType.FirstFive:
+        get5First().then(setGoods);
+        break;
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      case SortType.RedGoods:
+        getRedGoods().then(setGoods);
+        break;
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      default: break;
+    }
+  }, [sortType]);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setSortType(SortType.All)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setSortType(SortType.FirstFive)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setSortType(SortType.RedGoods)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
