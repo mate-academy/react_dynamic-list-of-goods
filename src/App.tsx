@@ -1,27 +1,66 @@
-import React from 'react';
+import { FC, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+enum GoodsType {
+  None,
+  All,
+  FirstFive,
+  Red,
+}
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: FC = () => {
+  const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
+  const [selectedGoods, setSelectedGoods] = useState(GoodsType.None);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const loadGoods = (apiCallBack: () => Promise<Good[]>, type: GoodsType) => {
+    setErrorMessage('');
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    if (selectedGoods !== type) {
+      setIsLoading(true);
+      apiCallBack()
+        .then(goodsFromServer => setVisibleGoods(goodsFromServer))
+        .catch(error => setErrorMessage(error))
+        .finally(() => setIsLoading(false));
+      setSelectedGoods(type);
+    }
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => loadGoods(getAll, GoodsType.All)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => loadGoods(get5First, GoodsType.FirstFive)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => loadGoods(getRedGoods, GoodsType.Red)}
+      >
+        Load red goods
+      </button>
+
+      {!isLoading && !errorMessage && (<GoodsList goods={visibleGoods} />)}
+      {isLoading && (<div>Loading...</div>)}
+      {errorMessage && (<div>{`Error: ${errorMessage}`}</div>)}
+    </div>
+  );
+};
