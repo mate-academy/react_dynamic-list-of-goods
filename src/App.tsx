@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { Good } from './types/Good';
 import { GoodsList } from './GoodsList';
@@ -10,30 +10,51 @@ const LOAD_RED = 'Load red';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good []>([]);
-  const [typeOfRender, setTypeOfRender] = useState('');
+  // const [typeOfRender, setTypeOfRender] = useState('');
 
   const handleList = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setTypeOfRender(event.currentTarget.value);
-  };
+    const currentValue = event.currentTarget.value;
 
-  useEffect(() => {
-    if (typeOfRender === LOAD_FIVE_FIRST) {
-      get5First()
-        .then((goodsFS) => {
-          setGoods(goodsFS);
-        });
-    } else if (typeOfRender === LOAD_RED) {
-      getRedGoods()
-        .then((goodsFS) => {
-          setGoods(goodsFS);
-        });
-    } else {
+    if (currentValue === LOAD_ALL) {
       getAll()
-        .then((goodsFS) => {
-          setGoods(goodsFS);
+        .then((godsFS) => {
+          setGoods(godsFS);
         });
     }
-  }, [typeOfRender]);
+
+    if (currentValue === LOAD_FIVE_FIRST) {
+      get5First()
+        .then((godsFS) => {
+          setGoods(godsFS);
+        });
+    }
+
+    if (currentValue === LOAD_RED) {
+      getRedGoods()
+        .then((godsFS) => {
+          setGoods(godsFS);
+        });
+    }
+  };
+
+  // useEffect(() => {
+  //   if (typeOfRender === LOAD_FIVE_FIRST) {
+  //     get5First()
+  //       .then((goodsFS) => {
+  //         setGoods(goodsFS);
+  //       });
+  //   } else if (typeOfRender === LOAD_RED) {
+  //     getRedGoods()
+  //       .then((goodsFS) => {
+  //         setGoods(goodsFS);
+  //       });
+  //   } else {
+  //     getAll()
+  //       .then((goodsFS) => {
+  //         setGoods(goodsFS);
+  //       });
+  //   }
+  // }, [typeOfRender]);
 
   return (
     <div className="App">
@@ -43,7 +64,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         value={LOAD_ALL}
-        onClick={handleList}
+        onClick={(handleList)}
       >
         Load all goods
       </button>
