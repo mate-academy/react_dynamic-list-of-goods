@@ -30,19 +30,29 @@ export const App: React.FC = () => {
       <h1>Dynamic list of Goods</h1>
 
       <button
-        value="all"
-        onClick={(event) => handleStateType(event.currentTarget.value)}
         type="button"
         data-cy="all-button"
+        value="all"
+        onClick={(event) => handleStateType(event.currentTarget.value)}
       >
         Load all goods
       </button>
 
-      <button type="button" data-cy="first-five-button">
+      <button
+        type="button"
+        data-cy="first-five-button"
+        value="five"
+        onClick={(event) => handleStateType(event.currentTarget.value)}
+      >
         Load 5 first goods
       </button>
 
-      <button type="button" data-cy="red-button">
+      <button
+        type="button"
+        data-cy="first-five-button"
+        value="red"
+        onClick={(event) => handleStateType(event.currentTarget.value)}
+      >
         Load red goods
       </button>
 
