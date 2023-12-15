@@ -3,7 +3,7 @@ import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
-import { getAll } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
 // import * as goodsAPI from './api/goods';
 
@@ -14,14 +14,30 @@ export const App: React.FC = () => {
   const [type, setType] = useState<Type>(null);
 
   const handleStateType = (value: string) => {
-    setType(value as Type);
+    return type !== value ? setType(value as Type) : setType(null);
   };
 
   useEffect(() => {
-    if (type) {
-      getAll().then(goodsFromServer => {
-        setGoods(goodsFromServer);
-      });
+    switch (type) {
+      case 'all':
+        getAll().then(goodsFromServer => {
+          setGoods(goodsFromServer);
+        });
+        break;
+      case 'five':
+        get5First().then(goodsFromServer => {
+          setGoods(goodsFromServer);
+        });
+        break;
+
+      case 'red':
+        getRedGoods().then(goodsFromServer => {
+          setGoods(goodsFromServer);
+        });
+        break;
+
+      default:
+        break;
     }
   }, [type]);
 
