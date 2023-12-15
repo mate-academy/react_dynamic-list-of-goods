@@ -14,7 +14,9 @@ export const App: React.FC = () => {
   const [type, setType] = useState<Type>(null);
 
   const handleStateType = (value: string) => {
-    return type !== value ? setType(value as Type) : setType(null);
+    const buttonType: Type = value as Type;
+
+    return type !== buttonType ? setType(buttonType) : setType(null);
   };
 
   useEffect(() => {
@@ -65,7 +67,7 @@ export const App: React.FC = () => {
 
       <button
         type="button"
-        data-cy="first-five-button"
+        data-cy="red-button"
         value="red"
         onClick={(event) => handleStateType(event.currentTarget.value)}
       >
