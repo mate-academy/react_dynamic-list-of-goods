@@ -1,27 +1,84 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+type ListType = 'All' | 'Five' | 'Red' | '';
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [listType, setListType] = useState<ListType>('');
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  useEffect(() => {
+    switch (listType) {
+      case ('All'):
+        getAll().then(List => {
+          setGoods(List);
+        });
+        break;
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      case ('Five'):
+        get5First().then(List => {
+          setGoods(List);
+        });
+        break;
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      case ('Red'):
+        getRedGoods().then(List => {
+          setGoods(List);
+        });
+        break;
+
+      default:
+        setGoods([]);
+        break;
+    }
+  }, [listType]);
+
+  const handleClick = (value: string) => {
+    const buttonType = value as ListType;
+
+    return buttonType !== listType
+      ? setListType(buttonType)
+      : setListType('');
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        value="All"
+        onClick={event => handleClick(event.currentTarget.value)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        value="Five"
+        onClick={event => handleClick(event.currentTarget.value)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        value="Red"
+        onClick={event => handleClick(event.currentTarget.value)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
