@@ -34,9 +34,18 @@ export const App: React.FC = () => {
         break;
 
       default:
+        setGoods([]);
         break;
     }
   }, [listType]);
+
+  const handleClick = (value: string) => {
+    const buttonType = value as ListType;
+
+    return buttonType !== listType
+      ? setListType(buttonType)
+      : setListType('');
+  };
 
   return (
     <div className="App">
@@ -45,7 +54,8 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setListType('All')}
+        value="All"
+        onClick={event => handleClick(event.currentTarget.value)}
       >
         Load all goods
       </button>
@@ -53,7 +63,8 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setListType('Five')}
+        value="Five"
+        onClick={event => handleClick(event.currentTarget.value)}
       >
         Load 5 first goods
       </button>
@@ -61,7 +72,8 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setListType('Red')}
+        value="Red"
+        onClick={event => handleClick(event.currentTarget.value)}
       >
         Load red goods
       </button>
