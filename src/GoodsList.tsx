@@ -7,7 +7,7 @@ type Props = {
 
 export const GoodsList: FC<Props> = memo(({ goods }) => {
   // eslint-disable-next-line no-console
-  console.log('List render');
+  console.log('GoodsList render');
 
   return (
     <ul>
