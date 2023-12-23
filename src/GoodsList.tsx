@@ -1,16 +1,25 @@
-import React from 'react';
-import { Good } from './types/Good';
+import { FC, memo } from 'react';
+import { Good } from './types';
 
 type Props = {
-  goods: Good[]
+  goods: Good[] | null,
 };
 
-export const GoodsList: React.FC<Props> = ({ goods }) => (
-  <ul>
-    {goods.map(good => (
-      <li key={good.id} data-cy="good">
-        {good.name}
-      </li>
-    ))}
-  </ul>
-);
+export const GoodsList: FC<Props> = memo(({ goods }) => {
+  // eslint-disable-next-line no-console
+  console.log('List render');
+
+  return (
+    <ul>
+      {goods?.map(good => (
+        <li
+          key={good.id}
+          data-cy="good"
+          style={{ color: `${good.color}` }}
+        >
+          {good.name}
+        </li>
+      ))}
+    </ul>
+  );
+});
