@@ -9,13 +9,14 @@ const FILTERS = {
   all: 'all',
   onlyRed: 'onlyRed',
   onlyFive: 'onlyFive',
-};
+} as const;
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState<keyof typeof FILTERS | null>(null);
+  const [updatedAt, setUpdatedAt] = useState(new Date());
 
-  useEffect(() => {
+  useEffect((): void => {
     switch (filter) {
       case FILTERS.onlyFive:
         get5First().then(setGoods);
@@ -25,11 +26,19 @@ export const App: React.FC = () => {
         getRedGoods().then(setGoods);
         break;
 
-      default:
+      case FILTERS.all:
         getAll().then(setGoods);
         break;
+
+      default:
+        break;
     }
-  }, [filter]);
+  }, [filter, updatedAt]);
+
+  const handleNewFetch = (newFilter: keyof typeof FILTERS) => {
+    setFilter(newFilter);
+    setUpdatedAt(new Date());
+  };
 
   return (
     <div className="App">
@@ -38,7 +47,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setFilter(FILTERS.all)}
+        onClick={() => handleNewFetch(FILTERS.all)}
       >
         Load all goods
       </button>
@@ -46,7 +55,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setFilter(FILTERS.onlyFive)}
+        onClick={() => handleNewFetch(FILTERS.onlyFive)}
       >
         Load 5 first goods
       </button>
@@ -54,7 +63,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setFilter(FILTERS.onlyRed)}
+        onClick={() => handleNewFetch(FILTERS.onlyRed)}
       >
         Load red goods
       </button>
