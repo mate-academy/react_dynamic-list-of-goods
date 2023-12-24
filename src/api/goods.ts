@@ -3,17 +3,33 @@ import { Good } from '../types/Good';
 // eslint-disable-next-line
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
-export function getAll(): Promise<Good[]> {
-  return fetch(API_URL)
-    .then(response => response.json());
+export async function getAll(): Promise<Good[]> {
+  try {
+    const response = await fetch(API_URL);
+
+    return await response.json();
+  } catch (error) {
+    throw new Error('Failed to fetch the data.');
+  }
 }
 
-export const get5First = () => {
-  return getAll()
-    .then(goods => goods); // sort and get the first 5
-};
+export async function get5First(): Promise<Good[]> {
+  try {
+    const goods = await getAll();
 
-export const getRedGoods = () => {
-  return getAll()
-    .then(goods => goods); // get only red
-};
+    return goods.sort((a, b) => a.name.localeCompare(b.name))
+      .slice(0, 5);
+  } catch (error) {
+    throw new Error('Failed to fetch first five elements.');
+  }
+}
+
+export async function getRedGoods(): Promise<Good[]> {
+  try {
+    const goods = await getAll();
+
+    return goods.filter(good => good.color === 'red');
+  } catch (error) {
+    throw new Error('Failed to fetch red goods');
+  }
+}
