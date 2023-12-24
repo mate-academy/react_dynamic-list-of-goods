@@ -8,6 +8,7 @@ import { get5First, getAll, getRedGoods } from './api/goods';
 export const App: FC = () => {
   const [goods, setGoods] = useState<Good[] | null>(null);
   const [filter, setFilter] = useState<Filter>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleGetAll = useCallback(() => {
     if (filter === 'All') {
@@ -15,7 +16,9 @@ export const App: FC = () => {
     }
 
     setFilter('All');
-    getAll().then(data => setGoods(data));
+    getAll()
+      .then(setGoods)
+      .catch(e => setError(e.message));
   }, [filter]);
 
   const handleGetFirst5 = useCallback(() => {
@@ -24,7 +27,9 @@ export const App: FC = () => {
     }
 
     setFilter('First5');
-    get5First().then(data => setGoods(data));
+    get5First()
+      .then(setGoods)
+      .catch(e => setError(e.message));
   }, [filter]);
 
   const handleGetRed = useCallback(() => {
@@ -33,11 +38,10 @@ export const App: FC = () => {
     }
 
     setFilter('Red');
-    getRedGoods().then(data => setGoods(data));
+    getRedGoods()
+      .then(setGoods)
+      .catch(e => setError(e.message));
   }, [filter]);
-
-  // eslint-disable-next-line no-console
-  console.log('App render');
 
   return (
     <div className="App">
@@ -66,8 +70,9 @@ export const App: FC = () => {
       >
         Load red goods
       </button>
-
-      <GoodsList goods={goods} />
+      { goods && <GoodsList goods={goods} /> }
+      { goods && !goods.length && <p>No goods to show.</p> }
+      { error && <p>{error}</p> }
     </div>
   );
 };

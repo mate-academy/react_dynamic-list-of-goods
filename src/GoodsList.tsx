@@ -5,21 +5,16 @@ type Props = {
   goods: Good[] | null,
 };
 
-export const GoodsList: FC<Props> = memo(({ goods }) => {
-  // eslint-disable-next-line no-console
-  console.log('GoodsList render');
-
-  return (
-    <ul>
-      {goods?.map(good => (
-        <li
-          key={good.id}
-          data-cy="good"
-          style={{ color: `${good.color}` }}
-        >
-          {good.name}
-        </li>
-      ))}
-    </ul>
-  );
-});
+export const GoodsList: FC<Props> = memo(({ goods }) => (
+  <ul>
+    {goods?.map(good => (
+      <li
+        key={good.id}
+        data-cy="good"
+        style={{ color: `${good.color}` }}
+      >
+        {good.name}
+      </li>
+    ))}
+  </ul>
+));
