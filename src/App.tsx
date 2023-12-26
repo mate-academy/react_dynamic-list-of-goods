@@ -1,43 +1,27 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-
-type User = {
-  id: number;
-  name: string;
-  color: string;
-};
+import { getGoods } from './services/goods';
+import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState([]);
+  const [goodsList, setGoodsList] = useState<Good[]>([]);
 
   const handleLoadAllGoods = () => {
-    fetch('http://localhost:3000/api/goods.json')
-      .then((response) => {
-        return response.json();
-      })
-      .then((users) => {
-        setGoods(users);
-      });
+    getGoods().then(setGoodsList);
   };
 
   const handleLoad5Goods = () => {
-    fetch('http://localhost:3000/api/goods.json')
-      .then((response) => {
-        return response.json();
-      })
-      .then((users) => {
-        setGoods(users.filter((user: User) => user.id <= 5));
+    getGoods()
+      .then((goods) => {
+        setGoodsList(goods.slice(0, 5));
       });
   };
 
   const handleLoadRedGoods = () => {
-    fetch('http://localhost:3000/api/goods.json')
-      .then((response) => {
-        return response.json();
-      })
-      .then((users) => {
-        setGoods(users.filter((user: User) => user.color === 'red'));
+    getGoods()
+      .then((goods) => {
+        setGoodsList(goods.filter((user: Good) => user.color === 'red'));
       });
   };
 
@@ -69,7 +53,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      <GoodsList goods={goodsList} />
     </div>
   );
 };
