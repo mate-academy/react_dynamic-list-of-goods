@@ -7,14 +7,17 @@ import { get5First, getAll, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-  const handleLoadAll = useCallback(() => getAll().then(setVisibleGoods), []);
+  const handleLoadAll = useCallback(
+    () => getAll().then(setVisibleGoods),
+    [getAll],
+  );
   const handleLoadFiveFirst = useCallback(
     () => get5First().then(setVisibleGoods),
-    [],
+    [get5First],
   );
   const handleLoadRed = useCallback(
     () => getRedGoods().then(setVisibleGoods),
-    [],
+    [getRedGoods],
   );
 
   return (
