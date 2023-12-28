@@ -1,27 +1,54 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { get5First, getAll, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+type Action = {
+  payload: Good[]
+};
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+const reducer = (state: Good[], action: Action) => {
+  if (action.payload) {
+    return action.payload;
+  }
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return state;
+};
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, dispatch] = useReducer(reducer, []);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => getAll().then(data => dispatch({ payload: data }))}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => get5First().then(data => dispatch({ payload: data }))}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => getRedGoods().then(data => dispatch({ payload: data }))}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
