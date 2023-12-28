@@ -1,27 +1,76 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [filter, setFilter] = useState({
+    all: true,
+    firstFive: false,
+    onlyRed: false,
+  });
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  useEffect(() => {
+    if (filter.all) {
+      getAll()
+        .then(setGoods);
+    }
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    if (filter.firstFive) {
+      get5First()
+        .then(setGoods);
+    }
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    if (filter.onlyRed) {
+      getRedGoods()
+        .then(setGoods);
+    }
+  }, [filter]);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const changeFilter = (filterName: string) => {
+    setFilter({
+      all: filterName === 'all',
+      firstFive: filterName === 'firstFive',
+      onlyRed: filterName === 'onlyRed',
+    });
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => changeFilter('all')}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => changeFilter('firstFive')}
+
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => changeFilter('onlyRed')}
+
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
