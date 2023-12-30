@@ -11,10 +11,25 @@ export const App: React.FC = () => {
     getGoods().then(setGoodsList);
   };
 
+  function compare(a: Good, b: Good) {
+    const nameA = a.name;
+    const nameB = b.name;
+
+    if (nameA > nameB) {
+      return 1;
+    }
+
+    if (nameA < nameB) {
+      return -1;
+    }
+
+    return 0;
+  }
+
   const handleLoad5Goods = () => {
     getGoods()
       .then((goods) => {
-        setGoodsList(goods.slice(0, 5));
+        setGoodsList(goods.sort(compare).slice(0, 5));
       });
   };
 
