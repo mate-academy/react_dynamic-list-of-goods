@@ -1,27 +1,66 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { get5First, getAll, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export enum FilteringTypes {
+  ALL,
+  FIRST_FIVE,
+  COLOR_RED,
+}
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [filteringBy, setFilteringBy] = useState<FilteringTypes | null>(null);
+  const [visiblGoods, setVisiblGoods] = useState<Good[] | []>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  useEffect(() => {
+    switch (filteringBy) {
+      case FilteringTypes.ALL:
+        getAll().then(setVisiblGoods);
+        break;
+      case FilteringTypes.FIRST_FIVE:
+        get5First().then(setVisiblGoods);
+        break;
+      case FilteringTypes.COLOR_RED:
+        getRedGoods().then(setVisiblGoods);
+        break;
+      default:
+        break;
+    }
+  }, [filteringBy]);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  window.console.log('render app');
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setFilteringBy(FilteringTypes.ALL)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setFilteringBy(FilteringTypes.FIRST_FIVE)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setFilteringBy(FilteringTypes.COLOR_RED)}
+      >
+        Load red goods
+      </button>
+
+      {filteringBy !== null && <GoodsList goods={visiblGoods} />}
+    </div>
+  );
+};
