@@ -11,15 +11,15 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const hendelGet5Firs = () => {
-    get5First().then((good: Good[]) => setGoods(good));
+    get5First().then(goodsFromServer => setGoods(goodsFromServer.slice(0, 5)));
   };
 
   const hendelGetAll = () => {
-    getAll().then((good: Good[]) => setGoods(good));
+    getAll().then(goodsFromServer => setGoods(goodsFromServer));
   };
 
   const hendelGetRed = () => {
-    getRedGoods().then((good: Good[]) => setGoods(good));
+    getRedGoods().then(goodsFromServer => setGoods(goodsFromServer));
   };
 
   return (
