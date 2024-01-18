@@ -1,1 +1,13 @@
-// styles go here
+@charset "utf-8";
+@import "../node_modules/bulma/bulma.sass";
+
+.bulma-loader-mixin {
+  @include loader;
+  
+  margin: 0 auto;
+  border: 4px solid #c91c1c;
+  border-right-color: transparent;
+  border-top-color: transparent;
+  height: 2rem;
+  width: 2rem;
+}

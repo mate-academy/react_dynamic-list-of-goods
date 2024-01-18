@@ -6,9 +6,14 @@ type Props = {
 };
 
 export const GoodsList: React.FC<Props> = ({ goods }) => (
-  <ul>
+  <ul className="dropdown-content">
     {goods.map(good => (
-      <li key={good.id} data-cy="good">
+      <li
+        key={good.id}
+        data-cy="good"
+        className="dropdown-item"
+        style={{ color: good.color }}
+      >
         {good.name}
       </li>
     ))}
