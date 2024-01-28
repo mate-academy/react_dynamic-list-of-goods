@@ -25,7 +25,7 @@ export const App: React.FC = () => {
         data-cy="all-button"
         onClick={() => {
           getAll()
-            .then(setGoods);
+            .then(goodsFromServer => setGoods(goodsFromServer));
         }}
       >
         Load all goods
