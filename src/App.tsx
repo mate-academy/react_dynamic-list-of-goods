@@ -13,15 +13,23 @@ export const App: React.FC = () => {
       .then((data) => setGoods(data));
   }, []);
 
-  useEffect(() => {
-    get5First()
-      .then((data) => setGoods(data));
-  }, []);
+  const loadAllGoods = async () => {
+    const data = await getAll();
 
-  useEffect(() => {
-    getRedGoods()
-      .then((data) => setGoods(data));
-  }, []);
+    setGoods(data);
+  };
+
+  const load5FirstGoods = async () => {
+    const data = await get5First();
+
+    setGoods(data);
+  };
+
+  const loadRedGoods = async () => {
+    const data = await getRedGoods();
+
+    setGoods(data);
+  };
 
   return (
     <div className="App">
@@ -30,11 +38,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={async () => {
-          const data = await getAll();
-
-          setGoods(data);
-        }}
+        onClick={loadAllGoods}
       >
         Load all goods
       </button>
@@ -42,11 +46,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={async () => {
-          const data = await get5First();
-
-          setGoods(data);
-        }}
+        onClick={load5FirstGoods}
       >
         Load 5 first goods
       </button>
@@ -54,11 +54,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={async () => {
-          const data = await getRedGoods();
-
-          setGoods(data);
-        }}
+        onClick={loadRedGoods}
       >
         Load red goods
       </button>
