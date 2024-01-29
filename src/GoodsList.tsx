@@ -1,6 +1,4 @@
 import React from 'react';
-// import './App.scss';
-// import cn from 'classnames';
 import { Good } from './types/Good';
 
 type Props = {
