@@ -1,1 +1,38 @@
-// styles go here
+$buttonPrimaryColor: #6a5acd;
+$buttonHoverColor: white;
+
+.App {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 500px;
+  margin: auto;
+
+  &__title {
+    margin-bottom: 30px;
+  }
+
+  &__button-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+
+  &__button {
+    background-color: $buttonPrimaryColor;
+    color: white;
+    height: 50px;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    font-weight: 700;
+
+    &:hover {
+      background-color: $buttonHoverColor;
+      border-color: $buttonPrimaryColor;
+      color: $buttonPrimaryColor;
+    }
+  }
+}
