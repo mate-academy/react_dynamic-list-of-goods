@@ -1,27 +1,78 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRed } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+enum Actions {
+  All = 'all',
+  Five = 'first-five',
+  Red = 'red',
+}
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [action, setAction] = useState('');
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  useEffect(() => {
+    const fetchGoods = async () => {
+      switch (action) {
+        case Actions.Five:
+          setGoods(await get5First());
+          break;
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+        case Actions.Red:
+          setGoods(await getRed());
+          break;
 
-    <GoodsList goods={[]} />
-  </div>
-);
+        case Actions.All:
+          setGoods(await getAll());
+          break;
+
+        default:
+          break;
+      }
+    };
+
+    if (action) {
+      fetchGoods();
+    }
+  }, [action]);
+
+  const handleClick = (act: string) => {
+    setAction(act);
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => handleClick(Actions.All)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => handleClick(Actions.Five)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => handleClick(Actions.Red)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
