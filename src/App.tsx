@@ -25,6 +25,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     handleFull();
+    // eslint-disable-next-line
   }, []);
 
   return (
