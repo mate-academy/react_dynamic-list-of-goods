@@ -6,22 +6,29 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [shownGoods, setShownGoods] = useState<Good[]>([]);
-  let receivedGoods = [];
+  const [receivedGoods, setReceivedGoods] = useState<Good[]>([]);
 
   const handleFull = async () => {
-    receivedGoods = await goodsAPI.getAll();
-    setShownGoods(receivedGoods);
+    const goods = await goodsAPI.getAll();
+
+    setReceivedGoods(goods);
   };
 
   const handleFive = async () => {
-    receivedGoods = await goodsAPI.get5First();
-    setShownGoods(receivedGoods);
+    const goods = await goodsAPI.get5First();
+
+    setReceivedGoods(goods);
   };
 
   const handleRed = async () => {
-    receivedGoods = await goodsAPI.getRedGoods();
-    setShownGoods(receivedGoods);
+    const goods = await goodsAPI.getRedGoods();
+
+    setReceivedGoods(goods);
   };
+
+  useEffect(() => {
+    setShownGoods(receivedGoods);
+  }, [receivedGoods]);
 
   useEffect(() => {
     handleFull();
