@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import { GoodsList } from './GoodsList';
 
@@ -19,14 +19,6 @@ export const App: React.FC = () => {
   const handleError = () => {
     setErrorMessage('Something went wrong. Please reload the page');
   };
-
-  useEffect(() => {
-    getAll()
-      .then(fetchGoods => {
-        setGoods(fetchGoods);
-      })
-      .catch(handleError);
-  }, []);
 
   const handleAllGoods = () => {
     getAll().then(fetchGoods => {
