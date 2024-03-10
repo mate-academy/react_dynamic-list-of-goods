@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
-import './App.scss';
+
 import { GoodsList } from './GoodsList';
+
+import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
