@@ -1,0 +1,240 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 7,
+    "passes": 2,
+    "pending": 0,
+    "failures": 5,
+    "testsRegistered": 7,
+    "passPercent": 28.571428571428573,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false,
+    "start": "2024-03-14T16:28:50.258Z",
+    "end": "2024-03-14T16:30:10.085Z",
+    "duration": 79827
+  },
+  "results": [
+    {
+      "uuid": "6193cb85-7cac-48e7-bd7c-382a7c7d184f",
+      "title": "",
+      "fullFile": "cypress/integration/page.spec.js",
+      "file": "cypress/integration/page.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "73038ce4-a6e2-47c3-a3ad-979f82caec8f",
+          "title": "Page",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should show no goods by default",
+              "fullTitle": "Page should show no goods by default",
+              "timedOut": null,
+              "duration": 1396,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "page.goods().should('have.length', 0);",
+              "err": {},
+              "uuid": "d29ff9f7-8be5-4ef2-8bc4-eff2996523b8",
+              "parentUUID": "73038ce4-a6e2-47c3-a3ad-979f82caec8f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should load all 13 goods",
+              "fullTitle": "Page should load all 13 goods",
+              "timedOut": null,
+              "duration": 5273,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "page.allButton().click();\npage.goods().should('have.length', 13);",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `[data-cy=\"good\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `[data-cy=\"good\"]`, but never found it.\n    at Context.eval (http://localhost:3001/__cypress/tests?p=cypress\\integration\\page.spec.js:117:18)",
+                "diff": null
+              },
+              "uuid": "33af4424-56db-4355-81fd-29d4579ab726",
+              "parentUUID": "73038ce4-a6e2-47c3-a3ad-979f82caec8f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should use expected colors for the goods",
+              "fullTitle": "Page should use expected colors for the goods",
+              "timedOut": null,
+              "duration": 53430,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "page.allButton().click();\npage.goods().eq(0).should('have.css', 'color', 'rgb(255, 0, 0)');\npage.goods().eq(1).should('have.css', 'color', 'rgb(0, 128, 0)');\npage.goods().eq(2).should('have.css', 'color', 'rgb(0, 0, 255)');\npage.goods().eq(3).should('have.css', 'color', 'rgb(255, 0, 0)');",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `[data-cy=\"good\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `[data-cy=\"good\"]`, but never found it.\n    at Object.getByDataCy (http://localhost:3001/__cypress/tests?p=cypress\\integration\\page.spec.js:100:27)\n    at Object.goods (http://localhost:3001/__cypress/tests?p=cypress\\integration\\page.spec.js:104:21)\n    at Context.eval (http://localhost:3001/__cypress/tests?p=cypress\\integration\\page.spec.js:121:10)",
+                "diff": null
+              },
+              "uuid": "6ff10271-b54d-486f-9ab8-722629a34a09",
+              "parentUUID": "73038ce4-a6e2-47c3-a3ad-979f82caec8f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should load the first 5 goods",
+              "fullTitle": "Page should load the first 5 goods",
+              "timedOut": null,
+              "duration": 6574,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "page.firstFiveButton().click();\npage.goods().should('have.length', 5);\npage.goods().eq(0).should('have.text', 'Apple');\npage.goods().eq(1).should('have.text', 'Bread');\npage.goods().eq(2).should('have.text', 'Carrot');\npage.goods().eq(3).should('have.text', 'Dumplings');\npage.goods().eq(4).should('have.text', 'Eggs');",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `[data-cy=\"good\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `[data-cy=\"good\"]`, but never found it.\n    at Context.eval (http://localhost:3001/__cypress/tests?p=cypress\\integration\\page.spec.js:128:18)",
+                "diff": null
+              },
+              "uuid": "bd2e3c0d-5821-410a-bfca-254965e4f757",
+              "parentUUID": "73038ce4-a6e2-47c3-a3ad-979f82caec8f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should load red goods",
+              "fullTitle": "Page should load red goods",
+              "timedOut": null,
+              "duration": 5254,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "page.redButton().click();\npage.goods().should('have.length', 5);\npage.goods().eq(0).should('have.text', 'Potato');\npage.goods().eq(1).should('have.text', 'Ice cream');\npage.goods().eq(2).should('have.text', 'Fish');\npage.goods().eq(3).should('have.text', 'Garlic');\npage.goods().eq(4).should('have.text', 'Dumplings');",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `[data-cy=\"good\"]`, but never found it.",
+                "estack": "AssertionError: Timed out retrying after 4000ms: Expected to find element: `[data-cy=\"good\"]`, but never found it.\n    at Context.eval (http://localhost:3001/__cypress/tests?p=cypress\\integration\\page.spec.js:137:18)",
+                "diff": null
+              },
+              "uuid": "6dbbdf46-b976-49d8-98d9-16b35c877303",
+              "parentUUID": "73038ce4-a6e2-47c3-a3ad-979f82caec8f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should not send requests to the server by default",
+              "fullTitle": "Page should not send requests to the server by default",
+              "timedOut": null,
+              "duration": 1929,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('@apiCall').its('callCount').should('equal', 0);",
+              "err": {},
+              "uuid": "65a6d834-0287-4563-87e6-2187a34cabbb",
+              "parentUUID": "73038ce4-a6e2-47c3-a3ad-979f82caec8f",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should send a new request on each click",
+              "fullTitle": "Page should send a new request on each click",
+              "timedOut": null,
+              "duration": 4924,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "page.allButton().click();\ncy.get('@apiCall').its('callCount').should('equal', 1);\npage.firstFiveButton().click();\ncy.get('@apiCall').its('callCount').should('equal', 2);\npage.redButton().click();\ncy.get('@apiCall').its('callCount').should('equal', 3);\npage.allButton().click();\ncy.get('@apiCall').its('callCount').should('equal', 4);",
+              "err": {
+                "message": "AssertionError: Timed out retrying after 4000ms: expected 0 to equal 1",
+                "estack": "AssertionError: Timed out retrying after 4000ms: expected 0 to equal 1\n    at Context.eval (http://localhost:3001/__cypress/tests?p=cypress\\integration\\page.spec.js:149:41)",
+                "diff": null
+              },
+              "uuid": "bc3cf3c3-bdc7-4b00-a1aa-56db2457da48",
+              "parentUUID": "73038ce4-a6e2-47c3-a3ad-979f82caec8f",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "d29ff9f7-8be5-4ef2-8bc4-eff2996523b8",
+            "65a6d834-0287-4563-87e6-2187a34cabbb"
+          ],
+          "failures": [
+            "33af4424-56db-4355-81fd-29d4579ab726",
+            "6ff10271-b54d-486f-9ab8-722629a34a09",
+            "bd2e3c0d-5821-410a-bfca-254965e4f757",
+            "6dbbdf46-b976-49d8-98d9-16b35c877303",
+            "bc3cf3c3-bdc7-4b00-a1aa-56db2457da48"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 78780,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "raw_reports",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
