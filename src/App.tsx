@@ -9,15 +9,15 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
+  const handleGetRedGoods = () => {
+    getAll().then(data => setGoods(data));
+  };
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={() => getAll().then(data => setGoods(data))}
-      >
+      <button type="button" data-cy="all-button" onClick={handleGetRedGoods}>
         Load all goods
       </button>
 
