@@ -16,7 +16,7 @@ export const App: React.FC = () => {
   function hundleGet5First() {
     get5First().then(goods => {
       setAllGoods(
-        goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
+        goods.sort((a, c) => a.name.localeCompare(c.name)).slice(0, 5),
       );
     });
   }
