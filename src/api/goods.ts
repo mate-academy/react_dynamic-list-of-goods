@@ -12,11 +12,11 @@ export const get5First = () => {
     return goods
       .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
       .slice(0, 5);
-  }); // sort and get the first 5
+  });
 };
 
 export const getRedGoods = () => {
   return getAll().then(goods =>
     goods.filter((good: Good) => good.color === 'red'),
-  ); // get only red
+  );
 };
