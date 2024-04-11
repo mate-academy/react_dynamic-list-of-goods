@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { GoodsList } from './GoodsList';
+import './App.scss';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
