@@ -1,0 +1,62 @@
+{
+    "sourceFile": "src/api/goods.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 11,
+            "patches": [
+                {
+                    "date": 1713868902609,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1713868911413,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(goods => goods,); // sort and get the first 5\n+  return getAll().then(goods => goods.sort((a, b)); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n   return getAll().then(goods => goods); // get only red\n"
+                },
+                {
+                    "date": 1713868917815,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(goods => goods.sort((a, b)); // sort and get the first 5\n+  return getAll().then(goods => goods.sort((a, b) => a.locael); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n   return getAll().then(goods => goods); // get only red\n"
+                },
+                {
+                    "date": 1713868933325,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(goods => goods.sort((a, b) => a.locael); // sort and get the first 5\n+  return getAll().then(goods => goods.sort((a, b) => a.name.localeCompare(b)); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n   return getAll().then(goods => goods); // get only red\n"
+                },
+                {
+                    "date": 1713868938990,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,16 @@\n+import { Good } from '../types/Good';\n+\n+// eslint-disable-next-line\n+const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;\n+\n+export function getAll(): Promise<Good[]> {\n+  return fetch(API_URL).then(response => response.json());\n+}\n+\n+export const get5First = () => {\n+  return getAll().then(goods => goods.sort((a, b) => a.name.localeCompare(b.name)); // sort and get the first 5\n+};\n+\n+export const getRedGoods = () => {\n+  return getAll().then(goods => goods); // get only red\n+};\n"
+                },
+                {
+                    "date": 1713868944182,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,26 +7,10 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(goods => goods.sort((a, b) => a.name.localeCompare(b.name)); // sort and get the first 5\n+  return getAll().then(goods => goods.sort((a, b) => a.name.localeCompare(b.name).slice()); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n   return getAll().then(goods => goods); // get only red\n };\n-import { Good } from '../types/Good';\n-\n-// eslint-disable-next-line\n-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;\n-\n-export function getAll(): Promise<Good[]> {\n-  return fetch(API_URL).then(response => response.json());\n-}\n-\n-export const get5First = () => {\n-  return getAll().then(goods => goods.sort((a, b) => a.name.localeCompare(b)); // sort and get the first 5\n-};\n-\n-export const getRedGoods = () => {\n-  return getAll().then(goods => goods); // get only red\n-};\n"
+                },
+                {
+                    "date": 1713868956449,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(goods => goods.sort((a, b) => a.name.localeCompare(b.name).slice()); // sort and get the first 5\n+  return getAll().then(goods => goods.sort((a, b) => a.name.localeCompare(b.name).slice(0, 5)) // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n   return getAll().then(goods => goods); // get only red\n"
+                },
+                {
+                    "date": 1713868966348,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(goods => goods.sort((a, b) => a.name.localeCompare(b.name).slice(0, 5)) // sort and get the first 5\n+  return getAll().then(goods => goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5)) // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n   return getAll().then(goods => goods); // get only red\n"
+                },
+                {
+                    "date": 1713868972960,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,6 +11,6 @@\n   return getAll().then(goods => goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5)) // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n-  return getAll().then(goods => goods); // get only red\n+  return getAll().then(goods => goods.); // get only red\n };\n"
+                },
+                {
+                    "date": 1713868978607,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,6 +11,6 @@\n   return getAll().then(goods => goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5)) // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n-  return getAll().then(goods => goods.); // get only red\n+  return getAll().then(goods => goods.filter(good ->)); // get only red\n };\n"
+                },
+                {
+                    "date": 1713868984478,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,6 +11,6 @@\n   return getAll().then(goods => goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5)) // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n-  return getAll().then(goods => goods.filter(good ->)); // get only red\n+  return getAll().then(goods => goods.filter(good => good)); // get only red\n };\n"
+                },
+                {
+                    "date": 1713868991291,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,16 @@\n+import { Good } from '../types/Good';\n+\n+// eslint-disable-next-line\n+const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;\n+\n+export function getAll(): Promise<Good[]> {\n+  return fetch(API_URL).then(response => response.json());\n+}\n+\n+export const get5First = () => {\n+  return getAll().then(goods => goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5)) // sort and get the first 5\n+};\n+\n+export const getRedGoods = () => {\n+  return getAll().then(goods => goods.filter(good => good.color ===)); // get only red\n+};\n"
+                }
+            ],
+            "date": 1713868902609,
+            "name": "Commit-0",
+            "content": "import { Good } from '../types/Good';\n\n// eslint-disable-next-line\nconst API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;\n\nexport function getAll(): Promise<Good[]> {\n  return fetch(API_URL).then(response => response.json());\n}\n\nexport const get5First = () => {\n  return getAll().then(goods => goods,); // sort and get the first 5\n};\n\nexport const getRedGoods = () => {\n  return getAll().then(goods => goods); // get only red\n};\n"
+        }
+    ]
+}

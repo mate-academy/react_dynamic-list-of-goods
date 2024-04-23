@@ -1,0 +1,30 @@
+{
+    "sourceFile": "src/GoodsList.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1713868762211,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1713868770240,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import React from 'react';\n import { Good } from './types/Good';\n \n type Props = {\n-  goods: Good[] ;\n+  goods: Good[] | null;\n };\n \n export const GoodsList: React.FC<Props> = ({ goods }) => (\n   <ul>\n"
+                },
+                {
+                    "date": 1713868789447,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n };\n \n export const GoodsList: React.FC<Props> = ({ goods }) => (\n   <ul>\n-    {goods.map(good => (\n+    {goods?.map(good => (\n       <li key={good.id} data-cy=\"good\">\n         {good.name}\n       </li>\n     ))}\n"
+                },
+                {
+                    "date": 1713868802898,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \n export const GoodsList: React.FC<Props> = ({ goods }) => (\n   <ul>\n     {goods?.map(good => (\n-      <li key={good.id} data-cy=\"good\">\n+      <li key={good.id} data-cy=\"good\"  style={{ color: `${good.color}` }}>\n         {good.name}\n       </li>\n     ))}\n   </ul>\n"
+                }
+            ],
+            "date": 1713868762211,
+            "name": "Commit-0",
+            "content": "import React from 'react';\nimport { Good } from './types/Good';\n\ntype Props = {\n  goods: Good[] ;\n};\n\nexport const GoodsList: React.FC<Props> = ({ goods }) => (\n  <ul>\n    {goods.map(good => (\n      <li key={good.id} data-cy=\"good\">\n        {good.name}\n      </li>\n    ))}\n  </ul>\n);\n"
+        }
+    ]
+}
