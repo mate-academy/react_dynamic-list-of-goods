@@ -1,0 +1,166 @@
+{
+    "sourceFile": "src/App.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 37,
+            "patches": [
+                {
+                    "date": 1713868237583,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1713868247873,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,17 +1,17 @@\n import React from 'react';\n import './App.scss';\n import { GoodsList } from './GoodsList';\n \n-// import { getAll, get5First, getRed } from './api/goods';\n+import { getAll, get5First, getRed } from './api/goods';\n // or\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n-    <button type=\"button\" data-cy=\"all-button\" >\n+    <button type=\"button\" data-cy=\"all-button\" onClick={}>\n       Load all goods\n     </button>\n \n     <button type=\"button\" data-cy=\"first-five-button\">\n"
+                },
+                {
+                    "date": 1713868270521,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,13 +9,13 @@\n export const App: React.FC = () => (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n-    <button type=\"button\" data-cy=\"all-button\" onClick={}>\n+    <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n       Load all goods\n     </button>\n \n-    <button type=\"button\" data-cy=\"first-five-button\">\n+    <button type=\"button\" data-cy=\"first-five-button\" onClick={getAll}>\n       Load 5 first goods\n     </button>\n \n     <button type=\"button\" data-cy=\"red-button\">\n"
+                },
+                {
+                    "date": 1713868280345,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,13 +13,13 @@\n     <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n       Load all goods\n     </button>\n \n-    <button type=\"button\" data-cy=\"first-five-button\" onClick={getAll}>\n+    <button type=\"button\" data-cy=\"first-five-button\" onClick={get5First}>\n       Load 5 first goods\n     </button>\n \n-    <button type=\"button\" data-cy=\"red-button\">\n+    <button type=\"button\" data-cy=\"red-button\" >\n       Load red goods\n     </button>\n \n     <GoodsList goods={[]} />\n"
+                },
+                {
+                    "date": 1713868285377,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n     <button type=\"button\" data-cy=\"first-five-button\" onClick={get5First}>\n       Load 5 first goods\n     </button>\n \n-    <button type=\"button\" data-cy=\"red-button\" >\n+    <button type=\"button\" data-cy=\"red-button\" onClick={getRed}>\n       Load red goods\n     </button>\n \n     <GoodsList goods={[]} />\n"
+                },
+                {
+                    "date": 1713868301741,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,11 @@\n     <button type=\"button\" data-cy=\"first-five-button\" onClick={get5First}>\n       Load 5 first goods\n     </button>\n \n-    <button type=\"button\" data-cy=\"red-button\" onClick={getRed}>\n+    <button\n+      type=\"button\" data-cy=\"red-button\"\n+      onClick={getRed}>\n       Load red goods\n     </button>\n \n     <GoodsList goods={[]} />\n"
+                },
+                {
+                    "date": 1713868307422,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,10 +18,12 @@\n       Load 5 first goods\n     </button>\n \n     <button\n-      type=\"button\" data-cy=\"red-button\"\n-      onClick={getRed}>\n+      type=\"button\"\n+      data-cy=\"red-button\"\n+      onClick={getRed}\n+    >\n       Load red goods\n     </button>\n \n     <GoodsList goods={[]} />\n"
+                },
+                {
+                    "date": 1713868312879,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,12 @@\n     <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n       Load all goods\n     </button>\n \n-    <button type=\"button\" data-cy=\"first-five-button\" onClick={get5First}>\n+    <button\n+      type=\"button\"\n+      data-cy=\"first-five-button\"\n+      onClick={get5First}>\n       Load 5 first goods\n     </button>\n \n     <button\n"
+                },
+                {
+                    "date": 1713868326428,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import React from 'react';\n import './App.scss';\n import { GoodsList } from './GoodsList';\n \n-import { getAll, get5First, getRed } from './api/goods';\n+import { getAll, get5First, getRedGoods } from './api/goods';\n // or\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => (\n@@ -16,9 +16,10 @@\n \n     <button\n       type=\"button\"\n       data-cy=\"first-five-button\"\n-      onClick={get5First}>\n+      onClick={get5First}\n+    >\n       Load 5 first goods\n     </button>\n \n     <button\n"
+                },
+                {
+                    "date": 1713868335125,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,10 @@\n export const App: React.FC = () => (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n-    <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n+    <button\n+      type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n       Load all goods\n     </button>\n \n     <button\n@@ -24,9 +25,9 @@\n \n     <button\n       type=\"button\"\n       data-cy=\"red-button\"\n-      onClick={getRed}\n+      onClick={getRedGoods}\n     >\n       Load red goods\n     </button>\n \n"
+                },
+                {
+                    "date": 1713868340780,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,12 @@\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n     <button\n-      type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n+      type=\"button\"\n+      data-cy=\"all-button\"\n+      onClick={getAll}\n+    >\n       Load all goods\n     </button>\n \n     <button\n"
+                },
+                {
+                    "date": 1713868512561,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,9 +5,13 @@\n import { getAll, get5First, getRedGoods } from './api/goods';\n // or\n // import * as goodsAPI from './api/goods';\n \n-export const App: React.FC = () => (\n+export const App: React.FC = () => {\n+  return (\n+    \n+  )\n+}\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n     <button\n"
+                },
+                {
+                    "date": 1713868520670,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,11 +7,8 @@\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n   return (\n-    \n-  )\n-}\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n     <button\n@@ -39,5 +36,7 @@\n     </button>\n \n     <GoodsList goods={[]} />\n   </div>\n-);\n+    \n+    )\n+  }\n"
+                },
+                {
+                    "date": 1713868526038,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -36,7 +36,6 @@\n     </button>\n \n     <GoodsList goods={[]} />\n   </div>\n-    \n-    )\n-  }\n+  )\n+}\n"
+                },
+                {
+                    "date": 1713868534503,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,42 @@\n+import React from 'react';\n+import './App.scss';\n+import { GoodsList } from './GoodsList';\n+\n+import { getAll, get5First, getRedGoods } from './api/goods';\n+// or\n+// import * as goodsAPI from './api/goods';\n+\n+export const App: React.FC = () => {\n+  const \n+  return (\n+  <div className=\"App\">\n+    <h1>Dynamic list of Goods</h1>\n+\n+    <button\n+      type=\"button\"\n+      data-cy=\"all-button\"\n+      onClick={getAll}\n+    >\n+      Load all goods\n+    </button>\n+\n+    <button\n+      type=\"button\"\n+      data-cy=\"first-five-button\"\n+      onClick={get5First}\n+    >\n+      Load 5 first goods\n+    </button>\n+\n+    <button\n+      type=\"button\"\n+      data-cy=\"red-button\"\n+      onClick={getRedGoods}\n+    >\n+      Load red goods\n+    </button>\n+\n+    <GoodsList goods={[]} />\n+  </div>\n+  )\n+}\n"
+                },
+                {
+                    "date": 1713868544752,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n // or\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n-  const \n+  const [goods, setGo]\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n@@ -39,45 +39,4 @@\n     <GoodsList goods={[]} />\n   </div>\n   )\n }\n-import React from 'react';\n-import './App.scss';\n-import { GoodsList } from './GoodsList';\n-\n-import { getAll, get5First, getRedGoods } from './api/goods';\n-// or\n-// import * as goodsAPI from './api/goods';\n-\n-export const App: React.FC = () => {\n-  return (\n-  <div className=\"App\">\n-    <h1>Dynamic list of Goods</h1>\n-\n-    <button\n-      type=\"button\"\n-      data-cy=\"all-button\"\n-      onClick={getAll}\n-    >\n-      Load all goods\n-    </button>\n-\n-    <button\n-      type=\"button\"\n-      data-cy=\"first-five-button\"\n-      onClick={get5First}\n-    >\n-      Load 5 first goods\n-    </button>\n-\n-    <button\n-      type=\"button\"\n-      data-cy=\"red-button\"\n-      onClick={getRedGoods}\n-    >\n-      Load red goods\n-    </button>\n-\n-    <GoodsList goods={[]} />\n-  </div>\n-  )\n-}\n"
+                },
+                {
+                    "date": 1713868550316,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,14 +1,14 @@\n-import React from 'react';\n+import React, { useState } from 'react';\n import './App.scss';\n import { GoodsList } from './GoodsList';\n \n import { getAll, get5First, getRedGoods } from './api/goods';\n // or\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n-  const [goods, setGo]\n+  const [goods, setGoods] = useState\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713868565743,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n // or\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n-  const [goods, setGoods] = useState\n+  const [goods, setGoods] = useState(<Good>)\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713868571023,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n // or\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n-  const [goods, setGoods] = useState(<Good>)\n+  const [goods, setGoods] = useState(<Good | n>)\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713868579204,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n // or\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n-  const [goods, setGoods] = useState(<Good | n>)\n+  const [goods, setGoods] = useState<Good | null>(null)\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713868585990,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,13 +2,14 @@\n import './App.scss';\n import { GoodsList } from './GoodsList';\n \n import { getAll, get5First, getRedGoods } from './api/goods';\n+import { Good } from './types/Good';\n // or\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n-  const [goods, setGoods] = useState<Good | null>(null)\n+  const [goods, setGoods] = useState<Good[] | null>(null)\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713868591545,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,11 @@\n // or\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n-  const [goods, setGoods] = useState<Good[] | null>(null)\n+  const [goods, setGoods] = useState<Good[] | null>(null);\n+\n+  han\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713868599336,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[] | null>(null);\n \n-  han\n+  const handleGetAll = () =\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713868611895,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,11 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[] | null>(null);\n \n-  const handleGetAll = () =\n+  const handleGetAll = () => {\n+    get\n+  }\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713868617874,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[] | null>(null);\n \n   const handleGetAll = () => {\n-    get\n+    getAll.setGoods()\n   }\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n"
+                },
+                {
+                    "date": 1713868623169,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,47 @@\n+import React, { useState } from 'react';\n+import './App.scss';\n+import { GoodsList } from './GoodsList';\n+\n+import { getAll, get5First, getRedGoods } from './api/goods';\n+import { Good } from './types/Good';\n+// or\n+// import * as goodsAPI from './api/goods';\n+\n+export const App: React.FC = () => {\n+  const [goods, setGoods] = useState<Good[] | null>(null);\n+\n+  const handleGetAll = () => {\n+    .tyebgetAll.setGoods();\n+  }\n+  return (\n+  <div className=\"App\">\n+    <h1>Dynamic list of Goods</h1>\n+\n+    <button\n+      type=\"button\"\n+      data-cy=\"all-button\"\n+      onClick={getAll}\n+    >\n+      Load all goods\n+    </button>\n+\n+    <button\n+      type=\"button\"\n+      data-cy=\"first-five-button\"\n+      onClick={get5First}\n+    >\n+      Load 5 first goods\n+    </button>\n+\n+    <button\n+      type=\"button\"\n+      data-cy=\"red-button\"\n+      onClick={getRedGoods}\n+    >\n+      Load red goods\n+    </button>\n+\n+    <GoodsList goods={[]} />\n+  </div>\n+  )\n+}\n"
+                },
+                {
+                    "date": 1713868634019,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[] | null>(null);\n \n   const handleGetAll = () => {\n-    .tyebgetAll.setGoods();\n+    getAll.setGoods();\n   }\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n@@ -44,51 +44,4 @@\n     <GoodsList goods={[]} />\n   </div>\n   )\n }\n-import React, { useState } from 'react';\n-import './App.scss';\n-import { GoodsList } from './GoodsList';\n-\n-import { getAll, get5First, getRedGoods } from './api/goods';\n-import { Good } from './types/Good';\n-// or\n-// import * as goodsAPI from './api/goods';\n-\n-export const App: React.FC = () => {\n-  const [goods, setGoods] = useState<Good[] | null>(null);\n-\n-  const handleGetAll = () => {\n-    getAll.setGoods()\n-  }\n-  return (\n-  <div className=\"App\">\n-    <h1>Dynamic list of Goods</h1>\n-\n-    <button\n-      type=\"button\"\n-      data-cy=\"all-button\"\n-      onClick={getAll}\n-    >\n-      Load all goods\n-    </button>\n-\n-    <button\n-      type=\"button\"\n-      data-cy=\"first-five-button\"\n-      onClick={get5First}\n-    >\n-      Load 5 first goods\n-    </button>\n-\n-    <button\n-      type=\"button\"\n-      data-cy=\"red-button\"\n-      onClick={getRedGoods}\n-    >\n-      Load red goods\n-    </button>\n-\n-    <GoodsList goods={[]} />\n-  </div>\n-  )\n-}\n"
+                },
+                {
+                    "date": 1713868641226,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,47 @@\n+import React, { useState } from 'react';\n+import './App.scss';\n+import { GoodsList } from './GoodsList';\n+\n+import { getAll, get5First, getRedGoods } from './api/goods';\n+import { Good } from './types/Good';\n+// or\n+// import * as goodsAPI from './api/goods';\n+\n+export const App: React.FC = () => {\n+  const [goods, setGoods] = useState<Good[] | null>(null);\n+\n+  const handleGetAll = () => {\n+    getAll().then(setGoods)\n+  }\n+  return (\n+  <div className=\"App\">\n+    <h1>Dynamic list of Goods</h1>\n+\n+    <button\n+      type=\"button\"\n+      data-cy=\"all-button\"\n+      onClick={getAll}\n+    >\n+      Load all goods\n+    </button>\n+\n+    <button\n+      type=\"button\"\n+      data-cy=\"first-five-button\"\n+      onClick={get5First}\n+    >\n+      Load 5 first goods\n+    </button>\n+\n+    <button\n+      type=\"button\"\n+      data-cy=\"red-button\"\n+      onClick={getRedGoods}\n+    >\n+      Load red goods\n+    </button>\n+\n+    <GoodsList goods={[]} />\n+  </div>\n+  )\n+}\n"
+                },
+                {
+                    "date": 1713868663123,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,56 +11,14 @@\n   const [goods, setGoods] = useState<Good[] | null>(null);\n \n   const handleGetAll = () => {\n     getAll().then(setGoods)\n-  }\n-  return (\n-  <div className=\"App\">\n-    <h1>Dynamic list of Goods</h1>\n+  };\n \n-    <button\n-      type=\"button\"\n-      data-cy=\"all-button\"\n-      onClick={getAll}\n-    >\n-      Load all goods\n-    </button>\n-\n-    <button\n-      type=\"button\"\n-      data-cy=\"first-five-button\"\n-      onClick={get5First}\n-    >\n-      Load 5 first goods\n-    </button>\n-\n-    <button\n-      type=\"button\"\n-      data-cy=\"red-button\"\n-      onClick={getRedGoods}\n-    >\n-      Load red goods\n-    </button>\n-\n-    <GoodsList goods={[]} />\n-  </div>\n-  )\n-}\n-import React, { useState } from 'react';\n-import './App.scss';\n-import { GoodsList } from './GoodsList';\n-\n-import { getAll, get5First, getRedGoods } from './api/goods';\n-import { Good } from './types/Good';\n-// or\n-// import * as goodsAPI from './api/goods';\n-\n-export const App: React.FC = () => {\n-  const [goods, setGoods] = useState<Good[] | null>(null);\n-\n-  const handleGetAll = () => {\n-    getAll.setGoods();\n-  }\n+  const handleFirstFive: React.MouseEventHandler<HTMLButtonElement> = () =>\n+    get5First().then(setGoods);\n+  const handleReds: React.MouseEventHandler<HTMLButtonElement> = () =>\n+    getRed().then(setGoods);v\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713868674110,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,16 +9,16 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[] | null>(null);\n \n-  const handleGetAll = () => {\n+  const handleGetAll: React.MouseEventHandler<HTMLButtonElement> = () => {\n     getAll().then(setGoods)\n   };\n \n   const handleFirstFive: React.MouseEventHandler<HTMLButtonElement> = () =>\n     get5First().then(setGoods);\n   const handleReds: React.MouseEventHandler<HTMLButtonElement> = () =>\n-    getRed().then(setGoods);v\n+    getRed().then(setGoods);\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713868690907,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,8 @@\n   const [goods, setGoods] = useState<Good[] | null>(null);\n \n   const handleGetAll: React.MouseEventHandler<HTMLButtonElement> = () => {\n     getAll().then(setGoods)\n-  };\n \n   const handleFirstFive: React.MouseEventHandler<HTMLButtonElement> = () =>\n     get5First().then(setGoods);\n   const handleReds: React.MouseEventHandler<HTMLButtonElement> = () =>\n"
+                },
+                {
+                    "date": 1713868699194,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,10 +9,10 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[] | null>(null);\n \n-  const handleGetAll: React.MouseEventHandler<HTMLButtonElement> = () => {\n-    getAll().then(setGoods)\n+  const handleGetAll: React.MouseEventHandler<HTMLButtonElement> = () =>\n+    getAll().then(setGoods);\n \n   const handleFirstFive: React.MouseEventHandler<HTMLButtonElement> = () =>\n     get5First().then(setGoods);\n   const handleReds: React.MouseEventHandler<HTMLButtonElement> = () =>\n"
+                },
+                {
+                    "date": 1713868705426,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,8 @@\n   const [goods, setGoods] = useState<Good[] | null>(null);\n \n   const handleGetAll: React.MouseEventHandler<HTMLButtonElement> = () =>\n     getAll().then(setGoods);\n-\n   const handleFirstFive: React.MouseEventHandler<HTMLButtonElement> = () =>\n     get5First().then(setGoods);\n   const handleReds: React.MouseEventHandler<HTMLButtonElement> = () =>\n     getRed().then(setGoods);\n"
+                },
+                {
+                    "date": 1713868714171,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,17 +14,17 @@\n     getAll().then(setGoods);\n   const handleFirstFive: React.MouseEventHandler<HTMLButtonElement> = () =>\n     get5First().then(setGoods);\n   const handleReds: React.MouseEventHandler<HTMLButtonElement> = () =>\n-    getRed().then(setGoods);\n+    getRedGoods().then(setGoods);\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n \n     <button\n       type=\"button\"\n       data-cy=\"all-button\"\n-      onClick={getAll}\n+      onClick={handleGetAll}\n     >\n       Load all goods\n     </button>\n \n"
+                },
+                {
+                    "date": 1713868720808,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n   const [goods, setGoods] = useState<Good[] | null>(null);\n \n   const handleGetAll: React.MouseEventHandler<HTMLButtonElement> = () =>\n     getAll().then(setGoods);\n-  const handleFirstFive: React.MouseEventHandler<HTMLButtonElement> = () =>\n+  const handleGetFirstFive: React.MouseEventHandler<HTMLButtonElement> = () =>\n     get5First().then(setGoods);\n   const handleReds: React.MouseEventHandler<HTMLButtonElement> = () =>\n     getRedGoods().then(setGoods);\n   return (\n"
+                },
+                {
+                    "date": 1713868726056,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n   const [goods, setGoods] = useState<Good[] | null>(null);\n \n   const handleGetAll: React.MouseEventHandler<HTMLButtonElement> = () =>\n     getAll().then(setGoods);\n-  const handleGetFirstFive: React.MouseEventHandler<HTMLButtonElement> = () =>\n+  const handleGet5First: React.MouseEventHandler<HTMLButtonElement> = () =>\n     get5First().then(setGoods);\n   const handleReds: React.MouseEventHandler<HTMLButtonElement> = () =>\n     getRedGoods().then(setGoods);\n   return (\n"
+                },
+                {
+                    "date": 1713868736922,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n   const handleGetAll: React.MouseEventHandler<HTMLButtonElement> = () =>\n     getAll().then(setGoods);\n   const handleGet5First: React.MouseEventHandler<HTMLButtonElement> = () =>\n     get5First().then(setGoods);\n-  const handleReds: React.MouseEventHandler<HTMLButtonElement> = () =>\n+  const handleGetReds: React.MouseEventHandler<HTMLButtonElement> = () =>\n     getRedGoods().then(setGoods);\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n@@ -30,9 +30,9 @@\n \n     <button\n       type=\"button\"\n       data-cy=\"first-five-button\"\n-      onClick={get5First}\n+      onClick={handleGet5First}\n     >\n       Load 5 first goods\n     </button>\n \n"
+                },
+                {
+                    "date": 1713868745113,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n   const handleGetAll: React.MouseEventHandler<HTMLButtonElement> = () =>\n     getAll().then(setGoods);\n   const handleGet5First: React.MouseEventHandler<HTMLButtonElement> = () =>\n     get5First().then(setGoods);\n-  const handleGetReds: React.MouseEventHandler<HTMLButtonElement> = () =>\n+  const handleGetRedGoods: React.MouseEventHandler<HTMLButtonElement> = () =>\n     getRedGoods().then(setGoods);\n   return (\n   <div className=\"App\">\n     <h1>Dynamic list of Goods</h1>\n@@ -38,9 +38,9 @@\n \n     <button\n       type=\"button\"\n       data-cy=\"red-button\"\n-      onClick={getRedGoods}\n+      onClick={handleGetRedGoods}\n     >\n       Load red goods\n     </button>\n \n"
+                }
+            ],
+            "date": 1713868237583,
+            "name": "Commit-0",
+            "content": "import React from 'react';\nimport './App.scss';\nimport { GoodsList } from './GoodsList';\n\n// import { getAll, get5First, getRed } from './api/goods';\n// or\n// import * as goodsAPI from './api/goods';\n\nexport const App: React.FC = () => (\n  <div className=\"App\">\n    <h1>Dynamic list of Goods</h1>\n\n    <button type=\"button\" data-cy=\"all-button\" >\n      Load all goods\n    </button>\n\n    <button type=\"button\" data-cy=\"first-five-button\">\n      Load 5 first goods\n    </button>\n\n    <button type=\"button\" data-cy=\"red-button\">\n      Load red goods\n    </button>\n\n    <GoodsList goods={[]} />\n  </div>\n);\n"
+        }
+    ]
+}
