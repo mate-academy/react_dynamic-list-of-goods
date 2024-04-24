@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -10,22 +10,6 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [buttonAll, setButtonAll] = useState(false);
-  const [buttonFiveFirst, setButtonFiveFirst] = useState(false);
-  const [buttonRed, setButtonRed] = useState(false);
-
-  useEffect(() => {
-    if (buttonAll) {
-      getAll().then(setGoods);
-      setButtonAll(false);
-    } else if (buttonFiveFirst) {
-      get5First().then(setGoods);
-      setButtonFiveFirst(false);
-    } else if (buttonRed) {
-      getRedGoods().then(setGoods);
-      setButtonRed(false);
-    }
-  }, [buttonAll, buttonFiveFirst, buttonRed]);
 
   return (
     <div className="App">
@@ -34,7 +18,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setButtonAll(true)}
+        onClick={() => getAll().then(setGoods)}
       >
         Load all goods
       </button>
@@ -42,7 +26,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setButtonFiveFirst(true)}
+        onClick={() => get5First().then(setGoods)}
       >
         Load 5 first goods
       </button>
@@ -50,7 +34,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setButtonRed(true)}
+        onClick={() => getRedGoods().then(setGoods)}
       >
         Load red goods
       </button>
