@@ -12,15 +12,11 @@ const App: React.FC = () => {
   };
 
   const handleGet5 = () => {
-    get5First()
-      .then(data =>
-        data.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
-      )
-      .then(sortedData => setGoods(sortedData));
+    get5First().then(data => setGoods(data));
   };
 
   const handleGetRed = () => {
-    getRed().then(data => setGoods(data.filter(good => good.color === 'red')));
+    getRed().then(data => setGoods(data));
   };
 
   return (
