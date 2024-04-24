@@ -1,0 +1,346 @@
+{
+    "sourceFile": "src/App.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 82,
+            "patches": [
+                {
+                    "date": 1713967354992,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1713967360595,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,23 +5,25 @@\n // import { getAll, get5First, getRed } from './api/goods';\n // or\n // import * as goodsAPI from './api/goods';\n \n-export const App: React.FC = () => {(\n-  <div className=\"App\">\n-    <h1>Dynamic list of Goods</h1>\n+export const App: React.FC = () => {\n+  return (\n+    <div className=\"App\">\n+      <h1>Dynamic list of Goods</h1>\n \n-    <button type=\"button\" data-cy=\"all-button\">\n-      Load all goods\n-    </button>\n+      <button type=\"button\" data-cy=\"all-button\">\n+        Load all goods\n+      </button>\n \n-    <button type=\"button\" data-cy=\"first-five-button\">\n-      Load 5 first goods\n-    </button>\n+      <button type=\"button\" data-cy=\"first-five-button\">\n+        Load 5 first goods\n+      </button>\n \n-    <button type=\"button\" data-cy=\"red-button\">\n-      Load red goods\n-    </button>\n+      <button type=\"button\" data-cy=\"red-button\">\n+        Load red goods\n+      </button>\n \n-    <GoodsList goods={[]} />\n-  </div>\n-);\n+      <GoodsList goods={[]} />\n+    </div>\n+  );\n+}\n"
+                },
+                {
+                    "date": 1713967774734,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,8 +6,10 @@\n // or\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n+\n+  \n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n@@ -25,5 +27,5 @@\n \n       <GoodsList goods={[]} />\n     </div>\n   );\n-}\n+};\n"
+                },
+                {
+                    "date": 1713967846977,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n \n-  \n+  const []\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713967854588,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n \n-  const []\n+  const [goods, set]\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713967861362,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import React from 'react';\n+import React, { useState } from 'react';\n import './App.scss';\n import { GoodsList } from './GoodsList';\n \n // import { getAll, get5First, getRed } from './api/goods';\n@@ -7,9 +7,9 @@\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n \n-  const [goods, set]\n+  const [goods, setGoods] = useState\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713967866483,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n \n-  const [goods, setGoods] = useState\n+  const [goods, setGoods] = useState<Good>\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713967871611,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n \n-  const [goods, setGoods] = useState<Good>\n+  const [goods, setGoods] = useState<Good[]>([])\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713967878287,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,10 +6,10 @@\n // or\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n+  const [goods, setGoods] = useState<Good[]>([]);\n \n-  const [goods, setGoods] = useState<Good[]>([])\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713967884257,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n+  const load\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713967889471,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,10 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  const load\n+  const loadAll\n+  \n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713967897351,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,10 +8,10 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  const loadAll\n-  \n+  const loadAll \n+\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713967922780,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,16 +1,16 @@\n import React, { useState } from 'react';\n import './App.scss';\n import { GoodsList } from './GoodsList';\n \n-// import { getAll, get5First, getRed } from './api/goods';\n+import { getAll, get5First, getRed } from './api/goods';\n // or\n // import * as goodsAPI from './api/goods';\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  const loadAll \n+  const loadAll =\n \n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n"
+                },
+                {
+                    "date": 1713967930271,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,8 +26,8 @@\n       <button type=\"button\" data-cy=\"red-button\">\n         Load red goods\n       </button>\n \n-      <GoodsList goods={[]} />\n+      <GoodsList goods={} />\n     </div>\n   );\n };\n"
+                },
+                {
+                    "date": 1713967977751,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  const loadAll =\n+  u\n \n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n@@ -26,8 +26,8 @@\n       <button type=\"button\" data-cy=\"red-button\">\n         Load red goods\n       </button>\n \n-      <GoodsList goods={} />\n+      <GoodsList goods={goods} />\n     </div>\n   );\n };\n"
+                },
+                {
+                    "date": 1713967983378,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import React, { useState } from 'react';\n+import React, { useEffect, useState } from 'react';\n import './App.scss';\n import { GoodsList } from './GoodsList';\n \n import { getAll, get5First, getRed } from './api/goods';\n@@ -8,9 +8,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  u\n+  useEffect(())\n \n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n"
+                },
+                {
+                    "date": 1713967988825,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  useEffect(())\n+  useEffect(() => {})\n \n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n"
+                },
+                {
+                    "date": 1713967996271,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,11 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  useEffect(() => {})\n+  useEffect(() => {\n+    get\n+  })\n \n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n"
+                },
+                {
+                    "date": 1713968002024,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    get\n+    getAll\n   })\n \n   return (\n     <div className=\"App\">\n"
+                },
+                {
+                    "date": 1713968008599,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    getAll\n+    getAll().then\n   })\n \n   return (\n     <div className=\"App\">\n"
+                },
+                {
+                    "date": 1713968015526,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    getAll().then\n+    getAll().then(setGoods);\n   })\n \n   return (\n     <div className=\"App\">\n"
+                },
+                {
+                    "date": 1713968045269,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,10 +10,12 @@\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n     getAll().then(setGoods);\n-  })\n+  }, );\n \n+\n+\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713968060174,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,12 +10,14 @@\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n     getAll().then(setGoods);\n-  }, );\n+  }, []);\n \n+  \n \n \n+\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713968073885,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,40 @@\n+import React, { useEffect, useState } from 'react';\n+import './App.scss';\n+import { GoodsList } from './GoodsList';\n+\n+import { getAll, get5First, getRed } from './api/goods';\n+import { Good } from './types/Good';\n+// or\n+// import * as goodsAPI from './api/goods';\n+\n+export const App: React.FC = () => {\n+  const [goods, setGoods] = useState<Good[]>([]);\n+\n+  useEffect(() => {\n+    getAll().then(setGoods);\n+  }, []);\n+\n+  useEffect\n+\n+\n+\n+  return (\n+    <div className=\"App\">\n+      <h1>Dynamic list of Goods</h1>\n+\n+      <button type=\"button\" data-cy=\"all-button\">\n+        Load all goods\n+      </button>\n+\n+      <button type=\"button\" data-cy=\"first-five-button\">\n+        Load 5 first goods\n+      </button>\n+\n+      <button type=\"button\" data-cy=\"red-button\">\n+        Load red goods\n+      </button>\n+\n+      <GoodsList goods={goods} />\n+    </div>\n+  );\n+};\n"
+                },
+                {
+                    "date": 1713968080857,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n   useEffect(() => {\n     getAll().then(setGoods);\n   }, []);\n \n-  useEffect\n+  useEffect(()=> )\n \n \n \n   return (\n@@ -37,43 +37,4 @@\n       <GoodsList goods={goods} />\n     </div>\n   );\n };\n-import React, { useEffect, useState } from 'react';\n-import './App.scss';\n-import { GoodsList } from './GoodsList';\n-\n-import { getAll, get5First, getRed } from './api/goods';\n-// or\n-// import * as goodsAPI from './api/goods';\n-\n-export const App: React.FC = () => {\n-  const [goods, setGoods] = useState<Good[]>([]);\n-\n-  useEffect(() => {\n-    getAll().then(setGoods);\n-  }, []);\n-\n-  \n-\n-\n-\n-  return (\n-    <div className=\"App\">\n-      <h1>Dynamic list of Goods</h1>\n-\n-      <button type=\"button\" data-cy=\"all-button\">\n-        Load all goods\n-      </button>\n-\n-      <button type=\"button\" data-cy=\"first-five-button\">\n-        Load 5 first goods\n-      </button>\n-\n-      <button type=\"button\" data-cy=\"red-button\">\n-        Load red goods\n-      </button>\n-\n-      <GoodsList goods={goods} />\n-    </div>\n-  );\n-};\n"
+                },
+                {
+                    "date": 1713968105677,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,11 @@\n   useEffect(() => {\n     getAll().then(setGoods);\n   }, []);\n \n-  useEffect(()=> )\n+  useEffect(() => {\n+    get5First\n+  })\n \n \n \n   return (\n"
+                },
+                {
+                    "date": 1713968111443,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n     getAll().then(setGoods);\n   }, []);\n \n   useEffect(() => {\n-    get5First\n+    get5First().then(set)\n   })\n \n \n \n"
+                },
+                {
+                    "date": 1713968118169,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,10 +14,10 @@\n     getAll().then(setGoods);\n   }, []);\n \n   useEffect(() => {\n-    get5First().then(set)\n-  })\n+    get5First().then(setGoods);\n+  }, )\n \n \n \n   return (\n"
+                },
+                {
+                    "date": 1713968124592,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,12 +15,14 @@\n   }, []);\n \n   useEffect(() => {\n     get5First().then(setGoods);\n-  }, )\n+  }, []);\n \n+  useEffect\n \n \n+\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713968131645,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,11 @@\n   useEffect(() => {\n     get5First().then(setGoods);\n   }, []);\n \n-  useEffect\n+  useEffect(() => {\n+    get\n+  })\n \n \n \n   return (\n"
+                },
+                {
+                    "date": 1713968138029,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     get5First().then(setGoods);\n   }, []);\n \n   useEffect(() => {\n-    get\n+    getRed().then\n   })\n \n \n \n"
+                },
+                {
+                    "date": 1713968143621,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,9 +18,9 @@\n     get5First().then(setGoods);\n   }, []);\n \n   useEffect(() => {\n-    getRed().then\n+    getRed().then(setGoods)\n   })\n \n \n \n"
+                },
+                {
+                    "date": 1713968150053,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,10 +18,10 @@\n     get5First().then(setGoods);\n   }, []);\n \n   useEffect(() => {\n-    getRed().then(setGoods)\n-  })\n+    getRed().then(setGoods);\n+  }, []);\n \n \n \n   return (\n"
+                },
+                {
+                    "date": 1713968186126,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,13 +18,11 @@\n     get5First().then(setGoods);\n   }, []);\n \n   useEffect(() => {\n-    getRed().then(setGoods);\n+    getRedGoods().then(setGoods);\n   }, []);\n \n-\n-\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713968206885,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,9 +1,9 @@\n import React, { useEffect, useState } from 'react';\n import './App.scss';\n import { GoodsList } from './GoodsList';\n \n-import { getAll, get5First, getRed } from './api/goods';\n+import { getAll, get5First, getRedGoods } from './api/goods';\n import { Good } from './types/Good';\n // or\n // import * as goodsAPI from './api/goods';\n \n@@ -25,9 +25,9 @@\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n-      <button type=\"button\" data-cy=\"all-button\">\n+      <button type=\"button\" data-cy=\"all-button\" onClic>\n         Load all goods\n       </button>\n \n       <button type=\"button\" data-cy=\"first-five-button\">\n"
+                },
+                {
+                    "date": 1713968230730,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,8 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n+    const \n     getAll().then(setGoods);\n   }, []);\n \n   useEffect(() => {\n@@ -25,9 +26,9 @@\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n-      <button type=\"button\" data-cy=\"all-button\" onClic>\n+      <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n         Load all goods\n       </button>\n \n       <button type=\"button\" data-cy=\"first-five-button\">\n"
+                },
+                {
+                    "date": 1713968239230,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    const \n+    const loadAll = \n     getAll().then(setGoods);\n   }, []);\n \n   useEffect(() => {\n"
+                },
+                {
+                    "date": 1713968246646,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,11 +10,10 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    const loadAll = \n-    getAll().then(setGoods);\n-  }, []);\n+    const loadAll = () =>{}\n+   \n \n   useEffect(() => {\n     get5First().then(setGoods);\n   }, []);\n"
+                },
+                {
+                    "date": 1713968265960,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,47 @@\n+import React, { useEffect, useState } from 'react';\n+import './App.scss';\n+import { GoodsList } from './GoodsList';\n+\n+import { getAll, get5First, getRedGoods } from './api/goods';\n+import { Good } from './types/Good';\n+// or\n+// import * as goodsAPI from './api/goods';\n+\n+export const App: React.FC = () => {\n+  const [goods, setGoods] = useState<Good[]>([]);\n+\n+  useEffect(() => {\n+    const loadAll = () =>{ getAll().then(setGoods);\n+    }, [])\n+    ;\n+}\n+\n+\n+  useEffect(() => {\n+    get5First().then(setGoods);\n+  }, []);\n+\n+  useEffect(() => {\n+    getRedGoods().then(setGoods);\n+  }, []);\n+\n+  return (\n+    <div className=\"App\">\n+      <h1>Dynamic list of Goods</h1>\n+\n+      <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n+        Load all goods\n+      </button>\n+\n+      <button type=\"button\" data-cy=\"first-five-button\">\n+        Load 5 first goods\n+      </button>\n+\n+      <button type=\"button\" data-cy=\"red-button\">\n+        Load red goods\n+      </button>\n+\n+      <GoodsList goods={goods} />\n+    </div>\n+  );\n+};\n"
+                },
+                {
+                    "date": 1713968273588,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,10 @@\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n     const loadAll = () =>{ getAll().then(setGoods);\n-    }, [])\n+    }, []\n+  \\)\n     ;\n }\n \n \n@@ -44,48 +45,4 @@\n       <GoodsList goods={goods} />\n     </div>\n   );\n };\n-import React, { useEffect, useState } from 'react';\n-import './App.scss';\n-import { GoodsList } from './GoodsList';\n-\n-import { getAll, get5First, getRedGoods } from './api/goods';\n-import { Good } from './types/Good';\n-// or\n-// import * as goodsAPI from './api/goods';\n-\n-export const App: React.FC = () => {\n-  const [goods, setGoods] = useState<Good[]>([]);\n-\n-  useEffect(() => {\n-    const loadAll = () =>{}\n-   \n-\n-  useEffect(() => {\n-    get5First().then(setGoods);\n-  }, []);\n-\n-  useEffect(() => {\n-    getRedGoods().then(setGoods);\n-  }, []);\n-\n-  return (\n-    <div className=\"App\">\n-      <h1>Dynamic list of Goods</h1>\n-\n-      <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n-        Load all goods\n-      </button>\n-\n-      <button type=\"button\" data-cy=\"first-five-button\">\n-        Load 5 first goods\n-      </button>\n-\n-      <button type=\"button\" data-cy=\"red-button\">\n-        Load red goods\n-      </button>\n-\n-      <GoodsList goods={goods} />\n-    </div>\n-  );\n-};\n"
+                },
+                {
+                    "date": 1713968336378,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,11 +10,10 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    const loadAll = () =>{ getAll().then(setGoods);\n-    }, []\n-  \\)\n+    const loadAll () =>{ getAll().then(setGoods);\n+    }, [])\n     ;\n }\n \n \n"
+                },
+                {
+                    "date": 1713968346699,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    const loadAll () =>{ getAll().then(setGoods);\n+    const loadAll =() =>{ getAll().then(setGoods);\n     }, [])\n     ;\n }\n \n"
+                },
+                {
+                    "date": 1713968359940,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,10 +9,11 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  useEffect(() => {\n-    const loadAll =() =>{ getAll().then(setGoods);\n+  useEffect(() => ()\n+    const loadAll = () => {\n+    getAll().then(setGoods);\n     }, [])\n     ;\n }\n \n"
+                },
+                {
+                    "date": 1713968370733,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  useEffect(() => ()\n+  useEffect(() => (\n     const loadAll = () => {\n     getAll().then(setGoods);\n     }, [])\n     ;\n"
+                },
+                {
+                    "date": 1713968390744,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,14 +9,12 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  useEffect(() => (\n-    const loadAll = () => {\n-    getAll().then(setGoods);\n-    }, [])\n-    ;\n-}\n+  useEffect(() => {\n+    // setTodos will receive the result of getTodos() promise\n+    getTodos().then(setTodos);\n+  }, []);\n \n \n   useEffect(() => {\n     get5First().then(setGoods);\n"
+                },
+                {
+                    "date": 1713968398363,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,45 @@\n+import React, { useEffect, useState } from 'react';\n+import './App.scss';\n+import { GoodsList } from './GoodsList';\n+\n+import { getAll, get5First, getRedGoods } from './api/goods';\n+import { Good } from './types/Good';\n+// or\n+// import * as goodsAPI from './api/goods';\n+\n+export const App: React.FC = () => {\n+  const [goods, setGoods] = useState<Good[]>([]);\n+\n+  useEffect(() => {\n+    get().then(setTodos);\n+  }, []);\n+\n+\n+  useEffect(() => {\n+    get5First().then(setGoods);\n+  }, []);\n+\n+  useEffect(() => {\n+    getRedGoods().then(setGoods);\n+  }, []);\n+\n+  return (\n+    <div className=\"App\">\n+      <h1>Dynamic list of Goods</h1>\n+\n+      <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n+        Load all goods\n+      </button>\n+\n+      <button type=\"button\" data-cy=\"first-five-button\">\n+        Load 5 first goods\n+      </button>\n+\n+      <button type=\"button\" data-cy=\"red-button\">\n+        Load red goods\n+      </button>\n+\n+      <GoodsList goods={goods} />\n+    </div>\n+  );\n+};\n"
+                },
+                {
+                    "date": 1713968406154,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    get().then(setTodos);\n+    getAll().then(setGoods);\n   }, []);\n \n \n   useEffect(() => {\n@@ -42,50 +42,4 @@\n       <GoodsList goods={goods} />\n     </div>\n   );\n };\n-import React, { useEffect, useState } from 'react';\n-import './App.scss';\n-import { GoodsList } from './GoodsList';\n-\n-import { getAll, get5First, getRedGoods } from './api/goods';\n-import { Good } from './types/Good';\n-// or\n-// import * as goodsAPI from './api/goods';\n-\n-export const App: React.FC = () => {\n-  const [goods, setGoods] = useState<Good[]>([]);\n-\n-  useEffect(() => {\n-    // setTodos will receive the result of getTodos() promise\n-    getTodos().then(setTodos);\n-  }, []);\n-\n-\n-  useEffect(() => {\n-    get5First().then(setGoods);\n-  }, []);\n-\n-  useEffect(() => {\n-    getRedGoods().then(setGoods);\n-  }, []);\n-\n-  return (\n-    <div className=\"App\">\n-      <h1>Dynamic list of Goods</h1>\n-\n-      <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n-        Load all goods\n-      </button>\n-\n-      <button type=\"button\" data-cy=\"first-five-button\">\n-        Load 5 first goods\n-      </button>\n-\n-      <button type=\"button\" data-cy=\"red-button\">\n-        Load red goods\n-      </button>\n-\n-      <GoodsList goods={goods} />\n-    </div>\n-  );\n-};\n"
+                },
+                {
+                    "date": 1713968419518,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  useEffect(() => {\n+  useEffect((load) => {\n     getAll().then(setGoods);\n   }, []);\n \n \n"
+                },
+                {
+                    "date": 1713968426593,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  useEffect((load) => {\n+  useEffect(loadAll => {\n     getAll().then(setGoods);\n   }, []);\n \n \n"
+                },
+                {
+                    "date": 1713968432617,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n-      <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n+      <button type=\"button\" data-cy=\"all-button\" onClick={load}>\n         Load all goods\n       </button>\n \n       <button type=\"button\" data-cy=\"first-five-button\">\n"
+                },
+                {
+                    "date": 1713968440241,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,45 @@\n+import React, { useEffect, useState } from 'react';\n+import './App.scss';\n+import { GoodsList } from './GoodsList';\n+\n+import { getAll, get5First, getRedGoods } from './api/goods';\n+import { Good } from './types/Good';\n+// or\n+// import * as goodsAPI from './api/goods';\n+\n+export const App: React.FC = () => {\n+  const [goods, setGoods] = useState<Good[]>([]);\n+\n+  useEffect(loadAll => {\n+    getAll().then(setGoods);\n+  }, []);\n+\n+\n+  useEffect(() => {\n+    get5First().then(setGoods);\n+  }, []);\n+\n+  useEffect(() => {\n+    getRedGoods().then(setGoods);\n+  }, []);\n+\n+  return (\n+    <div className=\"App\">\n+      <h1>Dynamic list of Goods</h1>\n+\n+      <button type=\"button\" data-cy=\"all-button\" onClick={}>\n+        Load all goods\n+      </button>\n+\n+      <button type=\"button\" data-cy=\"first-five-button\">\n+        Load 5 first goods\n+      </button>\n+\n+      <button type=\"button\" data-cy=\"red-button\">\n+        Load red goods\n+      </button>\n+\n+      <GoodsList goods={goods} />\n+    </div>\n+  );\n+};\n"
+                },
+                {
+                    "date": 1713968447280,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n-      <button type=\"button\" data-cy=\"all-button\" onClick={}>\n+      <button type=\"button\" data-cy=\"all-button\" onClick={loadAll}>\n         Load all goods\n       </button>\n \n       <button type=\"button\" data-cy=\"first-five-button\">\n@@ -42,49 +42,4 @@\n       <GoodsList goods={goods} />\n     </div>\n   );\n };\n-import React, { useEffect, useState } from 'react';\n-import './App.scss';\n-import { GoodsList } from './GoodsList';\n-\n-import { getAll, get5First, getRedGoods } from './api/goods';\n-import { Good } from './types/Good';\n-// or\n-// import * as goodsAPI from './api/goods';\n-\n-export const App: React.FC = () => {\n-  const [goods, setGoods] = useState<Good[]>([]);\n-\n-  useEffect(loadAll => {\n-    getAll().then(setGoods);\n-  }, []);\n-\n-\n-  useEffect(() => {\n-    get5First().then(setGoods);\n-  }, []);\n-\n-  useEffect(() => {\n-    getRedGoods().then(setGoods);\n-  }, []);\n-\n-  return (\n-    <div className=\"App\">\n-      <h1>Dynamic list of Goods</h1>\n-\n-      <button type=\"button\" data-cy=\"all-button\" onClick={load}>\n-        Load all goods\n-      </button>\n-\n-      <button type=\"button\" data-cy=\"first-five-button\">\n-        Load 5 first goods\n-      </button>\n-\n-      <button type=\"button\" data-cy=\"red-button\">\n-        Load red goods\n-      </button>\n-\n-      <GoodsList goods={goods} />\n-    </div>\n-  );\n-};\n"
+                },
+                {
+                    "date": 1713968456915,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  useEffect(loadAll => {\n+  useEffect(() => {\n     getAll().then(setGoods);\n   }, []);\n \n \n@@ -26,9 +26,9 @@\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n-      <button type=\"button\" data-cy=\"all-button\" onClick={loadAll}>\n+      <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n         Load all goods\n       </button>\n \n       <button type=\"button\" data-cy=\"first-five-button\">\n"
+                },
+                {
+                    "date": 1713968480745,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,9 +30,9 @@\n       <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n         Load all goods\n       </button>\n \n-      <button type=\"button\" data-cy=\"first-five-button\">\n+      <button type=\"button\" data-cy=\"first-five-button\" onClick>\n         Load 5 first goods\n       </button>\n \n       <button type=\"button\" data-cy=\"red-button\">\n"
+                },
+                {
+                    "date": 1713968493035,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -30,13 +30,13 @@\n       <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n         Load all goods\n       </button>\n \n-      <button type=\"button\" data-cy=\"first-five-button\" onClick>\n+      <button type=\"button\" data-cy=\"first-five-button\" onClick={get5First}>\n         Load 5 first goods\n       </button>\n \n-      <button type=\"button\" data-cy=\"red-button\">\n+      <button type=\"button\" data-cy=\"red-button\" o>\n         Load red goods\n       </button>\n \n       <GoodsList goods={goods} />\n"
+                },
+                {
+                    "date": 1713968512270,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,17 +26,17 @@\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n-      <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n+      <button type=\"button\" data-cy=\"all-button\" onClick={setGoods}>\n         Load all goods\n       </button>\n \n       <button type=\"button\" data-cy=\"first-five-button\" onClick={get5First}>\n         Load 5 first goods\n       </button>\n \n-      <button type=\"button\" data-cy=\"red-button\" o>\n+      <button type=\"button\" data-cy=\"red-button\" onClick={getRedGoods}>\n         Load red goods\n       </button>\n \n       <GoodsList goods={goods} />\n"
+                },
+                {
+                    "date": 1713968540340,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,8 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n+    \n     getAll().then(setGoods);\n   }, []);\n \n \n@@ -26,9 +27,9 @@\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n-      <button type=\"button\" data-cy=\"all-button\" onClick={setGoods}>\n+      <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n         Load all goods\n       </button>\n \n       <button type=\"button\" data-cy=\"first-five-button\" onClick={get5First}>\n"
+                },
+                {
+                    "date": 1713968545658,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    \n+    const loadAll = \n     getAll().then(setGoods);\n   }, []);\n \n \n"
+                },
+                {
+                    "date": 1713968551651,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,10 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    const loadAll = \n-    getAll().then(setGoods);\n+    const loadAll = getAll().then(setGoods);\n   }, []);\n \n \n   useEffect(() => {\n"
+                },
+                {
+                    "date": 1713968557607,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -26,9 +26,9 @@\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n-      <button type=\"button\" data-cy=\"all-button\" onClick={getAll}>\n+      <button type=\"button\" data-cy=\"all-button\" onClick={loadAll}>\n         Load all goods\n       </button>\n \n       <button type=\"button\" data-cy=\"first-five-button\" onClick={get5First}>\n"
+                },
+                {
+                    "date": 1713968572809,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,12 +10,11 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    const loadAll = getAll().then(setGoods);\n+    const loadAll() = getAll().then(setGoods);\n   }, []);\n \n-\n   useEffect(() => {\n     get5First().then(setGoods);\n   }, []);\n \n"
+                },
+                {
+                    "date": 1713968583005,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    const loadAll() = getAll().then(setGoods);\n+    const loadAll =() => getAll().then(setGoods);\n   }, []);\n \n   useEffect(() => {\n     get5First().then(setGoods);\n"
+                },
+                {
+                    "date": 1713968627297,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,10 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    const loadAll =() => getAll().then(setGoods);\n+    const loadAll = () => getAll().then(setGoods);\n+    load\n   }, []);\n \n   useEffect(() => {\n     get5First().then(setGoods);\n"
+                },
+                {
+                    "date": 1713968639219,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,10 @@\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n     const loadAll = () => getAll().then(setGoods);\n-    load\n+    \n+    loadAll()\n   }, []);\n \n   useEffect(() => {\n     get5First().then(setGoods);\n"
+                },
+                {
+                    "date": 1713968648533,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,10 +11,10 @@\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n     const loadAll = () => getAll().then(setGoods);\n-    \n-    loadAll()\n+\n+    loadAll();\n   }, []);\n \n   useEffect(() => {\n     get5First().then(setGoods);\n@@ -23,8 +23,12 @@\n   useEffect(() => {\n     getRedGoods().then(setGoods);\n   }, []);\n \n+  function loadAll(event: MouseEvent<HTMLButtonElement, MouseEvent>): void {\n+    throw new Error('Function not implemented.');\n+  }\n+\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713968852654,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    const loadAll = () => getAll().then(setGoods);\n+    const loadAll = asyn() => getAll().then(setGoods);\n \n     loadAll();\n   }, []);\n \n@@ -23,12 +23,8 @@\n   useEffect(() => {\n     getRedGoods().then(setGoods);\n   }, []);\n \n-  function loadAll(event: MouseEvent<HTMLButtonElement, MouseEvent>): void {\n-    throw new Error('Function not implemented.');\n-  }\n-\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713968861992,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    const loadAll = asyn() => getAll().then(setGoods);\n+    const loadAll = async() => {getAll().then(setGoods);\n \n     loadAll();\n   }, []);\n \n"
+                },
+                {
+                    "date": 1713968905248,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,13 +10,13 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   useEffect(() => {\n-    const loadAll = async() => {getAll().then(setGoods);\n+    const loadAll = async () => {\n+      const allGoods = await getAll();\n+      setGoods(allGoods);\n+    };\n \n-    loadAll();\n-  }, []);\n-\n   useEffect(() => {\n     get5First().then(setGoods);\n   }, []);\n \n"
+                },
+                {
+                    "date": 1713968945064,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,13 +9,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  useEffect(() => {\n-    const loadAll = async () => {\n-      const allGoods = await getAll();\n-      setGoods(allGoods);\n-    };\n+const \n \n   useEffect(() => {\n     get5First().then(setGoods);\n   }, []);\n"
+                },
+                {
+                    "date": 1713968951114,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-const \n+const loadAll = \n \n   useEffect(() => {\n     get5First().then(setGoods);\n   }, []);\n"
+                },
+                {
+                    "date": 1713968967041,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-const loadAll = \n+const loadAll = ()\n \n   useEffect(() => {\n     get5First().then(setGoods);\n   }, []);\n"
+                },
+                {
+                    "date": 1713968975439,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,11 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-const loadAll = ()\n+  const loadAll = () => {\n+  get\n+}\n \n   useEffect(() => {\n     get5First().then(setGoods);\n   }, []);\n"
+                },
+                {
+                    "date": 1713968981046,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   const loadAll = () => {\n-  get\n+  getAll()\n }\n \n   useEffect(() => {\n     get5First().then(setGoods);\n"
+                },
+                {
+                    "date": 1713968994065,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   const loadAll = () => {\n-  getAll()\n+  getAll().then(setGoods)\n }\n \n   useEffect(() => {\n     get5First().then(setGoods);\n"
+                },
+                {
+                    "date": 1713969004634,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,14 +10,14 @@\n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n   const loadAll = () => {\n-  getAll().then(setGoods)\n-}\n+    getAll().then(setGoods);\n+  };\n \n-  useEffect(() => {\n-    get5First().then(setGoods);\n-  }, []);\n+  const loadAll = () => {\n+    getAll().then(setGoods);\n+  };\n \n   useEffect(() => {\n     getRedGoods().then(setGoods);\n   }, []);\n"
+                },
+                {
+                    "date": 1713969012040,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,16 +13,16 @@\n   const loadAll = () => {\n     getAll().then(setGoods);\n   };\n \n+  const get5First = () => {\n+    getAll().then(setGoods);\n+  };\n+\n   const loadAll = () => {\n     getAll().then(setGoods);\n   };\n \n-  useEffect(() => {\n-    getRedGoods().then(setGoods);\n-  }, []);\n-\n   return (\n     <div className=\"App\">\n       <h1>Dynamic list of Goods</h1>\n \n"
+                },
+                {
+                    "date": 1713969021801,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,10 +13,10 @@\n   const loadAll = () => {\n     getAll().then(setGoods);\n   };\n \n-  const get5First = () => {\n-    getAll().then(setGoods);\n+  const load5First = () => {\n+    get5First().then(setGoods);\n   };\n \n   const loadAll = () => {\n     getAll().then(setGoods);\n"
+                },
+                {
+                    "date": 1713969031136,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,10 +17,10 @@\n   const load5First = () => {\n     get5First().then(setGoods);\n   };\n \n-  const loadAll = () => {\n-    getAll().then(setGoods);\n+  const getRedGoods = () => {\n+    getRedGoods().then(setGoods);\n   };\n \n   return (\n     <div className=\"App\">\n"
+                },
+                {
+                    "date": 1713969044187,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,44 @@\n+import React, { useEffect, useState } from 'react';\n+import './App.scss';\n+import { GoodsList } from './GoodsList';\n+\n+import { getAll, get5First, getRedGoods } from './api/goods';\n+import { Good } from './types/Good';\n+// or\n+// import * as goodsAPI from './api/goods';\n+\n+export const App: React.FC = () => {\n+  const [goods, setGoods] = useState<Good[]>([]);\n+\n+  const loadAll = () => {\n+    getAll().then(setGoods);\n+  };\n+\n+  const load5First = () => {\n+    get5First().then(setGoods);\n+  };\n+\n+  const loadRedGoods = () => {\n+    getRedGoods().then(setGoods);\n+  };\n+\n+  return (\n+    <div className=\"App\">\n+      <h1>Dynamic list of Goods</h1>\n+\n+      <button type=\"button\" data-cy=\"all-button\" onClick={loadAll}>\n+        Load all goods\n+      </button>\n+\n+      <button type=\"button\" data-cy=\"first-five-button\" onClick={load5First}>\n+        Load 5 first goods\n+      </button>\n+\n+      <button type=\"button\" data-cy=\"red-button\" onClick={getRedGoods}>\n+        Load red goods\n+      </button>\n+\n+      <GoodsList goods={goods} />\n+    </div>\n+  );\n+};\n"
+                },
+                {
+                    "date": 1713969050283,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -0,0 +1,44 @@\n+import React, { useEffect, useState } from 'react';\n+import './App.scss';\n+import { GoodsList } from './GoodsList';\n+\n+import { getAll, get5First, getRedGoods } from './api/goods';\n+import { Good } from './types/Good';\n+// or\n+// import * as goodsAPI from './api/goods';\n+\n+export const App: React.FC = () => {\n+  const [goods, setGoods] = useState<Good[]>([]);\n+\n+  const loadAll = () => {\n+    getAll().then(setGoods);\n+  };\n+\n+  const load5First = () => {\n+    get5First().then(setGoods);\n+  };\n+\n+  const loadRedGoods = () => {\n+    getRedGoods().then(setGoods);\n+  };\n+\n+  return (\n+    <div className=\"App\">\n+      <h1>Dynamic list of Goods</h1>\n+\n+      <button type=\"button\" data-cy=\"all-button\" onClick={loadAll}>\n+        Load all goods\n+      </button>\n+\n+      <button type=\"button\" data-cy=\"first-five-button\" onClick={load5First}>\n+        Load 5 first goods\n+      </button>\n+\n+      <button type=\"button\" data-cy=\"red-button\" onClick={loadRedGoods}>\n+        Load red goods\n+      </button>\n+\n+      <GoodsList goods={goods} />\n+    </div>\n+  );\n+};\n"
+                },
+                {
+                    "date": 1713969055533,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import React, { useEffect, useState } from 'react';\n+import React, { , useState } from 'react';\n import './App.scss';\n import { GoodsList } from './GoodsList';\n \n import { getAll, get5First, getRedGoods } from './api/goods';\n@@ -41,92 +41,4 @@\n       <GoodsList goods={goods} />\n     </div>\n   );\n };\n-import React, { useEffect, useState } from 'react';\n-import './App.scss';\n-import { GoodsList } from './GoodsList';\n-\n-import { getAll, get5First, getRedGoods } from './api/goods';\n-import { Good } from './types/Good';\n-// or\n-// import * as goodsAPI from './api/goods';\n-\n-export const App: React.FC = () => {\n-  const [goods, setGoods] = useState<Good[]>([]);\n-\n-  const loadAll = () => {\n-    getAll().then(setGoods);\n-  };\n-\n-  const load5First = () => {\n-    get5First().then(setGoods);\n-  };\n-\n-  const loadRedGoods = () => {\n-    getRedGoods().then(setGoods);\n-  };\n-\n-  return (\n-    <div className=\"App\">\n-      <h1>Dynamic list of Goods</h1>\n-\n-      <button type=\"button\" data-cy=\"all-button\" onClick={loadAll}>\n-        Load all goods\n-      </button>\n-\n-      <button type=\"button\" data-cy=\"first-five-button\" onClick={load5First}>\n-        Load 5 first goods\n-      </button>\n-\n-      <button type=\"button\" data-cy=\"red-button\" onClick={getRedGoods}>\n-        Load red goods\n-      </button>\n-\n-      <GoodsList goods={goods} />\n-    </div>\n-  );\n-};\n-import React, { useEffect, useState } from 'react';\n-import './App.scss';\n-import { GoodsList } from './GoodsList';\n-\n-import { getAll, get5First, getRedGoods } from './api/goods';\n-import { Good } from './types/Good';\n-// or\n-// import * as goodsAPI from './api/goods';\n-\n-export const App: React.FC = () => {\n-  const [goods, setGoods] = useState<Good[]>([]);\n-\n-  const loadAll = () => {\n-    getAll().then(setGoods);\n-  };\n-\n-  const load5First = () => {\n-    get5First().then(setGoods);\n-  };\n-\n-  const getRedGoods = () => {\n-    getRedGoods().then(setGoods);\n-  };\n-\n-  return (\n-    <div className=\"App\">\n-      <h1>Dynamic list of Goods</h1>\n-\n-      <button type=\"button\" data-cy=\"all-button\" onClick={loadAll}>\n-        Load all goods\n-      </button>\n-\n-      <button type=\"button\" data-cy=\"first-five-button\" onClick={get5First}>\n-        Load 5 first goods\n-      </button>\n-\n-      <button type=\"button\" data-cy=\"red-button\" onClick={getRedGoods}>\n-        Load red goods\n-      </button>\n-\n-      <GoodsList goods={goods} />\n-    </div>\n-  );\n-};\n"
+                },
+                {
+                    "date": 1713969101240,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import React, { , useState } from 'react';\n+import React, { useState } from 'react';\n import './App.scss';\n import { GoodsList } from './GoodsList';\n \n import { getAll, get5First, getRedGoods } from './api/goods';\n@@ -9,9 +9,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  const loadAll = () => {\n+  const loadAll = asyn() => {\n     getAll().then(setGoods);\n   };\n \n   const load5First = () => {\n"
+                },
+                {
+                    "date": 1713969126983,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n \n export const App: React.FC = () => {\n   const [goods, setGoods] = useState<Good[]>([]);\n \n-  const loadAll = asyn() => {\n+  const loadAll = () => {\n     getAll().then(setGoods);\n   };\n \n   const load5First = () => {\n"
+                }
+            ],
+            "date": 1713967354992,
+            "name": "Commit-0",
+            "content": "import React from 'react';\nimport './App.scss';\nimport { GoodsList } from './GoodsList';\n\n// import { getAll, get5First, getRed } from './api/goods';\n// or\n// import * as goodsAPI from './api/goods';\n\nexport const App: React.FC = () => {(\n  <div className=\"App\">\n    <h1>Dynamic list of Goods</h1>\n\n    <button type=\"button\" data-cy=\"all-button\">\n      Load all goods\n    </button>\n\n    <button type=\"button\" data-cy=\"first-five-button\">\n      Load 5 first goods\n    </button>\n\n    <button type=\"button\" data-cy=\"red-button\">\n      Load red goods\n    </button>\n\n    <GoodsList goods={[]} />\n  </div>\n);\n"
+        }
+    ]
+}
