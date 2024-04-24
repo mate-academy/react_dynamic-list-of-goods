@@ -1,0 +1,42 @@
+{
+    "sourceFile": "src/GoodsList.tsx",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1713967689459,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1713967695318,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \n export const GoodsList: React.FC<Props> = ({ goods }) => (\n   <ul>\n     {goods.map(good => (\n-      <li key={good.id} data-cy=\"good\" sty>\n+      <li key={good.id} data-cy=\"good\" style={{colo}}>\n         {good.name}\n       </li>\n     ))}\n   </ul>\n"
+                },
+                {
+                    "date": 1713967701100,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \n export const GoodsList: React.FC<Props> = ({ goods }) => (\n   <ul>\n     {goods.map(good => (\n-      <li key={good.id} data-cy=\"good\" style={{colo}}>\n+      <li key={good.id} data-cy=\"good\" style={{color}}>\n         {good.name}\n       </li>\n     ))}\n   </ul>\n"
+                },
+                {
+                    "date": 1713967735194,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \n export const GoodsList: React.FC<Props> = ({ goods }) => (\n   <ul>\n     {goods.map(good => (\n-      <li key={good.id} data-cy=\"good\" style={{color}}>\n+      <li key={good.id} data-cy=\"good\" style={{color: }}>\n         {good.name}\n       </li>\n     ))}\n   </ul>\n"
+                },
+                {
+                    "date": 1713967741799,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \n export const GoodsList: React.FC<Props> = ({ goods }) => (\n   <ul>\n     {goods.map(good => (\n-      <li key={good.id} data-cy=\"good\" style={{color: }}>\n+      <li key={good.id} data-cy=\"good\" style={{color: name}}>\n         {good.name}\n       </li>\n     ))}\n   </ul>\n"
+                },
+                {
+                    "date": 1713967761675,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \n export const GoodsList: React.FC<Props> = ({ goods }) => (\n   <ul>\n     {goods.map(good => (\n-      <li key={good.id} data-cy=\"good\" style={{color: name}}>\n+      <li key={good.id} data-cy=\"good\" style={{color: .color}}>\n         {good.name}\n       </li>\n     ))}\n   </ul>\n"
+                },
+                {
+                    "date": 1713967767733,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n \n export const GoodsList: React.FC<Props> = ({ goods }) => (\n   <ul>\n     {goods.map(good => (\n-      <li key={good.id} data-cy=\"good\" style={{color: .color}}>\n+      <li key={good.id} data-cy=\"good\" style={{ color: good.color }}>\n         {good.name}\n       </li>\n     ))}\n   </ul>\n"
+                }
+            ],
+            "date": 1713967689459,
+            "name": "Commit-0",
+            "content": "import React from 'react';\nimport { Good } from './types/Good';\n\ntype Props = {\n  goods: Good[];\n};\n\nexport const GoodsList: React.FC<Props> = ({ goods }) => (\n  <ul>\n    {goods.map(good => (\n      <li key={good.id} data-cy=\"good\" sty>\n        {good.name}\n      </li>\n    ))}\n  </ul>\n);\n"
+        }
+    ]
+}

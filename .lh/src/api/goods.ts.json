@@ -1,0 +1,118 @@
+{
+    "sourceFile": "src/api/goods.ts",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 25,
+            "patches": [
+                {
+                    "date": 1713967407611,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1713967412751,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,11 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(good => goods); // sort and get the first 5\n+  return getAll().then(good => {\n+    \n+  }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n   return getAll().then(goods => goods); // get only red\n"
+                },
+                {
+                    "date": 1713967445390,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,10 +7,10 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(good => {\n-    \n+  return getAll().then(goods => {\n+\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967450925,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n }\n \n export const get5First = () => {\n   return getAll().then(goods => {\n-\n+goods.loca\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967456677,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n }\n \n export const get5First = () => {\n   return getAll().then(goods => {\n-goods.loca\n+goods.Locale\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967463201,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n }\n \n export const get5First = () => {\n   return getAll().then(goods => {\n-goods.Locale\n+goods.locale\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967470209,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n }\n \n export const get5First = () => {\n   return getAll().then(goods => {\n-goods.locale\n+goods.namelocaleCompare\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967484618,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,10 +7,9 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(goods => {\n-goods.namelocaleCompare\n+  return getAll().then(\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967493309,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(\n+  return getAll().then(()\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967498714,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(()\n+  return getAll().then((a, b) \n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967507810,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,10 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then((a, b) \n+  return getAll().then(goods => {\n+goods.name.localeCompare\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967514189,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,11 +7,9 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(goods => {\n-goods.name.localeCompare\n-  }); // sort and get the first 5\n+  return getAll().then(goods => goods); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n   return getAll().then(goods => goods); // get only red\n"
+                },
+                {
+                    "date": 1713967522667,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(goods => goods); // sort and get the first 5\n+  return getAll().then(goods => ); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n   return getAll().then(goods => goods); // get only red\n"
+                },
+                {
+                    "date": 1713967552956,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,11 @@\n   return fetch(API_URL).then(response => response.json());\n }\n \n export const get5First = () => {\n-  return getAll().then(goods => ); // sort and get the first 5\n+  return getAll().then(goods => {\n+    return \n+  }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n   return getAll().then(goods => goods); // get only red\n"
+                },
+                {
+                    "date": 1713967561731,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n }\n \n export const get5First = () => {\n   return getAll().then(goods => {\n-    return \n+    return goods.loca\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967580840,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n }\n \n export const get5First = () => {\n   return getAll().then(goods => {\n-    return goods.loca\n+    return goods.sort\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967587344,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n }\n \n export const get5First = () => {\n   return getAll().then(goods => {\n-    return goods.sort\n+    return goods.sort((a, b) => )\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967593394,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n }\n \n export const get5First = () => {\n   return getAll().then(goods => {\n-    return goods.sort((a, b) => )\n+    return goods.sort((a, b) => a.name())\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967598661,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n }\n \n export const get5First = () => {\n   return getAll().then(goods => {\n-    return goods.sort((a, b) => a.name())\n+    return goods.sort((a, b) => a.name.localeCompare)\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967605115,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n }\n \n export const get5First = () => {\n   return getAll().then(goods => {\n-    return goods.sort((a, b) => a.name.localeCompare)\n+    return goods.sort((a, b) => a.name.localeCompare(b.name)).\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967611643,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,9 +8,9 @@\n }\n \n export const get5First = () => {\n   return getAll().then(goods => {\n-    return goods.sort((a, b) => a.name.localeCompare(b.name)).\n+    return goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5);\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n"
+                },
+                {
+                    "date": 1713967619173,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,6 +13,6 @@\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n-  return getAll().then(goods => goods); // get only red\n+  return getAll().then(goods => ); // get only red\n };\n"
+                },
+                {
+                    "date": 1713967626826,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,6 +13,8 @@\n   }); // sort and get the first 5\n };\n \n export const getRedGoods = () => {\n-  return getAll().then(goods => ); // get only red\n+  return getAll().then(goods => {\n+    return goods.f\n+  }); // get only red\n };\n"
+                },
+                {
+                    "date": 1713967649398,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,7 +14,7 @@\n };\n \n export const getRedGoods = () => {\n   return getAll().then(goods => {\n-    return goods.f\n+    return goods.filter(good.)\n   }); // get only red\n };\n"
+                },
+                {
+                    "date": 1713967657581,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,7 +14,7 @@\n };\n \n export const getRedGoods = () => {\n   return getAll().then(goods => {\n-    return goods.filter(good.)\n+    return goods.filter(good.color === 'red')\n   }); // get only red\n };\n"
+                },
+                {
+                    "date": 1713967673270,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,7 +14,7 @@\n };\n \n export const getRedGoods = () => {\n   return getAll().then(goods => {\n-    return goods.filter(good.color === 'red')\n+    return goods.filter(goodgood.color === 'red')\n   }); // get only red\n };\n"
+                }
+            ],
+            "date": 1713967407611,
+            "name": "Commit-0",
+            "content": "import { Good } from '../types/Good';\n\n// eslint-disable-next-line\nconst API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;\n\nexport function getAll(): Promise<Good[]> {\n  return fetch(API_URL).then(response => response.json());\n}\n\nexport const get5First = () => {\n  return getAll().then(good => goods); // sort and get the first 5\n};\n\nexport const getRedGoods = () => {\n  return getAll().then(goods => goods); // get only red\n};\n"
+        }
+    ]
+}
