@@ -4,7 +4,7 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRed } from './api/goods';
 import { Good } from './types/Good';
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleGetAll = () => {
@@ -39,5 +39,3 @@ const App: React.FC = () => {
     </div>
   );
 };
-
-export default App;
