@@ -3,3 +3,9 @@ export interface Good {
   name: string;
   color: string;
 }
+
+export enum SortType {
+  All = 'All',
+  First5 = 'First5',
+  Red = 'Red',
+}
