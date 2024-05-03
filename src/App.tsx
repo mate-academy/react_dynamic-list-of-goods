@@ -8,18 +8,21 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const fetchAll = async () => {
-    const goods = await getAll();
-    setGoods(goods);
+    const serverGoods = await getAll();
+
+    setGoods(serverGoods);
   };
 
   const fetchFive = async () => {
-    const goods = await get5First();
-    setGoods(goods);
+    const serverGoods = await get5First();
+
+    setGoods(serverGoods);
   };
 
   const fetchRed = async () => {
-    const goods = await getRedGoods();
-    setGoods(goods);
+    const serverGoods = await getRedGoods();
+
+    setGoods(serverGoods);
   };
 
   return (
