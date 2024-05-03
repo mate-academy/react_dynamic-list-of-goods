@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good, getAllGoods, get5Goods, getRedGoods } from './types/Good';
@@ -9,11 +9,6 @@ import { Good, getAllGoods, get5Goods, getRedGoods } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [displayMethod, setDisplayMethod] = useState(getAllGoods());
-
-  useEffect(() => {
-    displayMethod.then(setGoods);
-  }, [displayMethod]);
 
   return (
     <div className="App">
@@ -22,7 +17,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setDisplayMethod(getAllGoods())}
+        onClick={() => getAllGoods().then(setGoods)}
       >
         Load all goods
       </button>
@@ -30,7 +25,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setDisplayMethod(get5Goods())}
+        onClick={() => get5Goods().then(setGoods)}
       >
         Load 5 first goods
       </button>
@@ -38,7 +33,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setDisplayMethod(getRedGoods())}
+        onClick={() => getRedGoods().then(setGoods)}
       >
         Load red goods
       </button>
