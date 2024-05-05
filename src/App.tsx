@@ -12,8 +12,6 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-  console.log(visibleGoods);
-
   const handleShowAllGoods = () => {
     getAll().then(goods => setVisibleGoods(goods));
   };
