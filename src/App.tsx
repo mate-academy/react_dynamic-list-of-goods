@@ -16,7 +16,7 @@ export const App: React.FC = () => {
       <h1>Dynamic list of Goods</h1>
 
       <button
-        onClick={async () => setPreparedGoods(await getAll())}
+        onClick={() => getAll().then(setPreparedGoods)}
         type="button"
         data-cy="all-button"
       >
@@ -24,7 +24,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={async () => setPreparedGoods(await get5First())}
+        onClick={() => get5First().then(setPreparedGoods)}
         type="button"
         data-cy="first-five-button"
       >
@@ -32,7 +32,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={async () => setPreparedGoods(await getRedGoods())}
+        onClick={() => getRedGoods().then(setPreparedGoods)}
         type="button"
         data-cy="red-button"
       >
