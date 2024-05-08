@@ -1,4 +1,7 @@
 # React dynamic list of goods
+
+> Here is [the working page](https://mate-academy.github.io/react_dynamic-list-of-goods/)
+
 You have 3 button that should load [the goods](https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json) and show them on the page using the `GoodsList`.
 
 1. `Load All goods` should load and show all the `goods`;
