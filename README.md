@@ -19,3 +19,12 @@ You have 3 button that should load [the goods](https://mate-academy.github.io/re
 - Use the [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript).
 - Open one more terminal and run tests with `npm test` to ensure your solution is correct.
 - Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_dynamic-list-of-goods/) and add it to the PR description.
+
+1. «Загрузить все товары» должен загрузить и показать все «товары»;
+1. «Загрузить 5 первых товаров» должно сделать следующее:
+     - загрузить весь товар;
+     - сортировать их по имени;
+     - и покажи первые 5;
+1. «Загрузить красные товары» должно загружать все товары, показывать только «красные»;
+1. Сервер имеет только одну конечную точку, возвращающую все товары, поэтому всю подготовку следует выполнить в соответствующих методах в `/api/goods`.
+1. `GoodsList` почти готов, вам просто нужно использовать соответствующие цвета для `li`;

@@ -1,27 +1,64 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [filter, setFilter] = useState('all');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  useEffect(() => {
+    switch (filter) {
+      case 'first5':
+        get5First().then(goodsFromServer => {
+          setGoods(goodsFromServer);
+        });
+        break;
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      case 'onlyRed':
+        getRedGoods().then(goodsFromServer => {
+          setGoods(goodsFromServer);
+        });
+        break;
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      case 'all':
+      default:
+        getAll().then(goodsFromServer => {
+          setGoods(goodsFromServer);
+        });
+    }
+  }, [filter]);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setFilter('all')}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setFilter('first5')}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setFilter('onlyRed')}
+      >
+        Load red goods
+      </button>
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
