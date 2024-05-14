@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
 import './App.scss';
-import { Good } from './types/Good';
 
 // or
 // import * as goodsAPI from './api/goods';
