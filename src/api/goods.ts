@@ -1,4 +1,3 @@
-
 import { Good } from '../types/Good';
 
 // eslint-disable-next-line
