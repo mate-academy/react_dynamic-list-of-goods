@@ -13,19 +13,19 @@ export const App: React.FC = () => {
     const allGoods = await getAll();
 
     setGoods(allGoods);
-  }
+  };
 
   const showFiveGoods = async () => {
     const fiveGoods = await get5First();
 
     setGoods(fiveGoods);
-  }
+  };
 
   const showRedGoods = async () => {
     const redGoods = await getRedGoods();
 
     setGoods(redGoods);
-  }
+  };
 
   return (
     <div className="App">
@@ -46,4 +46,4 @@ export const App: React.FC = () => {
       <GoodsList goods={goods} />
     </div>
   );
-}
+};
