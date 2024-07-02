@@ -1,5 +1,6 @@
 import React from 'react';
 import { Good } from './types/Good';
+import './GoodList.scss'
 
 type Props = {
   goods: Good[];
@@ -8,7 +9,7 @@ type Props = {
 export const GoodsList: React.FC<Props> = ({ goods }) => (
   <ul>
     {goods.map(good => (
-      <li key={good.id} data-cy="good">
+      <li key={good.id} data-cy="good" className={`color-${good.color}`}>
         {good.name}
       </li>
     ))}
