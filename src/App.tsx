@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-import { getAll, get5First, getRedGoods } from './api/goods'; // Import API methods
+import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState([] as Good[]); // Initialize goods state
+  const [goods, setGoods] = useState<Good[]>([]);
 
   const handleLoadAllGoods = async () => {
     const allGoods = await getAll();

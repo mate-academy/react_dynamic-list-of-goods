@@ -3,14 +3,7 @@ import { Good } from '../types/Good';
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
 export function getAll(): Promise<Good[]> {
-  return fetch(API_URL)
-    .then(response => response.json())
-    .catch(error => {
-      // eslint-disable-next-line no-console
-      console.error('Error fetching goods:', error);
-
-      return [];
-    });
+  return fetch(API_URL).then(response => response.json());
 }
 
 export function get5First(): Promise<Good[]> {
@@ -22,7 +15,7 @@ export function get5First(): Promise<Good[]> {
 }
 
 export function getRedGoods(): Promise<Good[]> {
-  return getAll().then(goods => {
-    return goods.filter(good => good.color.toLowerCase() === 'red');
-  });
+  return getAll().then(goods =>
+    goods.filter(good => good.color.toLowerCase() === 'red'),
+  );
 }
