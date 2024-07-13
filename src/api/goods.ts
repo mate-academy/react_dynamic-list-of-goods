@@ -6,16 +6,18 @@ const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/good
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
     .then(response => response.json())
-    .then((goods: Good[]) =>
-      goods.sort((good1, good2) => good1.name.localeCompare(good2.name)),
-    );
+    .then((goods: Good[]) => goods);
 }
 
-export const get5First = () => {
-  return getAll().then(goods => goods.slice(0, 5)); // sort and get the first 5
+export const get5First = (): Promise<Good[]> => {
+  return getAll().then(goods =>
+    goods
+      .sort((good1, good2) => good1.name.localeCompare(good2.name))
+      .slice(0, 5),
+  ); //  sort and get the first 5
 };
 
-export const getRedGoods = () => {
+export const getRedGoods = (): Promise<Good[]> => {
   return getAll().then(goods => {
     return goods.filter(good => good.color === 'red');
   }); // get only red
