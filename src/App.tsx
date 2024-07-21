@@ -6,14 +6,24 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const handleLoadGoods = (loadFunction: () => Promise<Good[]>) => {
-    loadFunction().then(setGoods);
+    setError(null);
+    loadFunction()
+      .then(setGoods)
+      .catch(err => {
+        // eslint-disable-next-line
+        console.error(err);
+        setError('Failed to load goods');
+      });
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <button
         type="button"
