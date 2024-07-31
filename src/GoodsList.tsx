@@ -12,10 +12,13 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
         key={good.id}
         data-cy="good"
         className={
-          good.color === 'red' ? 'red' :
-          good.color === 'green' ? 'green' :
-          good.color === 'blue' ? 'blue'
-          : ''
+          good.color === 'red'
+            ? 'red'
+            : good.color === 'green'
+              ? 'green'
+              : good.color === 'blue'
+                ? 'blue'
+                : ''
         }
       >
         {good.name}
