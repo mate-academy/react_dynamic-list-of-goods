@@ -7,35 +7,35 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  function showAll() {
-    getAll().then(users => setGoods(users));
-  }
-
-  function show5First() {
-    get5First().then(users =>
-      setGoods(users.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5)),
-    );
-  }
-
-  function showOnlyRed() {
-    getRedGoods().then(users =>
-      setGoods(users.filter(user => user.color === 'red')),
-    );
-  }
+  const handleGoods = (fetchGoods: () => Promise<Good[]>) => {
+    fetchGoods().then(data => setGoods(data));
+  };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button type="button" data-cy="all-button" onClick={showAll}>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => handleGoods(getAll)}
+      >
         Load all goods
       </button>
 
-      <button type="button" data-cy="first-five-button" onClick={show5First}>
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => handleGoods(get5First)}
+      >
         Load 5 first goods
       </button>
 
-      <button type="button" data-cy="red-button" onClick={showOnlyRed}>
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => handleGoods(getRedGoods)}
+      >
         Load red goods
       </button>
 
