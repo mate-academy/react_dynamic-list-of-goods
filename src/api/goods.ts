@@ -7,7 +7,7 @@ export function getAll(): Promise<Good[]> {
   return fetch(API_URL).then(response => response.json());
 }
 
-export const get5First = () => {
+export const get5First = (): Promise<Good[]> => {
   return getAll().then(goods =>
     goods
       .sort((good1, good2) => good1.name.localeCompare(good2.name))
@@ -15,6 +15,6 @@ export const get5First = () => {
   );
 };
 
-export const getRedGoods = () => {
+export const getRedGoods = (): Promise<Good[]> => {
   return getAll().then(goods => goods.filter(good => good.color === 'red'));
 };
