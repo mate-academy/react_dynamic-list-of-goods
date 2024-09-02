@@ -12,7 +12,7 @@ export const App: React.FC = () => {
     getAll().then(setGoods);
   };
 
-  const handleLoadAFifeGoods = () => {
+  const handleLoadAFiveGoods = () => {
     get5First().then(setGoods);
   };
 
@@ -31,7 +31,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handleLoadAFifeGoods}
+        onClick={handleLoadAFiveGoods}
       >
         Load 5 first goods
       </button>
