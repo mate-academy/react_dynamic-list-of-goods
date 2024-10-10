@@ -10,46 +10,31 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[] | []>([]);
 
-  const handleGetAll = () => {
-    getAll().then(setGoods);
-  };
-
-  const handleGet5First = () => {
-    get5First()
-      .then(fetchedGoods => {
-        return fetchedGoods.sort((a, b) => a.name.localeCompare(b.name));
-      })
-      .then(sortedGoods => {
-        return sortedGoods.slice(0, 5);
-      })
-      .then(setGoods);
-  };
-
-  const handleGetRedGoods = () => {
-    getRedGoods()
-      .then(fetchedGoods => {
-        return fetchedGoods.filter(good => good.color === 'red');
-      })
-      .then(setGoods);
-  };
-
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button type="button" data-cy="all-button" onClick={handleGetAll}>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => getAll().then(setGoods)}
+      >
         Load all goods
       </button>
 
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handleGet5First}
+        onClick={() => get5First().then(setGoods)}
       >
         Load 5 first goods
       </button>
 
-      <button type="button" data-cy="red-button" onClick={handleGetRedGoods}>
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => getRedGoods().then(setGoods)}
+      >
         Load red goods
       </button>
 
