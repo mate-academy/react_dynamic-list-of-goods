@@ -10,9 +10,9 @@ export const App: React.FC = () => {
 
   const fetchGoods = async (cb: () => Promise<Good[]>) => {
     try {
-      const goods: Good[] = await cb();
+      const data: Good[] = await cb();
 
-      setGoods(goods);
+      setGoods(data);
     } catch (e: unknown) {
       if (e instanceof Error) {
         // eslint-disable-next-line no-console
