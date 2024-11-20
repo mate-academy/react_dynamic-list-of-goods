@@ -13,6 +13,7 @@ export const App: React.FC = () => {
       setGoods(allGoods);
     })
     .catch(error => {
+      // eslint-disable-next-line
       console.error('Error loading goods:', error);
     });
   };
@@ -24,6 +25,7 @@ export const App: React.FC = () => {
       setGoods(sortedGoods);
     })
     .catch(error => {
+      // eslint-disable-next-line
       console.error('Error loading 5 first goods:', error);
     });
   };
@@ -34,6 +36,7 @@ export const App: React.FC = () => {
       setGoods(goods);
     })
     .catch(error => {
+      // eslint-disable-next-line
       console.error('Error loading goods:', error);
     });
   };
