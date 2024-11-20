@@ -20,8 +20,8 @@ export const App: React.FC = () => {
 
   const load5first = () => {
     get5First()
-    .then(goods => {
-      const sortedGoods = goods.slice(0, 5);
+    .then(fetchedGoods => {
+      const sortedGoods = fetchedGoods.slice(0, 5);
       setGoods(sortedGoods);
     })
     .catch(error => {
@@ -32,8 +32,8 @@ export const App: React.FC = () => {
 
   const loadRedGoods = () => {
     getRedGoods()
-    .then(goods => {
-      setGoods(goods);
+    .then(fetchedGoods => {
+      setGoods(fetchedGoods);
     })
     .catch(error => {
       // eslint-disable-next-line
