@@ -1,7 +1,4 @@
-
-
 // eslint-disable-next-line
-
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL).then(response => response.json());
