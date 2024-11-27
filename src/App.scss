@@ -1,1 +1,22 @@
 // styles go here
+ul {
+  list-style-type: none;
+  padding: 0;
+
+  li {
+    font-size: 16px;
+    margin: 10px 0;
+
+    &.red {
+      color: rgb(255, 0, 0);
+    }
+
+    &.green {
+      color: rgb(0, 128, 0);
+    }
+
+    &.blue {
+      color: rgb(0, 0, 255);
+    }
+  }
+}
