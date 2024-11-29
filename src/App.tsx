@@ -1,27 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import * as goodsAPI from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [areAllGoodsShown, setAreAllGoodsShown] = useState(false);
+  const [areFirstGoodsShown, setAreFirstGoodsShown] = useState(false);
+  const [areRedGoodsShown, setAreRedGoodsShown] = useState(false);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  useEffect(() => {
+    if (areAllGoodsShown) {
+      goodsAPI.getAll().then(setGoods);
+      setAreFirstGoodsShown(false);
+      setAreRedGoodsShown(false);
+      setAreAllGoodsShown(false);
+    }
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+    if (areFirstGoodsShown) {
+      goodsAPI.get5First().then(setGoods);
+      setAreFirstGoodsShown(false);
+      setAreRedGoodsShown(false);
+      setAreAllGoodsShown(false);
+    }
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    if (areRedGoodsShown) {
+      goodsAPI.getRedGoods().then(setGoods);
+      setAreFirstGoodsShown(false);
+      setAreRedGoodsShown(false);
+      setAreAllGoodsShown(false);
+    }
+  }, [areAllGoodsShown, areFirstGoodsShown, areRedGoodsShown]);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setAreAllGoodsShown(true)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setAreFirstGoodsShown(true)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setAreRedGoodsShown(true)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
