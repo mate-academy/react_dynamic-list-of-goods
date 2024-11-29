@@ -1,27 +1,68 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
+import { get5First, getAll, getRedGoods } from './api/goods';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [items, setItems] = useState<Good[]>([]);
+  const [allItems, setAllItems] = useState(false);
+  const [fiveFirstItems, setFiveFirstItems] = useState(false);
+  const [redItems, setRedItems] = useState(false);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  useEffect(() => {
+    if (allItems) {
+      getAll().then(setItems);
+    }
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+    if (fiveFirstItems) {
+      get5First().then(setItems);
+    }
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    if (redItems) {
+      getRedGoods().then(setItems);
+    }
+  }, [allItems, fiveFirstItems, redItems]);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const handleAllButton = () => {
+    setAllItems(!allItems);
+    setFiveFirstItems(false);
+    setRedItems(false);
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const handleFirst5Button = () => {
+    setFiveFirstItems(!fiveFirstItems);
+    setAllItems(false);
+    setRedItems(false);
+  };
+
+  const handleRedButton = () => {
+    setRedItems(!redItems);
+    setFiveFirstItems(false);
+    setAllItems(false);
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={handleAllButton}>
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleFirst5Button}
+      >
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={handleRedButton}>
+        Load red goods
+      </button>
+
+      <GoodsList goods={items} />
+    </div>
+  );
+};
