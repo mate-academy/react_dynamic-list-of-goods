@@ -1,1 +1,11 @@
-// styles go here
+$colors: (
+  red: red,
+  blue: blue,
+  green: green
+);
+
+@each $name, $color in $colors {
+  ##{$name} {
+    color: $color;
+  }
+}
