@@ -1,1 +1,13 @@
-// styles go here
+.good {
+  &__color-red {
+    color: red;
+  }
+
+  &__color-green {
+    color: green;
+  }
+
+  &__color-blue {
+    color: blue;
+  }
+}
