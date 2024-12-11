@@ -1,1 +1,15 @@
-// styles go here
+.good {
+  font-family: Arial, Helvetica, sans-serif;
+
+  &--red {
+    color: red;
+  }
+
+  &--blue {
+    color: blue;
+  }
+
+  &--green {
+    color: green;
+  }
+}
