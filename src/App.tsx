@@ -1,27 +1,64 @@
-import React from 'react';
-import './App.scss';
+import { useEffect, useState } from 'react';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App = () => {
+  const [allGoods, setAllGoods] = useState<Good[]>([]);
+  const [filterType, setFilterType] = useState<'all' | 'five' | 'red'>('all');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  useEffect(() => {
+    const fetchGoods = async () => {
+      try {
+        if (filterType === 'all') {
+          const goodsList: Good[] = await getAll();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+          setAllGoods(goodsList);
+        } else if (filterType === 'five') {
+          const goodsList: Good[] = await get5First();
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+          setAllGoods(goodsList);
+        } else if (filterType === 'red') {
+          const goodsList: Good[] = await getRedGoods();
 
-    <GoodsList goods={[]} />
-  </div>
-);
+          setAllGoods(goodsList);
+        }
+      } catch (error) {}
+    };
+
+    fetchGoods();
+  }, [filterType]);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setFilterType('all')}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setFilterType('five')}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setFilterType('red')}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={allGoods} />
+    </div>
+  );
+};
