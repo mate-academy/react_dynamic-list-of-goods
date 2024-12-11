@@ -8,9 +8,7 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   function handleClick(calback: () => Promise<Good[]>) {
-    calback().then(response => {
-      setGoods(response);
-    });
+    calback().then(setGoods);
   }
 
   return (
