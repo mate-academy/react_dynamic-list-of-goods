@@ -8,8 +8,6 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  console.log(goods);
-
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
