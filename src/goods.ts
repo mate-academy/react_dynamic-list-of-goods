@@ -7,6 +7,7 @@ export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
     .then(response => {
       if (!response.ok) {
+        throw new Error('Failed to fetch goods');
       }
 
       return response.json();

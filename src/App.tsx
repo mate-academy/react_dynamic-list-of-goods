@@ -2,31 +2,23 @@ import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import { useEffect, useState } from 'react';
-import { get5First } from './goods';
-import { getAll } from './goods';
-import { getRedGoods } from './goods';
+import { get5First, getAll, getRedGoods } from './goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [sortField, setSortField] = useState('');
 
-  const handleClick = (type: 'all' | 'first5' | 'red') => {
+  const handleClick = (type: 'all' | 'first5' | 'red'): void => {
     setSortField(type);
   };
 
   useEffect(() => {
     if (sortField === 'all') {
       getAll().then(setGoods);
-    }
-
-    if (sortField === 'first5') {
+    } else if (sortField === 'first5') {
       get5First().then(setGoods);
-    }
-
-    if (sortField === 'red') {
+    } else if (sortField === 'red') {
       getRedGoods().then(setGoods);
-    } else {
-      return;
     }
   }, [sortField]);
 
