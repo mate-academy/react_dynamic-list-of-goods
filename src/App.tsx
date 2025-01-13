@@ -9,22 +9,22 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadAllGoods = async () => {
-    const allGoods = await getAll();
-
-    setGoods(allGoods);
+  const loadAllGoods = () => {
+    getAll().then(allGoods => {
+      setGoods(allGoods);
+    });
   };
 
-  const loadFirstFiveGoods = async () => {
-    const firstFiveGood = await get5First();
-
-    setGoods(firstFiveGood);
+  const loadFirstFiveGoods = () => {
+    get5First().then(firstFiveGood => {
+      setGoods(firstFiveGood);
+    });
   };
 
-  const loadRedGoods = async () => {
-    const redGoods = await getRedGoods();
-
-    setGoods(redGoods);
+  const loadRedGoods = () => {
+    getRedGoods().then(redGoods => {
+      setGoods(redGoods);
+    });
   };
 
   return (
