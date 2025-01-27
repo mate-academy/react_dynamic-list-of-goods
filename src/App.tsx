@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -26,11 +26,11 @@ export const App: React.FC = () => {
     fetchFunction().then(data => setGoods(data));
   };
 
-  useEffect(() => {
-    loadGoods(getAll);
-    loadGoods(get5First);
-    loadGoods(getRedGoods);
-  }, []);
+  // useEffect(() => {
+  //   loadGoods(getAll);
+  //   loadGoods(get5First);
+  //   loadGoods(getRedGoods);
+  // }, []);
 
   return (
     <div className="App">
