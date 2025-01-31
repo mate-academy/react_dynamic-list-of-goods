@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 export interface Good {
   id: number;
   name: string;
