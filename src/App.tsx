@@ -2,22 +2,22 @@ import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-import * as goodsAPI from './api/goods';
+import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   function loadAllGoods() {
-    goodsAPI.getAll().then(goods => setGoods(goods));
+    getAll().then(good => setGoods(good));
   }
 
   function load5FirstGoods() {
-    goodsAPI.get5First().then(goods => setGoods(goods));
+    get5First().then(good => setGoods(good));
   }
 
   function loadRedGoods() {
-    goodsAPI.getRedGoods().then(goods => setGoods(goods));
+    getRedGoods().then(good => setGoods(good));
   }
 
   return (
