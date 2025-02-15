@@ -1,1 +1,8 @@
-// styles go here
+.button {
+  cursor: pointer;
+}
+
+.button:nth-child(n+3) {
+  margin-left: 10px;
+}
+
