@@ -7,7 +7,7 @@ export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
     .then(response => response.json())
     .catch(() => {
-      return 'Couldnt load';
+      throw new Error('Couldnt load data. Please try again');
     });
 }
 
@@ -20,7 +20,7 @@ export const get5First = () => {
       return first5;
     })
     .catch(() => {
-      return 'Couldnt load';
+      throw new Error('Couldnt load data. Please try again');
     });
 };
 
@@ -32,6 +32,6 @@ export const getRedGoods = () => {
       return redGoods;
     })
     .catch(() => {
-      return 'Couldnt load';
+      throw new Error('Couldnt load data. Please try again');
     });
 };

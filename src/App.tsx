@@ -6,27 +6,29 @@ import { Good } from './types/Good';
 import { ShowGoods } from './types/ShowGoods';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[] | null | string>(null);
+  const [goods, setGoods] = useState<Good[] | null>(null);
   const [showedGoods, setShowedGoods] = useState<ShowGoods | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    setError(null);
     switch (showedGoods) {
       case 'all':
         getAll()
           .then(setGoods)
-          .catch(e => setGoods(e));
+          .catch(e => setError(e));
 
         break;
       case 'first5':
         get5First()
           .then(data => setGoods(data))
-          .catch(e => setGoods(e));
+          .catch(e => setError(e));
 
         break;
       case 'red':
         getRedGoods()
           .then(data => setGoods(data))
-          .catch(e => setGoods(e));
+          .catch(e => setError(e));
 
         break;
       default:
@@ -64,6 +66,7 @@ export const App: React.FC = () => {
       </button>
 
       <GoodsList goods={goods} />
+      {error !== null && <p>{error}</p>}
     </div>
   );
 };
