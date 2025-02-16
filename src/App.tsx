@@ -6,19 +6,28 @@ import { Good } from './types/Good';
 import { ShowGoods } from './types/ShowGoods';
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[] | null>(null);
+  const [goods, setGoods] = useState<Good[] | null | string>(null);
   const [showedGoods, setShowedGoods] = useState<ShowGoods | null>(null);
 
   useEffect(() => {
     switch (showedGoods) {
       case 'all':
-        getAll().then(setGoods);
+        getAll()
+          .then(setGoods)
+          .catch(e => setGoods(e));
+
         break;
       case 'first5':
-        get5First().then(setGoods);
+        get5First()
+          .then(data => setGoods(data))
+          .catch(e => setGoods(e));
+
         break;
       case 'red':
-        getRedGoods().then(setGoods);
+        getRedGoods()
+          .then(data => setGoods(data))
+          .catch(e => setGoods(e));
+
         break;
       default:
         setGoods(null);
