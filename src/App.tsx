@@ -10,26 +10,34 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [filterGoods, setFilterGoods] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [error, setError] = useState('');
 
   function getUsers(): Promise<Good[]> {
     return fetch(
       'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json',
-    ).then(response => response.json());
+    ).then(response => {
+      return response.json();
+    });
   }
 
   useEffect(() => {
-    getUsers().then(goodsServer => {
-      switch (filterGoods) {
-        case 'all':
-          setGoods(goodsServer);
-          break;
-        case 'five':
-          setGoods(goodsServer.slice(0, 5));
-          break;
-        case 'red':
-          setGoods(goodsServer.filter(item => item.color === 'red'));
-      }
-    });
+    getUsers()
+      .then(goodsServer => {
+        switch (filterGoods) {
+          case 'all':
+            setGoods(goodsServer.sort((a, b) => a.name.localeCompare(b.name)));
+            break;
+          case 'five':
+            setGoods(goodsServer.slice(0, 5));
+            break;
+          case 'red':
+            setGoods(goodsServer.filter(item => item.color === 'red'));
+        }
+      })
+      .catch(() => {
+        setError('Try again letter');
+      });
   }, [filterGoods]);
 
   return (
