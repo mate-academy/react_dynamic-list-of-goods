@@ -12,15 +12,27 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleAllClick = () => {
-    getAll().then(setGoods);
+    getAll()
+      .then(setGoods)
+      .catch(error => {
+        return error;
+      });
   };
 
   const handle5FirstClick = () => {
-    get5First().then(setGoods);
+    get5First()
+      .then(setGoods)
+      .catch(error => {
+        return error;
+      });
   };
 
   const handleRedGoodsClick = () => {
-    getRedGoods().then(setGoods);
+    getRedGoods()
+      .then(setGoods)
+      .catch(error => {
+        return error;
+      });
   };
 
   return (
