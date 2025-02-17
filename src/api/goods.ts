@@ -7,10 +7,14 @@ export function getAll(): Promise<Good[]> {
   return fetch(API_URL).then(response => response.json());
 }
 
+// Отримати 5 перших товарів (відсортованих за іменем)
 export const get5First = () => {
-  return getAll().then(goods => goods); // sort and get the first 5
+  return getAll().then(goods =>
+    goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
+  );
 };
 
+// Отримати тільки червоні товари
 export const getRedGoods = () => {
-  return getAll().then(goods => goods); // get only red
+  return getAll().then(goods => goods.filter(good => good.color === 'red'));
 };
