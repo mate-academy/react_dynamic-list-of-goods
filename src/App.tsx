@@ -9,8 +9,7 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [clickAllGoods, setClickAllGoods] = useState(false);
-  const [fiveGoods, setFiveGoods] = useState(false);
+  const [filterGoods, setFilterGoods] = useState('');
 
   function getUsers(): Promise<Good[]> {
     return fetch(
@@ -20,13 +19,18 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     getUsers().then(goodsServer => {
-      if (clickAllGoods) {
-        setGoods(goodsServer);
-      } else if (fiveGoods) {
-        setGoods(goodsServer.slice(0, 5));
+      switch (filterGoods) {
+        case 'all':
+          setGoods(goodsServer);
+          break;
+        case 'five':
+          setGoods(goodsServer.slice(0, 5));
+          break;
+        case 'red':
+          setGoods(goodsServer.filter(item => item.color === 'red'));
       }
     });
-  }, [clickAllGoods, fiveGoods, goods]);
+  }, [filterGoods]);
 
   return (
     <div className="App">
@@ -36,7 +40,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          setClickAllGoods(true);
+          setFilterGoods('all');
         }}
       >
         Load all goods
@@ -46,13 +50,17 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          setFiveGoods(true);
+          setFilterGoods('five');
         }}
       >
         Load 5 first goods
       </button>
 
-      <button type="button" data-cy="red-button">
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setFilterGoods('red')}
+      >
         Load red goods
       </button>
 
