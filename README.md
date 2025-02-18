@@ -1,28 +1,31 @@
-# Dynamic list of goods
+# Dynamic List of Goods
 
-### Description
+## 🎮 About the Project
+The **Dynamic List of Goods** fetches product data from a local JSON (acting as a mock API) and allows users to filter and sort the goods based on specific parameters. This interactive component enables dynamic content loading and interaction, enhancing the user experience.
 
-- Implemented the Dynamic List of Goods where info loaded from the local JSON (API) due to filtered params
-  
-### Stack
+## 🚀 Tech Stack
+- **HTML** (BEM methodology for structured markup)  
+- **CSS** (Bulma for responsive and clean styles)  
+- **JavaScript** (Handling the dynamic functionality)  
+- **TypeScript** (For type safety and development experience)  
+- **React** (Building the interactive UI)  
+- **ReactDOM** (Rendering the component to the DOM)  
+- **API** (Local JSON as the data source for the goods)
 
-- HTML (BEM)
-- CSS (Bulma)
-- JS
-- Typescript
-- React
-- ReactDOM
-- API (local JSON)
+## 🛠️ Tools & Dependencies
+- **ESLint** – Code quality and linting  
+- **Prettier** – Code formatting  
+- **Cypress** – End-to-end testing  
+- **Mochawesome** – Test reporting  
+- **Babel** – JavaScript compiler  
 
-### Tools
+## 📌 Features
+✅ Dynamic content loading from a mock API (local JSON)  
+✅ Filtering and sorting functionality  
+✅ Responsive design using **Bulma**  
 
-- ESlint
-- Prettier
-- Cypress
-- Mochawesome
-- Babel
+## 🌐 Demo
+🔗 [Live Demo](https://AndriiZakharenko.github.io/dynamic-list-of-goods/)
 
-### Demo links
-
-- [Demo](https://AndriiZakharenko.github.io/dynamic-list-of-goods/)
-
+## 📜 License
+This project is forked from 💻 [Mate Academy](https://github.com/mate-academy/react_dynamic-list-of-goods)
