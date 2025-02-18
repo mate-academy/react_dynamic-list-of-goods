@@ -15,7 +15,13 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getAll().then(setFilteredGoods)}
+        onClick={() =>
+          getAll()
+            .then(setFilteredGoods)
+            .catch(() => {
+              throw new Error('Fail');
+            })
+        }
       >
         Load all goods
       </button>
@@ -23,7 +29,13 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => get5First().then(setFilteredGoods)}
+        onClick={() =>
+          get5First()
+            .then(setFilteredGoods)
+            .catch(() => {
+              throw new Error('Fail');
+            })
+        }
       >
         Load 5 first goods
       </button>
@@ -31,7 +43,13 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => getRedGoods().then(setFilteredGoods)}
+        onClick={() =>
+          getRedGoods()
+            .then(setFilteredGoods)
+            .catch(() => {
+              throw new Error('Fail');
+            })
+        }
       >
         Load red goods
       </button>
