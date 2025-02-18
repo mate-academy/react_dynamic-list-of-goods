@@ -5,34 +5,34 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 import { ShowGoods } from './types/ShowGoods';
 
+const FILTER = {
+  all: 'all',
+  first5: 'first5',
+  red: 'red',
+} as const;
+
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[] | null>(null);
+  const [goods, setGoods] = useState<Good[] | []>([]);
   const [showedGoods, setShowedGoods] = useState<ShowGoods | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     setError(null);
     switch (showedGoods) {
-      case 'all':
-        getAll()
-          .then(setGoods)
-          .catch(e => setError(e));
+      case FILTER.all:
+        getAll().then(setGoods).catch(setError);
 
         break;
-      case 'first5':
-        get5First()
-          .then(data => setGoods(data))
-          .catch(e => setError(e));
+      case FILTER.first5:
+        get5First().then(setGoods).catch(setError);
 
         break;
-      case 'red':
-        getRedGoods()
-          .then(data => setGoods(data))
-          .catch(e => setError(e));
+      case FILTER.red:
+        getRedGoods().then(setGoods).catch(setError);
 
         break;
       default:
-        setGoods(null);
+        setGoods([]);
         break;
     }
   }, [showedGoods]);
@@ -44,7 +44,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setShowedGoods('all')}
+        onClick={() => setShowedGoods(FILTER.all)}
       >
         Load all goods
       </button>
@@ -52,7 +52,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setShowedGoods('first5')}
+        onClick={() => setShowedGoods(FILTER.first5)}
       >
         Load 5 first goods
       </button>
@@ -60,12 +60,12 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setShowedGoods('red')}
+        onClick={() => setShowedGoods(FILTER.red)}
       >
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      <GoodsList goods={goods ?? []} />
       {error !== null && <p>{error}</p>}
     </div>
   );
