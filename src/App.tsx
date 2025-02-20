@@ -9,17 +9,15 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleLoadAll = () => {
-    getAll().then(setGoods);
+    getAll().then(newGoods => setGoods(newGoods));
   };
 
   const handleLoad5First = () => {
-    setGoods([]);
-    get5First().then(setGoods);
+    get5First().then(newGoods => setGoods(newGoods));
   };
 
   const handleLoadRedGoods = () => {
-    setGoods([]);
-    getRedGoods().then(setGoods);
+    getRedGoods().then(newGoods => setGoods(newGoods));
   };
 
 
