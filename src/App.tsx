@@ -1,27 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { get5First, getAll, getRedGoods } from './api/goods';
+import ButtonComponent from './components/Button';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export enum GetFromApi {
+  NONE,
+  ALL,
+  FIVE,
+  RED,
+}
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [value, setValue] = useState(GetFromApi.NONE);
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleButtonClick = (action: string) => {
+    const key = GetFromApi[action as keyof typeof GetFromApi];
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    if (key) {
+      setValue(key);
+    }
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const getFilteredGoods = async () => {
+    let fetchedGoods: Good[] = [];
 
-    <GoodsList goods={[]} />
-  </div>
-);
+    switch (value) {
+      case GetFromApi.ALL:
+        fetchedGoods = await getAll();
+        break;
+      case GetFromApi.FIVE:
+        fetchedGoods = await get5First();
+        break;
+      case GetFromApi.RED:
+        fetchedGoods = await getRedGoods();
+        break;
+      default:
+        fetchedGoods = [];
+        break;
+    }
+
+    setGoods(fetchedGoods);
+  };
+
+  useEffect(() => {
+    if (value !== GetFromApi.NONE) {
+      getFilteredGoods();
+    }
+  }, [value]);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <ButtonComponent onClick={handleButtonClick} />
+
+      {value !== GetFromApi.NONE && <GoodsList goods={goods} />}
+    </div>
+  );
+};
