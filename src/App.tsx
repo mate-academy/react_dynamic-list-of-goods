@@ -19,7 +19,7 @@ export const App: React.FC = () => {
   const handleButtonClick = (action: string) => {
     const key = GetFromApi[action as keyof typeof GetFromApi];
 
-    if (key) {
+    if (key !== undefined) {
       setValue(key);
     }
   };

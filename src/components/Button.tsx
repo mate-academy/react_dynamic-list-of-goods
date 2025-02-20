@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes } from 'react';
+import React from 'react';
 
 type ItemProps = {
   data: string;
@@ -26,10 +26,9 @@ const items: ItemProps[] = [
 
 type Props = {
   onClick: (action: string) => void;
-  rest?: ButtonHTMLAttributes<HTMLButtonElement>;
 };
 
-const ButtonComponent: React.FC<Props> = ({ onClick, rest }: Props) => {
+const ButtonComponent: React.FC<Props> = ({ onClick }: Props) => {
   return (
     <>
       {items.map(({ data, text, getFromApi }: ItemProps) => (
@@ -37,7 +36,6 @@ const ButtonComponent: React.FC<Props> = ({ onClick, rest }: Props) => {
           key={data}
           type="button"
           data-cy={data}
-          {...rest}
           onClick={() => onClick(getFromApi)}
         >
           {text}
