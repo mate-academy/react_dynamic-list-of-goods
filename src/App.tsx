@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -9,15 +9,27 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = React.useState<Good[]>([]);
+  const [error, setError] = React.useState<string | null>(null);
 
-  useEffect(() => {}, [goods]);
+  const loadGoods = async (loadFunction: () => Promise<Good[]>) => {
+    try {
+      const loadedGoods = await loadFunction();
+
+      setGoods(loadedGoods);
+      setError(null);
+    } catch (err) {
+      setError('Failed to load goods');
+    }
+  };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
+      {error && <p className="error">{error}</p>}
+
       <button
-        onClick={() => getAll().then(setGoods)}
+        onClick={() => loadGoods(getAll)}
         type="button"
         data-cy="all-button"
       >
@@ -25,7 +37,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => get5First().then(setGoods)}
+        onClick={() => loadGoods(get5First)}
         type="button"
         data-cy="first-five-button"
       >
@@ -33,7 +45,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => getRedGoods().then(setGoods)}
+        onClick={() => loadGoods(getRedGoods)}
         type="button"
         data-cy="red-button"
       >
