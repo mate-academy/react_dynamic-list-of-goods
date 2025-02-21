@@ -6,7 +6,8 @@ const page = {
   goods: () => page.getByDataCy('good'),
 };
 
-const API_URL = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
+const API_URL =
+  'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
 
 describe('Page', () => {
   beforeEach(() => {
@@ -15,15 +16,13 @@ describe('Page', () => {
   });
 
   it('should show no goods by default', () => {
-    page.goods()
-      .should('have.length', 0);
+    page.goods().should('have.length', 0);
   });
 
   it('should load all 13 goods', () => {
     page.allButton().click();
 
-    page.goods()
-      .should('have.length', 13);
+    page.goods().should('have.length', 13);
   });
 
   it('should use expected colors for the goods', () => {
@@ -38,8 +37,7 @@ describe('Page', () => {
   it('should load the first 5 goods', () => {
     page.firstFiveButton().click();
 
-    page.goods()
-      .should('have.length', 5);
+    page.goods().should('have.length', 5);
 
     page.goods().eq(0).should('have.text', 'Apple');
     page.goods().eq(1).should('have.text', 'Bread');
@@ -51,9 +49,8 @@ describe('Page', () => {
   it('should load red goods', () => {
     page.redButton().click();
 
-    page.goods()
-      .should('have.length', 5);
-    
+    page.goods().should('have.length', 5);
+
     page.goods().eq(0).should('have.text', 'Potato');
     page.goods().eq(1).should('have.text', 'Ice cream');
     page.goods().eq(2).should('have.text', 'Fish');
@@ -62,9 +59,7 @@ describe('Page', () => {
   });
 
   it('should not send requests to the server by default', () => {
-    cy.get('@apiCall')
-      .its('callCount')
-      .should('equal', 0);
+    cy.get('@apiCall').its('callCount').should('equal', 0);
   });
 
   it('should send a new request on each click', () => {
@@ -79,5 +74,5 @@ describe('Page', () => {
 
     page.allButton().click();
     cy.get('@apiCall').its('callCount').should('equal', 4);
-  })
+  });
 });
