@@ -13,9 +13,9 @@ export function getAll(): Promise<Good[]> {
 
 export const get5First = () => {
   return getAll()
-    .then(goods => {
-      return goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5);
-    })
+    .then(goods =>
+      goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
+    )
     .catch(() => {
       throw new Error('Couldnt load data. Please try again');
     });
@@ -23,9 +23,7 @@ export const get5First = () => {
 
 export const getRedGoods = () => {
   return getAll()
-    .then(goods => {
-      return goods.filter(good => good.color === 'red');
-    })
+    .then(goods => goods.filter(good => good.color === 'red'))
     .catch(() => {
       throw new Error('Couldnt load data. Please try again');
     });

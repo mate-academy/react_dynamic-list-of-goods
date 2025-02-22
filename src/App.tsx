@@ -12,7 +12,7 @@ const FILTER = {
 } as const;
 
 export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[] | []>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
   const [showedGoods, setShowedGoods] = useState<ShowGoods | null>(null);
   const [error, setError] = useState<string | null>(null);
 
