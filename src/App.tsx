@@ -1,16 +1,43 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-import { getAll, get5First, getRedGoods } from './api/goods';
+import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadGoods = async (fetchMethod: () => Promise<Good[]>) => {
-    const data = await fetchMethod();
+  const handleShowAllGoods = () => {
+    return getAll()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to fetch goods:', error);
 
-    setGoods(data);
+        return [];
+      });
+  };
+
+  const handleShowFirstFiveGoods = () => {
+    return get5First()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to fetch the first 5 goods:', error);
+
+        return [];
+      });
+  };
+
+  const handleShowRedGoods = () => {
+    return getRedGoods()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to fetch red goods:', error);
+
+        return [];
+      });
   };
 
   return (
@@ -20,7 +47,8 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => loadGoods(getAll)}
+        className="button btn-1"
+        onClick={handleShowAllGoods}
       >
         Load all goods
       </button>
@@ -28,7 +56,8 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => loadGoods(get5First)}
+        className="button btn-2"
+        onClick={handleShowFirstFiveGoods}
       >
         Load 5 first goods
       </button>
@@ -36,7 +65,8 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => loadGoods(getRedGoods)}
+        className="button btn-3"
+        onClick={handleShowRedGoods}
       >
         Load red goods
       </button>
