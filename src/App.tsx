@@ -1,27 +1,64 @@
-import React from 'react';
+import { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App = () => {
+  const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  // an alternative way of getting the api data without .then:
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  // const handleGetAll = async () => {
+  //   const goods = await getAll();
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  //   setVisibleGoods(goods);
+  // };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  // const handleGet5First = async () => {
+  //   const goods = await get5First();
+
+  //   setVisibleGoods(goods);
+  // };
+
+  // const handleGetRedGoods = async () => {
+  //   const goods = await getRedGoods();
+
+  //   setVisibleGoods(goods);
+  // };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => getAll().then(goods => setVisibleGoods(goods))}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => get5First().then(goods => setVisibleGoods(goods))}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => getRedGoods().then(goods => setVisibleGoods(goods))}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={visibleGoods} />
+    </div>
+  );
+};
