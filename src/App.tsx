@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-import { getAll, get5First, getRed, getRedGoods } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
@@ -12,7 +12,7 @@ export const App: React.FC = () => {
     getAll()
       .then(setGoods)
       .catch(error => {
-        throw new Error(error);
+        console.log('Error:', error);
       });
   };
 
@@ -20,7 +20,7 @@ export const App: React.FC = () => {
     get5First()
       .then(setGoods)
       .catch(error => {
-        throw new Error(error);
+        console.log('Error:', error);
       });
   };
 
@@ -28,7 +28,7 @@ export const App: React.FC = () => {
     getRedGoods()
       .then(setGoods)
       .catch(error => {
-        throw new Error(error);
+        console.log('Error:', error);
       });
   };
 
