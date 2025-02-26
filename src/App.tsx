@@ -9,54 +9,62 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>('');
 
-  // an alternative way of getting the api data without .then:
+  const handleGetAll = async () => {
+    try {
+      const goods = await getAll();
 
-  // const handleGetAll = async () => {
-  //   const goods = await getAll();
+      setVisibleGoods(goods);
+      setErrorMessage(null);
+    } catch (error) {
+      setErrorMessage('Not possible to load all goods');
+    }
+  };
 
-  //   setVisibleGoods(goods);
-  // };
+  const handleGet5First = async () => {
+    try {
+      const goods = await get5First();
 
-  // const handleGet5First = async () => {
-  //   const goods = await get5First();
+      setVisibleGoods(goods);
+      setErrorMessage(null);
+    } catch (error) {
+      setErrorMessage('Not possible to load the 5 first goods');
+    }
+  };
 
-  //   setVisibleGoods(goods);
-  // };
+  const handleGetRedGoods = async () => {
+    try {
+      const goods = await getRedGoods();
 
-  // const handleGetRedGoods = async () => {
-  //   const goods = await getRedGoods();
-
-  //   setVisibleGoods(goods);
-  // };
+      setVisibleGoods(goods);
+      setErrorMessage(null);
+    } catch (error) {
+      setErrorMessage('Not possible to load red goods');
+    }
+  };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={() => getAll().then(goods => setVisibleGoods(goods))}
-      >
+      <button type="button" data-cy="all-button" onClick={handleGetAll}>
         Load all goods
       </button>
 
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => get5First().then(goods => setVisibleGoods(goods))}
+        onClick={handleGet5First}
       >
         Load 5 first goods
       </button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={() => getRedGoods().then(goods => setVisibleGoods(goods))}
-      >
+      <button type="button" data-cy="red-button" onClick={handleGetRedGoods}>
         Load red goods
       </button>
+
+      {errorMessage && <p>{errorMessage}</p>}
 
       <GoodsList goods={visibleGoods} />
     </div>
