@@ -12,6 +12,7 @@ export const App: React.FC = () => {
     getAll()
       .then(setGoods)
       .catch(error => {
+        // eslint-disable-next-line no-console
         console.log('Error:', error);
       });
   };
@@ -20,6 +21,7 @@ export const App: React.FC = () => {
     get5First()
       .then(setGoods)
       .catch(error => {
+        // eslint-disable-next-line no-console
         console.log('Error:', error);
       });
   };
@@ -28,6 +30,7 @@ export const App: React.FC = () => {
     getRedGoods()
       .then(setGoods)
       .catch(error => {
+        // eslint-disable-next-line no-console
         console.log('Error:', error);
       });
   };
