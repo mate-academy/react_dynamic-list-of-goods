@@ -9,15 +9,36 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleLoadAllGoods = () => {
-    getAll().then(setGoods);
+    return getAll()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to fetch goods:', error);
+
+        return [];
+      });
   };
 
   const handleLoad5First = () => {
-    get5First().then(setGoods);
+    return get5First()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to fetch the first 5 goods:', error);
+
+        return [];
+      });
   };
 
   const handleLoadRedGoods = () => {
-    getRedGoods().then(setGoods);
+    return getRedGoods()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to fetch red goods:', error);
+
+        return [];
+      });
   };
 
   return (
