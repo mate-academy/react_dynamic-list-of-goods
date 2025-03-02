@@ -10,14 +10,30 @@ import { get5First, getAll, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState(false);
 
-  const handlebuttonClick = (id: string) => {
+  const handleButtonClick = (id: string) => {
     if (id === 'All') {
-      getAll().then(setGoods);
+      getAll()
+        .then(response => {
+          setGoods(response);
+          setError(false);
+        })
+        .catch(() => setError(true));
     } else if (id === 'LoadFive') {
-      get5First().then(setGoods);
-    } else if (id === 'LoadRed') {      
-      getRedGoods().then(setGoods);
+      get5First()
+        .then(response => {
+          setGoods(response);
+          setError(false);
+        })
+        .catch(() => setError(true));
+    } else if (id === 'LoadRed') {
+      getRedGoods()
+        .then(response => {
+          setGoods(response);
+          setError(false);
+        })
+        .catch(() => setError(true));
     }
   };
 
@@ -29,7 +45,7 @@ export const App: React.FC = () => {
         id="All"
         type="button"
         data-cy="all-button"
-        onClick={event => handlebuttonClick(event.currentTarget.id)}
+        onClick={event => handleButtonClick(event.currentTarget.id)}
       >
         Load all goods
       </button>
@@ -38,7 +54,7 @@ export const App: React.FC = () => {
         id="LoadFive"
         type="button"
         data-cy="first-five-button"
-        onClick={event => handlebuttonClick(event.currentTarget.id)}
+        onClick={event => handleButtonClick(event.currentTarget.id)}
       >
         Load 5 first goods
       </button>
@@ -47,12 +63,11 @@ export const App: React.FC = () => {
         id="LoadRed"
         type="button"
         data-cy="red-button"
-        onClick={event => handlebuttonClick(event.currentTarget.id)}
+        onClick={event => handleButtonClick(event.currentTarget.id)}
       >
         Load red goods
       </button>
-
-      <GoodsList goods={goods} />
+      {goods.length > 0 && !error && <GoodsList goods={goods} />}
     </div>
   );
 };
