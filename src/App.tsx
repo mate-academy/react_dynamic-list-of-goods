@@ -8,7 +8,7 @@ import { Good } from './types/Good';
 // import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
-  const [list, useList] = useState<Good[]>([]);
+  const [list, setList] = useState<Good[]>([]);
 
   return (
     <>
@@ -18,7 +18,7 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="all-button"
-          onClick={() => getAll().then(useList)}
+          onClick={() => getAll().then(setList)}
         >
           Load all goods
         </button>
@@ -26,7 +26,7 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="first-five-button"
-          onClick={() => get5First().then(useList)}
+          onClick={() => get5First().then(setList)}
         >
           Load 5 first goods
         </button>
@@ -34,7 +34,7 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="red-button"
-          onClick={() => getRedGoods().then(useList)}
+          onClick={() => getRedGoods().then(setList)}
         >
           Load red goods
         </button>
