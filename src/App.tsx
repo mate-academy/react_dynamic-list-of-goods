@@ -22,7 +22,8 @@ export const App: React.FC = memo(() => {
 
             setGoods(allGoods);
           } catch (err) {
-            throw new Error(`Goods loading failed: ${err}`);
+            // eslint-disable-next-line no-console
+            console.error(`Goods loading failed: ${err}`);
           }
         }}
       >
@@ -40,7 +41,8 @@ export const App: React.FC = memo(() => {
 
             setGoods(firstFiveGoods);
           } catch (err) {
-            throw new Error(`First 5 goods loading failed: ${err}`);
+            // eslint-disable-next-line no-console
+            console.error(`First 5 goods loading failed: ${err}`);
           }
         }}
       >
@@ -58,7 +60,8 @@ export const App: React.FC = memo(() => {
 
             setGoods(redGoods);
           } catch (err) {
-            throw new Error(`Red goods loading failed: ${err}`);
+            // eslint-disable-next-line no-console
+            console.error(`Red goods loading failed: ${err}`);
           }
         }}
       >
