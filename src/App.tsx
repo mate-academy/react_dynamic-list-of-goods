@@ -1,12 +1,12 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => {
+export const App: React.FC = memo(() => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   return (
@@ -17,9 +17,13 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={async () => {
-          const allGoods = await getAll();
+          try {
+            const allGoods = await getAll();
 
-          setGoods(allGoods);
+            setGoods(allGoods);
+          } catch (err) {
+            throw new Error(`Goods loading failed: ${err}`);
+          }
         }}
       >
         Load all goods
@@ -29,11 +33,15 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={async () => {
-          const firstFiveGoods = await get5First().then(item =>
-            item.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
-          );
+          try {
+            const firstFiveGoods = await get5First().then(item =>
+              item.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
+            );
 
-          setGoods(firstFiveGoods);
+            setGoods(firstFiveGoods);
+          } catch (err) {
+            throw new Error(`First 5 goods loading failed: ${err}`);
+          }
         }}
       >
         Load 5 first goods
@@ -43,11 +51,15 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={async () => {
-          const redGoods = await getRedGoods().then(item =>
-            item.filter(good => good.color === 'red'),
-          );
+          try {
+            const redGoods = await getRedGoods().then(item =>
+              item.filter(good => good.color === 'red'),
+            );
 
-          setGoods(redGoods);
+            setGoods(redGoods);
+          } catch (err) {
+            throw new Error(`Red goods loading failed: ${err}`);
+          }
         }}
       >
         Load red goods
@@ -56,4 +68,6 @@ export const App: React.FC = () => {
       <GoodsList goods={goods} />
     </div>
   );
-};
+});
+
+App.displayName = 'App';
