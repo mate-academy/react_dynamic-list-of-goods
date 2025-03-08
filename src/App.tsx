@@ -3,27 +3,37 @@ import './App.scss';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const handleLoadAll = () => {
-    getAll().then(setGoods);
+    setError(null);
+    getAll()
+      .then(setGoods)
+      .catch(() => setError('Failed to load all goods'));
   };
 
   const handleLoadFirst5 = () => {
-    get5First().then(setGoods);
+    setError(null);
+    get5First()
+      .then(setGoods)
+      .catch(() => setError('Failed to load first 5 goods'));
   };
 
   const handleLoadRed = () => {
-    getRedGoods().then(setGoods);
+    setError(null);
+    getRedGoods()
+      .then(setGoods)
+      .catch(() => setError('Failed to load red goods'));
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <button type="button" data-cy="all-button" onClick={handleLoadAll}>
         Load all goods
