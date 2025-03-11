@@ -36,13 +36,13 @@ export const App: React.FC = () => {
       </button>
 
       <button type="button"
-              data-cy="red-button"
+              data-cy= "first-five-button"
               onClick={
                 () => setActiveList('5FirstGoods')}>Load 5 first goods
       </button>
 
       <button type="button"
-              data-cy="first-five-button"
+              data-cy="red-button"
               onClick={
                 () => setActiveList('RedGoods')}>Load 5 first goods
       </button>
