@@ -9,7 +9,15 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const filteredGoods = (serverGoods: Good[]) => setGoods(serverGoods);
+  const filteredGoods = (serverGoods: void | Good[]) => {
+    if (Array.isArray(serverGoods)) {
+      setGoods(serverGoods);
+
+      return;
+    }
+
+    throw new Error('not receive goods');
+  };
 
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -18,13 +26,24 @@ export const App: React.FC = () => {
 
     switch (typeFilter) {
       case 'all-button':
-        getAll().then(filteredGoods);
+        getAll()
+          .then(filteredGoods)
+          // eslint-disable-next-line no-console
+          .catch(error => console.error('Error fetching all goods:', error));
         break;
       case 'first-five-button':
-        get5First().then(filteredGoods);
+        get5First()
+          .then(filteredGoods)
+          .catch(error =>
+            // eslint-disable-next-line no-console
+            console.error('Error fetching first five goods:', error),
+          );
         break;
       case 'red-button':
-        getRed().then(filteredGoods);
+        getRed()
+          .then(filteredGoods)
+          // eslint-disable-next-line no-console
+          .catch(error => console.error('Error fetching red goods:', error));
         break;
     }
   };
