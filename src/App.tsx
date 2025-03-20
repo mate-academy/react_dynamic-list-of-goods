@@ -17,7 +17,13 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[] | []>([]);
 
   const filterGoods = useCallback((condition: GoodCondition) => {
-    goodsConditions[condition]().then(setGoods);
+    goodsConditions[condition]()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line
+        console.error('Error fetching goods:', error);
+        alert('Failed to load goods. Please try again later.');
+      });
   }, []);
 
   return (
@@ -48,7 +54,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      {goods.length !== 0 && <GoodsList goods={goods} />}
+      <GoodsList goods={goods} />
     </div>
   );
 };
