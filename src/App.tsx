@@ -11,24 +11,30 @@ export const App: React.FC = () => {
   const handleAllGoods = () => {
     getAll()
       .then(data => setGoods(data))
-      .catch(e => {
-        throw new Error(e.message);
+      .catch(() => {
+        alert(
+          'Wystąpił problem z pobieraniem danych. Spróbuj ponownie później.',
+        );
       });
   };
 
   const handleFiveGoods = () => {
     get5First()
       .then(data => setGoods(data))
-      .catch(e => {
-        throw new Error(e.message);
+      .catch(() => {
+        alert(
+          'Wystąpił problem z pobieraniem danych. Spróbuj ponownie później.',
+        );
       });
   };
 
   const handleRedClick = () => {
     getRedGoods()
       .then(data => setGoods(data))
-      .catch(e => {
-        throw new Error(e.message);
+      .catch(() => {
+        alert(
+          'Wystąpił problem z pobieraniem danych. Spróbuj ponownie później.',
+        );
       });
   };
 
