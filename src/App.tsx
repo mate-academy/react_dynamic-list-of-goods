@@ -14,7 +14,7 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const buttonHandler = async (type: SortBy) => {
-    try{
+    try {
       if (type === SortBy.all) {
         setGoods(await getAll());
       }
@@ -26,8 +26,11 @@ export const App: React.FC = () => {
       if (type === SortBy.redOnly) {
         setGoods(await getRedGoods());
       }
-    } catch(e) {
-      throw new Error()
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error('Error fetching data:', e);
+
+      return null;
     }
   };
 
