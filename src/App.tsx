@@ -11,7 +11,7 @@ enum Button {
 }
 
 export const App: React.FC = () => {
-  const [goodsFromServer, setGoodsFromServer] = useState<Good[] | null>();
+  const [goodsFromServer, setGoodsFromServer] = useState<Good[] | null>(null);
 
   const serverFetch = (event: React.MouseEvent<HTMLButtonElement>): void => {
     const requestValue = event.currentTarget.getAttribute('data-cy');
