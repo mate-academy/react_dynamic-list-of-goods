@@ -4,9 +4,17 @@ import { Good } from '../types/Good';
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
 function getAll(): Promise<Good[]> {
-  return fetch(API_URL).then(response => {
-    return response.json();
-  });
+  return fetch(API_URL)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`${response.status}`);
+      }
+
+      return response.json();
+    })
+    .catch(error => {
+      throw new Error(`Error ${error.message || 'fetching goods'}`);
+    });
 }
 
 const get5First = () => {

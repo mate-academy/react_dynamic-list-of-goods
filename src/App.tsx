@@ -14,9 +14,9 @@ export const App: React.FC = () => {
   const [goodsFromServer, setGoodsFromServer] = useState<Good[] | null>();
 
   const serverFetch = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    const queue = event.currentTarget.getAttribute('data-cy');
+    const requestValue = event.currentTarget.getAttribute('data-cy');
 
-    switch (queue) {
+    switch (requestValue) {
       case Button.all:
         getAll().then(goods => setGoodsFromServer(goods));
         break;
