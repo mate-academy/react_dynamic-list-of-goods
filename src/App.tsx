@@ -13,21 +13,21 @@ export const App: React.FC = () => {
     setError(null);
     getAll()
       .then(allGoods => setGoods(allGoods))
-      .catch(() => setError('Failed. Please try again.'));
+      .catch(() => setError('Failed. Please try later.'));
   };
 
   const handleLoadFirst5 = () => {
     setError(null);
     get5First()
       .then(firstFiveGoods => setGoods(firstFiveGoods))
-      .catch(() => setError('Failed. Please try again.'));
+      .catch(() => setError('Failed. Please try later.'));
   };
 
   const handleLoadColorRed = () => {
     setError(null);
     getRedGoods()
       .then(redGoods => setGoods(redGoods))
-      .catch(() => setError('Failed. Please try again.'));
+      .catch(() => setError('Failed. Please try later.'));
   };
 
   return (
