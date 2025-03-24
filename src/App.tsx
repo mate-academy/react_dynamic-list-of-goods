@@ -11,21 +11,24 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleAllGoods = () => {
-    getAll().then((goodsFromServer: Good[]) => {
-      setGoods(goodsFromServer);
-    });
+    getAll()
+      .then(setGoods)
+      // eslint-disable-next-line no-console
+      .catch(error => console.warn(error));
   };
 
   const handleLoad5Goods = () => {
-    get5First().then((goodsFromServer: Good[]) => {
-      setGoods(goodsFromServer);
-    });
+    get5First()
+      .then(setGoods)
+      // eslint-disable-next-line no-console
+      .catch(error => console.warn(error));
   };
 
   const handleLoadRedGoods = () => {
-    getRedGoods().then((goodsFromServer: Good[]) => {
-      setGoods(goodsFromServer);
-    });
+    getRedGoods()
+      .then(setGoods)
+      // eslint-disable-next-line no-console
+      .catch(error => console.warn(error));
   };
 
   return (
