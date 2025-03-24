@@ -47,6 +47,7 @@ export const App: React.FC = () => {
           goodsAPI
             .getRedGoods()
             .then(setVisibleGoods)
+            // isn't it error handling?
             // eslint-disable-next-line no-console
             .catch(err => console.warn(err))
         }
