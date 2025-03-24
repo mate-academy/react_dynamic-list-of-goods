@@ -1,17 +1,16 @@
 import React, { useMemo, useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
-
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
+import { GoodsList } from './GoodsList';
+
+const MemoizedGoodsList = React.memo(GoodsList);
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const handleLoad = async (
-    loadFunction: () => Promise<Good[]> | Promise<never>,
-  ) => {
+  const handleLoad = async (loadFunction: () => Promise<Good[]>) => {
     setError(null);
     try {
       const data = await loadFunction();
@@ -58,7 +57,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={visibleGoods} />
+      <MemoizedGoodsList goods={visibleGoods} />
     </div>
   );
 };
