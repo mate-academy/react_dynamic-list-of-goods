@@ -7,17 +7,30 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const showAll = () => {
-    getAll().then(setGoods);
+    getAll()
+      .then(setGoods)
+      .catch(error => {
+        setErrorMessage(`'Failed to load all goods:', ${error}`);
+      });
   };
 
   const show5First = () => {
-    get5First().then(setGoods);
+    get5First()
+      .then(setGoods)
+      .catch(error => {
+        setErrorMessage(`'Failed to load 5 first goods:', ${error}`);
+      });
   };
 
   const showRed = () => {
-    getRedGoods().then(setGoods);
+    getRedGoods()
+      .then(setGoods)
+      .catch(error => {
+        setErrorMessage(`'Failed to load red goods:', ${error}`);
+      });
   };
 
   return (
@@ -37,6 +50,8 @@ export const App: React.FC = () => {
       </button>
 
       <GoodsList goods={goods} />
+
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
     </div>
   );
 };
