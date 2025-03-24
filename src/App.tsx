@@ -7,22 +7,31 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const allGoods = () => {
-    getAll().then(setGoods);
+    getAll()
+      .then(setGoods)
+      .catch(() => setError('Failed to load all goods'));
   };
 
   const load5First = () => {
-    get5First().then(setGoods);
+    get5First()
+      .then(setGoods)
+      .catch(() => setError('Failed to load first 5 goods'));
   };
 
   const redGoods = () => {
-    getRedGoods().then(setGoods);
+    getRedGoods()
+      .then(setGoods)
+      .catch(() => setError('Failed to load red goods'));
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
+
+      {error && <p className="error">{error}</p>}
 
       <button type="button" data-cy="all-button" onClick={allGoods}>
         Load all goods
