@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -10,8 +10,6 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const visibleGoods = useMemo(() => goods, [goods]);
-
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -20,7 +18,8 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          getAll().then(setGoods);
+          // eslint-disable-next-line no-console
+          getAll().then(setGoods).catch(console.error);
         }}
       >
         Load all goods
@@ -30,7 +29,8 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          get5First().then(setGoods);
+          // eslint-disable-next-line no-console
+          get5First().then(setGoods).catch(console.error);
         }}
       >
         Load 5 first goods
@@ -40,13 +40,14 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          getRedGoods().then(setGoods);
+          // eslint-disable-next-line no-console
+          getRedGoods().then(setGoods).catch(console.error);
         }}
       >
         Load red goods
       </button>
 
-      <GoodsList goods={visibleGoods} />
+      <GoodsList goods={goods} />
     </div>
   );
 };
