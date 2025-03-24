@@ -7,22 +7,34 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const handleLoadAllGoods = () => {
-    getAll().then(allGoods => setGoods(allGoods));
+    setError(null);
+    getAll()
+      .then(allGoods => setGoods(allGoods))
+      .catch(() => setError('Failed. Please try again.'));
   };
 
   const handleLoadFirst5 = () => {
-    get5First().then(firstFiveGoods => setGoods(firstFiveGoods));
+    setError(null);
+    get5First()
+      .then(firstFiveGoods => setGoods(firstFiveGoods))
+      .catch(() => setError('Failed. Please try again.'));
   };
 
   const handleLoadColorRed = () => {
-    getRedGoods().then(redGoods => setGoods(redGoods));
+    setError(null);
+    getRedGoods()
+      .then(redGoods => setGoods(redGoods))
+      .catch(() => setError('Failed. Please try again.'));
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
+
+      {error && <p className="error-message">{error}</p>}
 
       <button type="button" data-cy="all-button" onClick={handleLoadAllGoods}>
         Load all goods
@@ -40,7 +52,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {!error && <GoodsList goods={goods} />}
     </div>
   );
 };
