@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
-import { getAll, get5First, getAllGoods, getRedGoods } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
 // import { getAll, get5First, getRed } from './api/goods';
 // or
@@ -10,36 +10,43 @@ import { getAll, get5First, getAllGoods, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const loadAllGoods = () => {
-    getAll().then(setGoods);
-  };
+  const loadGoods = (fetchFunction: () => Promise<Good[]>) => {
+    setError(null);
 
-  const loadFiveFirstGoods = () => {
-    get5First().then(setGoods);
-  };
-
-  const loadRedGoods = () => {
-    getRedGoods().then(setGoods);
+    fetchFunction()
+      .then(setGoods)
+      .catch(() => setError('Failed to load goods. Please try again.'));
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button type="button" data-cy="all-button" onClick={loadAllGoods}>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => loadGoods(getAll)}
+      >
         Load all goods
       </button>
 
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={loadFiveFirstGoods}
+        onClick={() => loadGoods(get5First)}
       >
         Load 5 first goods
       </button>
 
-      <button type="button" data-cy="red-button" onClick={loadRedGoods}>
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => loadGoods(getRedGoods)}
+      >
         Load red goods
       </button>
 
