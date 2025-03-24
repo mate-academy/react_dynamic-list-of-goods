@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -9,49 +9,41 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  const handleLoadAll = useCallback(() => {
+    getAll()
+      .then(setGoods)
+      .catch(error => setErrorMessage(error));
+  }, []);
+
+  const handleLoadFirstFive = useCallback(() => {
+    get5First()
+      .then(setGoods)
+      .catch(error => setErrorMessage(error));
+  }, []);
+
+  const handleLoadRed = useCallback(() => {
+    getRedGoods()
+      .then(setGoods)
+      .catch(error => setErrorMessage(error));
+  }, []);
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button
-        type="button"
-        data-cy="all-button"
-        onClick={() =>
-          getAll()
-            .then(setGoods)
-            .catch(error => {
-              setErrorMessage(error);
-            })
-        }
-      >
+      <button type="button" data-cy="all-button" onClick={handleLoadAll}>
         Load all goods
       </button>
 
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() =>
-          get5First()
-            .then(setGoods)
-            .catch(error => {
-              setErrorMessage(error);
-            })
-        }
+        onClick={handleLoadFirstFive}
       >
         Load 5 first goods
       </button>
 
-      <button
-        type="button"
-        data-cy="red-button"
-        onClick={() =>
-          getRedGoods()
-            .then(setGoods)
-            .catch(error => {
-              setErrorMessage(error);
-            })
-        }
-      >
+      <button type="button" data-cy="red-button" onClick={handleLoadRed}>
         Load red goods
       </button>
 
