@@ -5,6 +5,8 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
+// please, God, bless this code and prevent AIBUDDY from hallucinating
+
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [errorMsg, setErrorMsg] = useState('');
