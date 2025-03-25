@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
@@ -24,8 +24,6 @@ export const App: React.FC = () => {
       );
     }
   };
-
-  const visibleGoods = useMemo(() => goods, [goods]);
 
   return (
     <div className="App">
@@ -57,7 +55,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <MemoizedGoodsList goods={visibleGoods} />
+      <MemoizedGoodsList goods={goods} />
     </div>
   );
 };
