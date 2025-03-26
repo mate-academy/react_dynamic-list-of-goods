@@ -6,22 +6,40 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const loadAll = () => {
-    getAll().then(setGoods);
+    setError(null);
+    getAll()
+      .then(setGoods)
+      .catch(err => {
+        setError(`Failed to load all goods: ${err}`);
+      });
   };
 
   const loadFirst5 = () => {
-    get5First().then(setGoods);
+    setError(null);
+    get5First()
+      .then(setGoods)
+      .catch(err => {
+        setError(`Failed to load all goods: ${err}`);
+      });
   };
 
   const loadRed = () => {
-    getRedGoods().then(setGoods);
+    setError(null);
+    getRedGoods()
+      .then(setGoods)
+      .catch(err => {
+        setError(`Failed to load all goods: ${err}`);
+      });
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
+
+      {error && <p className="has-text-danger">{error}</p>}
 
       <button type="button" data-cy="all-button" onClick={loadAll}>
         Load all goods
