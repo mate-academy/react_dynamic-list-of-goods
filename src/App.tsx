@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -23,8 +23,6 @@ export const App: React.FC = () => {
       );
     }
   };
-
-  const goodsComponent = useMemo(() => <GoodsList goods={goods} />, [goods]);
 
   return (
     <div className="App">
@@ -60,7 +58,7 @@ export const App: React.FC = () => {
           There are no goods or they weren&apos;t loaded
         </p>
       )}
-      {!errorMsg && goods.length > 0 && goodsComponent}
+      {!errorMsg && goods.length > 0 && <GoodsList goods={goods} />}
     </div>
   );
 };
