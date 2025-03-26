@@ -18,11 +18,9 @@ export const App: React.FC = () => {
       setGoods(fetchedGoods);
       setErrorMsg('');
     } catch (error) {
-      if (error instanceof Error) {
-        setErrorMsg(error.message);
-      } else {
-        setErrorMsg('An unexpected error occured');
-      }
+      setErrorMsg(
+        error instanceof Error ? error.message : 'An unexpected error occured',
+      );
     }
   };
 
