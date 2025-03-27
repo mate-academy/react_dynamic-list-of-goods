@@ -4,6 +4,7 @@
     "src"
   ],
   "compilerOptions": {
+    "target": "es2017",
     "sourceMap": false,
     "types": ["node", "cypress"]
   }
