@@ -1,27 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [selectGoods, setSelectGoods] = useState<Good[]>([]);
+  const [errorMassage, SetErrorMassage] = useState('');
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => {
+          getAll()
+            .then(changingPromisGoods => {
+              setSelectGoods(changingPromisGoods);
+            })
+            .catch(() => SetErrorMassage('Something went wrong'));
+        }}
+      >
+        Load all goods
+      </button>
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => {
+          get5First()
+            .then(changingPromisGoods => {
+              setSelectGoods(changingPromisGoods);
+            })
+            .catch(() => SetErrorMassage('Something went wrong'));
+        }}
+      >
+        Load 5 first goods
+      </button>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => {
+          getRedGoods()
+            .then(changingPromisGoods => {
+              setSelectGoods(changingPromisGoods);
+            })
+            .catch(() => SetErrorMassage('Something went wrong'));
+        }}
+      >
+        Load red goods
+      </button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <GoodsList goods={selectGoods} />
+
+      {errorMassage && <p>{errorMassage}</p>}
+    </div>
+  );
+};
