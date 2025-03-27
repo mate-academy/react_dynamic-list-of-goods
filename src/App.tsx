@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -8,24 +8,30 @@ import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
 
-const lol: Good[] = await getAll();
-const sorted5Goods: Good[] = await get5First();
-const redGoods: Good[] = await getRedGoods();
-
 export const App: React.FC = () => {
   const [allGoods, setAllGoods] = useState<Good[]>([]);
 
-  const showAllGoods = () => {
+  const showAllGoods = async () => {
+    const lol: Good[] = await getAll();
+
     setAllGoods(lol);
   };
 
-  const show5Goods = () => {
+  const show5Goods = async () => {
+    const sorted5Goods: Good[] = await get5First();
+
     setAllGoods(sorted5Goods);
   };
 
-  const showRedGoods = () => {
+  const showRedGoods = async () => {
+    const redGoods: Good[] = await getRedGoods();
+
     setAllGoods(redGoods);
   };
+
+  useEffect(() => {
+    showAllGoods();
+  }, [allGoods]);
 
   return (
     <div className="App">
