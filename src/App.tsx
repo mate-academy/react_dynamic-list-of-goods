@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -29,9 +29,9 @@ export const App: React.FC = () => {
     setAllGoods(redGoods);
   };
 
-  useEffect(() => {
-    showAllGoods();
-  }, [allGoods]);
+  // useEffect(() => {
+  //   showAllGoods();
+  // }, []);
 
   return (
     <div className="App">
