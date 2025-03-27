@@ -6,6 +6,7 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [selectGoods, setSelectGoods] = useState<Good[]>([]);
+  const [errorMassage, SetErrorMassage] = useState('');
 
   return (
     <div className="App">
@@ -15,9 +16,11 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          getAll().then(changingPromisGoods => {
-            setSelectGoods(changingPromisGoods);
-          });
+          getAll()
+            .then(changingPromisGoods => {
+              setSelectGoods(changingPromisGoods);
+            })
+            .catch(() => SetErrorMassage('Something went wrong'));
         }}
       >
         Load all goods
@@ -27,9 +30,11 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          get5First().then(changingPromisGoods => {
-            setSelectGoods(changingPromisGoods);
-          });
+          get5First()
+            .then(changingPromisGoods => {
+              setSelectGoods(changingPromisGoods);
+            })
+            .catch(() => SetErrorMassage('Something went wrong'));
         }}
       >
         Load 5 first goods
@@ -39,15 +44,19 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          getRedGoods().then(changingPromisGoods => {
-            setSelectGoods(changingPromisGoods);
-          });
+          getRedGoods()
+            .then(changingPromisGoods => {
+              setSelectGoods(changingPromisGoods);
+            })
+            .catch(() => SetErrorMassage('Something went wrong'));
         }}
       >
         Load red goods
       </button>
 
       <GoodsList goods={selectGoods} />
+
+      {errorMassage && <p>{errorMassage}</p>}
     </div>
   );
 };
