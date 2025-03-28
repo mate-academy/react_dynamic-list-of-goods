@@ -40,5 +40,5 @@ export const App: React.FC = () => {
 
       <GoodsList goods={preparedGoods} />
     </div>
-);
+  );
 };
