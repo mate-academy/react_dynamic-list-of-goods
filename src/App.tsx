@@ -1,9 +1,11 @@
+/* eslint-disable no-console */
 import { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
+
 // or
 // import * as goodsAPI from './api/goods';
 
@@ -11,21 +13,33 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleLoadGoodsAll = async () => {
-    const goodsList = await getAll();
+    try {
+      const goodsList = await getAll().then();
 
-    setGoods(goodsList);
+      setGoods(goodsList);
+    } catch (error) {
+      console.log(`error ${error}`);
+    }
   };
 
   const handleLoadGoods5 = async () => {
-    const goodsList = await get5First();
+    try {
+      const goodsList = await get5First().then();
 
-    setGoods(goodsList);
+      setGoods(goodsList);
+    } catch (error) {
+      console.log(`error ${error}`);
+    }
   };
 
   const handleLoadGoodsRed = async () => {
-    const goodsList = await getRedGoods();
+    try {
+      const goodsList = await getRedGoods().then();
 
-    setGoods(goodsList);
+      setGoods(goodsList);
+    } catch (error) {
+      console.log(`error ${error}`);
+    }
   };
 
   return (
