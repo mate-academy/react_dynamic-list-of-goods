@@ -10,15 +10,30 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const loadAllGoods = () => {
-    getAll().then(setGoods);
+    getAll()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to load goods:', error);
+      });
   };
 
   const loadFirstFiveGoods = () => {
-    get5First().then(setGoods);
+    get5First()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to load first five goods:', error);
+      });
   };
 
   const loadRedGoods = () => {
-    getRedGoods().then(setGoods);
+    getRedGoods()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to load red goods:', error);
+      });
   };
 
   return (
