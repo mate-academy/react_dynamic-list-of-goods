@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
@@ -5,19 +6,37 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  // Explicitly typing the state as Good[] to fix the type issue
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const loadAllGoods = () => {
-    getAll().then(setGoods);
+    setError(null);
+    getAll()
+      .then(setGoods)
+      .catch(err => {
+        setError('Failed to load goods. Please try again later.');
+        console.error('Error fetching all goods:', err);
+      });
   };
 
   const loadFirst5Goods = () => {
-    get5First().then(setGoods);
+    setError(null);
+    get5First()
+      .then(setGoods)
+      .catch(err => {
+        setError('Failed to load the first 5 goods.');
+        console.error('Error fetching first 5 goods:', err);
+      });
   };
 
   const loadRedGoods = () => {
-    getRedGoods().then(setGoods);
+    setError(null);
+    getRedGoods()
+      .then(setGoods)
+      .catch(err => {
+        setError('Failed to load red goods.');
+        console.error('Error fetching red goods:', err);
+      });
   };
 
   return React.createElement(
@@ -43,6 +62,8 @@ export const App: React.FC = () => {
       { type: 'button', 'data-cy': 'red-button', onClick: loadRedGoods },
       'Load red goods',
     ),
-    React.createElement(GoodsList, { goods }), // Passing the goods state to the GoodsList component
+    error
+      ? React.createElement('div', { className: 'error-message' }, error)
+      : React.createElement(GoodsList, { goods }),
   );
 };
