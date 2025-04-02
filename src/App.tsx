@@ -5,24 +5,23 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
-// import * as goodsAPI from './api/goods';
-
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-
-  // useEffect(() => {
-  //   getAll().then(setGoods);
-  // }, []);
+  const [error, setError] = useState<string | null>(null);
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
-
+      {error && <div className="error">{error}</div>}
       <button
         type="button"
         data-cy="all-button"
         onClick={() => {
-          getAll().then(setGoods);
+          getAll()
+            .then(setGoods)
+            .catch(() => {
+              setError('Failed to load all goods');
+            });
         }}
       >
         Load all goods
@@ -32,7 +31,11 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          get5First().then(setGoods);
+          get5First()
+            .then(setGoods)
+            .catch(() => {
+              setError('Failed to load first five goods.');
+            });
         }}
       >
         Load 5 first goods
@@ -42,7 +45,11 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          getRedGoods().then(setGoods);
+          getRedGoods()
+            .then(setGoods)
+            .catch(() => {
+              setError('Failed to load red goods.');
+            });
         }}
       >
         Load red goods
