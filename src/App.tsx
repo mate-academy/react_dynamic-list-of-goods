@@ -8,7 +8,7 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleGetAll = () => {
-    getAll().then(setGoods);
+    getAll().then(items => setGoods([...items]));
   };
 
   const handleGetFiveFirstGoods = () => {
