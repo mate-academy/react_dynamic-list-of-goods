@@ -8,11 +8,19 @@ export function getAll(): Promise<Good[]> {
 }
 
 export const get5First = () => {
-  return getAll().then(goods =>
-    goods.sort((g1, g2) => g1.name.localeCompare(g2.name)).splice(0, 5),
-  ); // sort and get the first 5
+  return getAll()
+    .then(goods =>
+      goods.sort((g1, g2) => g1.name.localeCompare(g2.name)).splice(0, 5),
+    )
+    .catch(error => {
+      throw error;
+    }); // sort and get the first 5
 };
 
 export const getRedGoods = () => {
-  return getAll().then(goods => goods.filter(good => good.color === 'red')); // get only red
+  return getAll()
+    .then(goods => goods.filter(good => good.color === 'red'))
+    .catch(error => {
+      throw error;
+    }); // get only red
 };
