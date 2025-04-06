@@ -18,3 +18,5 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
     ))}
   </ul>
 );
+
+GoodsList.displayName = 'GoodsList';
