@@ -12,15 +12,11 @@ export const get5First = () => {
     .then(goods =>
       goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
     )
-    .catch(error => {
-      throw new Error(error);
-    }); // sort and get the first 5
+    .catch(error => Promise.reject(error)); // sort and get the first 5
 };
 
 export const getRedGoods = () => {
   return getAll()
     .then(goods => goods.filter(good => good.color === 'red'))
-    .catch(error => {
-      throw new Error(error);
-    }); // get only red
+    .catch(error => Promise.reject(error)); // get only red
 };
