@@ -19,7 +19,8 @@ export const App: React.FC = () => {
         onClick={() => {
           getAll()
             .then(setGoods)
-            .catch((error) => {
+            .catch(error => {
+              // eslint-disable-next-line no-console
               console.error('Error loading all goods:', error);
             });
         }}
@@ -33,7 +34,8 @@ export const App: React.FC = () => {
         onClick={() => {
           get5First()
             .then(setGoods)
-            .catch((error) => {
+            .catch(error => {
+              // eslint-disable-next-line no-console
               console.error('Error loading first 5 goods:', error);
             });
         }}
@@ -47,7 +49,8 @@ export const App: React.FC = () => {
         onClick={() => {
           getRedGoods()
             .then(setGoods)
-            .catch((error) => {
+            .catch(error => {
+              // eslint-disable-next-line no-console
               console.error('Error loading red goods:', error);
             });
         }}
