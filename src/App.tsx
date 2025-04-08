@@ -17,7 +17,11 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          getAll().then(setGoods);
+          getAll()
+            .then(setGoods)
+            .catch((error) => {
+              console.error('Error loading all goods:', error);
+            });
         }}
       >
         Load all goods
@@ -27,7 +31,11 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          get5First().then(setGoods);
+          get5First()
+            .then(setGoods)
+            .catch((error) => {
+              console.error('Error loading first 5 goods:', error);
+            });
         }}
       >
         Load 5 first goods
@@ -37,7 +45,11 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          getRedGoods().then(setGoods);
+          getRedGoods()
+            .then(setGoods)
+            .catch((error) => {
+              console.error('Error loading red goods:', error);
+            });
         }}
       >
         Load red goods
