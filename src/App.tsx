@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
@@ -18,7 +19,9 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          getAll().then(json => setList(json));
+          getAll()
+            .then(json => setList(json))
+            .catch(error => console.error('Error loading goods:', error));
         }}
       >
         Load all goods
@@ -28,7 +31,9 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          get5First().then(json => setList(json));
+          get5First()
+            .then(json => setList(json))
+            .catch(error => console.error('Error loading goods:', error));
         }}
       >
         Load 5 first goods
@@ -38,7 +43,9 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          getRedGoods().then(json => setList(json));
+          getRedGoods()
+            .then(json => setList(json))
+            .catch(error => console.error('Error loading goods:', error));
         }}
       >
         Load red goods
