@@ -21,21 +21,21 @@ export const App: React.FC = () => {
         getAll()
           .then(goodsFromServer => setGoods(goodsFromServer))
           // eslint-disable-next-line no-console
-          .catch(error => console.error('Error fetching goods:', error));
+          .catch(error => console.error(error));
         break;
 
       case GoodQuery.First5:
         get5First()
           .then(goodsFromServer => setGoods(goodsFromServer))
           // eslint-disable-next-line no-console
-          .catch(error => console.error('Error fetching goods:', error));
+          .catch(error => console.error(error));
         break;
 
       case GoodQuery.Red:
         getRedGoods()
           .then(goodsFromServer => setGoods(goodsFromServer))
           // eslint-disable-next-line no-console
-          .catch(error => console.error('Error fetching goods:', error));
+          .catch(error => console.error(error));
         break;
     }
   }, [query]);
