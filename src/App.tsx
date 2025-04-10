@@ -18,15 +18,24 @@ export const App: React.FC = () => {
   useEffect(() => {
     switch (query) {
       case GoodQuery.All:
-        getAll().then(goodsFromServer => setGoods(goodsFromServer));
+        getAll()
+          .then(goodsFromServer => setGoods(goodsFromServer))
+          // eslint-disable-next-line no-console
+          .catch(error => console.error('Error fetching goods:', error));
         break;
 
       case GoodQuery.First5:
-        get5First().then(goodsFromServer => setGoods(goodsFromServer));
+        get5First()
+          .then(goodsFromServer => setGoods(goodsFromServer))
+          // eslint-disable-next-line no-console
+          .catch(error => console.error('Error fetching goods:', error));
         break;
 
       case GoodQuery.Red:
-        getRedGoods().then(goodsFromServer => setGoods(goodsFromServer));
+        getRedGoods()
+          .then(goodsFromServer => setGoods(goodsFromServer))
+          // eslint-disable-next-line no-console
+          .catch(error => console.error('Error fetching goods:', error));
         break;
     }
   }, [query]);
