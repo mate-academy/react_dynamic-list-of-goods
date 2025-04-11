@@ -16,11 +16,27 @@ export function getAll(): Promise<Good[]> {
 }
 
 export const get5First = () => {
-  return getAll().then(goods =>
-    goods.sort((a: Good, b: Good) => a.name.localeCompare(b.name)).slice(0, 5),
-  ); // sort and get the first 5
+  return getAll()
+    .catch(error => {
+      // eslint-disable-next-line
+      console.error('Failed to fetch goods:', error);
+
+      return [];
+    })
+    .then(goods =>
+      goods
+        .sort((a: Good, b: Good) => a.name.localeCompare(b.name))
+        .slice(0, 5),
+    ); // sort and get the first 5
 };
 
 export const getRedGoods = () => {
-  return getAll().then(goods => goods.filter(good => good.color === 'red')); // get only red
+  return getAll()
+    .catch(error => {
+      // eslint-disable-next-line
+      console.error('Failed to fetch goods:', error);
+
+      return [];
+    })
+    .then(goods => goods.filter(good => good.color === 'red')); // get only red
 };
