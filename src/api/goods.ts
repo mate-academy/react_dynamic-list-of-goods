@@ -29,7 +29,11 @@ export const get5First = () => {
 
       return firstFiveGoods;
     })
-    .catch(error => error.message);
+    .catch(error => {
+      console.error('Fetch failed:', error);
+
+      return [];
+    });
 };
 
 export const getRed = () => {
@@ -39,5 +43,9 @@ export const getRed = () => {
 
       return redGoods;
     })
-    .catch(error => error.message);
+    .catch(error => {
+      console.error('Fetch failed:', error);
+
+      return [];
+    });
 };
