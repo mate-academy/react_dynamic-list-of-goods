@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -10,11 +10,10 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [goodFilter, setGoodFilter] = useState<Promise<Good[]> | null>(null);
-  const filterGood = (goodFiltered: Promise<Good[]> | null) => {
-    goodFiltered?.then(res => setGoods(res));
-  };
 
-  filterGood(goodFilter);
+  useEffect(() => {
+    goodFilter?.then(res => setGoods(res));
+  }, [goodFilter]);
 
   return (
     <div className="App">
