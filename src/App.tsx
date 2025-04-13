@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
@@ -19,7 +20,13 @@ export const App: React.FC = () => {
         onClick={() => {
           getAll()
             .then(allGoods => setGoods(allGoods))
-            .catch(e => setErrorMessage(e));
+            .catch(error => {
+              console.error(
+                'There was a problem with the fetch operation:',
+                error,
+              );
+              setErrorMessage(error);
+            });
         }}
       >
         Load all goods
@@ -31,7 +38,13 @@ export const App: React.FC = () => {
         onClick={() => {
           get5First()
             .then(allGoods => setGoods(allGoods))
-            .catch(e => setErrorMessage(e));
+            .catch(error => {
+              console.error(
+                'There was a problem with the fetch operation:',
+                error,
+              );
+              setErrorMessage(error);
+            });
         }}
       >
         Load 5 first goods
@@ -43,14 +56,20 @@ export const App: React.FC = () => {
         onClick={() => {
           getRedGoods()
             .then(allGoods => setGoods(allGoods))
-            .catch(e => setErrorMessage(e));
+            .catch(error => {
+              console.error(
+                'There was a problem with the fetch operation:',
+                error,
+              );
+              setErrorMessage(error);
+            });
         }}
       >
         Load red goods
       </button>
 
       <GoodsList goods={goods} />
-      {errorMessage && goods.length === 0 && (
+      {errorMessage !== null && goods.length === 0 && (
         <p className="title is-5">{errorMessage}</p>
       )}
     </div>
