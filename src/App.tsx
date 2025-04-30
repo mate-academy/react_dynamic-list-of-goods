@@ -6,7 +6,7 @@ import { Good } from './types/Good';
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
-  const [visibleGoods, setVisibleGoods] = useState<Good[] | null>([]);
+  const [visibleGoods, setVisibleGoods] = useState<Good[] | null>(null);
 
   const loadAll = () => {
     getAll().then(setVisibleGoods);
