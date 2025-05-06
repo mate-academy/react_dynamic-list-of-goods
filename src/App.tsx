@@ -7,10 +7,8 @@ import { getAll } from './api/goods';
 import { get5First } from './api/goods';
 import { getRedGoods } from './api/goods';
 
-
 export const App: React.FC = () => {
-  const [Goods, setGoods] = useState<Good[]>([])
-
+  const [Goods, setGoods] = useState<Good[]>([]);
 
   return (
     <div className="App">
@@ -19,29 +17,28 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getAll().then((data) => setGoods(data))}
+        onClick={() => getAll().then(data => setGoods(data))}
       >
-      Load all goods
-    </button>
+        Load all goods
+      </button>
 
-    <button
-      type="button"
-      data-cy="first-five-button"
-      onClick={() => get5First().then((res) => setGoods(res))}
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => get5First().then(res => setGoods(res))}
       >
-      Load 5 first goods
-    </button>
+        Load 5 first goods
+      </button>
 
-    <button
-      type="button"
-      data-cy="red-button"
-      onClick={() => getRedGoods().then((res) => setGoods(res))}
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => getRedGoods().then(res => setGoods(res))}
       >
-      Load red goods
-    </button>
+        Load red goods
+      </button>
 
       <GoodsList goods={Goods} />
-
     </div>
-  )
-}
+  );
+};
