@@ -8,7 +8,7 @@ import { get5First } from './api/goods';
 import { getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
-  const [Goods, setGoods] = useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
 
   return (
     <div className="App">
@@ -38,7 +38,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={Goods} />
+      <GoodsList goods={goods} />
     </div>
   );
 };

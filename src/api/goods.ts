@@ -13,7 +13,7 @@ export function getAll(): Promise<Good[]> {
 
 export const get5First = () => {
   return getAll().then(goods => {
-    return goods.sort((a, b) => a.name > b.name ? 1 : -1).slice(0, 5);
+    return goods.sort((a, b) => (a.name > b.name ? 1 : -1)).slice(0, 5);
   });
 };
 
