@@ -18,14 +18,18 @@ export const App: React.FC = () => {
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button type="button" data-cy="all-button" onClick={() => setApi(getAll)}>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setApi(getAll())}
+      >
         Load all goods
       </button>
 
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setApi(get5First)}
+        onClick={() => setApi(get5First())}
       >
         Load 5 first goods
       </button>
@@ -33,7 +37,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setApi(getRedGoods)}
+        onClick={() => setApi(getRedGoods())}
       >
         Load red goods
       </button>
