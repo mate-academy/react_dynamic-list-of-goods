@@ -13,7 +13,7 @@ export const get5First = (): Promise<Good[]> => {
       .sort((g1, g2) => {
         return g1.name.localeCompare(g2.name);
       })
-      .splice(0, 5),
+      .slice(0, 5),
   );
 };
 
