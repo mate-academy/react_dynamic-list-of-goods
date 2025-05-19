@@ -8,7 +8,7 @@ type Props = {
 export const GoodsList: React.FC<Props> = ({ goods }) => {
   const colorNamesToRgb: { [key: string]: string } = {
     red: 'rgb(255, 0, 0)',
-    green: 'rgb(0, 255, 0)',
+    green: 'rgb(0, 128, 0)',
     blue: 'rgb(0, 0, 255)',
   };
 
