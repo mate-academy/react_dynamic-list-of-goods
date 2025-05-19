@@ -17,7 +17,3 @@ export const getRedGoods = (): Promise<Good[]> => {
     return goods.filter(good => good.color === 'red');
   });
 };
-
-export function getRed() {
-  throw new Error('Function not implemented.');
-}

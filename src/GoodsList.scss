@@ -6,20 +6,18 @@
   &__item {
     padding: 8px;
     margin: 4px 0;
-    border-radius: 4px;
     font-weight: bold;
-    color: white;
 
     &--red {
-      background-color: rgb(255, 0, 0) !important;
+      color: rgb(255, 0, 0);
     }
 
     &--green {
-      background-color: rgb(0, 128, 0) !important;
+      color: rgb(0, 128, 0);
     }
 
     &--blue {
-      background-color: rgb(0, 0, 255) !important;
+      color: rgb(0, 0, 255);
     }
   }
 }
