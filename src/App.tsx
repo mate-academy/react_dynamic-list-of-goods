@@ -1,27 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
+
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleLoadGoods = async (fetchFunction: () => Promise<Good[]>) => {
+    setLoading(true);
+    setErrorMessage(null);
+    try {
+      const fetchedGoods = await fetchFunction();
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+      setGoods(fetchedGoods);
+    } catch (error) {
+      setErrorMessage('Failed to load goods. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => handleLoadGoods(getAll)}
+      >
+        Load all goods
+      </button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => handleLoadGoods(get5First)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => handleLoadGoods(getRedGoods)}
+      >
+        Load red goods
+      </button>
+
+      {loading && <p>Loading...</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
