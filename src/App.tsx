@@ -36,15 +36,30 @@ export const App: React.FC = () => {
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button type="button" data-cy="all-button" onClick={allClick}>
+      <button
+        type="button"
+        data-cy="all-button"
+        className="allButtom"
+        onClick={allClick}
+      >
         Load all goods
       </button>
 
-      <button type="button" data-cy="first-five-button" onClick={firstFiveList}>
+      <button
+        type="button"
+        data-cy="first-five-button"
+        className="firstFive"
+        onClick={firstFiveList}
+      >
         Load 5 first goods
       </button>
 
-      <button type="button" data-cy="red-button" onClick={showAllRed}>
+      <button
+        type="button"
+        data-cy="red-button"
+        className="allRed"
+        onClick={showAllRed}
+      >
         Load red goods
       </button>
 
