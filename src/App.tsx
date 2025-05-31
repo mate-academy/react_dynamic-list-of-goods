@@ -1,27 +1,94 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+// #region Type
+enum LoadType {
+  ALL = 'all',
+  FIRST_FIVE = 'firstFive',
+  RED = 'red',
+}
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+interface Button {
+  type: 'button' | 'submit' | 'reset' | undefined;
+  dataCy: string;
+  label: string;
+  action: () => void;
+}
+// #endregion Type
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+export const App: React.FC = () => {
+  // #region State
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [currentLoad, setCurrentLoad] = useState<LoadType | null>(null);
+  // #endregion State
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  useEffect(() => {
+    if (!currentLoad) {
+      return;
+    }
 
-    <GoodsList goods={[]} />
-  </div>
-);
+    let fetchGoods;
+
+    switch (currentLoad) {
+      case LoadType.ALL:
+        fetchGoods = getAll();
+        break;
+      case LoadType.FIRST_FIVE:
+        fetchGoods = get5First();
+        break;
+      case LoadType.RED:
+        fetchGoods = getRedGoods();
+        break;
+      default:
+        return;
+    }
+
+    fetchGoods.then(setGoods);
+  }, [currentLoad]);
+
+  const buttons: Button[] = [
+    {
+      type: 'button',
+      dataCy: 'all-button',
+      label: 'Load all goods',
+      action: () => setCurrentLoad(LoadType.ALL),
+    },
+    {
+      type: 'button',
+      dataCy: 'first-five-button',
+      label: 'Load 5 first goods',
+      action: () => setCurrentLoad(LoadType.FIRST_FIVE),
+    },
+    {
+      type: 'button',
+      dataCy: 'red-button',
+      label: 'Load red goods',
+      action: () => setCurrentLoad(LoadType.RED),
+    },
+  ];
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      {buttons.map(button => (
+        <button
+          type={button.type}
+          data-cy={button.dataCy}
+          key={button.dataCy}
+          onClick={button.action}
+        >
+          {button.label}
+        </button>
+      ))}
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
