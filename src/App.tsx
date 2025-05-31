@@ -1,27 +1,66 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { get5First, getAll, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [preparedGoods, setPreparedGoods] = useState<Good[]>([]);
+  const [selectedButton, setSelectedButton] = useState('no');
+  const [loading, setLoading] = useState(false);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  useEffect(() => {
+    setLoading(true);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+    if (selectedButton === 'all') {
+      getAll()
+        .then(setPreparedGoods)
+        .finally(() => setLoading(false));
+    }
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    if (selectedButton === 'first5') {
+      get5First()
+        .then(setPreparedGoods)
+        .finally(() => setLoading(false));
+    }
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    if (selectedButton === 'red') {
+      getRedGoods()
+        .then(setPreparedGoods)
+        .finally(() => setLoading(false));
+    }
+  }, [selectedButton]);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods {preparedGoods.length}</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setSelectedButton('all')}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setSelectedButton('first5')}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setSelectedButton('red')}
+      >
+        Load red goods
+      </button>
+      {!loading && preparedGoods.length > 0 && (
+        <GoodsList goods={preparedGoods} />
+      )}
+    </div>
+  );
+};
