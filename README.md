@@ -1,6 +1,6 @@
 # React dynamic list of goods
 
-> Here is [the working page](https://mate-academy.github.io/react_dynamic-list-of-goods/)
+> Here is the real [the working page](https://mate-academy.github.io/react_dynamic-list-of-goods/)
 
 You have 3 button that should load [the goods](https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json) and show them on the page using the `GoodsList`.
 
@@ -18,4 +18,4 @@ You have 3 button that should load [the goods](https://mate-academy.github.io/re
 - Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).
 - Use the [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript).
 - Open one more terminal and run tests with `npm test` to ensure your solution is correct.
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_dynamic-list-of-goods/) and add it to the PR description.
+- Replace `<your_account>` with your Github username in the [DEMO LINK](https://cyberte4.github.io/react_dynamic-list-of-goods/) and add it to the PR description.
