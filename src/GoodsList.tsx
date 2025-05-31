@@ -1,16 +1,17 @@
 import React from 'react';
 import { Good } from './types/Good';
 
-type Props = {
+interface Props {
   goods: Good[];
-};
+}
 
-export const GoodsList: React.FC<Props> = ({ goods }) => (
+// eslint-disable-next-line react/display-name
+export const GoodsList: React.FC<Props> = React.memo(({ goods }) => (
   <ul>
     {goods.map(good => (
-      <li key={good.id} data-cy="good">
+      <li key={good.id} data-cy="good" style={{ color: good.color }}>
         {good.name}
       </li>
     ))}
   </ul>
-);
+));
