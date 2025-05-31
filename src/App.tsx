@@ -1,27 +1,76 @@
 import React from 'react';
+import { useState, memo } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = memo(() => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={async () => {
+          try {
+            const allGoods = await getAll();
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+            setGoods(allGoods);
+          } catch (err) {
+            // eslint-disable-next-line no-console
+            console.error(`Goods loading failed: ${err}`);
+          }
+        }}
+      >
+        Load all goods
+      </button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={async () => {
+          try {
+            const firstFiveGoods = await get5First().then(item =>
+              item.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
+            );
+
+            setGoods(firstFiveGoods);
+          } catch (err) {
+            // eslint-disable-next-line no-console
+            console.error(`First 5 goods loading failed: ${err}`);
+          }
+        }}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={async () => {
+          try {
+            const redGoods = await getRedGoods().then(item =>
+              item.filter(good => good.color === 'red'),
+            );
+
+            setGoods(redGoods);
+          } catch (err) {
+            // eslint-disable-next-line no-console
+            console.error(`Red goods loading failed: ${err}`);
+          }
+        }}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+});
+
+App.displayName = 'App';
