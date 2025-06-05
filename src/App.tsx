@@ -8,15 +8,16 @@ import { Good } from './types/Good';
 // import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
-  const [firstLoad, setFirstLoad] = useState(true);
-  const [selectedGoodsFilter, setSelectedGoodsFilter] = useState<GoodsFilterChoice | null>(null);
-  const [goodsFromServer, setGoodsFromServer] = useState<Good[]>([]);
-
   enum GoodsFilterChoice {
     all = 'all',
     firstFive = 'first five',
     red = 'red',
   }
+
+  const [firstLoad, setFirstLoad] = useState(true);
+  const [selectedGoodsFilter, setSelectedGoodsFilter] =
+    useState<GoodsFilterChoice | null>(null);
+  const [goodsFromServer, setGoodsFromServer] = useState<Good[]>([]);
 
   useEffect(() => {
     if (firstLoad) {
