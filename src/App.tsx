@@ -19,7 +19,7 @@ export const App: React.FC = () => {
   };
 
   const loadRedGoods = () => {
-    goodsAPI.getRedGoods().then(setGoods);
+    goodsAPI.getRed().then(setGoods);
   };
 
   return (
