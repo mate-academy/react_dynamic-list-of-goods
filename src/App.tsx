@@ -22,7 +22,7 @@ export const App: React.FC = () => {
       case 'red':
         getRedGoods().then(setGoods);
         break;
-      
+
       default:
         setGoods([]);
     }
@@ -36,7 +36,11 @@ export const App: React.FC = () => {
         Load all goods
       </button>
 
-      <button type="button" data-cy="first-five-button" onClick={() => setLoad('five')}>
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setLoad('five')}
+      >
         Load 5 first goods
       </button>
 
