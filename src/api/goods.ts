@@ -22,3 +22,4 @@ export const getRedGoods = () => {
     return filteredGoods;
   });
 };
+
