@@ -11,7 +11,7 @@ export const get5First = () => {
   return getAll().then(goods => {
     return goods
       .sort((good1, good2) => good1.name.localeCompare(good2.name))
-      .splice(0, 5);
+      .slice(0, 5);
   }); // sort and get the first 5
 };
 
