@@ -8,10 +8,7 @@ export function getAll(): Promise<Good[]> {
 }
 
 export const get5First = () => {
-  return getAll().then(goods =>
-    goods
-      .slice(0, 5),
-  );
+  return getAll().then(goods => goods.slice(0, 5));
 };
 
 export const getRedGoods = () => {
