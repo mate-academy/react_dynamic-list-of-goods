@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -10,14 +10,6 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [filtrGoodProm, setFiltrGoodProm] = useState<Promise<Good[]>>();
-
-  useEffect(() => {
-    if (filtrGoodProm) {
-      // eslint-disable-next-line no-console
-      filtrGoodProm.then(setGoods).catch(console.error);
-    }
-  }, [filtrGoodProm]);
 
   return (
     <div className="App">
@@ -26,7 +18,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => setFiltrGoodProm(getAll())}
+        onClick={() => getAll().then(setGoods)}
       >
         Load all goods
       </button>
@@ -34,7 +26,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => setFiltrGoodProm(get5First())}
+        onClick={() => get5First().then(setGoods)}
       >
         Load 5 first goods
       </button>
@@ -42,7 +34,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => setFiltrGoodProm(getRedGoods())}
+        onClick={() => getRedGoods().then(setGoods)}
       >
         Load red goods
       </button>
