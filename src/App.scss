@@ -1,1 +1,33 @@
 // styles go here
+.App {
+  font-family: sans-serif;
+  padding: 20px;
+
+  h1 {
+    color: #333;
+  }
+
+  button {
+    margin-right: 10px;
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #f0f0f0;
+
+    &:hover {
+      background-color: #e0e0e0;
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+
+    li {
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+  }
+}
