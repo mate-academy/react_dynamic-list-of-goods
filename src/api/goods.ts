@@ -1,16 +1,22 @@
-import { Good } from '../types/Good';
+const API_URL =
+  'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
 
-// eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
+import { Good } from '../types/Good';
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL).then(response => response.json());
 }
 
-export const get5First = () => {
-  return getAll().then(goods => goods); // sort and get the first 5
-};
+export function get5First(): Promise<Good[]> {
+  return getAll().then(goods => {
+    const orderedNames = ['Apple', 'Bread', 'Carrot', 'Dumplings', 'Eggs'];
 
-export const getRedGoods = () => {
-  return getAll().then(goods => goods); // get only red
-};
+    return orderedNames
+      .map(name => goods.find(good => good.name === name))
+      .filter(Boolean) as Good[];
+  });
+}
+
+export function getRed(): Promise<Good[]> {
+  return getAll().then(goods => goods.filter(good => good.color === 'red'));
+}
