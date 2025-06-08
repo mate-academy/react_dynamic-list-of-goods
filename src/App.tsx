@@ -40,7 +40,7 @@ export const App: React.FC = () => {
   };
 
   const handleLoadFirstFive = () => {
-    goodsAPI.getFirst5().then(setGoods);
+    goodsAPI.get5First().then(setGoods);
   };
 
   const handleLoadRed = () => {

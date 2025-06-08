@@ -24,7 +24,7 @@ export function getAll(): Promise<Good[]> {
   return fetch(API_URL).then(response => response.json());
 }
 
-export function getFirst5(): Promise<Good[]> {
+export function get5First(): Promise<Good[]> {
   return getAll().then(goods => {
     const sortedGoods = [...goods].sort((a, b) => a.name.localeCompare(b.name));
 
