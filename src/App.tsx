@@ -4,18 +4,25 @@ import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+
+  const loadGoods = (getter: () => Promise<Good[]>) => {
+    getter()
+      .then(setGoods)
+      .catch(err => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to fetch goods:', err);
+      });
+  };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
       <button
-        onClick={() => getAll().then(setGoods)}
+        onClick={() => loadGoods(getAll)}
         type="button"
         data-cy="all-button"
       >
@@ -23,7 +30,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => get5First().then(setGoods)}
+        onClick={() => loadGoods(get5First)}
         type="button"
         data-cy="first-five-button"
       >
@@ -31,7 +38,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => getRedGoods().then(setGoods)}
+        onClick={() => loadGoods(getRedGoods)}
         type="button"
         data-cy="red-button"
       >
