@@ -10,23 +10,32 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const hanleGetAll = () => {
-    getAll().then(setGoods);
+  const handleGetAll = () => {
+    getAll()
+      .then(setGoods)
+      // eslint-disable-next-line no-console
+      .catch(error => console.error('Error fetching all goods:', error));
   };
 
   const handleGet5First = () => {
-    get5First().then(setGoods);
+    get5First()
+      .then(setGoods)
+      // eslint-disable-next-line no-console
+      .catch(error => console.error('Error fetching first 5 goods:', error));
   };
 
   const handleGetRedGoods = () => {
-    getRedGoods().then(setGoods);
+    getRedGoods()
+      .then(setGoods)
+      // eslint-disable-next-line no-console
+      .catch(error => console.error('Error fetching red goods:', error));
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button type="button" data-cy="all-button" onClick={hanleGetAll}>
+      <button type="button" data-cy="all-button" onClick={handleGetAll}>
         Load all goods
       </button>
 
