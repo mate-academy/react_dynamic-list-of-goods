@@ -8,19 +8,14 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const loadAll = async () => {
-    const loadedGoods = await goodsAPI.getAll();
-
-    setGoods(loadedGoods);
+    setGoods(await goodsAPI.getAll());
   };
 
   const load5First = async () => {
-    const loadedGoods = await goodsAPI.get5First();
-
-    setGoods(loadedGoods);
+    setGoods(await goodsAPI.get5First());
   };
 
   const loadRed = async () => {
-    // const loadedGoods = await goodsAPI.getRedGoods();
     setGoods(await goodsAPI.getRedGoods());
   };
 
