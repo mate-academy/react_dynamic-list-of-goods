@@ -1,1 +1,75 @@
 // styles go here
+
+body {
+  margin: 0;
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: #eee;
+  font-size: 14px;
+}
+
+.App {
+  display: grid;
+  grid-template-rows: 120px 100px auto; /* header, main, footer */
+  grid-template-areas: "header" "main" "footer";
+  min-height: 100vh;
+  place-items: center;
+  align-items: start;
+  max-width: 500px;
+  margin: 0 auto ;
+  background-color: #fff;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  & h1 {
+    font-size: 36px;
+    background-color: #ebebeb;
+    color: #000;
+    padding: 10px 15px;
+    margin-top: 50px;
+    border-radius: 5px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 7px;
+    margin-top: 50px;
+  }
+
+  & button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #287ddf;
+    color: #fff;
+    outline: none;
+    border: none;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #4a90e0;
+      box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+      transform: translateY(-1px);
+    }
+
+  }
+
+  &__GoodsList {
+    margin-top: 50px;
+    list-style: none;
+    padding: 0;
+
+    &__Item {
+      display: flex;
+      gap: 5px;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      padding: 5px 10px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+      border-radius: 5px;
+
+    }
+  }
+}
+
