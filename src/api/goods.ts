@@ -15,6 +15,6 @@ export const get5First = () => {
   ); // and get the first 5
 };
 
-export const getRedGoods = () => {
+export const getRed = () => {
   return getAll().then(goods => goods.filter(good => good.color === 'red')); // get only red
 };

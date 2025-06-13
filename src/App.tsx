@@ -7,7 +7,7 @@ import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
 
-import { getAll, get5First, getRedGoods } from './api/goods';
+import { getAll, get5First, getRed } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
@@ -25,7 +25,7 @@ export const App: React.FC = () => {
   };
 
   const handleLoadRed = async () => {
-    const redGoods = await getRedGoods();
+    const redGoods = await getRed();
 
     setGoods(redGoods);
   };
