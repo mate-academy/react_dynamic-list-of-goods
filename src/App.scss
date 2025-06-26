@@ -1,1 +1,11 @@
-// styles go here
+/* Basic styles for the overall application */
+.App {
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 20px;
+}
+
+/* Add any additional global styles or resets here */
