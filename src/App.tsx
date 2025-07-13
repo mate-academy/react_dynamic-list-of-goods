@@ -1,27 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-// import { getAll, get5First, getRed } from './api/goods';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+enum FilterVariable {
+  all = 'all',
+  first_5 = 'frst5',
+  onlyRed = 'red',
+}
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [filter, setFilter] = useState('');
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  useEffect(() => {
+    switch (filter) {
+      case FilterVariable.all:
+        getAll().then(setGoods);
+        break;
+      case FilterVariable.first_5:
+        get5First().then(setGoods);
+        break;
+      case FilterVariable.onlyRed:
+        getRedGoods().then(setGoods);
+        break;
+      default:
+        break;
+    }
+  }, [filter]);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setFilter(FilterVariable.all)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setFilter(FilterVariable.first_5)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setFilter(FilterVariable.onlyRed)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
