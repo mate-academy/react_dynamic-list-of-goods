@@ -11,7 +11,7 @@ type LoadOption = 'All' | 'Five' | 'Red';
 
 export const App: React.FC = () => {
   const [goodList, setGoodList] = useState<Good[]>([]);
-  const [option, setOption] = useState<LoadOption>();
+  const [option, setOption] = useState<LoadOption | undefined>(undefined);
 
   useEffect(() => {
     switch (option) {
