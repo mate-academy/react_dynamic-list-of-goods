@@ -3,3 +3,4 @@ export interface Good {
   name: string;
   color: string;
 }
+// MouseEventHandler<HTMLButtonElement>
