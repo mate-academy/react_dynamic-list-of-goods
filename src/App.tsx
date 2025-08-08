@@ -7,6 +7,20 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [state, setState] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+  const handleFetch = (fetchFunc: () => Promise<Good[]>) => {
+    fetchFunc()
+      .then(goods => {
+        setState(goods);
+        setError(null); // Clear previous error
+      })
+      .catch(err => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to fetch goods:', err);
+        setError('Failed to load goods. Please try again later.');
+      });
+  };
 
   return (
     <div className="App">
@@ -15,7 +29,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getAll().then((goods: Good[]) => setState(goods))}
+        onClick={() => handleFetch(getAll)}
       >
         Load all goods
       </button>
@@ -23,7 +37,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => get5First().then((goods: Good[]) => setState(goods))}
+        onClick={() => handleFetch(get5First)}
       >
         Load 5 first goods
       </button>
@@ -31,10 +45,12 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => getRedGoods().then((goods: Good[]) => setState(goods))}
+        onClick={() => handleFetch(getRedGoods)}
       >
         Load red goods
       </button>
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <GoodsList goods={state} />
     </div>
