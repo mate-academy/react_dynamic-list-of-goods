@@ -1,26 +1,32 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
-
 import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
-  const [state, setState] = useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleFetch = (fetchFunc: () => Promise<Good[]>) => {
+  const handleFetch = useCallback((fetchFunc: () => Promise<Good[]>) => {
+    setIsLoading(true);
+
     fetchFunc()
-      .then(goods => {
-        setState(goods);
-        setError(null); // Clear previous error
+      .then(goodsData => {
+        setGoods(goodsData);
+        setError(null);
       })
-      .catch(err => {
-        // eslint-disable-next-line no-console
-        console.error('Failed to fetch goods:', err);
-        setError('Failed to load goods. Please try again later.');
+      .catch((err: unknown) => {
+        const message =
+          err instanceof Error ? err.message : 'An unknown error occurred.';
+
+        setError(`Failed to load goods. ${message}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
-  };
+  }, []);
 
   return (
     <div className="App">
@@ -30,29 +36,32 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => handleFetch(getAll)}
+        disabled={isLoading}
       >
-        Load all goods
+        {isLoading ? 'Loading...' : 'Load all goods'}
       </button>
 
       <button
         type="button"
         data-cy="first-five-button"
         onClick={() => handleFetch(get5First)}
+        disabled={isLoading}
       >
-        Load 5 first goods
+        {isLoading ? 'Loading...' : 'Load 5 first goods'}
       </button>
 
       <button
         type="button"
         data-cy="red-button"
         onClick={() => handleFetch(getRedGoods)}
+        disabled={isLoading}
       >
-        Load red goods
+        {isLoading ? 'Loading...' : 'Load red goods'}
       </button>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      <GoodsList goods={state} />
+      <GoodsList goods={goods} />
     </div>
   );
 };
