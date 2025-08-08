@@ -8,17 +8,49 @@ import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const loadAllGoods = () => {
-    goodsAPI.getAll().then(loadedGoods => setGoods(loadedGoods));
+    setError(null); // Очищаємо попередні помилки перед новим запитом
+    goodsAPI
+      .getAll()
+      .then(loadedGoods => {
+        setGoods(loadedGoods);
+      })
+      .catch(err => {
+        // Змінюємо назву змінної на 'err' для ясності
+        // Встановлюємо повідомлення про помилку
+        setError(err.message || 'Failed to load all goods');
+        setGoods([]); // Очищаємо список товарів у випадку помилки
+      });
   };
 
+  // Функція для завантаження перших 5 товарів
   const load5FirstGoods = () => {
-    goodsAPI.get5First().then(loadedGoods => setGoods(loadedGoods));
+    setError(null); // Очищаємо попередні помилки
+    goodsAPI
+      .get5First()
+      .then(loadedGoods => {
+        setGoods(loadedGoods);
+      })
+      .catch(err => {
+        setError(err.message || 'Failed to load 5 first goods');
+        setGoods([]);
+      });
   };
 
+  // Функція для завантаження червоних товарів
   const loadRedGoods = () => {
-    goodsAPI.getRedGoods().then(loadedGoods => setGoods(loadedGoods));
+    setError(null); // Очищаємо попередні помилки
+    goodsAPI
+      .getRedGoods()
+      .then(loadedGoods => {
+        setGoods(loadedGoods);
+      })
+      .catch(err => {
+        setError(err.message || 'Failed to load red goods');
+        setGoods([]);
+      });
   };
 
   return (
@@ -40,7 +72,7 @@ export const App: React.FC = () => {
       <button type="button" data-cy="red-button" onClick={loadRedGoods}>
         Load red goods
       </button>
-
+      {error && <p className="error-message">{error}</p>}
       <GoodsList goods={goods} />
     </div>
   );
