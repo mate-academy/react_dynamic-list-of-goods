@@ -7,38 +7,48 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleAllGoods = () => {
-    getAll().then(setGoods);
-  };
+  const loadGoods = async (fetchFn: () => Promise<Good[]>) => {
+    try {
+      setError(null); // reset previous error
+      const result = await fetchFn();
 
-  const handleFiveFirst = () => {
-    get5First().then(setGoods);
-  };
-
-  const handleRedGoods = () => {
-    getRedGoods().then(setGoods);
+      setGoods(result);
+    } catch (err) {
+      setError('Failed to load goods. Please try again.');
+    }
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button type="button" data-cy="all-button" onClick={handleAllGoods}>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => loadGoods(getAll)}
+      >
         Load all goods
       </button>
 
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={handleFiveFirst}
+        onClick={() => loadGoods(get5First)}
       >
         Load 5 first goods
       </button>
 
-      <button type="button" data-cy="red-button" onClick={handleRedGoods}>
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => loadGoods(getRedGoods)}
+      >
         Load red goods
       </button>
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <GoodsList goods={goods} />
     </div>
