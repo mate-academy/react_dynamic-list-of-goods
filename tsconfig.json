@@ -4,6 +4,8 @@
     "src"
   ],
   "compilerOptions": {
+    "jsx": "react",
+    "target": "es5",
     "sourceMap": false,
     "types": ["node", "cypress"]
   }
