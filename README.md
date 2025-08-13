@@ -1,3 +1,5 @@
+[DEMO LINK](https://vkrasnovyd.github.io/react_dynamic-list-of-goods/)
+
 # React dynamic list of goods
 
 > Here is [the working page](https://mate-academy.github.io/react_dynamic-list-of-goods/)
