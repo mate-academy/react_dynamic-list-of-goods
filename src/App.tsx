@@ -1,27 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { get5First, getAll, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string>('');
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleLoadAll = async () => {
+    try {
+      setError('');
+      const data = await getAll();
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+      setGoods(data);
+    } catch (err) {
+      setError('Network response was not ok');
+    }
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const handleLoad5First = async () => {
+    try {
+      setGoods([]);
+      const data = await get5First();
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      setGoods(data);
+    } catch (err) {
+      setError('Network response was not ok');
+    }
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const handleLoadRed = async () => {
+    try {
+      setGoods([]);
+      const data = await getRedGoods();
+
+      setGoods(data);
+    } catch (err) {
+      setError('Network response was not ok');
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={handleLoadAll}>
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleLoad5First}
+      >
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={handleLoadRed}>
+        Load red goods
+      </button>
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
