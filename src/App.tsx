@@ -21,9 +21,6 @@ export const App: React.FC = () => {
           getAll()
             .then(setGoods)
             .catch(e => setError((e as Error).message));
-          {
-            setError(error);
-          }
         }}
       >
         Load all goods
@@ -36,9 +33,6 @@ export const App: React.FC = () => {
           get5First()
             .then(setGoods)
             .catch(e => setError((e as Error).message));
-          {
-            setError(error);
-          }
         }}
       >
         Load 5 first goods
@@ -51,15 +45,14 @@ export const App: React.FC = () => {
           getRedGoods()
             .then(setGoods)
             .catch(e => setError((e as Error).message));
-          {
-            setError(error);
-          }
         }}
       >
         Load red goods
       </button>
 
       <GoodsList goods={goods} />
+
+      {error && <div className="error">{error}</div>}
     </div>
   );
 };
