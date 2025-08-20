@@ -1,27 +1,67 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+type Mode = 'all' | 'five' | 'red' | null;
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [mode, setMode] = useState<Mode>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  useEffect(() => {
+    if (!mode) {
+      return;
+    }
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    setLoading(true);
+    setError(null);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    let fetcher: (() => Promise<Good[]>) | null = null;
 
-    <GoodsList goods={[]} />
-  </div>
-);
+    if (mode === 'all') {
+      fetcher = getAll;
+    } else if (mode === 'five') {
+      fetcher = get5First;
+    } else if (mode === 'red') {
+      fetcher = getRedGoods;
+    }
+
+    if (fetcher) {
+      fetcher()
+        .then(setGoods)
+        .catch(err => setError(err.message || 'Failed to load goods'))
+        .finally(() => setLoading(false));
+    }
+  }, [mode]);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={() => setMode('all')}>
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setMode('five')}
+      >
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={() => setMode('red')}>
+        Load red goods
+      </button>
+
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
