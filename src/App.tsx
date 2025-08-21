@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import GoodsList from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
@@ -14,20 +14,34 @@ const SWITCHER_STATUS_RED = 'red';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [switcher, setSwitcher] = useState('');
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   useEffect(() => {
     if (switcher === SWITCHER_STATUS_ALL) {
-      getAll().then(goodsFromServer =>
-        setGoods(goodsFromServer.filter(good => good.name)),
-      );
+      getAll()
+        .then(setGoods)
+        .catch(error => {
+          setErrorMessage(error.message);
+          setGoods([]);
+        });
     }
 
     if (switcher === SWITCHER_STATUS_5FIRST) {
-      get5First().then(setGoods);
+      get5First()
+        .then(setGoods)
+        .catch(error => {
+          setErrorMessage(error.message);
+          setGoods([]);
+        });
     }
 
     if (switcher === SWITCHER_STATUS_RED) {
-      getRedGoods().then(setGoods);
+      getRedGoods()
+        .then(setGoods)
+        .catch(error => {
+          setErrorMessage(error.message);
+          setGoods([]);
+        });
     }
   }, [switcher]);
 
@@ -63,6 +77,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
+      {errorMessage !== '' && <p role="alert">{errorMessage}</p>}
       <GoodsList goods={goods} />
     </div>
   );
