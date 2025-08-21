@@ -1,27 +1,89 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+enum VisibList {
+  emptie = '',
+  all = 'All',
+  five = 'Five',
+  red = 'Red',
+}
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [visibleGoods, setVisibleGoods] = useState<VisibList>(VisibList.emptie);
+  const [error, setError] = useState<string | null>(null);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  useEffect(() => {
+    if (visibleGoods === VisibList.emptie) {
+      return;
+    }
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    if (visibleGoods === VisibList.all) {
+      getAll()
+        .then(setGoods)
+        .catch(err => {
+          setError(err.message);
+          setGoods([]);
+        });
+    }
 
-    <GoodsList goods={[]} />
-  </div>
-);
+    if (visibleGoods === VisibList.five) {
+      get5First()
+        .then(setGoods)
+        .catch(err => {
+          setError(err.message);
+          setGoods([]);
+        });
+    }
+
+    if (visibleGoods === VisibList.red) {
+      getRedGoods()
+        .then(setGoods)
+        .catch(err => {
+          setError(err.message);
+          setGoods([]);
+        });
+    }
+  }, [visibleGoods]);
+
+  const handleSwitchAll = () => {
+    return setVisibleGoods(VisibList.all);
+  };
+
+  const handleSwitchFive = () => {
+    return setVisibleGoods(VisibList.five);
+  };
+
+  const handleSwitchRed = () => {
+    return setVisibleGoods(VisibList.red);
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={handleSwitchAll}>
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleSwitchFive}
+      >
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={handleSwitchRed}>
+        Load red goods
+      </button>
+
+      {error !== '' && <p role="alert">{error}</p>}
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
