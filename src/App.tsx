@@ -1,27 +1,69 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+const SWITCHER_STATUS_ALL = 'all';
+const SWITCHER_STATUS_5FIRST = '5 first';
+const SWITCHER_STATUS_RED = 'red';
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [switcher, setSwitcher] = useState('');
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  useEffect(() => {
+    if (switcher === SWITCHER_STATUS_ALL) {
+      getAll().then(goodsFromServer =>
+        setGoods(goodsFromServer.filter(good => good.name)),
+      );
+    }
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    if (switcher === SWITCHER_STATUS_5FIRST) {
+      get5First().then(setGoods);
+    }
 
-    <GoodsList goods={[]} />
-  </div>
-);
+    if (switcher === SWITCHER_STATUS_RED) {
+      getRedGoods().then(setGoods);
+    }
+  }, [switcher]);
+
+  function switchOn(mode: string) {
+    setSwitcher(mode);
+  }
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => switchOn(SWITCHER_STATUS_ALL)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => switchOn(SWITCHER_STATUS_5FIRST)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => switchOn(SWITCHER_STATUS_RED)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
