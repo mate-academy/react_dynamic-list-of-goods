@@ -32,6 +32,7 @@ export const App: React.FC = () => {
         setGoodsState([]);
     }
   };
+
   const handleClick = (buttonType: string) => {
     chooseGoods(buttonType);
   };
