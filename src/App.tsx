@@ -6,40 +6,58 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  const loadAll = async () => {
-    const allGoods = await getAll();
+  const loadGoods = async (loader: () => Promise<Good[]>) => {
+    setError(null);
+    setLoading(true);
 
-    setGoods(allGoods);
-  };
+    try {
+      const data = await loader();
 
-  const loadFirstFive = async () => {
-    const firstFive = await get5First();
-
-    setGoods(firstFive);
-  };
-
-  const loadRedGoods = async () => {
-    const redGoods = await getRedGoods();
-
-    setGoods(redGoods);
+      setGoods(data);
+    } catch {
+      setError('Failed to load goods. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button type="button" data-cy="all-button" onClick={loadAll}>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => loadGoods(getAll)}
+      >
         Load all goods
       </button>
 
-      <button type="button" data-cy="first-five-button" onClick={loadFirstFive}>
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => loadGoods(get5First)}
+      >
         Load 5 first goods
       </button>
 
-      <button type="button" data-cy="red-button" onClick={loadRedGoods}>
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => loadGoods(getRedGoods)}
+      >
         Load red goods
       </button>
+
+      {loading && <p>Loading...</p>}
+      {error && (
+        <div role="alert" style={{ color: 'red' }}>
+          {error}
+        </div>
+      )}
 
       <GoodsList goods={goods} />
     </div>
