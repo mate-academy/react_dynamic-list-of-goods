@@ -1,1 +1,24 @@
-// styles go here
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.blue {
+  color: blue;
+}
+.error-message {
+  color: red;
+  background-color: #ffe6e6;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ff0000;
+  border-radius: 4px;
+}
+
+.buttons button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
