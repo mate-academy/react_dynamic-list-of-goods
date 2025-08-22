@@ -8,9 +8,28 @@ export function getAll(): Promise<Good[]> {
 }
 
 export const get5First = () => {
-  return getAll().then(goods => goods); // sort and get the first 5
+  return getAll()
+    .then(goods => {
+      return [...goods]
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .slice(0, 5);
+    })
+    .catch(error => {
+      /* eslint-disable no-console */
+      console.error('Error fetching first 5 goods:', error);
+
+      return [];
+      /* eslint-disable no-console */
+    });
 };
 
 export const getRedGoods = () => {
-  return getAll().then(goods => goods); // get only red
+  return getAll()
+    .then(goods => goods.filter(good => good.color === 'red'))
+    .catch(error => {
+      /* eslint-disable no-console */
+      console.error('Error fetching red goods:', error);
+      /* eslint-disable no-console */
+      throw error;
+    });
 };
