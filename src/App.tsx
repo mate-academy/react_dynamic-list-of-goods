@@ -1,14 +1,28 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
-// or
-// import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [post, setPost] = useState<Good[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleLoadGoods = async (loadFunction: () => Promise<Good[]>) => {
+    setErrorMessage(''); // Очищуємо попередню помилку
+    setLoading(true); // Показуємо лоадер
+
+    try {
+      const goods = await loadFunction();
+
+      setPost(goods);
+    } catch (error) {
+      setErrorMessage('Try again later');
+    } finally {
+      setLoading(false); // Ховаємо лоадер
+    }
+  };
 
   return (
     <div className="App">
@@ -17,26 +31,33 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getAll().then(setPost)}
+        onClick={() => handleLoadGoods(getAll)}
+        disabled={loading}
       >
-        Load all goods
+        {loading ? 'Loading...' : 'Load all goods'}
       </button>
 
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => get5First().then(setPost)}
+        onClick={() => handleLoadGoods(get5First)}
+        disabled={loading}
       >
-        Load 5 first goods
+        {loading ? 'Loading...' : 'Load 5 first goods'}
       </button>
 
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => getRedGoods().then(setPost)}
+        onClick={() => handleLoadGoods(getRedGoods)}
+        disabled={loading}
       >
-        Load red goods
+        {loading ? 'Loading...' : 'Load red goods'}
       </button>
+
+      {errorMessage && (
+        <div style={{ color: 'red', margin: '10px 0' }}>{errorMessage}</div>
+      )}
 
       <GoodsList goods={post} />
     </div>
