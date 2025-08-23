@@ -14,7 +14,7 @@ export const App: React.FC = () => {
 
   const loadGoods = (apiFunction: () => Promise<Good[]>) => {
     setLoading(true);
-    setErrorMessage(''); 
+    setErrorMessage('');
 
     apiFunction()
       .then(setGoods)
