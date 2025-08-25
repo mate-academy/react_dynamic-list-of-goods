@@ -7,28 +7,46 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState(null);
 
   function getGoods(select: string) {
-    if (select === 'all') {
-      getAll().then(res => {
-        if (res.length === 0) {
-          throw new Error('Пустой масив');
-        }
+    setError(null);
 
-        setGoods(res);
-      });
+    if (select === 'all') {
+      getAll()
+        .then(res => {
+          if (res.length === 0) {
+            throw new Error('Пустой масив');
+          }
+
+          setGoods(res);
+        })
+        .catch(err => {
+          setError(err);
+          setGoods([]);
+        });
     }
 
     if (select === 'five') {
-      get5First().then(res => {
-        setGoods(res);
-      });
+      get5First()
+        .then(res => {
+          setGoods(res);
+        })
+        .catch(err => {
+          setError(err);
+          setGoods([]);
+        });
     }
 
     if (select === 'red') {
-      getRedGoods().then(res => {
-        setGoods(res);
-      });
+      getRedGoods()
+        .then(res => {
+          setGoods(res);
+        })
+        .catch(err => {
+          setError(err);
+          setGoods([]);
+        });
     }
   }
 
@@ -65,6 +83,8 @@ export const App: React.FC = () => {
       >
         Load red goods
       </button>
+
+      <h1>{error}</h1>
 
       <GoodsList goods={goods} />
     </div>
