@@ -11,6 +11,10 @@ export const App: React.FC = () => {
   function getGoods(select: string) {
     if (select === 'all') {
       getAll().then(res => {
+        if (res.length === 0) {
+          throw new Error('Пустой масив');
+        }
+
         setGoods(res);
       });
     }
