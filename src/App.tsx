@@ -48,11 +48,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      {error && (
-        <p style={{ color: 'red' }}>
-          {error}
-        </p>
-      )}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <GoodsList goods={list} />
     </div>
