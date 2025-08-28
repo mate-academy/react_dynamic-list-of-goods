@@ -4,6 +4,9 @@
     "src"
   ],
   "compilerOptions": {
+    "jsx": "react-jsx",
+    "allowJs": true,
+    "strict": true,
     "sourceMap": false,
     "types": ["node", "cypress"]
   }
