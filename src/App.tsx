@@ -8,22 +8,49 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[] | null>(null);
 
+  const MSG_ERROR =
+    'Houve um erro na geração da estrutura de dados. O que se sabe sobre: \n';
+
   const handleAll = async (event: MouseEvent) => {
     event.preventDefault();
 
-    setGoods(await getAll());
+    let goodsWrapper: Good[] = [];
+
+    try {
+      goodsWrapper = await getAll();
+    } catch (error) {
+      throw new Error(MSG_ERROR + error);
+    }
+
+    setGoods(goodsWrapper);
   };
 
   const handle5First = async (event: MouseEvent) => {
     event.preventDefault();
 
-    setGoods(await get5First());
+    let goodsWrapper: Good[] = [];
+
+    try {
+      goodsWrapper = await get5First();
+    } catch (error) {
+      throw new Error(MSG_ERROR + error);
+    }
+
+    setGoods(goodsWrapper);
   };
 
   const handleRed = async (event: MouseEvent) => {
     event.preventDefault();
 
-    setGoods(await getRedGoods());
+    let goodsWrapper: Good[] = [];
+
+    try {
+      goodsWrapper = await getRedGoods();
+    } catch (error) {
+      throw new Error(MSG_ERROR + error);
+    }
+
+    setGoods(goodsWrapper);
   };
 
   return (
