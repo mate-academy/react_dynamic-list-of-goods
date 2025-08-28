@@ -72,7 +72,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      {error !== '' && <p role="alert">{error}</p>}
+      {error && <p role="alert">{error}</p>}
       <GoodsList goods={goods} />
     </div>
   );
