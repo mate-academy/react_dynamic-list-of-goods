@@ -6,10 +6,8 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
+  const [error, setError] = useState<string | unknown>('');
   const [goods, setGoods] = useState<Good[] | null>(null);
-
-  const MSG_ERROR =
-    'Houve um erro na geração da estrutura de dados. O que se sabe sobre: \n';
 
   const handleAll = async (event: MouseEvent) => {
     event.preventDefault();
@@ -18,8 +16,10 @@ export const App: React.FC = () => {
 
     try {
       goodsWrapper = await getAll();
-    } catch (error) {
-      throw new Error(MSG_ERROR + error);
+    } catch (errorCatch) {
+      setError(errorCatch);
+
+      return <p>{error}</p>;
     }
 
     setGoods(goodsWrapper);
@@ -32,8 +32,10 @@ export const App: React.FC = () => {
 
     try {
       goodsWrapper = await get5First();
-    } catch (error) {
-      throw new Error(MSG_ERROR + error);
+    } catch (errorCatch) {
+      setError(errorCatch);
+
+      return <p>{error}</p>;
     }
 
     setGoods(goodsWrapper);
@@ -46,8 +48,10 @@ export const App: React.FC = () => {
 
     try {
       goodsWrapper = await getRedGoods();
-    } catch (error) {
-      throw new Error(MSG_ERROR + error);
+    } catch (errorCatch) {
+      setError(errorCatch);
+
+      return <p>{error}</p>;
     }
 
     setGoods(goodsWrapper);
