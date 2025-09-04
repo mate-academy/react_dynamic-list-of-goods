@@ -5,7 +5,7 @@ import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
-export const App: React.FC = () => {
+export const App: React.FC = React.memo(() => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [goodsViewMode, setGoodsViewMode] = useState<'all' | '5first' | 'red'>(
     'all',
@@ -55,4 +55,6 @@ export const App: React.FC = () => {
       <GoodsList goods={goods} />
     </div>
   );
-};
+});
+
+App.displayName = 'App';
