@@ -1,27 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState('');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleAllGoods = async () => {
+    try {
+      const goods = await getAll();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      setGoods(goods);
+      setError('');
+    } catch (err) {
+      setError((err as Error).message);
+    }
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const handleFirstFive = async () => {
+    try {
+      const goods = await get5First();
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      setGoods(goods);
+      setError('');
+    } catch (err) {
+      setError((err as Error).message);
+    }
+  };
+
+  const handleRedGoods = async () => {
+    try {
+      const goods = await getRedGoods();
+
+      setGoods(goods);
+      setError('');
+    } catch (err) {
+      setError((err as Error).message);
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={handleAllGoods}>
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleFirstFive}
+      >
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={handleRedGoods}>
+        Load red goods
+      </button>
+
+      {!error && <GoodsList goods={goods} />}
+      {error && <div className='error'>{error}</div>}
+    </div>
+  );
+};
