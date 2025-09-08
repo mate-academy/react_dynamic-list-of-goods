@@ -7,9 +7,17 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState('');
 
-  const handleAllGoods = () => {
-    getAll().then(goods => setGoods(goods));
+  const handleAllGoods = async () => {
+    try {
+      const goods = await getAll();
+
+      setGoods(goods);
+      setError('');
+    } catch (err) {
+      setError((err as Error).message);
+    }
   };
 
   const handleFirstFive = () => {
@@ -40,7 +48,8 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {!error && <GoodsList goods={goods} />}
+      {error && <div className='error'>{error}</div>}
     </div>
   );
 };
