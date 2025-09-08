@@ -20,12 +20,26 @@ export const App: React.FC = () => {
     }
   };
 
-  const handleFirstFive = () => {
-    get5First().then(goods => setGoods(goods));
+  const handleFirstFive = async () => {
+    try {
+      const goods = await get5First();
+
+      setGoods(goods);
+      setError('');
+    } catch (err) {
+      setError((err as Error).message);
+    }
   };
 
-  const handleRedGoods = () => {
-    getRedGoods().then(goods => setGoods(goods));
+  const handleRedGoods = async () => {
+    try {
+      const goods = await getRedGoods();
+
+      setGoods(goods);
+      setError('');
+    } catch (err) {
+      setError((err as Error).message);
+    }
   };
 
   return (
