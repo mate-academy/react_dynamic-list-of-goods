@@ -1,18 +1,40 @@
 import { Good } from '../types/Good';
 
 // eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
+const API_URL =
+  'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
 
-export function getAll(): Promise<Good[]> {
-  return fetch(API_URL).then(response => response.json());
+async function fetchJson<T>(url: string): Promise<T> {
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    // Inclui status e statusText pra facilitar debug
+    throw new Error(`Request failed: ${res.status} ${res.statusText}`);
+  }
+
+  try {
+    return await res.json();
+  } catch {
+    throw new Error('Failed to parse server response (invalid JSON).');
+  }
 }
 
-export const get5First = (): Promise<Good[]> => {
-  return getAll().then(goods =>
-    goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
-  ); // sort and get the first 5
-};
+export async function getAll(): Promise<Good[]> {
+  return fetchJson<Good[]>(API_URL);
+}
 
-export const getRedGoods = (): Promise<Good[]> => {
-  return getAll().then(goods => goods.filter(a => a.color === 'red')); // get only red
-};
+export async function get5First(): Promise<Good[]> {
+  const goods = await getAll();
+
+  const sorted = [...goods].sort((a, b) =>
+    a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }),
+  );
+
+  return sorted.slice(0, 5);
+}
+
+export async function getRedGoods(): Promise<Good[]> {
+  const goods = await getAll();
+
+  return goods.filter(g => g.color === 'red');
+}
