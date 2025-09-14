@@ -1,27 +1,60 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const loadGoods = async (fetchFn: () => Promise<Good[]>) => {
+    try {
+      setLoading(true);
+      setError(null); // очищаємо попередню помилку
+      const data = await fetchFn();
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+      setGoods(data);
+    } catch (e) {
+      setError('Failed to load goods. Please try again later.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => loadGoods(getAll)}
+      >
+        Load all goods
+      </button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => loadGoods(get5First)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => loadGoods(getRedGoods)}
+      >
+        Load red goods
+      </button>
+
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
