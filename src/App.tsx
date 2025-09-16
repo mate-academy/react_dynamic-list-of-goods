@@ -1,27 +1,92 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [filter, setFilter] = useState<'all' | 'first5' | 'red' | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  useEffect(() => {
+    if (!filter) {
+      return;
+    }
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+    let isMounted = true;
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    const loadData = async () => {
+      setIsLoading(true);
+      setError(null);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      try {
+        let result: Good[] = [];
 
-    <GoodsList goods={[]} />
-  </div>
-);
+        if (filter === 'all') {
+          result = await getAll();
+        } else if (filter === 'first5') {
+          result = await get5First();
+        } else if (filter === 'red') {
+          result = await getRedGoods();
+        }
+
+        if (isMounted) {
+          setGoods(result);
+        }
+      } catch (e) {
+        if (isMounted) {
+          setError((e as Error).message);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [filter]);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setFilter('all')}
+        disabled={isLoading}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setFilter('first5')}
+        disabled={isLoading}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setFilter('red')}
+        disabled={isLoading}
+      >
+        Load red goods
+      </button>
+
+      {isLoading && <p>Loading...</p>}
+      {error && <p style={{ color: 'red' }}>Error: {error}</p>}
+      {!isLoading && !error && filter && <GoodsList goods={goods} />}
+    </div>
+  );
+};
