@@ -18,7 +18,7 @@ const getColorStyle = (color: string): React.CSSProperties => {
   }
 };
 
-export const GoodsList: React.FC<Props> = ({ goods }) => (
+export const GoodsList: React.FC<Props> = React.memo(({ goods }) => (
   <ul data-cy="goods-list">
     {goods.map(good => (
       <li key={good.id} style={getColorStyle(good.color)} data-cy="good">
@@ -26,4 +26,6 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
       </li>
     ))}
   </ul>
-);
+));
+
+GoodsList.displayName = 'GoodsList';
