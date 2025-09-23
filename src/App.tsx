@@ -6,44 +6,86 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleLoadAll = async () => {
-    const allGoods = await getAll();
+    setLoading(true);
+    setError(null);
 
-    setGoods(allGoods);
+    try {
+      const allGoods = await getAll();
+
+      setGoods(allGoods);
+    } catch (err) {
+      setError('Failed to load all goods. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleLoadFirstFive = async () => {
-    const firstFive = await get5First();
+    setLoading(true);
+    setError(null);
 
-    setGoods(firstFive);
+    try {
+      const firstFive = await get5First();
+
+      setGoods(firstFive);
+    } catch (err) {
+      setError('Failed to load first 5 goods. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleLoadRed = async () => {
-    const redGoods = await getRedGoods();
+    setLoading(true);
+    setError(null);
 
-    setGoods(redGoods);
+    try {
+      const redGoods = await getRedGoods();
+
+      setGoods(redGoods);
+    } catch (err) {
+      setError('Failed to load red goods. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button type="button" data-cy="all-button" onClick={handleLoadAll}>
-        Load all goods
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={handleLoadAll}
+        disabled={loading}
+      >
+        {loading ? 'Loading...' : 'Load all goods'}
       </button>
 
       <button
         type="button"
         data-cy="first-five-button"
         onClick={handleLoadFirstFive}
+        disabled={loading}
       >
-        Load 5 first goods
+        {loading ? 'Loading...' : 'Load 5 first goods'}
       </button>
 
-      <button type="button" data-cy="red-button" onClick={handleLoadRed}>
-        Load red goods
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={handleLoadRed}
+        disabled={loading}
+      >
+        {loading ? 'Loading...' : 'Load red goods'}
       </button>
+
+      {error && <div style={{ color: 'red', marginTop: '10px' }}>{error}</div>}
 
       <GoodsList goods={goods} />
     </div>
