@@ -4,7 +4,14 @@
     "src"
   ],
   "compilerOptions": {
+    "jsx": "react",
     "sourceMap": false,
-    "types": ["node", "cypress"]
+    "types": ["node", "cypress"],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "module": "esnext",
+    "target": "es6",
+    "baseUrl": "src",
+    "strict": true
   }
 }
