@@ -1,27 +1,81 @@
 import React from 'react';
+import { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRed } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+type Good = {
+  id: number;
+  name: string;
+  color: string;
+};
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [goods, setGoods] = React.useState<Good[]>([]);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  function handleLoadAll(
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ): void {
+    event.preventDefault();
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    setLoading(true);
+    setErrorMessage('');
+    getAll()
+      .then(setGoods)
+      .catch(error => setErrorMessage(error.message))
+      .finally(() => setLoading(false));
+  }
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  function handleLoadRed(
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ): void {
+    event.preventDefault();
+    setLoading(true);
+    setErrorMessage('');
+    getRed()
+      .then(setGoods)
+      .catch(error => setErrorMessage(error.message))
+      .finally(() => setLoading(false));
+  }
+
+  function handleLoadFirstFive(
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ): void {
+    event.preventDefault();
+    setLoading(true);
+    setErrorMessage('');
+    get5First()
+      .then(setGoods)
+      .catch(error => setErrorMessage(error.message))
+      .finally(() => setLoading(false));
+  }
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={handleLoadAll}>
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleLoadFirstFive}
+      >
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={handleLoadRed}>
+        Load red goods
+      </button>
+
+      {loading && <p>Loading...</p>}
+      {errorMessage && <p className="error">{errorMessage}</p>}
+      {!errorMessage && !loading && <GoodsList goods={goods} />}
+    </div>
+  );
+};
