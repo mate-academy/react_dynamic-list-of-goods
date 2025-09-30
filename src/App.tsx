@@ -1,27 +1,71 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import * as goodsAPI from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleLoad = useCallback(async (loader: () => Promise<Good[]>) => {
+    try {
+      setIsLoading(true);
+      setError(null);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+      const data = await loader();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      setGoods(data);
+    } catch (e) {
+      setError('Failed to load goods. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const loadAll = useCallback(() => handleLoad(goodsAPI.getAll), [handleLoad]);
+  const load5First = useCallback(
+    () => handleLoad(goodsAPI.get5First),
+    [handleLoad],
+  );
+  const loadRed = useCallback(() => handleLoad(goodsAPI.getRed), [handleLoad]);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={loadAll}
+        disabled={isLoading}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={load5First}
+        disabled={isLoading}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={loadRed}
+        disabled={isLoading}
+      >
+        Load red goods
+      </button>
+
+      {isLoading && <p>Loading goods...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
