@@ -10,6 +10,7 @@ export const App: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState('');
 
   const loadAllGoods = () => {
+    setErrorMessage('');
     setLoading(true);
     getAll()
       .then((data: Good[]) => setGoods(data))
@@ -18,6 +19,7 @@ export const App: React.FC = () => {
   };
 
   const load5FirstGoods = () => {
+    setErrorMessage('');
     setLoading(true);
     get5First()
       .then((data: Good[]) => setGoods(data))
@@ -26,6 +28,7 @@ export const App: React.FC = () => {
   };
 
   const loadRedGoods = () => {
+    setErrorMessage('');
     setLoading(true);
     getRed()
       .then((data: Good[]) => setGoods(data))
