@@ -6,31 +6,52 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const loadAll = async () => {
-    const allGoods = await goodsAPI.getAll();
-    setGoods(allGoods);
+    try {
+      const allGoods = await goodsAPI.getAll();
+      setGoods(allGoods);
+      setError(null);
+    } catch (err) {
+      console.error(err);
+      setError('Failed to load all goods');
+    }
   };
 
-  const load5First = async () => {
-    const first5 = await goodsAPI.get5First();
-    setGoods(first5);
+  const loadFiveFirst = async () => {
+    try {
+      const first5 = await goodsAPI.getFiveFirst();
+      setGoods(first5);
+      setError(null);
+    } catch (err) {
+      console.error(err);
+      setError('Failed to load first 5 goods');
+    }
   };
 
   const loadRed = async () => {
-    const redGoods = await goodsAPI.getRedGoods();
-    setGoods(redGoods);
+    try {
+      const redGoods = await goodsAPI.getRed();
+      setGoods(redGoods);
+      setError(null);
+    } catch (err) {
+      console.error(err);
+      setError('Failed to load red goods');
+    }
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
+      {error && <p className="error">{error}</p>}
+
       <button type="button" data-cy="all-button" onClick={loadAll}>
         Load all goods
       </button>
 
-      <button type="button" data-cy="first-five-button" onClick={load5First}>
+      <button type="button" data-cy="first-five-button" onClick={loadFiveFirst}>
         Load 5 first goods
       </button>
 
