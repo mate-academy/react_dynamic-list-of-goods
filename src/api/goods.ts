@@ -7,13 +7,15 @@ export function getAll(): Promise<Good[]> {
   return fetch(API_URL).then(response => response.json());
 }
 
-export const get5First = (): Promise<Good[]> => {
-  return getAll().then(goods =>
-    goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
-  ); // sort and get the first 5
+export const get5First = () => {
+  return getAll().then(goods => {
+    return goods
+      .slice()
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .slice(0, 5);
+  });
 };
-// asd
 
-export const getRedGoods = (): Promise<Good[]> => {
-  return getAll().then(goods => goods.filter(a => a.color === 'red')); // get only red
+export const getRedGoods = () => {
+  return getAll().then(goods => goods.filter(good => good.color === 'red')); // get only red
 };
