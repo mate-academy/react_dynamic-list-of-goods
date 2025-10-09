@@ -12,6 +12,7 @@ export const get5First = (): Promise<Good[]> => {
     goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
   ); // sort and get the first 5
 };
+// asd
 
 export const getRedGoods = (): Promise<Good[]> => {
   return getAll().then(goods => goods.filter(a => a.color === 'red')); // get only red
