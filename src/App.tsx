@@ -1,46 +1,79 @@
 import React, { useState } from 'react';
-import './App.scss';
-import { GoodsList } from './GoodsList';
-
 import { getAll, get5First, getRedGoods } from './api/goods';
+import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleLoadAllGoods = () => {
-    getAll().then(setGoods);
+  const handleLoadAll = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getAll();
+
+      setGoods(data);
+    } catch (e) {
+      if (e instanceof Error) {
+        setError(e.message);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleLoad5Goods = () => {
-    get5First().then(setGoods);
+  const handleLoad5First = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await get5First();
+
+      setGoods(data);
+    } catch (e) {
+      if (e instanceof Error) {
+        setError(e.message);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleLoadRedGoods = () => {
-    getRedGoods().then(setGoods);
+  const handleLoadRed = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getRedGoods();
+
+      setGoods(data);
+    } catch (e) {
+      if (e instanceof Error) {
+        setError(e.message);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button type="button" data-cy="all-button" onClick={handleLoadAllGoods}>
+      <button onClick={handleLoadAll} disabled={loading}>
         Load all goods
       </button>
-
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={handleLoad5Goods}
-      >
+      <button onClick={handleLoad5First} disabled={loading}>
         Load 5 first goods
       </button>
-
-      <button type="button" data-cy="red-button" onClick={handleLoadRedGoods}>
+      <button onClick={handleLoadRed} disabled={loading}>
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      {!loading && !error && <GoodsList goods={goods} />}
     </div>
   );
 };
