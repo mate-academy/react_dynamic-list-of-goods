@@ -1,29 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
-import { getGoods } from './setvices/goods';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [query, setQuery] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  useEffect(() => {
-    if (query) {
-      getGoods(query).then(result => setGoods(result));
-    }
-  }, [query]);
+  const handleClick = (promise: Promise<Good[]>) => {
+    return promise
+      .then(goodsArg => {
+        setLoading(true);
+
+        return setGoods(goodsArg);
+      })
+
+      .catch(error => setErrorMessage(error))
+      .finally(() => setLoading(false));
+  };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
+      {loading && 'Loading data'}
+      {errorMessage && errorMessage}
 
       <button
-        onClick={() => setQuery('base')}
+        onClick={() => handleClick(getAll())}
         type="button"
         data-cy="all-button"
       >
@@ -31,7 +37,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => setQuery('first-five')}
+        onClick={() => handleClick(get5First())}
         type="button"
         data-cy="first-five-button"
       >
@@ -39,7 +45,7 @@ export const App: React.FC = () => {
       </button>
 
       <button
-        onClick={() => setQuery('red')}
+        onClick={() => handleClick(getRedGoods())}
         type="button"
         data-cy="red-button"
       >
