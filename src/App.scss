@@ -1,1 +1,10 @@
-// styles go here
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li.red   { color: red; }
+
+li.green { color: green; }
+
+li.blue  { color: blue; }
