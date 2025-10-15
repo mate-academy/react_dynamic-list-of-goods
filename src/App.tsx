@@ -10,23 +10,24 @@ export const App: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleClick = (promise: Promise<Good[]>) => {
-    return promise
-      .then(goodsArg => {
-        setLoading(true);
+  async function handleClick(promise: Promise<Good[]>) {
+    try {
+      setLoading(true);
+      const goodsPromise = await promise;
 
-        return setGoods(goodsArg);
-      })
-
-      .catch(error => setErrorMessage(error))
-      .finally(() => setLoading(false));
-  };
+      setGoods(goodsPromise);
+    } catch (error) {
+      setErrorMessage(String(error));
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
       {loading && 'Loading data'}
-      {errorMessage && errorMessage}
+      {errorMessage && String(errorMessage)}
 
       <button
         onClick={() => handleClick(getAll())}
