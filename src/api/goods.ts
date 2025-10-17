@@ -1,16 +1,32 @@
-import { Good } from '../types/Good';
+import type { Good } from '../types/Good';
 
-// eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
+const BASE_URL =
+  'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
 
-export function getAll(): Promise<Good[]> {
-  return fetch(API_URL).then(response => response.json());
+async function request<T>(url: string): Promise<T> {
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    throw new Error(`Failed to load: ${res.status} ${res.statusText}`);
+  }
+
+  return res.json();
 }
 
-export const get5First = () => {
-  return getAll().then(goods => goods); // sort and get the first 5
+export const getAllGoods = (): Promise<Good[]> => request<Good[]>(BASE_URL);
+
+export const getFirstFiveGoods = async (): Promise<Good[]> => {
+  const allGoods = await getAllGoods();
+
+  return [...allGoods]
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }),
+    )
+    .slice(0, 5);
 };
 
-export const getRedGoods = () => {
-  return getAll().then(goods => goods); // get only red
+export const getRedGoods = async (): Promise<Good[]> => {
+  const allGoods = await getAllGoods();
+
+  return allGoods.filter(good => good.color.toLowerCase() === 'red');
 };
