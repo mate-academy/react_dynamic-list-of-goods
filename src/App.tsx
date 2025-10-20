@@ -5,13 +5,17 @@ import { GoodsList } from './GoodsList';
 import type { Good } from './types/Good';
 import { getAllGoods, getFirstFiveGoods, getRedGoods } from './api/goods';
 
-type Filter = 'all' | 'firstFive' | 'red' | null;
+enum Filter {
+  All = 'all',
+  FirstFive = 'firstFive',
+  Red = 'red',
+}
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
-  const [activeFilter, setActiveFilter] = useState<Filter>(null);
+  const [activeFilter, setActiveFilter] = useState<Filter | null>(null);
 
   const handleLoadGoods = async (loader: () => Promise<Good[]>, filter: Filter) => {
     try {
@@ -35,8 +39,8 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="all-button"
-          onClick={() => handleLoadGoods(getAllGoods, 'all')}
-          className={cn('App__button', { 'App__button--active': activeFilter === 'all' })}
+          onClick={() => handleLoadGoods(getAllGoods, Filter.All)}
+          className={cn('App__button', { 'App__button--active': activeFilter === Filter.All })}
           disabled={isLoading}
         >
           Load all goods
@@ -45,8 +49,8 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="first-five-button"
-          onClick={() => handleLoadGoods(getFirstFiveGoods, 'firstFive')}
-          className={cn('App__button', { 'App__button--active': activeFilter === 'firstFive' })}
+          onClick={() => handleLoadGoods(getFirstFiveGoods, Filter.FirstFive)}
+          className={cn('App__button', { 'App__button--active': activeFilter === Filter.FirstFive })}
           disabled={isLoading}
         >
           Load 5 first goods
@@ -55,8 +59,8 @@ export const App: React.FC = () => {
         <button
           type="button"
           data-cy="red-button"
-          onClick={() => handleLoadGoods(getRedGoods, 'red')}
-          className={cn('App__button', { 'App__button--active': activeFilter === 'red' })}
+          onClick={() => handleLoadGoods(getRedGoods, Filter.Red)}
+          className={cn('App__button', { 'App__button--active': activeFilter === Filter.Red })}
           disabled={isLoading}
         >
           Load red goods
