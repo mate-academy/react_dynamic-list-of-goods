@@ -1,1 +1,23 @@
-// styles go here
+.GoodsList {
+  list-style: disc;
+  padding-left: 40px;
+  margin: 16px 0;
+
+  &__item {
+    margin-bottom: 4px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  &__item--red {
+    color: red;
+  }
+
+  &__item--green {
+    color: green;
+  }
+
+  &__item--blue {
+    color: blue;
+  }
+}
