@@ -9,15 +9,27 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   function handleLoadAll() {
-    getAll().then(receivedGoods => setGoods(receivedGoods));
+    getAll()
+      .then(receivedGoods => setGoods(receivedGoods))
+      .catch(() => {
+        throw new Error('Failed to load goods');
+      });
   }
 
   function handleGet5First() {
-    get5First().then(receivedGoods => setGoods(receivedGoods));
+    get5First()
+      .then(receivedGoods => setGoods(receivedGoods))
+      .catch(() => {
+        throw new Error('Failed to load goods');
+      });
   }
 
   function handleGetRedGoods() {
-    getRed().then(receivedGoods => setGoods(receivedGoods));
+    getRed()
+      .then(receivedGoods => setGoods(receivedGoods))
+      .catch(() => {
+        throw new Error('Failed to load goods');
+      });
   }
 
   return (
