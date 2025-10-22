@@ -1,6 +1,7 @@
 import { Good } from '../types/Good';
 
-const API_URL = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
+const API_URL =
+  'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
 
 export async function getAll(): Promise<Good[]> {
   try {
@@ -12,8 +13,7 @@ export async function getAll(): Promise<Good[]> {
 
     return await response.json();
   } catch (error) {
-    console.error('Failed to load goods:', error);
-    throw error;
+    throw new Error('Failed to load goods');
   }
 }
 
@@ -21,12 +21,9 @@ export async function get5First(): Promise<Good[]> {
   try {
     const goods = await getAll();
 
-    return [...goods]
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .slice(0, 5);
+    return [...goods].sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5);
   } catch (error) {
-    console.error('Failed to load 5 first goods:', error);
-    throw error;
+    throw new Error('Failed to load 5 first goods:');
   }
 }
 
@@ -36,7 +33,6 @@ export async function getRedGoods(): Promise<Good[]> {
 
     return goods.filter(good => good.color === 'red');
   } catch (error) {
-    console.error('Failed to load red goods:', error);
-    throw error;
+    throw new Error('Failed to load red goods:');
   }
 }

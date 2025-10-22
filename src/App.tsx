@@ -14,6 +14,7 @@ export const App: React.FC = () => {
       setLoading(true);
       setError(null);
       const loadedGoods = await loader();
+
       setGoods(loadedGoods);
     } catch {
       setError('Failed to load goods. Please try again.');
