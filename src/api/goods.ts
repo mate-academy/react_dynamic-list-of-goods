@@ -1,16 +1,43 @@
 import { Good } from '../types/Good';
+import debounce from 'lodash.debounce';
 
-// eslint-disable-next-line
+// Use the same remote URL the tests expect
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
-export function getAll(): Promise<Good[]> {
-  return fetch(API_URL).then(response => response.json());
+export async function getAll(): Promise<Good[]> {
+  try {
+    const response = await fetch(API_URL);
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    throw new Error(String(error));
+  }
 }
 
-export const get5First = () => {
-  return getAll().then(goods => goods); // sort and get the first 5
+export const get5First = async (): Promise<Good[]> => {
+  try {
+    const allGoods = await getAll();
+
+    // sort goods alphabetically by name to provide deterministic "first five"
+    const sorted = allGoods
+      .slice()
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    return sorted.slice(0, 5);
+  } catch (error) {
+    throw new Error(String(error));
+  }
 };
 
-export const getRedGoods = () => {
-  return getAll().then(goods => goods); // get only red
+export const getRed = async (): Promise<Good[]> => {
+  try {
+    const allGoods = await getAll();
+
+    return allGoods.filter(good => good.color === 'red');
+  } catch (error) {
+    throw new Error(String(error));
+  }
 };
+
+export const debouncedLoadAllGoods = debounce(getAll, 300);
