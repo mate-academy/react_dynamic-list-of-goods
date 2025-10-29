@@ -1,10 +1,13 @@
 {
   "extends": "@mate-academy/students-ts-config",
-  "include": [
-    "src"
-  ],
   "compilerOptions": {
-    "sourceMap": false,
-    "types": ["node", "cypress"]
-  }
+    "jsx": "react-jsx",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["node", "cypress"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src", "cypress"],
+  "exclude": ["node_modules", "dist"]
 }
