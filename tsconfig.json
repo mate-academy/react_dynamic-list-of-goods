@@ -1,9 +1,10 @@
 {
-  "extends": "@mate-academy/students-ts-config",
+  // "extends": "@mate-academy/students-ts-config", // Removed because the file was not found
   "include": [
     "src"
   ],
   "compilerOptions": {
+    "jsx": "react",
     "sourceMap": false,
     "types": ["node", "cypress"]
   }
