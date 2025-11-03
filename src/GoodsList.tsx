@@ -21,7 +21,8 @@ function isColor(value: unknown): value is Colors {
   return typeof value === 'string' && colors.includes(value as Colors);
 }
 
-export const GoodsList: React.FC<Props> = ({ goods }) => (
+// eslint-disable-next-line react/display-name
+export const GoodsList: React.FC<Props> = React.memo(({ goods }) => (
   <ul>
     {goods.map(good => {
       const { id, name, color } = good;
@@ -37,4 +38,4 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
       );
     })}
   </ul>
-);
+));
