@@ -1,1 +1,18 @@
 // styles go here
+.good {
+    padding: 10px 0;
+    font-size: 18px;
+    font-weight: 500;
+
+    &--red {
+      color: red;
+    }
+
+    &--green {
+      color: green;
+    }
+
+    &--blue {
+      color: blue;
+    }
+  }
