@@ -6,23 +6,39 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const handleLoadAll = async () => {
-    const data = await goodsAPI.getAll();
+    try {
+      const data = await goodsAPI.getAll();
 
-    setGoods(data);
+      setGoods(data);
+      setError(null);
+    } catch (e) {
+      setError('Не вдалося завантажити всі товари 😢');
+    }
   };
 
   const handleLoad5First = async () => {
-    const data = await goodsAPI.get5First();
+    try {
+      const data = await goodsAPI.get5First();
 
-    setGoods(data);
+      setGoods(data);
+      setError(null);
+    } catch (e) {
+      setError('Не вдалося завантажити перші 5 товарів 😢');
+    }
   };
 
   const handleRedGoods = async () => {
-    const data = await goodsAPI.getRedGoods();
+    try {
+      const data = await goodsAPI.getRedGoods();
 
-    setGoods(data);
+      setGoods(data);
+      setError(null);
+    } catch (e) {
+      setError('Не вдалося завантажити червоні товари 😢');
+    }
   };
 
   return (
@@ -44,7 +60,7 @@ export const App: React.FC = () => {
       <button type="button" data-cy="red-button" onClick={handleRedGoods}>
         Load red goods
       </button>
-
+      {error && <p className="App__error">{error}</p>}
       <GoodsList goods={goods} />
     </div>
   );
