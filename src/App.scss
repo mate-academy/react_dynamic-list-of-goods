@@ -1,1 +1,43 @@
-// styles go here
+.App {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+
+    button {
+      padding: 8px 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #fff;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+
+      &:active {
+        background-color: #e0e0e0;
+      }
+    }
+  }
+
+  .error-message {
+    color: #d32f2f;
+    text-align: center;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #ffebee;
+    border-radius: 4px;
+  }
+}
