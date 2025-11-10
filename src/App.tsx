@@ -7,19 +7,38 @@ import { GoodsList } from './GoodsList';
 import * as goodsAPI from './api/goods';
 import { Good } from './types/Good';
 
+/* eslint-disable no-console */
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleLoadAll = (): void => {
-    goodsAPI.getAll().then(data => setGoods(data));
+    goodsAPI
+      .getAll()
+      .then(data => setGoods(data))
+      .catch(error => {
+        console.error('failed to load all goods:', error);
+        alert('Failed to load goods. Please try again.');
+      });
   };
 
   const handleGet5First = (): void => {
-    goodsAPI.get5First().then(data => setGoods(data));
+    goodsAPI
+      .get5First()
+      .then(data => setGoods(data))
+      .catch(error => {
+        console.error('failed to load first 5 goods:', error);
+        alert('Failed to load goods. Please try again.');
+      });
   };
 
   const handleLoadRed = (): void => {
-    goodsAPI.getRedGoods().then(data => setGoods(data));
+    goodsAPI
+      .getRedGoods()
+      .then(data => setGoods(data))
+      .catch(error => {
+        console.error('failed to load red goods:', error);
+        alert('Failed to load goods. Please try again.');
+      });
   };
 
   return (
