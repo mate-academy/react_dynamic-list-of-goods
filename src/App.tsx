@@ -9,9 +9,13 @@ export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
 
   const handleLoad = (loadFunction: LoadFunction) => {
-    loadFunction().then(loadedGoods => {
-      setVisibleGoods(loadedGoods);
-    });
+    loadFunction()
+      .then(loadedGoods => {
+        setVisibleGoods(loadedGoods);
+      })
+      .catch(() => {
+        setVisibleGoods([]);
+      });
   };
 
   return (
