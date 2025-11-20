@@ -1,27 +1,66 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import GoodsList from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleLoadAll = async () => {
+    try {
+      const data = await getAll();
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+      setGoods(data);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error loading all goods:', error);
+    }
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const handleLoad5First = async () => {
+    try {
+      const data = await get5First();
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      setGoods(data);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error loading 5 first goods:', error);
+    }
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const handleLoadRed = async () => {
+    try {
+      const data = await getRedGoods();
+
+      setGoods(data);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Error loading red goods:', error);
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={handleLoadAll}>
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleLoad5First}
+      >
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={handleLoadRed}>
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
