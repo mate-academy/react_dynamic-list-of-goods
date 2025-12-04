@@ -12,15 +12,30 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const allField = () => {
-    getAll().then(setGoods);
+    getAll()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line
+        console.error(error);
+      });
   };
 
   const lengthField = () => {
-    get5First().then(setGoods);
+    get5First()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line
+        console.error(error);
+      });
   };
 
   const colorField = () => {
-    getRedGoods().then(setGoods);
+    getRedGoods()
+      .then(setGoods)
+      .catch(error => {
+        // eslint-disable-next-line
+        console.error(error);
+      });
   };
 
   return (
