@@ -6,17 +6,27 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [hasError, setHasError] = useState(false);
 
   const handleLoadAll = () => {
-    getAll().then(data => setGoods(data));
+    setHasError(false);
+    getAll()
+      .then(data => setGoods(data))
+      .catch(() => setHasError(true));
   };
 
   const handleLoadFiveGoods = () => {
-    get5First().then(data => setGoods(data));
+    setHasError(false);
+    get5First()
+      .then(data => setGoods(data))
+      .catch(() => setHasError(true));
   };
 
   const handleLoadRedGoods = () => {
-    getRedGoods().then(data => setGoods(data));
+    setHasError(false);
+    getRedGoods()
+      .then(data => setGoods(data))
+      .catch(() => setHasError(true));
   };
 
   return (
@@ -38,6 +48,8 @@ export const App: React.FC = () => {
       <button type="button" data-cy="red-button" onClick={handleLoadRedGoods}>
         Load red goods
       </button>
+
+      {hasError && <p>Something went wrong</p>}
 
       <GoodsList goods={goods} />
     </div>
