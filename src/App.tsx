@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
@@ -16,7 +17,10 @@ export const App: React.FC = () => {
       const data = await goodsAPI.getAll();
 
       setGoods(data);
-    } catch (error) {}
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to load all goods:', error);
+    }
   };
 
   const loadFirstFive = async () => {
@@ -24,7 +28,9 @@ export const App: React.FC = () => {
       const data = await goodsAPI.get5First();
 
       setGoods(data);
-    } catch (error) {}
+    } catch (error) {
+      console.error('Failed to load first five goods:', error);
+    }
   };
 
   const loadRed = async () => {
@@ -32,7 +38,10 @@ export const App: React.FC = () => {
       const data = await goodsAPI.getRedGoods();
 
       setGoods(data);
-    } catch (error) {}
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('Failed to load red goods:', error);
+    }
   };
 
   return (
