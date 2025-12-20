@@ -12,21 +12,27 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const loadAll = async () => {
-    const data = await goodsAPI.getAll();
+    try {
+      const data = await goodsAPI.getAll();
 
-    setGoods(data);
+      setGoods(data);
+    } catch (error) {}
   };
 
   const loadFirstFive = async () => {
-    const data = await goodsAPI.get5First();
+    try {
+      const data = await goodsAPI.get5First();
 
-    setGoods(data);
+      setGoods(data);
+    } catch (error) {}
   };
 
   const loadRed = async () => {
-    const data = await goodsAPI.getRedGoods();
+    try {
+      const data = await goodsAPI.getRedGoods();
 
-    setGoods(data);
+      setGoods(data);
+    } catch (error) {}
   };
 
   return (
