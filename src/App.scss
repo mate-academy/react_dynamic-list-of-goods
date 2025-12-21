@@ -1,1 +1,49 @@
 // styles go here
+.App {
+  font-family: sans-serif;
+  padding: 30px;
+  text-align: center;
+
+  h1 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  button {
+    margin: 0 10px 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    color: #007bff;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    &:active {
+      transform: translateY(1px);
+    }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    max-width: 400px;
+    margin: 0 auto;
+    text-align: left;
+
+    li {
+      padding: 10px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid #eee;
+      font-size: 18px;
+      font-weight: 500;
+      text-transform: capitalize;
+    }
+  }
+}
