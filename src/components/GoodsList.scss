@@ -1,0 +1,15 @@
+.goods-list {
+  &__item {
+    &__red {
+      color: red;
+    }
+
+    &__green {
+      color: green;
+    }
+
+    &__blue {
+      color: blue;
+    }
+  }
+}
