@@ -1,27 +1,57 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [hasError, setHasError] = useState(false);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  // Використовуємо useCallback, щоб функції не перестворювалися
+  const handleLoadAll = useCallback(() => {
+    setHasError(false);
+    getAll()
+      .then(setGoods)
+      .catch(() => setHasError(true));
+  }, []);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleLoad5First = useCallback(() => {
+    setHasError(false);
+    get5First()
+      .then(setGoods)
+      .catch(() => setHasError(true));
+  }, []);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const handleLoadRedOnly = useCallback(() => {
+    setHasError(false);
+    getRedGoods()
+      .then(setGoods)
+      .catch(() => setHasError(true));
+  }, []);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <div className="buttons">
+        <button type="button" onClick={handleLoadAll}>
+          Load all goods
+        </button>
+        <button type="button" onClick={handleLoad5First}>
+          Load 5 first goods
+        </button>
+        <button type="button" onClick={handleLoadRedOnly}>
+          Load red goods
+        </button>
+      </div>
+
+      {hasError && (
+        <p className="notification is-danger">Something went wrong!</p>
+      )}
+
+      {/* Передаємо наш стан goods */}
+      <GoodsList goods={goods} />
+    </div>
+  );
+};

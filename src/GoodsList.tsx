@@ -5,12 +5,17 @@ type Props = {
   goods: Good[];
 };
 
-export const GoodsList: React.FC<Props> = ({ goods }) => (
+// 1. Оголошуємо компонент окремо
+const GoodsListBase: React.FC<Props> = ({ goods }) => (
   <ul>
     {goods.map(good => (
-      <li key={good.id} data-cy="good">
+      <li key={good.id} data-cy="good" style={{ color: good.color }}>
         {good.name}
       </li>
     ))}
   </ul>
 );
+
+// 2. Загортаємо в memo і додаємо displayName
+export const GoodsList = React.memo(GoodsListBase);
+GoodsList.displayName = 'GoodsList';
