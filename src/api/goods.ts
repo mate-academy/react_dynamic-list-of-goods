@@ -1,12 +1,12 @@
 import { Good } from '../types/Good';
 
-// eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
+const API_URL = 'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL).then(response => {
+    // Перевіряємо, чи запит успішний
     if (!response.ok) {
-      throw new Error('Can not load goods');
+      throw new Error('Failed to fetch goods');
     }
     return response.json();
   });
@@ -14,14 +14,10 @@ export function getAll(): Promise<Good[]> {
 
 export const get5First = () => {
   return getAll().then(goods => {
-    const sortNames = goods.sort((goodOne, goodTwo) =>
-      goodOne.name
-        .toLowerCase()
-        .trim()
-        .localeCompare(goodTwo.name.toLowerCase().trim()),
+    const sorted = [...goods].sort((a, b) =>
+      a.name.toLowerCase().trim().localeCompare(b.name.toLowerCase().trim())
     );
-
-    return sortNames.slice(0, 5);
+    return sorted.slice(0, 5);
   });
 };
 

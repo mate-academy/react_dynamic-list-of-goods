@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
@@ -6,39 +6,51 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [hasError, setHasError] = useState(false);
 
+  // Використовуємо useCallback, щоб функції не перестворювалися
   const handleLoadAll = useCallback(() => {
-    getAll().then(setGoods);
+    setHasError(false);
+    getAll()
+      .then(setGoods)
+      .catch(() => setHasError(true));
   }, []);
 
   const handleLoad5First = useCallback(() => {
-    get5First().then(setGoods);
+    setHasError(false);
+    get5First()
+      .then(setGoods)
+      .catch(() => setHasError(true));
   }, []);
 
-  const handleLoardRedOnly = useCallback(() => {
-    getRedGoods().then(setGoods);
+  const handleLoadRedOnly = useCallback(() => {
+    setHasError(false);
+    getRedGoods()
+      .then(setGoods)
+      .catch(() => setHasError(true));
   }, []);
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button type="button" data-cy="all-button" onClick={handleLoadAll}>
-        Load all goods
-      </button>
+      <div className="buttons">
+        <button type="button" onClick={handleLoadAll}>
+          Load all goods
+        </button>
+        <button type="button" onClick={handleLoad5First}>
+          Load 5 first goods
+        </button>
+        <button type="button" onClick={handleLoadRedOnly}>
+          Load red goods
+        </button>
+      </div>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={handleLoad5First}
-      >
-        Load 5 first goods
-      </button>
+      {hasError && (
+        <p className="notification is-danger">Something went wrong!</p>
+      )}
 
-      <button type="button" data-cy="red-button" onClick={handleLoardRedOnly}>
-        Load red goods
-      </button>
-
+      {/* Передаємо наш стан goods */}
       <GoodsList goods={goods} />
     </div>
   );
