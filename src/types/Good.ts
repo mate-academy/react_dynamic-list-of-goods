@@ -3,3 +3,10 @@ export interface Good {
   name: string;
   color: string;
 }
+
+export enum GoodLoadType {
+  All = 'all',
+  First5 = 'first5',
+  Red = 'red',
+  None = '',
+}
