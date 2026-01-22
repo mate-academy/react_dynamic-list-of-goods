@@ -10,17 +10,38 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [type, setType] = useState('all');
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    setError(null);
+
     switch (type) {
       case 'firstFive':
-        get5First().then(setGoods);
+        get5First()
+          .then(setGoods)
+          .catch(err => {
+            const message = err instanceof Error ? err.message : String(err);
+            
+            setError(`During get first 5: ${message}`);
+          });
         break;
       case 'onlyRed':
-        getRedGoods().then(setGoods);
+        getRedGoods()
+          .then(setGoods)
+          .catch(err => {
+            const message = err instanceof Error ? err.message : String(err);
+
+            setError(`During get red: ${message}`);
+          });
         break;
       default:
-        getAll().then(setGoods);
+        getAll()
+          .then(setGoods)
+          .catch(err => {
+            const message = err instanceof Error ? err.message : String(err);
+
+            setError(`During get all: ${message}`);
+          });
     }
   }, [type]);
 
@@ -58,6 +79,7 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
+      {error && <p data-cy="goods-error">{error}</p>}
       <GoodsList goods={goods} />
     </div>
   );
