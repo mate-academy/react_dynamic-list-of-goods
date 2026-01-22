@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -9,7 +9,6 @@ export const App: React.FC = () => {
   const loadAll = () => goodsAPI.getAll().then(setGoods);
   const loadFive = () => goodsAPI.get5First().then(setGoods);
   const loadRed = () => goodsAPI.getRedGoods().then(setGoods);
-
 
   return (
     <div className="App">
@@ -28,7 +27,6 @@ export const App: React.FC = () => {
       </button>
 
       <GoodsList goods={goods} />
-    </div >
-  )
-
+    </div>
+  );
 };
