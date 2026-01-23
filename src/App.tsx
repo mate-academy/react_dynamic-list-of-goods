@@ -73,8 +73,9 @@ export const App: React.FC = () => {
         onClick={() =>
           getAll()
             .then(setGoods)
-            .catch(() => {
-              throw new Error('Failed to fetch goods');
+            .catch(error => {
+              // eslint-disable-next-line no-console
+              console.error('Failed to fetch goods:', error);
             })
         }
       >
@@ -87,8 +88,9 @@ export const App: React.FC = () => {
         onClick={() =>
           get5First()
             .then(setGoods)
-            .catch(() => {
-              throw new Error('Failed to fetch goods');
+            .catch(error => {
+              // eslint-disable-next-line no-console
+              console.error('Failed to fetch goods:', error);
             })
         }
       >
@@ -101,8 +103,9 @@ export const App: React.FC = () => {
         onClick={() =>
           getRedGoods()
             .then(setGoods)
-            .catch(() => {
-              throw new Error('Failed to fetch goods');
+            .catch(error => {
+              // eslint-disable-next-line no-console
+              console.error('Failed to fetch goods:', error);
             })
         }
       >
