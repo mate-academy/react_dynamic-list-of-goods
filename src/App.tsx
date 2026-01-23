@@ -58,6 +58,7 @@ export const App: React.FC = () => {
   }, [goodSelection]);
 
   const handleGoodSelection = (selection: GoodSelection) => {
+    setErrorMsg('');
     setGoodSelection(selection);
   };
 
