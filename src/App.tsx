@@ -17,19 +17,38 @@ export const App: React.FC = () => {
     GoodSelection.None,
   );
   const [goods, setGoods] = useState<Good[]>([]);
+  const [errorMsg, setErrorMsg] = useState<string>('');
 
   useEffect(() => {
     switch (goodSelection) {
       case GoodSelection.All:
-        getAll().then(setGoods);
+        getAll()
+          .then(setGoods)
+          .catch((error: unknown) =>
+            setErrorMsg(
+              error instanceof Error ? error.message : 'Unknown Error',
+            ),
+          );
         break;
 
       case GoodSelection.FirstFive:
-        get5First().then(setGoods);
+        get5First()
+          .then(setGoods)
+          .catch((error: unknown) =>
+            setErrorMsg(
+              error instanceof Error ? error.message : 'Unknown Error',
+            ),
+          );
         break;
 
       case GoodSelection.Red:
-        getRedGoods().then(setGoods);
+        getRedGoods()
+          .then(setGoods)
+          .catch((error: unknown) =>
+            setErrorMsg(
+              error instanceof Error ? error.message : 'Unknown Error',
+            ),
+          );
         break;
 
       default:
@@ -70,7 +89,11 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {errorMsg ? (
+        <p style={{ color: 'crimson' }}>{errorMsg}</p>
+      ) : (
+        <GoodsList goods={goods} />
+      )}
     </div>
   );
 };
