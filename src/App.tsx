@@ -16,7 +16,7 @@ export const App: React.FC = () => {
   const [goodSelection, setGoodSelection] = useState<GoodSelection>(
     GoodSelection.None,
   );
-  const [goods, setGoods] = React.useState<Good[]>([]);
+  const [goods, setGoods] = useState<Good[]>([]);
 
   useEffect(() => {
     switch (goodSelection) {
