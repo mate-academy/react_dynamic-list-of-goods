@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -6,24 +6,40 @@ import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const loadAll = async () => {
-    const data = await goodsAPI.getAll();
+  const loadAll = useCallback(async () => {
+    setError(null);
+    try {
+      const data = await goodsAPI.getAll();
 
-    setGoods(data);
-  };
+      setGoods(data);
+    } catch (err) {
+      setError('Something went wrong while loading all goods');
+    }
+  }, []);
 
-  const loadFirstFive = async () => {
-    const data = await goodsAPI.get5First();
+  const loadFirstFive = useCallback(async () => {
+    setError(null);
+    try {
+      const data = await goodsAPI.get5First();
 
-    setGoods(data);
-  };
+      setGoods(data);
+    } catch (err) {
+      setError('Something went wrong while loading first five goods');
+    }
+  }, []);
 
-  const loadRed = async () => {
-    const data = await goodsAPI.getRedGoods();
+  const loadRed = useCallback(async () => {
+    setError(null);
+    try {
+      const data = await goodsAPI.getRedGoods();
 
-    setGoods(data);
-  };
+      setGoods(data);
+    } catch (err) {
+      setError('Something went wrong while loading red goods');
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -46,6 +62,8 @@ export const App: React.FC = () => {
           Load red goods
         </button>
       </div>
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
 
       <GoodsList goods={goods} />
     </div>
