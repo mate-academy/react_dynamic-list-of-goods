@@ -6,22 +6,32 @@ import { Good } from './types/Good';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
-// or
-// import * as goodsAPI from './api/goods';
-
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   function handleLoadAllGoods() {
-    getAll().then(setGoods);
+    setErrorMessage('');
+
+    getAll()
+      .then(setGoods)
+      .catch(() => setErrorMessage('Something went wrong!'));
   }
 
   function handleFiveOfFirst() {
-    get5First().then(setGoods);
+    setErrorMessage('');
+
+    get5First()
+      .then(setGoods)
+      .catch(() => setErrorMessage('Something went wrong!'));
   }
 
   function handleOnlyRed() {
-    getRedGoods().then(setGoods);
+    setErrorMessage('');
+
+    getRedGoods()
+      .then(setGoods)
+      .catch(() => setErrorMessage('Something went wrong!'));
   }
 
   return (
@@ -44,7 +54,9 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={goods} />
+      {errorMessage && <p className="Error">{errorMessage}</p>}
+
+      {!errorMessage && goods.length > 0 && <GoodsList goods={goods} />}
     </div>
   );
 };
