@@ -3,9 +3,13 @@ import { Good } from './types/Good';
 
 type Props = {
   goods: Good[];
+  errorMessage: string | null;
 };
 
-export const GoodsList = React.memo(function GoodsList({ goods }: Props) {
+export const GoodsList = React.memo(function GoodsList({
+  goods,
+  errorMessage,
+}: Props) {
   return (
     <ul>
       {goods.map(good => (
@@ -13,6 +17,10 @@ export const GoodsList = React.memo(function GoodsList({ goods }: Props) {
           {good.name}
         </li>
       ))}
+
+      {errorMessage && (
+        <div className="notification is-danger">{errorMessage}</div>
+      )}
     </ul>
   );
 });
