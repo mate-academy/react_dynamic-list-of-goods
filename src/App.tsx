@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { buttonsAttr } from './constants/constants';
-import { Button } from './components/Button/Button';
+import Button from './components/Button/Button';
 import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
