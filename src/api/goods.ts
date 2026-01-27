@@ -23,7 +23,7 @@ export function getAll(): Promise<Good[]> {
 export const get5First = () => {
   return getAll()
     .then(goods =>
-      goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, COUNT),
+      [...goods].sort((a, b) => a.name.localeCompare(b.name)).slice(0, COUNT),
     )
     .catch(errorGet5 => {
       throw new Error(`Error Load 5 first goods:, ${errorGet5}`);

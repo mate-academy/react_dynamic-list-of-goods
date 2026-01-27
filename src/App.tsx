@@ -13,7 +13,10 @@ export const App: React.FC = () => {
 
   const handleOnChange = useCallback((fetchFunc: () => Promise<Good[]>) => {
     fetchFunc()
-      .then(data => setGoods([...data]))
+      .then(data => {
+        setGoods([...data]);
+        setErrorLoad('');
+      })
       .catch(error => setErrorLoad(error.message));
   }, []);
 
