@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import GoodsList from './GoodsList';
 import { buttonsAttr } from './constants/constants';
 import Button from './components/Button/Button';
 import { Good } from './types/Good';
@@ -9,10 +9,13 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [errorLoad, setErrorLoad] = useState('');
 
-  const handleOnChange = (fetchFunc: () => Promise<Good[]>) => {
-    fetchFunc().then(data => setGoods([...data]));
-  };
+  const handleOnChange = useCallback((fetchFunc: () => Promise<Good[]>) => {
+    fetchFunc()
+      .then(data => setGoods([...data]))
+      .catch(error => setErrorLoad(error.message));
+  }, []);
 
   return (
     <div className="App">
@@ -32,7 +35,8 @@ export const App: React.FC = () => {
         );
       })}
 
-      <GoodsList goods={goods} />
+      {!errorLoad && <GoodsList goods={goods} />}
+      {errorLoad && <p>{errorLoad}</p>}
     </div>
   );
 };

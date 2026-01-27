@@ -16,8 +16,6 @@ export function getAll(): Promise<Good[]> {
       return response.json();
     })
     .catch(error => {
-      // eslint-disable-next-line no-console
-      console.error(error);
       throw error;
     });
 }
@@ -28,10 +26,7 @@ export const get5First = () => {
       goods.sort((a, b) => a.name.localeCompare(b.name)).slice(0, COUNT),
     )
     .catch(errorGet5 => {
-      // eslint-disable-next-line no-console
-      console.error('Error in get5First:', errorGet5);
-
-      return [];
+      throw new Error(`Error Load 5 first goods:, ${errorGet5}`);
     });
 };
 
@@ -39,9 +34,6 @@ export const getRedGoods = () => {
   return getAll()
     .then(goods => goods.filter(good => good.color === 'red'))
     .catch(errorGetRed => {
-      // eslint-disable-next-line no-console
-      console.error('Error in getRedGoods:', errorGetRed);
-
-      return [];
+      throw new Error(`Error Load red goods:', ${errorGetRed}`);
     }); // get only red
 };
