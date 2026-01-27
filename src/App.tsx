@@ -1,27 +1,45 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
-
-// import { getAll, get5First, getRed } from './api/goods';
+import GoodsList from './GoodsList';
+import { buttonsAttr } from './constants/constants';
+import Button from './components/Button/Button';
+import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [errorLoad, setErrorLoad] = useState('');
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleOnChange = useCallback((fetchFunc: () => Promise<Good[]>) => {
+    fetchFunc()
+      .then(data => {
+        setGoods([...data]);
+        setErrorLoad('');
+      })
+      .catch(error => setErrorLoad(error.message));
+  }, []);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      {buttonsAttr.map(attr => {
+        const [text, data, fetchData] = attr;
 
-    <GoodsList goods={[]} />
-  </div>
-);
+        return (
+          <Button
+            key={text}
+            type="button"
+            text={text}
+            dataAttr={data}
+            onClick={() => handleOnChange(fetchData)}
+          />
+        );
+      })}
+
+      {!errorLoad && <GoodsList goods={goods} />}
+      {errorLoad && <p>{errorLoad}</p>}
+    </div>
+  );
+};
