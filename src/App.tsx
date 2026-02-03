@@ -9,47 +9,52 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleGetAllGoodsButton = () => {
-  getAll()
-  .then(setGoods)
-}
+    getAll()
+      .then(setGoods)
+        .catch(() => {});
+  };
 
-const handleGetFirstFiveGoodsButton = () => {
-  get5First()
-  .then(setGoods)
-}
+  const handleGetFirstFiveGoodsButton = () => {
+    get5First()
+      .then(setGoods)
+      .catch(() => {});
+  };
 
-const handleGetRedGoodsButton = () => {
-  getRedGoods()
-  .then(setGoods);
-}
+  const handleGetRedGoodsButton = () => {
+    getRedGoods()
+      .then(setGoods)
+        .catch(() => {});
+  };
 
   return (
-     <div className="App">
-    <h1>Dynamic list of Goods</h1>
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <button
-    type="button"
-    data-cy="all-button"
-    onClick={handleGetAllGoodsButton}>
-      Load all goods
-    </button>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={handleGetAllGoodsButton}
+      >
+        Load all goods
+      </button>
 
-    <button
-    type="button"
-    data-cy="first-five-button"
-    onClick={handleGetFirstFiveGoodsButton}>
-      Load 5 first goods
-    </button>
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleGetFirstFiveGoodsButton}
+      >
+        Load 5 first goods
+      </button>
 
-    <button
-    type="button"
-    data-cy="red-button"
-    onClick={handleGetRedGoodsButton}>
-      Load red goods
-    </button>
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={handleGetRedGoodsButton}
+      >
+        Load red goods
+      </button>
 
-    <GoodsList goods={goods} />
-  </div>
-  )
-}
-
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
