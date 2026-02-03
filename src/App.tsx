@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -9,29 +9,29 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
 
-  function handleLoadAllGoods() {
+  const handleLoadAllGoods = useCallback(() => {
     setErrorMessage('');
 
     getAll()
       .then(setGoods)
       .catch(() => setErrorMessage('Something went wrong!'));
-  }
+  }, []);
 
-  function handleFiveOfFirst() {
+  const handleFiveOfFirst = useCallback(() => {
     setErrorMessage('');
 
     get5First()
       .then(setGoods)
       .catch(() => setErrorMessage('Something went wrong!'));
-  }
+  }, []);
 
-  function handleOnlyRed() {
+  const handleOnlyRed = useCallback(() => {
     setErrorMessage('');
 
     getRedGoods()
       .then(setGoods)
       .catch(() => setErrorMessage('Something went wrong!'));
-  }
+  }, []);
 
   return (
     <div className="App">
