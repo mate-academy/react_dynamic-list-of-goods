@@ -3,3 +3,7 @@ export interface Good {
   name: string;
   color: string;
 }
+
+export type Props = {
+  goods: Good[];
+};

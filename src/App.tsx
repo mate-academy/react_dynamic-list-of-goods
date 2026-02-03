@@ -1,27 +1,69 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRed } from './api/goods';
+import { Good } from './types/Good';
+import { FILTER } from './filters/filter';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState('');
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  useEffect(() => {
+    getAll()
+      .then(setGoods)
+      .catch((err => setError(err.message)));
+  }, []);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const { all, five, red } = FILTER;
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const fetchGoods = (name: string) => {
+    if (name === all) {
+      getAll()
+        .then(setGoods)
+        .catch(err => setError(err.message));
+    } else if (name === five) {
+      get5First()
+        .then(setGoods)
+        .catch(err => setError(err.message));
+    } else {
+      getRed()
+        .then(setGoods)
+        .catch(err => setError(err.message));
+    }
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        onClick={() => fetchGoods(all)}
+        type="button"
+        data-cy="all-button"
+      >
+        Load all goods
+      </button>
+
+      <button
+        onClick={() => fetchGoods(five)}
+        type="button"
+        data-cy="first-five-button"
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        onClick={() => fetchGoods(red)}
+        type="button"
+        data-cy="red-button"
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+      <span style={{ color: 'red' }}>{error}</span>
+    </div>
+  );
+};
