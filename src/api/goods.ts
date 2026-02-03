@@ -12,7 +12,6 @@ export function getAll(): Promise<Good[]> {
 
       return response.json();
     })
-    .catch(() => {});
 }
 
 export const get5First = () => {
