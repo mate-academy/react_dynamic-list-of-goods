@@ -1,47 +1,37 @@
+// src/App.tsx
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-import { getAll } from './api/goods';
-
-interface Good {
-  id: number;
-  name: string;
-  color: string;
-}
+import { Good } from './types/Good';
+import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadAllGoods = async () => {
-    const data = await getAll();
+  const loadAll = async () => {
+    const data = await goodsAPI.getAll();
 
     setGoods(data);
   };
 
   const loadFirstFive = async () => {
-    const data = await getAll();
+    const data = await goodsAPI.get5First();
 
-    const processed = [...data]
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .slice(0, 5);
-
-    setGoods(processed);
+    setGoods(data);
   };
 
-  const loadRedGoods = async () => {
-    const data = await getAll();
+  const loadRed = async () => {
+    const data = await goodsAPI.getRedGoods();
 
-    const redGoods = data.filter(good => good.color === 'red');
-
-    setGoods(redGoods);
+    setGoods(data);
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <div className="control-panel">
-        <button type="button" data-cy="all-button" onClick={loadAllGoods}>
+      <div className="buttons-container">
+        <button type="button" data-cy="all-button" onClick={loadAll}>
           Load all goods
         </button>
 
@@ -53,7 +43,7 @@ export const App: React.FC = () => {
           Load 5 first goods
         </button>
 
-        <button type="button" data-cy="red-button" onClick={loadRedGoods}>
+        <button type="button" data-cy="red-button" onClick={loadRed}>
           Load red goods
         </button>
       </div>
