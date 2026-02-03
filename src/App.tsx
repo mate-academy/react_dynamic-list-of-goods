@@ -11,7 +11,7 @@ export const App: React.FC = () => {
   const handleGetAllGoodsButton = () => {
     getAll()
       .then(setGoods)
-        .catch(() => {});
+      .catch(() => {});
   };
 
   const handleGetFirstFiveGoodsButton = () => {
@@ -23,7 +23,7 @@ export const App: React.FC = () => {
   const handleGetRedGoodsButton = () => {
     getRedGoods()
       .then(setGoods)
-        .catch(() => {});
+      .catch(() => {});
   };
 
   return (
