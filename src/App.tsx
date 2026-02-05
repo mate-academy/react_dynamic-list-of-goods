@@ -8,8 +8,9 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const handleError = () => {
-    'Error 404';
+  const handleError = (error: Error) => {
+    // eslint-disable-next-line no-console
+    console.error(error.message);
   };
 
   const loadAll = useCallback(() => {
