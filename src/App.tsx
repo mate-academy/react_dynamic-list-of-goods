@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
@@ -8,23 +8,33 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadAll = () => {
-    getAll().then(allGoods => {
-      setGoods(allGoods);
-    });
+  const handleError = () => {
+    'Error 404';
   };
 
-  const load5First = () => {
-    get5First().then(fiveGoods => {
-      setGoods(fiveGoods);
-    });
-  };
+  const loadAll = useCallback(() => {
+    getAll()
+      .then(allGoods => {
+        setGoods(allGoods);
+      })
+      .catch(handleError);
+  }, []);
 
-  const loadRed = () => {
-    getRedGoods().then(redGoods => {
-      setGoods(redGoods);
-    });
-  };
+  const load5First = useCallback(() => {
+    get5First()
+      .then(fiveFirstGoods => {
+        setGoods(fiveFirstGoods);
+      })
+      .catch(handleError);
+  }, []);
+
+  const loadRedGoods = useCallback(() => {
+    getRedGoods()
+      .then(redGoods => {
+        setGoods(redGoods);
+      })
+      .catch(handleError);
+  }, []);
 
   return (
     <div className="App">
@@ -38,7 +48,7 @@ export const App: React.FC = () => {
         Load 5 first goods
       </button>
 
-      <button type="button" data-cy="red-button" onClick={loadRed}>
+      <button type="button" data-cy="red-button" onClick={loadRedGoods}>
         Load red goods
       </button>
 
