@@ -1,21 +1,44 @@
-# React dynamic list of goods
+## 🔗 [DEMO LINK](https://Igor-hrm.github.io/react_dynamic-list-of-goods/)
 
-> Here is [the working page](https://mate-academy.github.io/react_dynamic-list-of-goods/)
+## 📌 Sobre o projeto
 
-You have 3 button that should load [the goods](https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json) and show them on the page using the `GoodsList`.
+Este projeto é uma **reimplementação do React List of Goods**, agora utilizando **Hooks e TypeScript**.
+O objetivo foi refatorar a solução original, substituindo **class components** por **hooks**, além de adicionar **tipagem estática** para melhorar a organização, legibilidade e segurança do código.
 
-1. `Load All goods` should load and show all the `goods`;
-1. `Load 5 first goods` should do the next:
-    - load all the goods;
-    - sort them by name;
-    - and show the first 5;
-1. `Load red goods` should load all the goods show only `red` ones;
-1. Server has only 1 endpoint returning all the goods, so you should do all the preparations in corresponding methods in `/api/goods`.
-1. `GoodsList` is almost finished, you just need to use corresponding colors for `li`s;
+A aplicação permite **ordenar produtos de diferentes formas**, **inverter a ordem atual** e **restaurar o estado inicial da lista**.
 
-## Instructions
-- Install Prettier Extention and use this [VSCode settings](https://mate-academy.github.io/fe-program/tools/vscode/settings.json) to enable format on save.
-- Implement a solution following the [React task guideline](https://github.com/mate-academy/react_task-guideline#react-tasks-guideline).
-- Use the [React TypeScript cheat sheet](https://mate-academy.github.io/fe-program/js/extra/react-typescript).
-- Open one more terminal and run tests with `npm test` to ensure your solution is correct.
-- Replace `<your_account>` with your Github username in the [DEMO LINK](https://<your_account>.github.io/react_dynamic-list-of-goods/) and add it to the PR description.
+---
+
+## 🛠️ Tecnologias utilizadas
+
+- React
+- TypeScript
+- CSS
+- Vite
+
+---
+
+## 🚀 O que foi desenvolvido
+
+- Reimplementação de lógica utilizando **Hooks** (`useState`, `useMemo`)
+- Uso de **enum** para definir os tipos de ordenação
+- Ordenação alfabética da lista de produtos
+- Ordenação baseada no tamanho do texto
+- Inversão da ordem atual da lista
+- Restauração da ordem original
+- Controle visual do estado dos botões
+- Tipagem dos dados e estados da aplicação
+- Manutenção das **classes CSS exigidas para testes automatizados**
+- Deploy da aplicação utilizando **GitHub Pages**
+
+---
+
+## 📚 Aprendizados
+
+Com este projeto, pratiquei:
+
+- Uso de **Hooks no React**
+- Tipagem de componentes e estados com **TypeScript**
+- Refatoração de **class components para hooks**
+- Organização de lógica de ordenação
+- Escrita de código mais **seguro, previsível e manutenível**
