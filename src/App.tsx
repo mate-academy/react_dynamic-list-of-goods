@@ -7,24 +7,24 @@ import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const loadAll = async () => {
-    const loadedGoods = await goodsAPI.getAll();
+  const loadWithHandling = async (loadFn: () => Promise<Good[]>) => {
+    try {
+      const loadedGoods = await loadFn();
 
-    setGoods(loadedGoods);
+      setGoods(loadedGoods);
+      setError(null);
+    } catch (err) {
+      setError('Failed to load goods');
+    }
   };
 
-  const loadFirstFive = async () => {
-    const loadedGoods = await goodsAPI.get5First();
+  const loadAll = () => loadWithHandling(goodsAPI.getAll);
 
-    setGoods(loadedGoods);
-  };
+  const loadFirstFive = () => loadWithHandling(goodsAPI.get5First);
 
-  const loadRed = async () => {
-    const loadedGoods = await goodsAPI.getRedGoods();
-
-    setGoods(loadedGoods);
-  };
+  const loadRed = () => loadWithHandling(goodsAPI.getRedGoods);
 
   return (
     <div className="App">
@@ -41,6 +41,8 @@ export const App: React.FC = () => {
       <button type="button" data-cy="red-button" onClick={loadRed}>
         Load red goods
       </button>
+
+      {error && <p>{error}</p>}
 
       <GoodsList goods={goods} />
     </div>
