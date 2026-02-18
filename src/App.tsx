@@ -1,47 +1,48 @@
-// src/App.tsx
-import React, { useState } from 'react';
-import type { Good } from './types/Good';
-import { GoodsList } from './components/GoodsList';
-import { Loader } from './components/Loader';
+import { useState } from 'react';
+import { loadAllGoods, loadFirst5Goods, loadRedGoods } from './api/goods';
+import GoodsList from './GoodsList';
 
-import {
-  getAllGoods,
-  getFirst5GoodsSortedByName,
-  getRedGoods,
-} from './api/goods';
+export default function App() {
+  const [goods, setGoods] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-export const App: React.FC = () => {
-  const [goods, setGoods] = useState<Good[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const load = async (loaderFn: () => Promise<Good[]>) => {
-    setIsLoading(true);
-
+  const run = async loaderFn => {
     try {
+      setError('');
+      setLoading(true);
       const data = await loaderFn();
       setGoods(data);
+    } catch (e) {
+      setError(e?.message || 'Unknown error');
+      setGoods([]);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
   return (
-    <div className="App">
-      <div className="buttons">
-        <button type="button" onClick={() => load(getAllGoods)}>
+    <div style={{ padding: 16 }}>
+      <div
+        style={{ display: 'flex', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}
+      >
+        <button onClick={() => run(loadAllGoods)} disabled={loading}>
           Load All goods
         </button>
 
-        <button type="button" onClick={() => load(getFirst5GoodsSortedByName)}>
+        <button onClick={() => run(loadFirst5Goods)} disabled={loading}>
           Load 5 first goods
         </button>
 
-        <button type="button" onClick={() => load(getRedGoods)}>
+        <button onClick={() => run(loadRedGoods)} disabled={loading}>
           Load red goods
         </button>
       </div>
 
-      {isLoading ? <Loader /> : <GoodsList goods={goods} />}
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'crimson' }}>{error}</p>}
+
+      <GoodsList goods={goods} />
     </div>
   );
-};
+}
