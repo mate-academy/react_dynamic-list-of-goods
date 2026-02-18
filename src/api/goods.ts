@@ -1,16 +1,26 @@
-import { Good } from '../types/Good';
+// src/api/goods.ts
+import type { Good } from '../types/Good';
+import { client } from './client'; // or whatever your project uses for fetch
 
-// eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
-
-export function getAll(): Promise<Good[]> {
-  return fetch(API_URL).then(response => response.json());
+// Server endpoint returns ALL goods
+export function getGoods(): Promise<Good[]> {
+  return client.get<Good[]>('/goods');
 }
 
-export const get5First = () => {
-  return getAll().then(goods => goods); // sort and get the first 5
-};
+export async function getAllGoods(): Promise<Good[]> {
+  return getGoods();
+}
 
-export const getRedGoods = () => {
-  return getAll().then(goods => goods); // get only red
-};
+export async function getFirst5GoodsSortedByName(): Promise<Good[]> {
+  const goods = await getGoods();
+
+  return [...goods]
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .slice(0, 5);
+}
+
+export async function getRedGoods(): Promise<Good[]> {
+  const goods = await getGoods();
+
+  return goods.filter(good => good.color === 'red');
+}
