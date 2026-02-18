@@ -1,27 +1,69 @@
-import React from 'react';
-import './App.scss';
-import { GoodsList } from './GoodsList';
+import React, { useState } from 'react';
+import GoodsList from './GoodsList';
+import { Good } from './types/Good';
+import { loadAllGoods, loadFirst5Goods, loadRedGoods } from './api/goods';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export default function App() {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string>('');
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const run = async (loaderFn: () => Promise<Good[]>) => {
+    try {
+      setError('');
+      setLoading(true);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+      const data = await loaderFn();
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      if (!Array.isArray(data)) {
+        throw new Error('Invalid response: expected an array of goods');
+      }
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      setGoods(data);
+    } catch (e) {
+      setGoods([]);
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App" style={{ padding: 16 }}>
+      <h1>Dynamic list of Goods</h1>
+
+      <div
+        style={{ display: 'flex', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}
+      >
+        <button
+          type="button"
+          onClick={() => run(loadAllGoods)}
+          disabled={loading}
+        >
+          Load All goods
+        </button>
+
+        <button
+          type="button"
+          onClick={() => run(loadFirst5Goods)}
+          disabled={loading}
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          type="button"
+          onClick={() => run(loadRedGoods)}
+          disabled={loading}
+        >
+          Load red goods
+        </button>
+      </div>
+
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'crimson' }}>{error}</p>}
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+}
