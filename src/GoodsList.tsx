@@ -1,31 +1,8 @@
-export default function GoodsList({ goods = [] }) {
-  if (!goods.length) return <p>No goods</p>;
+import React from 'react';
+import { Good } from './types/Good';
 
-  return (
-    <ul style={{ padding: 0, listStyle: 'none', display: 'grid', gap: 8 }}>
-      {goods.map(g => (
-        <li
-          key={g.id ?? `${g.name}-${g.color}`}
-          style={{
-            padding: 12,
-            borderRadius: 10,
-            border: '1px solid #ddd',
-            background: colorToBg(g.color),
-          }}
-        >
-          <div style={{ fontWeight: 600 }}>{g.name}</div>
-          <div style={{ opacity: 0.8 }}>Color: {g.color}</div>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-function colorToBg(color) {
-  const c = String(color || '').toLowerCase();
-
-  // Використовуй саме ті назви кольорів, що у твоїх goods: "red", "green", ...
-  switch (c) {
+function colorToBg(color?: string): string {
+  switch ((color ?? '').toLowerCase()) {
     case 'red':
       return 'rgba(255, 0, 0, 0.12)';
     case 'green':
@@ -40,3 +17,41 @@ function colorToBg(color) {
       return 'rgba(0, 0, 0, 0.04)';
   }
 }
+
+type GoodsListProps = {
+  goods: Good[];
+};
+
+type GoodItemProps = {
+  good: Good;
+};
+
+const GoodItem = React.memo(({ good }: GoodItemProps) => (
+  <li
+    style={{
+      padding: 12,
+      borderRadius: 10,
+      border: '1px solid #ddd',
+      background: colorToBg(good.color),
+    }}
+  >
+    <div style={{ fontWeight: 600 }}>{good.name}</div>
+    <div style={{ opacity: 0.8 }}>Color: {good.color}</div>
+  </li>
+));
+
+function GoodsListComponent({ goods }: GoodsListProps) {
+  if (!goods.length) {
+    return <p>No goods</p>;
+  }
+
+  return (
+    <ul style={{ padding: 0, listStyle: 'none', display: 'grid', gap: 8 }}>
+      {goods.map(good => (
+        <GoodItem key={good.id} good={good} />
+      ))}
+    </ul>
+  );
+}
+
+export default React.memo(GoodsListComponent);
