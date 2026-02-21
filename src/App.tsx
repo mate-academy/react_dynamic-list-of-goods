@@ -1,27 +1,66 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
+import { getAll, get5First, getRed } from './api/goods';
+import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [hasError, setHasError] = useState(false);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  useEffect(() => {
+    getAll()
+      .then(setGoods)
+      .catch(() => setHasError(true));
+  }, []);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  function loadAll() {
+    setHasError(false);
+    getAll()
+      .then(setGoods)
+      .catch(() => setHasError(true));
+  }
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const loadFirstFive = () => {
+    setHasError(false);
+    get5First()
+      .then(setGoods)
+      .catch(() => setHasError(true));
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const loadRed = () => {
+    setHasError(false);
+    getRed()
+      .then(setGoods)
+      .catch(() => setHasError(true));
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={loadAll}>
+        Load all goods
+      </button>
+
+      <button type="button" data-cy="first-five-button" onClick={loadFirstFive}>
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={loadRed}>
+        Load red goods
+      </button>
+
+      {hasError && (
+        <p data-cy="error-message" style={{ color: 'red' }}>
+          Something went wrong!
+        </p>
+      )}
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
