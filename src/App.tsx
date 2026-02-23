@@ -28,7 +28,12 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          get5First().then(goodsNew => setGoods(goodsNew));
+          get5First()
+            .then(goodsNew => setGoods(goodsNew))
+            .catch(error => {
+              // eslint-disable-next-line no-console
+              console.error(error);
+            });
         }}
       >
         Load 5 first goods
