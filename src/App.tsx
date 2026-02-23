@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
@@ -18,7 +19,11 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          getAll().then(goodsNew => setGoods(goodsNew));
+          getAll()
+            .then(goodsNew => setGoods(goodsNew))
+            .catch(error => {
+              console.error(error);
+            });
         }}
       >
         Load all goods
@@ -31,7 +36,6 @@ export const App: React.FC = () => {
           get5First()
             .then(goodsNew => setGoods(goodsNew))
             .catch(error => {
-              // eslint-disable-next-line no-console
               console.error(error);
             });
         }}
@@ -43,7 +47,11 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          getRedGoods().then(goodsNew => setGoods(goodsNew));
+          getRedGoods()
+            .then(goodsNew => setGoods(goodsNew))
+            .catch(error => {
+              console.error(error);
+            });
         }}
       >
         Load red goods
