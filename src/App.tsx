@@ -1,27 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import { GoodsList } from './components/goods-list/GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods, GetGoodsFunction } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[] | null>(null);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isError, setIsError] = useState(false);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const fetchGoods = (callback: GetGoodsFunction) => {
+    callback()
+      .then(goodsFromServer => {
+        setGoods(goodsFromServer);
+        setIsError(false);
+      })
+      .catch(() => {
+        setIsError(true);
+        setErrorMessage('Do not successfully fetch goods');
+      });
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => fetchGoods(getAll)}
+      >
+        Load all goods
+      </button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => fetchGoods(get5First)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => fetchGoods(getRedGoods)}
+      >
+        Load red goods
+      </button>
+
+      {isError ? (
+        <div className="error-message">
+          <p>{errorMessage}</p>
+        </div>
+      ) : (
+        <GoodsList goods={goods} />
+      )}
+    </div>
+  );
+};
