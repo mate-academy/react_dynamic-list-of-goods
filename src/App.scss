@@ -1,1 +1,23 @@
 // styles go here
+.goods-list {
+  list-style: none;
+  padding: 0;
+}
+
+.goods__item {
+  padding: 0;
+  font-weight: 300;
+
+
+  &--red {
+    color: red;
+  }
+
+  &--green {
+    color: green;
+  }
+
+  &--blue {
+    color: blue;
+  }
+}
