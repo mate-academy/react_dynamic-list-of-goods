@@ -8,21 +8,36 @@ export const App: React.FC = () => {
   const [storedGoods, setStoredGoods] = React.useState<Good[]>([]);
 
   const handleAllGoods = () => {
-    getAll().then(goods => {
-      setStoredGoods(goods);
-    });
+    getAll()
+      .then(goods => {
+        setStoredGoods(goods);
+      })
+      .catch(() => {
+        // eslint-disable-next-line no-console
+        console.warn('Error fetching goods');
+      });
   };
 
   const handleFirstFiveGoods = () => {
-    get5First().then(goods => {
-      setStoredGoods(goods);
-    });
+    get5First()
+      .then(goods => {
+        setStoredGoods(goods);
+      })
+      .catch(() => {
+        // eslint-disable-next-line no-console
+        console.warn('Error fetching goods');
+      });
   };
 
   const handleAllRedGoods = () => {
-    getRedGoods().then(goods => {
-      setStoredGoods(goods);
-    });
+    getRedGoods()
+      .then(goods => {
+        setStoredGoods(goods);
+      })
+      .catch(() => {
+        // eslint-disable-next-line no-console
+        console.warn('Error fetching goods');
+      });
   };
 
   return (
