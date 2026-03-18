@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Good } from './types/Good';
 
 type Props = {
   goods: Good[];
 };
 
-export const GoodsList: React.FC<Props> = ({ goods }) => (
+const GoodsListBase: React.FC<Props> = ({ goods }) => (
   <ul>
     {goods.map(good => (
       <li
@@ -20,3 +20,5 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
     ))}
   </ul>
 );
+
+export const GoodsList = memo(GoodsListBase);
