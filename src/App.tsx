@@ -9,20 +9,39 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const handleGetAll = async () => {
-    const allGoods = await getAll();
-    setGoods(allGoods);
+    try {
+      const allGoods = await getAll();
+
+      setGoods(allGoods);
+      setError(null);
+    } catch (e) {
+      setError('Failed to fetch goods');
+    }
   };
 
   const handleGet5First = async () => {
-    const first5Goods = await get5First();
-    setGoods(first5Goods);
+    try {
+      const first5Goods = await get5First();
+
+      setGoods(first5Goods);
+      setError(null);
+    } catch (e) {
+      setError('Failed to get 5 first goods');
+    }
   };
 
   const handleGetRedGoods = async () => {
-    const redGoods = await getRedGoods();
-    setGoods(redGoods);
+    try {
+      const redGoods = await getRedGoods();
+
+      setGoods(redGoods);
+      setError(null);
+    } catch (e) {
+      setError('Failed to get red goods');
+    }
   };
 
   return (
@@ -44,6 +63,8 @@ export const App: React.FC = () => {
       <button type="button" data-cy="red-button" onClick={handleGetRedGoods}>
         Load red goods
       </button>
+
+      {error && <div className="error">{error}</div>}
 
       <GoodsList goods={goods} />
     </div>
