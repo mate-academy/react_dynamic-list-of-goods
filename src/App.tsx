@@ -18,9 +18,13 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={async () => {
-          const data = await getAll();
+          try {
+            const data = await getAll();
 
-          setArrayGoods(data);
+            setArrayGoods(data);
+          } catch (e) {
+            return;
+          }
         }}
       >
         Load all goods
@@ -30,9 +34,13 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={async () => {
-          const data = await get5First();
+          try {
+            const data = await get5First();
 
-          setArrayGoods(data);
+            setArrayGoods(data);
+          } catch (e) {
+            return;
+          }
         }}
       >
         Load 5 first goods
@@ -42,9 +50,13 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={async () => {
-          const data = await getRedGoods();
+          try {
+            const data = await getRedGoods();
 
-          setArrayGoods(data);
+            setArrayGoods(data);
+          } catch (e) {
+            return;
+          }
         }}
       >
         Load red goods

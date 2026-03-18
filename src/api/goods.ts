@@ -10,7 +10,14 @@ function sortedArr(arr: Good[]) {
 }
 
 export function getAll(): Promise<Good[]> {
-  return fetch(API_URL).then(response => response.json().then(data => data));
+  // return fetch(API_URL).then(response => response.json().then(data => data));
+  return fetch(API_URL).then(response => {
+    if (response.ok) {
+      return response.json().then(data => data);
+    }
+
+    throw new Error();
+  });
 }
 
 export const get5First = () => {
