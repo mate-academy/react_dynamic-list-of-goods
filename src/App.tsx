@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
@@ -20,7 +21,7 @@ export const App: React.FC = () => {
           getAll()
             .then(setGoods)
             .catch(error => {
-              throw new Error('Error fetching goods:', error);
+              console.error(error);
             })
         }
       >
@@ -34,7 +35,7 @@ export const App: React.FC = () => {
           get5First()
             .then(setGoods)
             .catch(error => {
-              throw new Error('Error fetching 5 first goods:', error);
+              console.error(error);
             })
         }
       >
@@ -48,7 +49,7 @@ export const App: React.FC = () => {
           getRedGoods()
             .then(setGoods)
             .catch(error => {
-              throw new Error('Error fetching red goods:', error);
+              console.error(error);
             })
         }
       >
