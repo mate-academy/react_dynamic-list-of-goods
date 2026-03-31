@@ -7,12 +7,13 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goodsList, setGoodsList] = useState<Good[]>([]);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState<null | string>(null);
 
   const handleAllGoodList = () =>
     goodsAPI
       .getAll()
       .then(setGoodsList)
+      .finally(setErrorMessage(null))
       .catch(err => setErrorMessage(err.message || 'Something went wrong'));
 
   const handleFirstFiveGoodList = () =>
