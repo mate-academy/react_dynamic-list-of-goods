@@ -45,7 +45,7 @@ export const App: React.FC = () => {
           Load red goods
         </button>
 
-        <GoodsList goods={[...goodsFromServer]} />
+        <GoodsList goods={goodsFromServer} />
       </div>
     </>
   );
