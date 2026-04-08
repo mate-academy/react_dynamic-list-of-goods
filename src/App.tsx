@@ -1,27 +1,97 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
+import { GoodsList } from './components/GoodsList';
+import { Loader } from './components/Loader';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+const getData = (filter: GoodsFilter) => {
+  switch (filter) {
+    case 'all':
+      return getAll();
+    case 'first-five':
+      return get5First();
+    case 'red':
+      return getRedGoods();
+  }
+};
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+type GoodsFilter = 'all' | 'first-five' | 'red';
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [goodsFilter, setGoodsFilter] = useState<GoodsFilter | null>(null);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const [isFirstRender, setIsFirstRender] = useState(true);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const filterGoods = (filter: GoodsFilter) => {
+    setGoodsFilter(filter);
+  };
+
+  useEffect(() => {
+    if (goodsFilter !== null) {
+      setIsFirstRender(false);
+      setIsLoading(true);
+      setErrorMessage('');
+      getData(goodsFilter)
+        .then(setGoods)
+        .catch(error => setErrorMessage(error.message))
+        .finally(() => setIsLoading(false));
+    }
+  }, [goodsFilter]);
+
+  return (
+    <div className="App container box">
+      <h1 className="title is-1">Dynamic list of Goods</h1>
+
+      <div className="buttons">
+        <button
+          className="button is-info"
+          onClick={() => filterGoods('all')}
+          type="button"
+          data-cy="all-button"
+        >
+          Load all goods
+        </button>
+
+        <button
+          className="button is-success"
+          onClick={() => filterGoods('first-five')}
+          type="button"
+          data-cy="first-five-button"
+        >
+          Load 5 first goods
+        </button>
+
+        <button
+          className="button is-danger"
+          onClick={() => filterGoods('red')}
+          type="button"
+          data-cy="red-button"
+        >
+          Load red goods
+        </button>
+      </div>
+
+      {isLoading && <Loader />}
+
+      {!isLoading && errorMessage && (
+        <div className="notification is-danger">{errorMessage}</div>
+      )}
+
+      {!isLoading && !errorMessage && !isFirstRender && goods.length === 0 && (
+        <div className="notification is-danger is-light">
+          There is no goods to show.
+        </div>
+      )}
+
+      {!isLoading && !errorMessage && goods.length > 0 && (
+        <GoodsList goods={goods} />
+      )}
+    </div>
+  );
+};

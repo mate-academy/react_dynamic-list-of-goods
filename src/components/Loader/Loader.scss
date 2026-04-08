@@ -1,0 +1,5 @@
+@use "bulma/sass/utilities/mixins";
+
+.Loader {
+  @include mixins.loader;
+}
