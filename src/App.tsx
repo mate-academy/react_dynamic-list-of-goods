@@ -1,27 +1,90 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const loadAll = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getAll();
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+      setGoods(data);
+    } catch (problem) {
+      setError((problem as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const loadFirstFive = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await get5First();
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      setGoods(data);
+    } catch (problem) {
+      setError((problem as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const loadRed = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getRedGoods();
+
+      setGoods(data);
+    } catch (problem) {
+      setError((problem as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        onClick={loadAll}
+        disabled={loading}
+        type="button"
+        data-cy="all-button"
+      >
+        Load all goods
+      </button>
+
+      <button
+        onClick={loadFirstFive}
+        disabled={loading}
+        type="button"
+        data-cy="first-five-button"
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        onClick={loadRed}
+        disabled={loading}
+        type="button"
+        data-cy="red-button"
+      >
+        Load red goods
+      </button>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
