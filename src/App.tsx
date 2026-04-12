@@ -1,4 +1,3 @@
-import React from 'react';
 import { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
@@ -10,17 +9,45 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [errorLoading, setErrorLoading] = useState<Error | null>(null);
 
   const showGoods = (): void => {
-    getAll().then(data => setGoods(data));
+    setErrorLoading(null);
+    getAll()
+      .then(data => {
+        if (JSON.stringify(data) !== JSON.stringify(goods)) {
+          setGoods(data);
+        }
+      })
+      .catch(error => {
+        setErrorLoading(error);
+      });
   };
 
   const show5First = (): void => {
-    get5First().then(data => setGoods(data));
+    setErrorLoading(null);
+    get5First()
+      .then(data => {
+        if (JSON.stringify(data) !== JSON.stringify(goods)) {
+          setGoods(data);
+        }
+      })
+      .catch(error => {
+        setErrorLoading(error);
+      });
   };
 
   const showRed = (): void => {
-    getRedGoods().then(data => setGoods(data));
+    setErrorLoading(null);
+    getRedGoods()
+      .then(data => {
+        if (JSON.stringify(data) !== JSON.stringify(goods)) {
+          setGoods(data);
+        }
+      })
+      .catch(error => {
+        setErrorLoading(error);
+      });
   };
 
   return (
@@ -38,8 +65,11 @@ export const App: React.FC = () => {
       <button type="button" data-cy="red-button" onClick={showRed}>
         Load red goods
       </button>
-
-      <GoodsList goods={goods} />
+      {errorLoading ? (
+        <p>{errorLoading.message}</p>
+      ) : (
+        <GoodsList goods={goods} />
+      )}
     </div>
   );
 };
