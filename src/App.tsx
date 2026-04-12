@@ -1,27 +1,75 @@
-import React from 'react';
+import { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import type { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [errorLoading, setErrorLoading] = useState<Error | null>(null);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const showGoods = (): void => {
+    setErrorLoading(null);
+    getAll()
+      .then(data => {
+        if (JSON.stringify(data) !== JSON.stringify(goods)) {
+          setGoods(data);
+        }
+      })
+      .catch(error => {
+        setErrorLoading(error);
+      });
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const show5First = (): void => {
+    setErrorLoading(null);
+    get5First()
+      .then(data => {
+        if (JSON.stringify(data) !== JSON.stringify(goods)) {
+          setGoods(data);
+        }
+      })
+      .catch(error => {
+        setErrorLoading(error);
+      });
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const showRed = (): void => {
+    setErrorLoading(null);
+    getRedGoods()
+      .then(data => {
+        if (JSON.stringify(data) !== JSON.stringify(goods)) {
+          setGoods(data);
+        }
+      })
+      .catch(error => {
+        setErrorLoading(error);
+      });
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={showGoods}>
+        Load all goods
+      </button>
+
+      <button type="button" data-cy="first-five-button" onClick={show5First}>
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={showRed}>
+        Load red goods
+      </button>
+      {errorLoading ? (
+        <p>{errorLoading.message}</p>
+      ) : (
+        <GoodsList goods={goods} />
+      )}
+    </div>
+  );
+};
