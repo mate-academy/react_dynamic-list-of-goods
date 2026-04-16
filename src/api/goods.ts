@@ -1,16 +1,28 @@
 import { Good } from '../types/Good';
 
-// eslint-disable-next-line
-const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
+export const getAll = async (): Promise<Good[]> => {
+  try {
+    const response = await fetch(
+      '/react_dynamic-list-of-goods/goods.json'
+    );
 
-export function getAll(): Promise<Good[]> {
-  return fetch(API_URL).then(response => response.json());
-}
+    if (!response.ok) {
+      throw new Error('Failed to load goods');
+    }
 
-export const get5First = () => {
-  return getAll().then(goods => goods); // sort and get the first 5
+    return await response.json();
+  } catch (error) {
+    throw error;
+  }
+};
+export const get5First = async (): Promise<Good[]> => {
+  const goods = await getAll();
+
+  return [...goods].sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5);
 };
 
-export const getRedGoods = () => {
-  return getAll().then(goods => goods); // get only red
+export const getRed = async (): Promise<Good[]> => {
+  const goods = await getAll();
+
+  return goods.filter(g => g.color === 'red');
 };
