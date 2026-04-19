@@ -1,27 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [isLoading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const loadWithDelay = async (callback: () => Promise<Good[]>) => {
+    setLoading(true);
+    setError(null);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    try {
+      const [res] = await Promise.all([callback(), delay(500)]);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      setGoods(res);
+    } catch (e) {
+      setError((e as Error).message || String(e));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => loadWithDelay(getAll)}
+        disabled={isLoading}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => loadWithDelay(get5First)}
+        disabled={isLoading}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => loadWithDelay(getRedGoods)}
+        disabled={isLoading}
+      >
+        Load red goods
+      </button>
+
+      {isLoading && <div>Loading...</div>}
+      {error && <div>{error}</div>}
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
