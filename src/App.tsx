@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -9,8 +9,8 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
-  const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setLoading] = useState(false);
 
   const loadWithDelay = async (callback: () => Promise<Good[]>) => {
     setLoading(true);
@@ -27,6 +27,18 @@ export const App: React.FC = () => {
     }
   };
 
+  const loadAllHandler = useCallback(() => {
+    loadWithDelay(getAll);
+  }, []);
+
+  const load5FirstHandler = useCallback(() => {
+    loadWithDelay(get5First);
+  }, []);
+
+  const loadRedHandler = useCallback(() => {
+    loadWithDelay(getRedGoods);
+  }, []);
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -34,7 +46,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => loadWithDelay(getAll)}
+        onClick={loadAllHandler}
         disabled={isLoading}
       >
         Load all goods
@@ -43,7 +55,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => loadWithDelay(get5First)}
+        onClick={load5FirstHandler}
         disabled={isLoading}
       >
         Load 5 first goods
@@ -52,7 +64,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => loadWithDelay(getRedGoods)}
+        onClick={loadRedHandler}
         disabled={isLoading}
       >
         Load red goods
