@@ -1,27 +1,78 @@
 import React from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
+import { get5First, getAll, getRedGoods } from './api/goods';
 
 // import { getAll, get5First, getRed } from './api/goods';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = React.useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const [error, setError] = React.useState<string | null>(null);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const handleLoadAll = React.useCallback(() => {
+    setError(null);
+    getAll()
+      .then(setGoods)
+      .catch(err => {
+        setGoods([]);
+        setError(err.message || 'Failed to load goods');
+      });
+  }, []);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const handleLoad5First = React.useCallback(() => {
+    setError(null);
+    get5First()
+      .then(setGoods)
+      .catch(err => {
+        setGoods([]);
+        setError(err.message || 'Failed to load goods');
+      });
+  }, []);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const handleLoadRed = React.useCallback(() => {
+    setError(null);
+    getRedGoods()
+      .then(setGoods)
+      .catch(err => {
+        setGoods([]);
+        setError(err.message || 'Failed to load goods');
+      });
+  }, []);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={handleLoadAll}>
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleLoad5First}
+      >
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={handleLoadRed}>
+        Load red goods
+      </button>
+
+      {error && (
+        <div
+          className="App__error"
+          style={{ color: 'red', margin: '1em 0' }}
+          data-cy="error-message"
+        >
+          {error}
+        </div>
+      )}
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
