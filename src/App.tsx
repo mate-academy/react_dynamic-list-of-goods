@@ -1,27 +1,63 @@
-import React from 'react';
+import { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App = () => {
+  const [state, setState] = useState<Good[]>([]);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleLoadAll = () => {
+    getAll()
+      .then(data => {
+        setState(data);
+      })
+      .catch(() => {});
+  };
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleLoadFirst = () => {
+    get5First()
+      .then(data => setState(data))
+      .catch(() => {});
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const handleLoadRed = () => {
+    getRedGoods().then(data => setState(data));
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  /*for myself, so that I understand that there is a second way
+  const handleLoadFirst = () => {
+    getAll().then(data => {
+      const copyData = [...data];
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      setState(
+        copyData.sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
+      );
+    });
+  };
+  */
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={handleLoadAll}>
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleLoadFirst}
+      >
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={handleLoadRed}>
+        Load red goods
+      </button>
+
+      <GoodsList goods={state} />
+    </div>
+  );
+};
