@@ -9,10 +9,10 @@ export function getAll(): Promise<Good[]> {
       if (!response.ok) {
         throw new Error(`Failed to fetch goods: ${response.statusText}`);
       }
+
       return response.json();
     });
   } catch (error) {
-    console.error(error);
     return Promise.reject(error);
   }
 }
@@ -24,7 +24,6 @@ export const get5First = () => {
     try {
       return sortedGoods.slice(0, 5);
     } catch (error) {
-      console.error(error);
       return Promise.reject(error);
     }
   }); // sort and get the first 5
@@ -35,7 +34,6 @@ export const getRedGoods = () => {
     try {
       return goods.filter(good => good.color === 'red');
     } catch (error) {
-      console.error(error);
       return Promise.reject(error);
     }
   }); // get only red
