@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
@@ -6,17 +6,29 @@ import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [hasError, setHasError] = useState(false);
+
+  const loadGoods = useCallback((request: () => Promise<Good[]>) => {
+    setHasError(false);
+
+    request()
+      .then(setGoods)
+      .catch(() => {
+        setGoods([]);
+        setHasError(true);
+      });
+  }, []);
 
   const handleLoadAll = () => {
-    goodsAPI.getAll().then(setGoods);
+    loadGoods(goodsAPI.getAll);
   };
 
   const handleLoadFirstFive = () => {
-    goodsAPI.get5First().then(setGoods);
+    loadGoods(goodsAPI.get5First);
   };
 
   const handleLoadRed = () => {
-    goodsAPI.getRedGoods().then(setGoods);
+    loadGoods(goodsAPI.getRedGoods);
   };
 
   return (
@@ -38,6 +50,8 @@ export const App: React.FC = () => {
       <button type="button" data-cy="red-button" onClick={handleLoadRed}>
         Load red goods
       </button>
+
+      {hasError && <p data-cy="error">Something went wrong</p>}
 
       <GoodsList goods={goods} />
     </div>
