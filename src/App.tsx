@@ -1,27 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-
-// import { getAll, get5First, getRed } from './api/goods';
+import { Good } from './types/Good';
+import { getAll, get5First, getRedGoods } from './api/goods';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [all, setAll] = useState<boolean>(false);
+  const [fiveFirst, setFiveFirst] = useState<boolean>(false);
+  const [redAll, setRedAll] = useState<boolean>(false);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const loadAllGoods = () => {
+    if (!all) {
+      setAll(true);
+      setFiveFirst(false);
+      setRedAll(false);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      return getAll()
+        .then(setGoods)
+        .catch(error => error);
+    }
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    return;
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const load5First = () => {
+    if (!fiveFirst) {
+      setAll(false);
+      setFiveFirst(true);
+      setRedAll(false);
+
+      return get5First()
+        .then(setGoods)
+        .catch(error => error);
+    }
+
+    return;
+  };
+
+  const loadRedGoods = () => {
+    if (!redAll) {
+      setAll(false);
+      setFiveFirst(false);
+      setRedAll(true);
+
+      return getRedGoods()
+        .then(setGoods)
+        .catch(error => error);
+    }
+
+    return;
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" onClick={loadAllGoods} data-cy="all-button">
+        Load all goods
+      </button>
+
+      <button type="button" onClick={load5First} data-cy="first-five-button">
+        Load 5 first goods
+      </button>
+
+      <button type="button" onClick={loadRedGoods} data-cy="red-button">
+        Load red goods
+      </button>
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
