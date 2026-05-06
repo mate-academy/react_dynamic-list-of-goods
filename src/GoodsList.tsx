@@ -1,14 +1,18 @@
 import React from 'react';
 import { Good } from './types/Good';
 
-type Props = {
+interface Props {
   goods: Good[];
-};
+}
 
 export const GoodsList: React.FC<Props> = ({ goods }) => (
-  <ul>
+  <ul className="GoodsList" data-cy="goods-list">
     {goods.map(good => (
-      <li key={good.id} data-cy="good">
+      <li
+        key={good.id}
+        data-cy="good" // КРИТИЧНО: додаємо цей атрибут сюди
+        style={{ color: good.color }}
+      >
         {good.name}
       </li>
     ))}
