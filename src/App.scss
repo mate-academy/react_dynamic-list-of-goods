@@ -1,1 +1,26 @@
-// styles go here
+.App {
+  padding: 20px;
+  font-family: sans-serif;
+
+  h1 {
+    margin-bottom: 16px;
+  }
+
+  button {
+    margin-right: 8px;
+    margin-bottom: 16px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+}
