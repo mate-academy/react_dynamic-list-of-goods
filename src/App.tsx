@@ -7,22 +7,35 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [messageError, setMessageError] = useState('');
 
   const loadAllGoods = () => {
-    getAll().then(data => setGoods(data));
+    getAll()
+      .then(data => setGoods(data))
+      .catch(() => setMessageError('Failed to load'));
   };
 
   const loadFirst = () => {
-    get5First().then(data => setGoods(data));
+    get5First()
+      .then(data => setGoods(data))
+      .catch(() => setMessageError('Failde to load first 5'));
   };
 
   const loadRed = () => {
-    getRedGoods().then(data => setGoods(data));
+    getRedGoods()
+      .then(data => setGoods(data))
+      .catch(() => setMessageError('Failed to red items'));
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
+
+      {messageError && (
+        <p className="error" style={{ color: 'red' }}>
+          {messageError}
+        </p>
+      )}
 
       <button type="button" data-cy="all-button" onClick={loadAllGoods}>
         Load all goods
