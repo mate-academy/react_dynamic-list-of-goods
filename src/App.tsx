@@ -11,35 +11,42 @@ import { Good } from '../src/types/Good';
 export const App: React.FC = () => {
   const [listOfGoods, setListOfGoods] = useState<Good[]>([]);
 
-  const allGoods = () => {
-    getAll().then(setListOfGoods);
-  };
+  const goodsGetter = async (type: () => Promise<Good[]>) => {
+    try {
+      const goods = await type();
 
-  const firstFiveGoods = () => {
-    get5First().then(setListOfGoods);
-  };
-
-  const redGoods = () => {
-    getRedGoods().then(setListOfGoods);
+      setListOfGoods(goods);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
   };
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
-      <button type="button" data-cy="all-button" onClick={allGoods}>
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => goodsGetter(getAll)}
+      >
         Load all goods
       </button>
 
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={firstFiveGoods}
+        onClick={() => goodsGetter(get5First)}
       >
         Load 5 first goods
       </button>
 
-      <button type="button" data-cy="red-button" onClick={redGoods}>
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => goodsGetter(getRedGoods)}
+      >
         Load red goods
       </button>
 
