@@ -30,7 +30,9 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => getRedGoods().then(goodColor => setGood(goodColor))}
+        onClick={() =>
+          getRedGoods().then(goodColorRed => setGood(goodColorRed))
+        }
       >
         Load red goods
       </button>
