@@ -16,3 +16,11 @@ export const get5First = () => {
 export const getRedGoods = () => {
   return getAll().then(goods => goods.filter(good => good.color === 'red'));
 };
+
+fetch('api/goods').then(response => {
+  if (!response.ok) {
+    throw new Error('error');
+  }
+
+  return response.json();
+});
