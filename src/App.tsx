@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState,memo } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
 
-export const App: React.FC = () => {
+const AppMemo: React.FC = () => {
   const [good, setGood] = useState(null);
+
+  fetch('api/goods').then(response => {
+    if (!response.ok) {
+      throw new Error('error');
+    }
+
+    return response.json();
+  });
 
   return (
     <div className="App">
@@ -41,3 +49,5 @@ export const App: React.FC = () => {
     </div>
   );
 };
+
+export const App = memo(AppMemo);
