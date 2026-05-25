@@ -1,27 +1,71 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import { GoodListComponent } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleClick = (clickType: string) => {
+    switch (clickType) {
+      case 'all':
+        return getAll()
+          .then(data => {
+            setGoods(data);
+          })
+          .catch(e => e);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      case 'five':
+        return get5First()
+          .then(data => {
+            setGoods(data);
+          })
+          .catch(e => e);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      case 'red':
+        return getRedGoods()
+          .then(data => {
+            setGoods(data);
+          })
+          .catch(e => e);
+    }
 
-    <GoodsList goods={[]} />
-  </div>
-);
+    return;
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => handleClick('all')}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => handleClick('five')}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => handleClick('red')}
+      >
+        Load red goods
+      </button>
+
+      <GoodListComponent goods={goods} />
+    </div>
+  );
+};
