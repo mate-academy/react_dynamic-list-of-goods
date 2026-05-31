@@ -1,5 +1,6 @@
-1. [CODE KNOWLEDGE] - Make sure that you add some rendering optimization techniques (`React.memo` and so on.)
-2. [CODE KNOWLEDGE] - When you rendering a list, don't forget to add `key` prop
+1.[CODE KNOWLEDGE] - Make sure that you add some rendering optimization techniques (`React.memo` and so on.)
+
+2.[CODE KNOWLEDGE] - When you rendering a list, don't forget to add `key` prop
 
 BAD EXAMPLE:
 ```jsx
