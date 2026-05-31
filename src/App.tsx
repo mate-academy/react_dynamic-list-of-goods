@@ -1,23 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
 import { getAll, get5First, getRed } from './api/goods';
 import { Good } from './types/Good';
 
-export const App: React.FC = () => {
+export const App: React.FC = memo(() => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const addAllGoods = () => {
-    getAll().then(setGoods);
+    getAll()
+      .then(setGoods)
+      .catch(() => {});
   };
 
   const addFiveFirstGoods = () => {
-    get5First().then(setGoods);
+    get5First()
+      .then(setGoods)
+      .catch(() => {});
   };
 
   const addRedGoods = () => {
-    getRed().then(setGoods);
+    getRed()
+      .then(setGoods)
+      .catch(() => {});
   };
 
   return (
@@ -43,4 +49,6 @@ export const App: React.FC = () => {
       <GoodsList goods={goods} />
     </div>
   );
-};
+});
+
+App.displayName = 'App';
