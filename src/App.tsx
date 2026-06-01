@@ -1,27 +1,46 @@
-import React from 'react';
-import './App.scss';
+import React, { useState } from 'react';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import { getAllGoods, get5FirstGoods, getRedGoods } from './api/goods';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
+import { Tabs } from './Tabs'; // імпортуй свій Tabs
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleLoadAll = async () => {
+    setGoods(await getAllGoods());
+  };
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleLoad5First = async () => {
+    setGoods(await get5FirstGoods());
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const handleLoadRed = async () => {
+    setGoods(await getRedGoods());
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  return (
+    <HashRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="App">
+              <h1>Dynamic Goods List</h1>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+              <button onClick={handleLoadAll}>Load All goods</button>
+              <button onClick={handleLoad5First}>Load 5 first goods</button>
+              <button onClick={handleLoadRed}>Load red goods</button>
+
+              <GoodsList goods={goods} />
+            </div>
+          }
+        />
+
+        <Route path="/tabs" element={<Tabs />} />
+        <Route path="/tabs/:tabId" element={<Tabs />} />
+      </Routes>
+    </HashRouter>
+  );
+};
