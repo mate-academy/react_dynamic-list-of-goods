@@ -1,27 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import * as goodsAPI from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  // Стан для збереження тексту помилки
+  const [errorMessage, setErrorMessage] = useState('');
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  // Створюємо універсальну функцію для завантаження, щоб не дублювати код
+  const loadData = (fetchMethod: () => Promise<Good[]>) => {
+    setErrorMessage(''); // Очищаємо попередню помилку перед новим запитом
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+    fetchMethod()
+      .then(setGoods)
+      .catch(() => {
+        // Якщо сталася помилка, записуємо її в стан
+        setErrorMessage('Упс! Не вдалося завантажити товари.');
+      });
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      {/* Відображаємо помилку, якщо вона є */}
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => loadData(goodsAPI.getAll)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => loadData(goodsAPI.get5First)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => loadData(goodsAPI.getRedGoods)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
