@@ -5,7 +5,8 @@ interface Props {
   goods: Good[];
 }
 
-export const GoodsList: React.FC<Props> = ({ goods }) => (
+// Обгортаємо компонент у React.memo
+export const GoodsList: React.FC<Props> = React.memo(({ goods }) => (
   <ul>
     {goods.map(good => (
       <li key={good.id} style={{ color: good.color }} data-cy="good">
@@ -13,4 +14,5 @@ export const GoodsList: React.FC<Props> = ({ goods }) => (
       </li>
     ))}
   </ul>
-);
+));
+GoodsList.displayName = 'GoodsList';
