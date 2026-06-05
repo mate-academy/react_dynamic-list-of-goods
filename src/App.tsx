@@ -8,21 +8,36 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const loadAll = () => {
-    getAll().then(data => {
-      setGoods(data);
-    });
+    getAll()
+      .then(data => {
+        setGoods(data);
+      })
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Error of loading:', error);
+      });
   };
 
   const loadFirstFive = () => {
-    get5First().then(data => {
-      setGoods(data);
-    });
+    get5First()
+      .then(data => {
+        setGoods(data);
+      })
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Error of loading:', error);
+      });
   };
 
   const loadRedGoods = () => {
-    getRedGoods().then(data => {
-      setGoods(data);
-    });
+    getRedGoods()
+      .then(data => {
+        setGoods(data);
+      })
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Error of loading:', error);
+      });
   };
 
   return (
