@@ -1,27 +1,59 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import GoodsList from './GoodsList';
+import { Good } from './types/Good';
 
+import * as goodsAPI from './api/goods';
+
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [messageError, setMessageError] = useState<null | string>(null);
 // import { getAll, get5First, getRed } from './api/goods';
-// or
+ const loadGoods = async (fetcher: () => Promise<Good[]>) => {
+    try {
+      const data = await fetcher();// or
 // import * as goodsAPI from './api/goods';
+     setGoods(data);
+      setMessageError(null);
+    } catch (err) {
+      setMessageError('Failed to load goods. Please try again.');
+      setGoods([]);
+    }
+ };
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+   return (
+    <div className="App">
+       <h1>Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+       <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => loadGoods(goodsAPI.getAll)}
+      >
+        Load all goods
+      </button>
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => loadGoods(goodsAPI.get5First)}
+      >
+        Load 5 first goods
+      </button>
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => loadGoods(goodsAPI.getRedGoods)}
+      >
+        Load red goods
+       </button>
 
-    <GoodsList goods={[]} />
-  </div>
-);
+       {messageError && (
+        <div style={{ color: 'red', marginTop: '10px' }}>{messageError}</div>
+      )}
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
