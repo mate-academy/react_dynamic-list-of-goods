@@ -22,7 +22,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     allGetters[typeOfGoods]();
-  }, [typeOfGoods]);
+  }, [allGetters, typeOfGoods]);
 
   return (
     <div className="App">
