@@ -9,6 +9,14 @@ import { getAll, get5First, getRed } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState('');
+
+  const handleLoad = (loadFn: () => Promise<Good[]>) => {
+    setError('');
+    loadFn()
+      .then(setGoods)
+      .catch(() => setError('Something went wrong. Please try again.'));
+  };
 
   return (
     <div className="App">
@@ -17,7 +25,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getAll().then(setGoods)}
+        onClick={() => handleLoad(getAll)}
       >
         Load all goods
       </button>
@@ -25,7 +33,7 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => get5First().then(setGoods)}
+        onClick={() => handleLoad(get5First)}
       >
         Load 5 first goods
       </button>
@@ -33,12 +41,13 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => getRed().then(setGoods)}
+        onClick={() => handleLoad(getRed)}
       >
         Load red goods
       </button>
 
       <GoodsList goods={goods} />
+      {error && <p style={{ color: 'red' }}>{error}</p>}
     </div>
   );
 };
