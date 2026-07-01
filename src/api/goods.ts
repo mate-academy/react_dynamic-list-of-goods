@@ -3,13 +3,25 @@ import { Good } from '../types/Good';
 // eslint-disable-next-line
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
+const handleResponse = async (response: Response): Promise<Good[]> => {
+  if (!response.ok) {
+    throw new Error(
+      `Failed to load goods: ${response.status} ${response.statusText}`,
+    );
+  }
+
+  return response.json();
+};
+
 export function getAll(): Promise<Good[]> {
-  return fetch(API_URL).then(response => response.json());
+  return fetch(API_URL).then(handleResponse);
 }
 
 export const get5First = (): Promise<Good[]> => {
   return getAll().then(goods =>
-    [...goods].sort((good1, good2) => good1.name.localeCompare(good2.name)).slice(0, 5),
+    [...goods]
+      .sort((good1, good2) => good1.name.localeCompare(good2.name))
+      .slice(0, 5),
   );
 };
 
