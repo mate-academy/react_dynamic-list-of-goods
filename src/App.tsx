@@ -31,7 +31,7 @@ export function App() {
     try {
       setError(null);
       const goodsFrom = await get5First();
-      
+
       setGoods(goodsFrom);
     } catch (err) {
       // Check if err is a standard Error object to safely read .message
@@ -47,7 +47,7 @@ export function App() {
     try {
       setError(null);
       const goodsFrom = await getRedGoods();
-      
+
       setGoods(goodsFrom);
     } catch (err) {
       // Check if err is a standard Error object to safely read .message
