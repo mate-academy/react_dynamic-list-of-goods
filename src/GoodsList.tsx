@@ -6,16 +6,18 @@ interface Props {
 }
 
 // We pass a named function `function GoodsList(...)` to React.memo
-export const GoodsList: React.FC<Props> = React.memo(
-  function GoodsList({ goods }) {
-    return (
-      <ul>
-        {goods.map(good => (
-          <li key={good.id} data-cy="good" className={`good-item ${good.color}`}>
-            {good.name}
-          </li>
-        ))}
-      </ul>
-    );
-  }
-);
+export const GoodsList: React.FC<Props> = React.memo(function GoodsList({
+  goods,
+
+}) {
+
+  return (
+    <ul>
+      {goods.map(good => (
+        <li key={good.id} data-cy="good" className={`good-item ${good.color}`}>
+          {good.name}
+        </li>
+      ))}
+    </ul>
+  );
+});
