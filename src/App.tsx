@@ -16,8 +16,7 @@ export function App() {
       const goodsFrom = await getAll();
 
       setGoods(goodsFrom);
-    } catch (err) {
-      // 1. Remove the ': any'
+    } catch (err) { // 1. Remove the ': any'
       // 2. Check if the error is a standard JavaScript Error object
       if (err instanceof Error) {
         setError(err.message);
@@ -31,7 +30,7 @@ export function App() {
     try {
       setError(null);
       const goodsFrom = await get5First();
-
+      
       setGoods(goodsFrom);
     } catch (err) {
       // Check if err is a standard Error object to safely read .message
@@ -47,7 +46,7 @@ export function App() {
     try {
       setError(null);
       const goodsFrom = await getRedGoods();
-
+      
       setGoods(goodsFrom);
     } catch (err) {
       // Check if err is a standard Error object to safely read .message
@@ -58,6 +57,7 @@ export function App() {
       }
     }
   }, []);
+  
 
   return (
     <div className="App">
