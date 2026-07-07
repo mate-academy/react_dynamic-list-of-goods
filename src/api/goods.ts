@@ -8,9 +8,15 @@ export function getAll(): Promise<Good[]> {
 }
 
 export const get5First = () => {
-  return getAll().then(goods => goods); // sort and get the first 5
+  return getAll().then(goods => {
+    // створюємо копію масиву та сортуємо за назвою за допомогою localeCompare
+    const sortedGoods = [...goods].sort((a, b) => a.name.localeCompare(b.name));
+
+    // повертаємо лише перші 5 елементів за допомогою slice
+    return sortedGoods.slice(0, 5);
+  });
 };
 
 export const getRedGoods = () => {
-  return getAll().then(goods => goods); // get only red
+  return getAll().then(goods => goods.filter(good => good.color === 'red'));
 };
