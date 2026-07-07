@@ -1,27 +1,44 @@
 import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
-// Імпортуємо наші функції для роботи з API товарів
 import { getAll, get5First, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
 export const App: React.FC = () => {
-  // Початковий стан — порожній масив, запит при старті не робимо
   const [goods, setGoods] = useState<Good[]>([]);
+  // Створюємо стан для зберігання повідомлення про помилку мережі
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Спільна функція для скидання помилки перед новим запитом
+  const startLoading = () => {
+    setErrorMessage(null);
+  };
 
   // Обробник для завантаження всіх товарів
   const handleLoadAll = () => {
-    getAll().then(data => setGoods(data));
+    startLoading();
+    getAll()
+      .then(data => setGoods(data))
+      // Перехоплюємо помилку, якщо запит зазнав невдачі
+      .catch((error: Error) => setErrorMessage(error.message));
   };
 
-  // Обробник для завантаження перших 5 відсортованих товарів
+  // Обробник для завантаження перших 5 товарів
   const handleLoadFirstFive = () => {
-    get5First().then(data => setGoods(data));
+    startLoading();
+    get5First()
+      .then(data => setGoods(data))
+      // Перехоплюємо помилку сортування чи запиту
+      .catch((error: Error) => setErrorMessage(error.message));
   };
 
   // Обробник для завантаження тільки червоних товарів
   const handleLoadRedGoods = () => {
-    getRedGoods().then(data => setGoods(data));
+    startLoading();
+    getRedGoods()
+      .then(data => setGoods(data))
+      // Перехоплюємо помилку фільтрації чи запиту
+      .catch((error: Error) => setErrorMessage(error.message));
   };
 
   return (
@@ -43,6 +60,13 @@ export const App: React.FC = () => {
       <button type="button" data-cy="red-button" onClick={handleLoadRedGoods}>
         Load red goods
       </button>
+
+      {/* Якщо є помилка, виводимо її користувачеві */}
+      {errorMessage && (
+        <p className="error" style={{ color: 'red' }}>
+          {errorMessage}
+        </p>
+      )}
 
       <GoodsList goods={goods} />
     </div>

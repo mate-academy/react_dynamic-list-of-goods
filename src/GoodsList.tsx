@@ -5,14 +5,17 @@ type Props = {
   goods: Good[];
 };
 
-export const GoodsList: React.FC<Props> = ({ goods }) => (
+// Обгортаємо компонент у React.memo для оптимізації рендерингу.
+// Тепер GoodsList перерендериться лише тоді, коли масив goods фактично зміниться.
+export const GoodsList: React.FC<Props> = React.memo(({ goods }) => (
   <ul>
     {goods.map(good => (
-      // Додаємо атрибут style, де динамічно встановлюємо колір тексту li
-      // відповідно до значення властивості good.color (наприклад, 'red', 'blue' тощо)
       <li key={good.id} data-cy="good" style={{ color: good.color }}>
         {good.name}
       </li>
     ))}
   </ul>
-);
+));
+
+// Додаємо displayName для зручного дебагу мемоізованого компонента в React DevTools
+GoodsList.displayName = 'GoodsList';
