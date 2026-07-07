@@ -1,27 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+// Імпортуємо функції з нашої бібліотеки запитів
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  // Стан для відстеження помилок завантаження даних
+  const [hasError, setHasError] = useState<boolean>(false);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  // Допоміжна функція перед початком кожного нового запиту
+  const resetState = () => {
+    setHasError(false);
+  };
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleLoadAll = () => {
+    resetState();
+    getAll()
+      .then(data => setGoods(data))
+      // Додаємо обов'язкову обробку помилок для першої кнопки
+      .catch(() => setHasError(true));
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const handleLoadFirstFive = () => {
+    resetState();
+    get5First()
+      .then(data => setGoods(data))
+      // Додаємо обов'язкову обробку помилок для другої кнопки
+      .catch(() => setHasError(true));
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const handleLoadRedGoods = () => {
+    resetState();
+    getRedGoods()
+      .then(data => setGoods(data))
+      // Додаємо обов'язкову обробку помилок для третьої кнопки
+      .catch(() => setHasError(true));
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={handleLoadAll}>
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleLoadFirstFive}
+      >
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={handleLoadRedGoods}>
+        Load red goods
+      </button>
+
+      {/* Якщо сталася помилка сервера, показуємо безпечне повідомлення користувачу */}
+      {hasError && <p className="error">Something went wrong...</p>}
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
