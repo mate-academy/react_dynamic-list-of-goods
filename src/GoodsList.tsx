@@ -16,3 +16,5 @@ export const GoodsList: React.FC<Props> = React.memo(({ goods }) => {
     </ul>
   );
 });
+
+GoodsList.displayName = 'GoodsList';
