@@ -20,6 +20,8 @@ export const App: React.FC = () => {
     <div className="App">
       <h1>Dynamic list of Goods</h1>
 
+      {errorMessage && <p className="error">{errorMessage}</p>}
+
       <button
         type="button"
         data-cy="all-button"
