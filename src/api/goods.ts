@@ -8,15 +8,14 @@ export function getAll(): Promise<Good[]> {
     if (!response.ok) {
       throw new Error(`Error fetching goods: ${response.statusText}`);
     }
+
     return response.json();
   });
 }
 
 export const get5First = (): Promise<Good[]> => {
   return getAll().then(goods =>
-    [...goods]
-      .sort((a, b) => a.name.localeCompare(b.name))
-      .slice(0, 5)
+    [...goods].sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
   );
 };
 
