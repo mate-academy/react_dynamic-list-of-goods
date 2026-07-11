@@ -1,27 +1,43 @@
-import React from 'react';
+import { useCallback, useState } from 'react';
+import { GoodsButtons } from './GoodsButtons';
+
 import './App.scss';
 import { GoodsList } from './GoodsList';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+import { Good } from './types/Good';
+import { FilterType } from './types/FilterType';
+import { GoodsLoader } from './types/GoodsLoader';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+import * as goodsAPI from './api/goods';
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+const loaders: Record<FilterType, GoodsLoader> = {
+  all: goodsAPI.getAll,
+  first: goodsAPI.get5First,
+  red: goodsAPI.getRedGoods,
+};
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const handleLoadGoods = useCallback(async (filterType: FilterType) => {
+    setError(null);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+    try {
+      setGoods(await loaders[filterType]());
+    } catch {
+      setError('Something went wrong');
+      setGoods([]);
+    }
+  }, []);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <GoodsButtons onLoadGoods={handleLoadGoods} />
+
+      {error ? <p>{error}</p> : <GoodsList goods={goods} />}
+    </div>
+  );
+};
