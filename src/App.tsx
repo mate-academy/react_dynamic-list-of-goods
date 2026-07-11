@@ -1,27 +1,76 @@
-import React from 'react';
+/* eslint-disable no-console */
+/* eslint-disable prettier/prettier */
+import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
+import * as goodsAPI from './api/goods';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const loadAll = async () => {
+    try {
+      const loadedGoods = await goodsAPI.getAll();
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+      setGoods(loadedGoods);
+    } catch (error) {
+      console.error(error);
+      setGoods([]);
+    }
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const loadFirstFive = async () => {
+    try {
+      const loadedGoods = await goodsAPI.get5First();
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+      setGoods(loadedGoods);
+    } catch (error) {
+      console.error(error);
+      setGoods([]);
+    }
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  const loadRedGoods = async () => {
+    try {
+      const loadedGoods = await goodsAPI.getRedGoods();
+
+      setGoods(loadedGoods);
+    } catch (error) {
+      console.error(error);
+      setGoods([]);
+    }
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={loadAll}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={loadFirstFive}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={loadRedGoods}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
