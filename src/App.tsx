@@ -18,7 +18,14 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="all-button"
-        onClick={() => getAll().then(data => setGoods(data))}
+        onClick={() => {
+          getAll()
+            .then(data => setGoods(data))
+            .catch(error => {
+              // eslint-disable-next-line no-console
+              console.error('Failed to load goods:', error);
+            });
+        }}
       >
         Load all goods
       </button>
@@ -26,7 +33,14 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="first-five-button"
-        onClick={() => get5First().then(data => setGoods(data))}
+        onClick={() => {
+          get5First()
+            .then(data => setGoods(data))
+            .catch(error => {
+              // eslint-disable-next-line no-console
+              console.error('Failed to load first 5 goods:', error);
+            });
+        }}
       >
         Load 5 first goods
       </button>
@@ -34,7 +48,14 @@ export const App: React.FC = () => {
       <button
         type="button"
         data-cy="red-button"
-        onClick={() => getRedGoods().then(data => setGoods(data))}
+        onClick={() => {
+          getRedGoods()
+            .then(data => setGoods(data))
+            .catch(error => {
+              // eslint-disable-next-line no-console
+              console.error('Failed to load red goods:', error);
+            });
+        }}
       >
         Load red goods
       </button>
