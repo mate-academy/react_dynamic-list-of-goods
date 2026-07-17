@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
 
  import { getAll, get5First, getRed } from './api/goods';
 
