@@ -26,3 +26,18 @@ export const getRed = () => {
     return redGoods;
   });
 };
+
+export function getAll(): Promise<Good[]> {
+  return fetch(URL)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch goods');
+      }
+      return response.json();
+    })
+    .catch(error => {
+      console.error(error);
+      return [];
+    });
+}
+
