@@ -11,7 +11,7 @@ export const get5First = () => {
     return goods
       .slice()
       .sort((a, b) => a.name.localeCompare(b.name))
-      .slice(0, 3);
+      .slice(0, 5);
   });
 };
 
