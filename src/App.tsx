@@ -11,15 +11,30 @@ export const App: React.FC = () => {
   const [state, getState] = useState<Good[]>([]);
 
   const LikeFirst = () => {
-    getAll().then(getState);
+    getAll()
+      .then(getState)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to load all goods:', error);
+      });
   };
 
   const LikeSecond = () => {
-    get5First().then(getState);
+    get5First()
+      .then(getState)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to load 5 goods:', error);
+      });
   };
 
   const LikeThird = () => {
-    getRedGoods().then(getState);
+    getRedGoods()
+      .then(getState)
+      .catch(error => {
+        // eslint-disable-next-line no-console
+        console.error('Failed to load red goods:', error);
+      });
   };
 
   return (
