@@ -9,33 +9,34 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const loadAll = () => {
-    getAll().then(setGoods)
-  }
+    getAll().then(setGoods);
+  };
 
   const getFiveFirst = () => {
     get5First().then(setGoods);
-  }
+  };
 
   const loadRed = () => {
     getRedGoods().then(setGoods);
-  }
-  
-  
-  return <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  };
 
-    <button type="button" data-cy="all-button" onClick={loadAll}>
-      Load all goods
-    </button>
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
 
-    <button type="button" data-cy="first-five-button" onClick={getFiveFirst}>
-      Load 5 first goods
-    </button>
+      <button type="button" data-cy="all-button" onClick={loadAll}>
+        Load all goods
+      </button>
 
-    <button type="button" data-cy="red-button" onClick={loadRed}>
-      Load red goods
-    </button>
+      <button type="button" data-cy="first-five-button" onClick={getFiveFirst}>
+        Load 5 first goods
+      </button>
 
-    <GoodsList goods={goods} />
-  </div>
+      <button type="button" data-cy="red-button" onClick={loadRed}>
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
 };
