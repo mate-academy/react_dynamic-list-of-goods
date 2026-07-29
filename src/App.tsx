@@ -9,21 +9,30 @@ import { getAll, get5First, getRedGoods } from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
   const loadAllGoods = () => {
-    getAll().then(allgoods => {
-      setGoods(allgoods);
-    });
+    getAll().then(allGoods => {
+      setGoods(allGoods);
+    })
+    .catch(() => {
+  setGoods([]);
+});
   };
 
   const load5FirstGoods = () => {
-    get5First().then(firstgoods => {
-      setGoods(firstgoods);
-    });
+    get5First().then(firstGoods => {
+      setGoods(firstGoods);
+    })
+        .catch(() => {
+  setGoods([]);
+});
   };
 
   const loadRedGoods = () => {
-    getRedGoods().then(redgoods => {
-      setGoods(redgoods);
-    });
+    getRedGoods().then(redGoods => {
+      setGoods(redGoods);
+    })
+        .catch(() => {
+  setGoods([]);
+});
   };
 
   return (
