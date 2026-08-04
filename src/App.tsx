@@ -18,7 +18,14 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          getAll().then(data => setGoods(data));
+          getAll()
+            .then(data => setGoods(data))
+            .catch(error => {
+              // eslint-disable-next-line no-console
+              console.error(error);
+
+              return [];
+            });
         }}
       >
         Load all goods
@@ -28,7 +35,14 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          get5First().then((data: Good[]) => setGoods(data));
+          get5First()
+            .then((data: Good[]) => setGoods(data))
+            .catch(error => {
+              // eslint-disable-next-line no-console
+              console.error(error);
+
+              return [];
+            });
         }}
       >
         Load 5 first goods
@@ -38,7 +52,14 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          getRedGoods().then((data: Good[]) => setGoods(data));
+          getRedGoods()
+            .then((data: Good[]) => setGoods(data))
+            .catch(error => {
+              // eslint-disable-next-line no-console
+              console.error(error);
+
+              return [];
+            });
         }}
       >
         Load red goods
