@@ -3,22 +3,32 @@ import { Good } from '../types/Good';
 // eslint-disable-next-line
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
-export function getAll(): Promise<Good[]> {
-  return fetch(API_URL).then(response => {
-    if (!response.ok) {
-      throw new Error(`Failed to fetch goods: ${response.statusText}`);
-    }
+export async function getAll(): Promise<Good[]> {
+  const response = await fetch(API_URL);
 
-    return response.json();
-  });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch goods: ${response.statusText}`);
+  }
+
+  return response.json();
 }
 
-export const get5First = () => {
-  return getAll().then(goods =>
-    [...goods].sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5),
-  ); // sort and get the first 5
+export const get5First = async (): Promise<Good[]> => {
+  try {
+    const goods = await getAll();
+
+    return [...goods].sort((a, b) => a.name.localeCompare(b.name)).slice(0, 5);
+  } catch (error) {
+    throw new Error('Failed to load 5 first goods');
+  }
 };
 
-export const getRed = () => {
-  return getAll().then(goods => goods.filter(good => good.color === 'red')); // get only red
+export const getRed = async (): Promise<Good[]> => {
+  try {
+    const goods = await getAll();
+
+    return goods.filter(good => good.color === 'red');
+  } catch (error) {
+    throw new Error('Failed to load red goods');
+  }
 };
