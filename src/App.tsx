@@ -1,27 +1,56 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { Good } from './types/Good';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = React.useState<Good[]>([]);
+  const [error, setError] = React.useState<string | null>(null);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleError = useCallback((err: unknown) => {
+    setError(err instanceof Error ? err.message : 'Something went wrong');
+    setGoods([]);
+  }, []);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const loadAll = useCallback(() => {
+    setError(null);
+    getAll().then(setGoods).catch(handleError);
+  }, [handleError]);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const loadFiveFirst = useCallback(() => {
+    setError(null);
+    get5First().then(setGoods).catch(handleError);
+  }, [handleError]);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const loadRed = useCallback(() => {
+    setError(null);
+    getRedGoods().then(setGoods).catch(handleError);
+  }, [handleError]);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={loadAll}>
+        Load all goods
+      </button>
+
+      <button type="button" data-cy="first-five-button" onClick={loadFiveFirst}>
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={loadRed}>
+        Load red goods
+      </button>
+
+      {error && (
+        <p className="error" data-cy="error">
+          {error}
+        </p>
+      )}
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
