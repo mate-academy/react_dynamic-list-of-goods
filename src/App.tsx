@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import GoodsList from './GoodsList';
 import { Good } from './types/Good';
 
 import { getAll, get5First, getRedGoods } from './api/goods';
@@ -11,15 +11,21 @@ export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
   const handleLoadAll = () => {
-    return getAll().then(data => setGoods(data));
+    return getAll()
+      .then(data => setGoods(data))
+      .catch();
   };
 
   const handleLoadFive = () => {
-    return get5First().then(data => setGoods(data));
+    return get5First()
+      .then(data => setGoods(data))
+      .catch();
   };
 
   const handleRedGoods = () => {
-    return getRedGoods().then(data => setGoods(data));
+    return getRedGoods()
+      .then(data => setGoods(data))
+      .catch();
   };
 
   return (
