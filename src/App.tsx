@@ -1,23 +1,43 @@
-import React, { useState } from 'react';
+/* eslint-disable prettier/prettier */
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
-import { getAll, get5First, getRed } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState('');
 
-  const loadAllGoods = () => {
-    getAll().then(setGoods);
-  };
+  const loadAllGoods = useCallback(() => {
+    setError('');
 
-  const loadFirstFiveGoods = () => {
-    get5First().then(setGoods);
-  };
+    getAll()
+      .then(setGoods)
+      .catch(() => {
+        setError('Failed to load goods');
+      });
+  }, []);
 
-  const loadRedGoods = () => {
-    getRed().then(setGoods);
-  };
+  const loadFirstFiveGoods = useCallback(() => {
+    setError('');
+
+    get5First()
+      .then(setGoods)
+      .catch(() => {
+        setError('Failed to load goods');
+      });
+  }, []);
+
+  const loadRedGoods = useCallback(() => {
+    setError('');
+
+    getRedGoods()
+      .then(setGoods)
+      .catch(() => {
+        setError('Failed to load goods');
+      });
+  }, []);
 
   return (
     <div className="App">
@@ -46,6 +66,8 @@ export const App: React.FC = () => {
       >
         Load red goods
       </button>
+
+      {error && <p>{error}</p>}
 
       <GoodsList goods={goods} />
     </div>
