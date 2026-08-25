@@ -1,27 +1,69 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
-import { GoodsList } from './GoodsList';
+import GoodsList from './GoodsList';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
+import { getAll, get5First, getRedGoods } from './api/goods';
 // or
 // import * as goodsAPI from './api/goods';
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const handleLoadAll = () => {
+    setError(null);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+    return getAll()
+      .then(data => setGoods(data))
+      .catch(() => {
+        setError('Failed to load All goods');
+      });
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const handleLoadFive = () => {
+    setError(null);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+    return get5First()
+      .then(data => setGoods(data))
+      .catch(() => {
+        setError('Failed to load 5 goods');
+      });
+  };
+
+  const handleRedGoods = () => {
+    setError(null);
+
+    return getRedGoods()
+      .then(data => setGoods(data))
+      .catch(() => {
+        setError('Failed to load Red goods');
+      });
+  };
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={handleLoadAll}>
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={handleLoadFive}
+      >
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={handleRedGoods}>
+        Load red goods
+      </button>
+
+      {error && <p>{error}</p>}
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
