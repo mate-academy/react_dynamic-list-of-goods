@@ -10,6 +10,7 @@ import { get5First, getAll, getRedGoods } from './api/goods';
 
 export const App: React.FC = () => {
   const [allGoods, setAllGoods] = useState<Good[]>([]);
+  const [hasError, setHasError] = useState(false);
 
   return (
     <div className="App">
@@ -19,9 +20,11 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          getAll().then(goods => {
-            setAllGoods(goods);
-          });
+          getAll()
+            .then(goods => {
+              setAllGoods(goods);
+            })
+            .catch(() => setHasError(true));
         }}
       >
         Load all goods
@@ -31,9 +34,11 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          get5First().then(goods => {
-            setAllGoods(goods);
-          });
+          get5First()
+            .then(goods => {
+              setAllGoods(goods);
+            })
+            .catch(() => setHasError(true));
         }}
       >
         Load 5 first goods
@@ -43,15 +48,18 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          getRedGoods().then(goods => {
-            setAllGoods(goods);
-          });
+          getRedGoods()
+            .then(goods => {
+              setAllGoods(goods);
+            })
+            .catch(() => setHasError(true));
         }}
       >
         Load red goods
       </button>
 
       <GoodsList goods={allGoods} />
+      {hasError && <p className="has-text-danger">Something went wrong</p>}
     </div>
   );
 };
