@@ -1,27 +1,92 @@
 import React from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRed } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+type State = {
+  goods: Good[];
+  error: string;
+};
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+export class App extends React.Component<{}, State> {
+  state: State = {
+    goods: [],
+    error: '',
+  };
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  loadAll = () => {
+    getAll()
+      .then(goods => {
+        this.setState({
+          goods,
+          error: '',
+        });
+      })
+      .catch(() => {
+        this.setState({
+          error: 'Failed to load goods',
+        });
+      });
+  };
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  load5First = () => {
+    get5First()
+      .then(goods => {
+        this.setState({
+          goods,
+          error: '',
+        });
+      })
+      .catch(() => {
+        this.setState({
+          error: 'Failed to load goods',
+        });
+      });
+  };
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  loadRed = () => {
+    getRed()
+      .then(goods => {
+        this.setState({
+          goods,
+          error: '',
+        });
+      })
+      .catch(() => {
+        this.setState({
+          error: 'Failed to load goods',
+        });
+      });
+  };
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  render() {
+    const { goods, error } = this.state;
+
+    return (
+      <div className="App">
+        <h1>Dynamic list of Goods</h1>
+
+        <button type="button" data-cy="all-button" onClick={this.loadAll}>
+          Load all goods
+        </button>
+
+        <button
+          type="button"
+          data-cy="first-five-button"
+          onClick={this.load5First}
+        >
+          Load 5 first goods
+        </button>
+
+        <button type="button" data-cy="red-button" onClick={this.loadRed}>
+          Load red goods
+        </button>
+
+        {error && <p>{error}</p>}
+
+        <GoodsList goods={goods} />
+      </div>
+    );
+  }
+}
