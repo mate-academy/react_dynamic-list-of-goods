@@ -1,1 +1,60 @@
-// styles go here
+.App {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+
+  font-family: Arial, sans-serif;
+  text-align: center;
+
+  h1 {
+    margin-bottom: 30px;
+  }
+
+  button {
+    margin: 0 5px 20px;
+    padding: 10px 18px;
+
+    border: none;
+    border-radius: 6px;
+    background-color: #1976d2;
+    color: white;
+
+    font-size: 16px;
+    cursor: pointer;
+
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #1565c0;
+    }
+
+    &:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+  }
+
+  p {
+    margin: 15px 0;
+  }
+
+  ul {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 0;
+
+    list-style: none;
+  }
+
+  li {
+    margin-bottom: 8px;
+    padding: 12px 16px;
+
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #f8f8f8;
+
+    font-size: 18px;
+    text-align: left;
+  }
+}
