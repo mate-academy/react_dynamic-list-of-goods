@@ -7,9 +7,16 @@ import * as goodsAPI from './api/goods';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   function handleClick(fetchFunction: () => Promise<Good[]>) {
-    return fetchFunction().then(goodsFromServer => setGoods(goodsFromServer));
+    setErrorMessage('');
+
+    return fetchFunction()
+      .then(goodsFromServer => setGoods(goodsFromServer))
+      .catch(() => {
+        setErrorMessage('Unable to load goods. Please try again later.');
+      });
   }
 
   return (
@@ -39,6 +46,8 @@ export const App: React.FC = () => {
       >
         Load red goods
       </button>
+
+      {errorMessage && <p>{errorMessage}</p>}
 
       <GoodsList goods={goods} />
     </div>
