@@ -7,6 +7,7 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState('');
 
   return (
     <div className="App">
@@ -19,7 +20,7 @@ export const App: React.FC = () => {
           getAll()
             .then(setGoods)
             .catch(() => {
-              throw new Error('Error');
+              setError('Error');
             })
         }
       >
@@ -33,7 +34,7 @@ export const App: React.FC = () => {
           get5First()
             .then(setGoods)
             .catch(() => {
-              throw new Error('Error');
+              setError('Error');
             })
         }
       >
@@ -47,13 +48,14 @@ export const App: React.FC = () => {
           getRed()
             .then(setGoods)
             .catch(() => {
-              throw new Error('Error');
+              setError('Error');
             })
         }
       >
         Load red goods
       </button>
 
+      {error && <p>{error}</p>}
       <GoodsList goods={goods} />
     </div>
   );
