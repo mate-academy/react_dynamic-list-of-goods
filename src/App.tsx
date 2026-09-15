@@ -1,27 +1,55 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import { getAll, get5First, getRedGoods } from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [list, setList] = useState<Good[]>([]);
+  const [apiError, setApiError] = useState(false);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  const handleAPIError = useCallback((receivedPromise: Promise<Good[]>) => {
+    receivedPromise
+      .then(goods => {
+        setApiError(false);
+        setList(goods);
+      })
+      .catch(() => {
+        setApiError(true);
+      });
+  }, []);
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+  const loadAllGoods = useCallback(() => {
+    handleAPIError(getAll());
+  }, [handleAPIError]);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+  const loadFirstFive = useCallback(() => {
+    handleAPIError(get5First());
+  }, [handleAPIError]);
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+  const loadRedGoods = useCallback(() => {
+    handleAPIError(getRedGoods());
+  }, [handleAPIError]);
 
-    <GoodsList goods={[]} />
-  </div>
-);
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button type="button" data-cy="all-button" onClick={loadAllGoods}>
+        Load all goods
+      </button>
+
+      <button type="button" data-cy="first-five-button" onClick={loadFirstFive}>
+        Load 5 first goods
+      </button>
+
+      <button type="button" data-cy="red-button" onClick={loadRedGoods}>
+        Load red goods
+      </button>
+
+      {list.length > 0 && !apiError && <GoodsList goods={list} />}
+
+      {apiError && <p>API error couldn&apos;t get Data</p>}
+    </div>
+  );
+};
