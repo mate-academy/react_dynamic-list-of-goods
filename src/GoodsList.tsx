@@ -19,7 +19,7 @@ const GoodsList: React.FC<Props> = ({ goods = [] }) => {
 
       <ul>
         {list.map(good => (
-          <li key={good.id}>{good.name}</li>
+          <li style={{color: good.color}} data-cy="good" key={good.id}>{good.name}</li>
         ))}
       </ul>
     </div>
