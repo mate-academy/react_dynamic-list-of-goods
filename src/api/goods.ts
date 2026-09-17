@@ -4,13 +4,25 @@ import { Good } from '../types/Good';
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
 export function getAll(): Promise<Good[]> {
-  return fetch(API_URL).then(response => response.json());
+  return fetch(API_URL).then(response => {
+    if (!response.ok) {
+      throw new Error('Unable to load goods');
+    }
+
+    return response.json();
+  });
 }
 
-export const get5First = () => {
-  return getAll().then(goods => goods); // sort and get the first 5
-};
+export function get5First(): Promise<Good[]> {
+  return getAll().then(goods =>
+    [...goods]
+      .sort((firstGood, secondGood) =>
+        firstGood.name.localeCompare(secondGood.name),
+      )
+      .slice(0, 5),
+  );
+}
 
-export const getRedGoods = () => {
-  return getAll().then(goods => goods); // get only red
-};
+export function getRedGoods(): Promise<Good[]> {
+  return getAll().then(goods => goods.filter(good => good.color === 'red'));
+}
