@@ -9,22 +9,25 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const loadAllGoods = () => {
-    getAll().then(setGoods);
+  const loadGoods = (loader: () => Promise<Good[]>) => {
+    setErrorMessage('');
+
+    loader()
+      .then(setGoods)
+      .catch(() => setErrorMessage('Something went wrong'));
   };
 
-  const load5FirstGoods = () => {
-    get5First().then(setGoods);
-  };
-
-  const loadRedGoods = () => {
-    getRedGoods().then(setGoods);
-  };
+  const loadAllGoods = () => loadGoods(getAll);
+  const load5FirstGoods = () => loadGoods(get5First);
+  const loadRedGoods = () => loadGoods(getRedGoods);
 
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
+
+      {errorMessage && <p className="App__error">{errorMessage}</p>}
 
       <button type="button" data-cy="all-button" onClick={loadAllGoods}>
         Load all goods
