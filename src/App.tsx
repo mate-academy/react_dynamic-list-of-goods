@@ -1,27 +1,73 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
+import * as goodsAPI from './api/goods';
+import { Good } from './types/Good';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
+export const App: React.FC = () => {
+  const [goods, setGoods] = useState<Good[]>([]);
+  const [viewAll, setViewAll] = useState(false);
+  const [viewA5, setView5] = useState(false);
+  const [viewARed, setViewRed] = useState(false);
 
-export const App: React.FC = () => (
-  <div className="App">
-    <h1>Dynamic list of Goods</h1>
+  useEffect(() => {
+    if (viewA5) {
+      const goodOfServer = goodsAPI.get5First();
 
-    <button type="button" data-cy="all-button">
-      Load all goods
-    </button>
+      goodOfServer.then(setGoods);
+      setView5(false);
 
-    <button type="button" data-cy="first-five-button">
-      Load 5 first goods
-    </button>
+      return;
+    }
 
-    <button type="button" data-cy="red-button">
-      Load red goods
-    </button>
+    if (viewARed) {
+      const goodOfServer = goodsAPI.getRedGoods();
 
-    <GoodsList goods={[]} />
-  </div>
-);
+      goodOfServer.then(setGoods);
+      setViewRed(false);
+
+      return;
+    }
+
+    if (viewAll) {
+      const goodOfServer = goodsAPI.getAll();
+
+      goodOfServer.then(setGoods);
+      setViewAll(false);
+
+      return;
+    }
+  }, [viewAll, viewA5, viewARed]);
+
+  return (
+    <div className="App">
+      <h1>Dynamic list of Goods</h1>
+
+      <button
+        type="button"
+        data-cy="all-button"
+        onClick={() => setViewAll(true)}
+      >
+        Load all goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="first-five-button"
+        onClick={() => setView5(true)}
+      >
+        Load 5 first goods
+      </button>
+
+      <button
+        type="button"
+        data-cy="red-button"
+        onClick={() => setViewRed(true)}
+      >
+        Load red goods
+      </button>
+
+      <GoodsList goods={goods} />
+    </div>
+  );
+};
