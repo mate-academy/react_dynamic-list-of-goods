@@ -1,1 +1,9 @@
-// styles go here
+.App {
+  padding: 20px;
+}
+
+.App__buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
