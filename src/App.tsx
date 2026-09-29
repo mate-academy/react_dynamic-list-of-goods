@@ -7,18 +7,19 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleLoadAll = () => {
-    getAll().then(setVisibleGoods);
+  const handleLoad = (loader: () => Promise<Good[]>) => {
+    setErrorMessage('');
+
+    loader()
+      .then(setVisibleGoods)
+      .catch(() => setErrorMessage('Something went wrong. Please try again.'));
   };
 
-  const handleLoad5First = () => {
-    get5First().then(setVisibleGoods);
-  };
-
-  const handleLoadRed = () => {
-    getRedGoods().then(setVisibleGoods);
-  };
+  const handleLoadAll = () => handleLoad(getAll);
+  const handleLoad5First = () => handleLoad(get5First);
+  const handleLoadRed = () => handleLoad(getRedGoods);
 
   return (
     <div className="App">
@@ -39,6 +40,8 @@ export const App: React.FC = () => {
       <button type="button" data-cy="red-button" onClick={handleLoadRed}>
         Load red goods
       </button>
+
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
 
       <GoodsList goods={visibleGoods} />
     </div>
