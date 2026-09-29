@@ -9,19 +9,16 @@ export const App: React.FC = () => {
 
   const handleLoadAll = async () => {
     const data = await getAll();
-
     setGoods(data);
   };
 
   const handleLoadFirstFive = async () => {
     const data = await get5First();
-
     setGoods(data);
   };
 
   const handleLoadRed = async () => {
     const data = await getRedGoods();
-
     setGoods(data);
   };
 
@@ -33,11 +30,7 @@ export const App: React.FC = () => {
         Load all goods
       </button>
 
-      <button
-        type="button"
-        data-cy="first-five-button"
-        onClick={handleLoadFirstFive}
-      >
+      <button type="button" data-cy="first-five-button" onClick={handleLoadFirstFive}>
         Load 5 first goods
       </button>
 
