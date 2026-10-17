@@ -2,7 +2,7 @@
 import { Good } from '../types/Good';
 
 const API_URL =
-  'https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json';
+  'https://mate-academy.github.io/react-dynamic-list-of-goods/goods.json';
 
 export function getAll(): Promise<Good[]> {
   return fetch(API_URL)
@@ -13,9 +13,7 @@ export function getAll(): Promise<Good[]> {
 
       return response.json();
     })
-    .catch((error: Error) => {
-      console.error(error);
-
+    .catch(() => {
       return [];
     });
 }
@@ -33,4 +31,3 @@ export const getRed = (): Promise<Good[]> => {
     return goods.filter(good => good.color === 'red');
   });
 };
-
