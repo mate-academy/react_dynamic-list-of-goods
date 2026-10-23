@@ -18,13 +18,25 @@ export const App: React.FC = () => {
   useEffect(() => {
     switch (goodsListType) {
       case ListVariable.all:
-        getAll().then(setGoodsList);
+        getAll()
+          .then(setGoodsList)
+          .catch(() => {
+            setGoodsList([]);
+          });
         break;
       case ListVariable.five:
-        get5First().then(setGoodsList);
+        get5First()
+          .then(setGoodsList)
+          .catch(() => {
+            setGoodsList([]);
+          });
         break;
       case ListVariable.red:
-        getRedGoods().then(setGoodsList);
+        getRedGoods()
+          .then(setGoodsList)
+          .catch(() => {
+            setGoodsList([]);
+          });
         break;
       default:
         setGoodsList([]);
