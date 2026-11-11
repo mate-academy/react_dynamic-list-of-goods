@@ -4,23 +4,29 @@ import { GoodsList } from './GoodsList';
 import { Good } from './types/Good';
 import { get5First, getAll, getRedGoods } from './api/goods';
 
-// import { getAll, get5First, getRed } from './api/goods';
-// or
-// import * as goodsAPI from './api/goods';
-
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState('');
 
   const loadAll = () => {
-    getAll().then(loadedGoods => setGoods(loadedGoods));
+    setError('');
+    getAll()
+      .then(loadedGoods => setGoods(loadedGoods))
+      .catch(() => setError('Failed to load goods'));
   };
 
   const load5First = () => {
-    get5First().then(loadedGoods => setGoods(loadedGoods));
+    setError('');
+    get5First()
+      .then(loadedGoods => setGoods(loadedGoods))
+      .catch(() => setError('Failed to load goods'));
   };
 
   const loadOnlyRed = () => {
-    getRedGoods().then(loadedGoods => setGoods(loadedGoods));
+    setError('');
+    getRedGoods()
+      .then(loadedGoods => setGoods(loadedGoods))
+      .catch(() => setError('Failed to load goods'));
   };
 
   return (
@@ -38,6 +44,7 @@ export const App: React.FC = () => {
       <button type="button" data-cy="red-button" onClick={loadOnlyRed}>
         Load red goods
       </button>
+      {error && <p>{error}</p>}
 
       <GoodsList goods={goods} />
     </div>
