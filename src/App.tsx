@@ -17,7 +17,7 @@ export const App: React.FC = () => {
         data-cy="all-button"
         onClick={() => getAll().then(setGoods)}
       >
-        Load all goods
+        Load All goods
       </button>
 
       <button
