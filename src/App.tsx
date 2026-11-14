@@ -2,13 +2,22 @@ import React, { useState } from 'react';
 import './App.scss';
 import { GoodsList } from './GoodsList';
 import { getAll, get5First, getRedGoods } from './api/goods';
-import { Good } from './types/Good';
+import type { Good } from './types/Good';
 
-export const App: React.FC = () => {
+const AppComponent: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
+  const [error, setError] = useState('');
 
-  const loadGoods = (getGoods: () => Promise<Good[]>) => {
-    getGoods().then(setGoods);
+  const loadGoods = async (getGoods: () => Promise<Good[]>) => {
+    setError('');
+
+    try {
+      const loadedGoods = await getGoods();
+
+      setGoods(loadedGoods);
+    } catch (err) {
+      setError('Failed to load goods');
+    }
   };
 
   return (
@@ -20,7 +29,7 @@ export const App: React.FC = () => {
         data-cy="all-button"
         onClick={() => loadGoods(getAll)}
       >
-        Load all goods
+        Load All goods
       </button>
 
       <button
@@ -39,7 +48,11 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
+      {error && <p className="error">{error}</p>}
+
       <GoodsList goods={goods} />
     </div>
   );
 };
+
+export const App = React.memo(AppComponent);
