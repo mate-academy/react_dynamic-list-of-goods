@@ -4,7 +4,7 @@ import { GoodsList } from './GoodsList';
 import { get5First, getAll, getRedGoods } from './api/goods';
 import { Good } from './types/Good';
 
-export const App: React.FC = () => {
+export const App = React.memo(function App() {
   const [goods, setGoods] = useState<Good[]>([]);
 
   return (
@@ -18,7 +18,7 @@ export const App: React.FC = () => {
           setGoods(await getAll());
         }}
       >
-        Load all goods
+        Load All goods
       </button>
 
       <button
@@ -44,4 +44,4 @@ export const App: React.FC = () => {
       <GoodsList goods={goods} />
     </div>
   );
-};
+});

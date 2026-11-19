@@ -4,7 +4,21 @@ import { Good } from '../types/Good';
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
 export function getAll(): Promise<Good[]> {
-  return fetch(API_URL).then(response => response.json());
+  return fetch(API_URL)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      return response.json();
+    })
+    .catch(error => {
+      if (error instanceof Error) {
+        throw new Error(`Failed to load goods: ${error.message}`);
+      }
+
+      throw new Error('Failed to load goods');
+    });
 }
 
 export const get5First = () => {
