@@ -8,6 +8,10 @@ import { Good } from './types/Good';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
+  const handleError = () => {
+    setGoods([]);
+  };
+
   return (
     <div className="App">
       <h1>Dynamic list of Goods</h1>
@@ -16,7 +20,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="all-button"
         onClick={() => {
-          getAll().then(setGoods);
+          getAll().then(setGoods).catch(handleError);
         }}
       >
         Load all goods
@@ -26,7 +30,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="first-five-button"
         onClick={() => {
-          get5First().then(setGoods);
+          get5First().then(setGoods).catch(handleError);
         }}
       >
         Load 5 first goods
@@ -36,7 +40,7 @@ export const App: React.FC = () => {
         type="button"
         data-cy="red-button"
         onClick={() => {
-          getRed().then(setGoods);
+          getRed().then(setGoods).catch(handleError);
         }}
       >
         Load red goods

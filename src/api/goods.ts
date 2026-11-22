@@ -9,7 +9,7 @@ export function getAll(): Promise<Good[]> {
       return response.json();
     }
 
-    throw new Error('Failed to fetch users');
+    throw new Error('Failed to fetch goods');
   });
 }
 
