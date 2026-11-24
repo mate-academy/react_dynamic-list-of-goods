@@ -7,23 +7,30 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [visibleGoods, setVisibleGoods] = useState<Good[]>([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleAllGoods = () => {
-    goodsAPI.getAll().then((goods: Good[]) => {
-      setVisibleGoods(goods);
-    });
+    setErrorMessage('');
+    goodsAPI
+      .getAll()
+      .then(setVisibleGoods)
+      .catch(error => setErrorMessage(error.message));
   };
 
   const handle5Goods = () => {
-    goodsAPI.get5First().then((goods: Good[]) => {
-      setVisibleGoods(goods);
-    });
+    setErrorMessage('');
+    goodsAPI
+      .get5First()
+      .then(setVisibleGoods)
+      .catch(error => setErrorMessage(error.message));
   };
 
   const handleRedGoods = () => {
-    goodsAPI.getRedGoods().then((goods: Good[]) => {
-      setVisibleGoods(goods);
-    });
+    setErrorMessage('');
+    goodsAPI
+      .getRedGoods()
+      .then(setVisibleGoods)
+      .catch(error => setErrorMessage(error.message));
   };
 
   return (
@@ -42,7 +49,10 @@ export const App: React.FC = () => {
         Load red goods
       </button>
 
-      <GoodsList goods={visibleGoods} />
+      {errorMessage && (
+        <div className="notification is-danger">{errorMessage}</div>
+      )}
+      {!errorMessage && <GoodsList goods={visibleGoods} />}
     </div>
   );
 };

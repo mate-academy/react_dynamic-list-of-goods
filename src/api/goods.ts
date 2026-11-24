@@ -4,7 +4,19 @@ import { Good } from '../types/Good';
 const API_URL = `https://mate-academy.github.io/react_dynamic-list-of-goods/goods.json`;
 
 export function getAll(): Promise<Good[]> {
-  return fetch(API_URL).then(response => response.json());
+  return fetch(API_URL)
+    .catch(() => {
+      throw new Error('Unable to reach the goods server');
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch goods');
+      }
+
+      return response.json().catch(() => {
+        throw new Error('Failed to parse goods data');
+      });
+    });
 }
 
 export const get5First = () => {
