@@ -9,18 +9,30 @@ export const App: React.FC = () => {
 
   const handleLoadAll = () => {
     getAll().then(goods => {
+      if (!goods) {
+        throw new Error('There is not goods');
+      }
+
       setAllGoods(goods);
     });
   };
 
   const handleLoad5First = () => {
     get5First().then(goods => {
+      if (!goods) {
+        throw new Error('There is not 5 goods at least');
+      }
+
       setAllGoods(goods);
     });
   };
 
   const handleLoadRed = () => {
     getRedGoods().then(goods => {
+      if (!goods) {
+        throw new Error('There is not red goods');
+      }
+
       setAllGoods(goods);
     });
   };
