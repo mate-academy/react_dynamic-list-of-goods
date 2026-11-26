@@ -16,7 +16,7 @@ export function getAll(): Promise<Good[]> {
 }
 
 export const get5First = () => {
-  const sortByName = (a: Good, b: Good) => b.name.localeCompare(a.name);
+  const sortByName = (a: Good, b: Good) => a.name.localeCompare(b.name);
 
   return getAll().then(goods => goods.sort(sortByName).slice(0, 5)); // sort and get the first 5
 };
