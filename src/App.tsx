@@ -6,35 +6,36 @@ import { Good } from './types/Good';
 
 export const App: React.FC = () => {
   const [allGoods, setAllGoods] = useState<Good[]>([]);
+  const [error, setError] = useState('');
 
   const handleLoadAll = () => {
-    getAll().then(goods => {
-      if (!goods) {
-        throw new Error('There is not goods');
-      }
-
-      setAllGoods(goods);
-    });
+    getAll()
+      .then(goods => {
+        setAllGoods(goods);
+      })
+      .catch(() => {
+        setError('There is not goods at all');
+      });
   };
 
   const handleLoad5First = () => {
-    get5First().then(goods => {
-      if (!goods) {
-        throw new Error('There is not 5 goods at least');
-      }
-
-      setAllGoods(goods);
-    });
+    get5First()
+      .then(goods => {
+        setAllGoods(goods);
+      })
+      .catch(() => {
+        setError('There is not 5 goods at least');
+      });
   };
 
   const handleLoadRed = () => {
-    getRedGoods().then(goods => {
-      if (!goods) {
-        throw new Error('There is not red goods');
-      }
-
-      setAllGoods(goods);
-    });
+    getRedGoods()
+      .then(goods => {
+        setAllGoods(goods);
+      })
+      .catch(() => {
+        setError('There is not red goods');
+      });
   };
 
   return (
@@ -58,6 +59,8 @@ export const App: React.FC = () => {
       </button>
 
       <GoodsList goods={allGoods} />
+
+      {error && <p>{error}</p>}
     </div>
   );
 };
