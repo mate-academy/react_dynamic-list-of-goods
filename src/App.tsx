@@ -12,6 +12,7 @@ export const App: React.FC = () => {
     getAll()
       .then(goods => {
         setAllGoods(goods);
+        setError('');
       })
       .catch(() => {
         setError('There is not goods at all');
@@ -22,6 +23,7 @@ export const App: React.FC = () => {
     get5First()
       .then(goods => {
         setAllGoods(goods);
+        setError('');
       })
       .catch(() => {
         setError('There is not 5 goods at least');
@@ -32,6 +34,7 @@ export const App: React.FC = () => {
     getRedGoods()
       .then(goods => {
         setAllGoods(goods);
+        setError('');
       })
       .catch(() => {
         setError('There is not red goods');
