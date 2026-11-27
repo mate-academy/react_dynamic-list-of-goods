@@ -26,7 +26,7 @@ export const App: React.FC = () => {
         data-cy="all-button"
         onClick={() => loadGoods(goodsAPI.getAll)}
       >
-        Load all goods
+        Load All goods
       </button>
 
       <button
